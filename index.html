@@ -41,6 +41,11 @@
     iframe {
       border-radius: 0.5em !important;
     }
+    .stream_description {
+      background: var(--si-body-bg);
+      padding: 1em;
+      border-radius: 0.5em;
+    }
   </style>
 
   <style>
@@ -664,8 +669,9 @@
         <div class="row py-xl-3">
           <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4">
             <h2 class="h1 text-light text-center text-sm-start pb-4 mb-0 mb-lg-3">Смотри стрим на Twitch 🤫</h2>
-            <span>Поддерживай Братишкина, глядя его трансляции. Ты можешь это делать как на Twitch, так и прямо на этом
-              сайте.</span>
+            <div class="stream_description">
+              <span>Поддерживай Братишкина, глядя его трансляции. Ты можешь это делать как на Twitch, так и прямо на этомсайте.</span>
+            </div>
           </div>
           <div class="col-xl-6 col-lg-7 order-lg-1">
             <div id="twitch-embed"></div>
