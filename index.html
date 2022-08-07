@@ -12,7 +12,6 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Favicon and Touch Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -45,6 +44,10 @@
       background: var(--si-body-bg);
       padding: 1em;
       border-radius: 0.5em;
+    }
+    .swipe_el_name {
+      display: block;
+      text-align: center;
     }
   </style>
 
@@ -137,6 +140,7 @@
   </style>
 
   <script>
+    var global_theme_ = 'light';
     let mode = window.localStorage.getItem('mode'),
       root = document.getElementsByTagName('html')[0];
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -147,8 +151,10 @@
     }
     if (mode !== null && mode === 'dark') {
       root.classList.add('dark-mode');
+      global_theme_ = 'dark';
     } else {
       root.classList.remove('dark-mode');
+      global_theme_ = 'light';
     }
   </script>
 
@@ -186,49 +192,6 @@
           </div>
           <div class="offcanvas-body">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"
-                  aria-current="page">BratishkinOFF</a>
-                <div class="dropdown-menu p-0">
-                  <div class="d-lg-flex">
-                    <div
-                      class="mega-dropdown-column bg-position-center bg-repeat-0 bg-size-cover rounded-3 rounded-end-0"
-                      style="background-image: url(assets/img/landings.jpg); margin: -1px;"></div>
-                    <div class="mega-dropdown-column pt-lg-3 pb-lg-4">
-                      <ul class="list-unstyled mb-0">
-                        <li><a href="https://www.twitch.tv/bratishkinoff" target="_blank"
-                            class="dropdown-item">Twitch</a></li>
-                        <li><a href="https://vk.com/flamesv" target="_blank" class="dropdown-item">VK</a></li>
-                        <li><a href="https://www.instagram.com/br4tishkin" target="_blank"
-                            class="dropdown-item">Instagram</a></li>
-                        <li><a href="https://t.me/nebudetgg" target="_blank" class="dropdown-item">Telegram</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Lomaka</a>
-                <div class="dropdown-menu">
-                  <div class="d-lg-flex">
-                    <div
-                      class="mega-dropdown-column bg-position-center bg-repeat-0 bg-size-cover rounded-3 rounded-end-0"
-                      style="background-image: url(assets/img/landings.jpg); margin: -1px;"></div>
-                    <div class="mega-dropdown-column pt-lg-3 pb-lg-4">
-                      <ul class="list-unstyled mb-0">
-                        <li><a href="https://www.twitch.tv/lomaka" target="_blank" class="dropdown-item">Twitch</a></li>
-                        <li><a href="https://vk.com/lomaka24" target="_blank" class="dropdown-item">VK</a></li>
-                        <li><a href="https://www.instagram.com/lomaka.twitch/" target="_blank"
-                            class="dropdown-item">Instagram</a></li>
-                        <li><a href="https://t.me/lomaka" target="_blank" class="dropdown-item">Telegram</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a href="https://t.me/zalupaonline" target="_blank" class="nav-link">Telegram-канал</a>
-              </li>
               <li class="nav-item">
                 <a href="https://t.me/zalupa_history" target="_blank" class="nav-link">Новости Залупы</a>
               </li>
@@ -272,6 +235,15 @@
             <h1 class="display-1 pb-lg-3 mb-3">Zalupa.Online</h1>
             <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5">
               <a href="#" class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3">Играть</a>
+              <a href="https://www.twitch.tv/bratishkinoff" class="btn btn-icon btn-secondary btn-twitch mx-2"target="_blank">
+                <i class="bx bxl-twitch"></i>
+              </a>
+              <a href="https://t.me/zalupaonline" class="btn btn-icon btn-secondary btn-telegram mx-2" target="_blank">
+                <i class="bx bxl-telegram"></i>
+              </a>
+              <a href="https://discord.gg/qEqbVbMeEx" class="btn btn-icon btn-secondary btn-discord mx-2" target="_blank">
+                <i class="bx bxl-discord"></i>
+              </a>
             </div>
             <div
               class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5 mt-xxl-5">
@@ -322,66 +294,59 @@
           }'>
           <div class="swiper-wrapper">
 
-            <style>
-              .clan_name {
-                display: block;
-                text-align: center;
-              }
-            </style>
-
             <div class="swiper-slide">
               <span class="d-block py-3">
                 <img src="assets/images/clan.png" class="d-block mx-auto" width="154" alt="Клан">
-                <span class="clan_name">Клан 1</span>
+                <span class="swipe_el_name">Клан 1</span>
               </span>
             </div>
 
             <div class="swiper-slide">
               <span class="d-block py-3">
                 <img src="assets/images/clan.png" class="d-block mx-auto" width="154" alt="Клан">
-                <span class="clan_name">Клан 2</span>
+                <span class="swipe_el_name">Клан 2</span>
               </span>
             </div>
 
             <div class="swiper-slide">
               <span class="d-block py-3">
                 <img src="assets/images/clan.png" class="d-block mx-auto" width="154" alt="Клан">
-                <span class="clan_name">Клан 3</span>
+                <span class="swipe_el_name">Клан 3</span>
               </span>
             </div>
 
             <div class="swiper-slide">
               <span class="d-block py-3">
                 <img src="assets/images/clan.png" class="d-block mx-auto" width="154" alt="Клан">
-                <span class="clan_name">Клан 4</span>
+                <span class="swipe_el_name">Клан 4</span>
               </span>
             </div>
 
             <div class="swiper-slide">
               <span class="d-block py-3">
                 <img src="assets/images/clan.png" class="d-block mx-auto" width="154" alt="Клан">
-                <span class="clan_name">Клан 5</span>
+                <span class="swipe_el_name">Клан 5</span>
               </span>
             </div>
 
             <div class="swiper-slide">
               <span class="d-block py-3">
                 <img src="assets/images/clan.png" class="d-block mx-auto" width="154" alt="Клан">
-                <span class="clan_name">Клан 6</span>
+                <span class="swipe_el_name">Клан 6</span>
               </span>
             </div>
 
             <div class="swiper-slide">
               <span class="d-block py-3">
                 <img src="assets/images/clan.png" class="d-block mx-auto" width="154" alt="Клан">
-                <span class="clan_name">Клан 7</span>
+                <span class="swipe_el_name">Клан 7</span>
               </span>
             </div>
 
             <div class="swiper-slide">
               <span class="d-block py-3">
                 <img src="assets/images/clan.png" class="d-block mx-auto" width="154" alt="Клан">
-                <span class="clan_name">Клан 8</span>
+                <span class="swipe_el_name">Клан 8</span>
               </span>
             </div>
 
@@ -392,131 +357,139 @@
       </div>
     </section>
 
-    <section id="players" class="container py-5 my-2 my-md-4 my-lg-5">
-      <div class="d-md-flex align-items-center justify-content-between text-center text-md-start pt-md-1 pt-lg-3">
-        <h2 class="h1 mb-4 mb-md-0 me-md-3">Известные игроки</h2>
-      </div>
-      <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 mt-2 mt-lg-4">
+    <section class="position-relative bg-dark py-5">
+      <div class="position-absolute top-0 start-0 w-100 h-100"></div>
+      <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
+        <h2 class="h3 text-light text-center text-lg-start mb-4 mb-lg-5">Известные игроки</h2>
+        <div class="swiper ms-xxl-n5 me-xxl-n4" data-swiper-options='{
+            "slidesPerView": 2,
+            "spaceBetween": 24,
+            "loop": true,
+            "pagination": {
+              "el": ".swiper-pagination",
+              "clickable": true
+            },
+            "breakpoints": {
+              "500": {
+                "slidesPerView": 3
+              },
+              "650": {
+                "slidesPerView": 4
+              },
+              "900": {
+                "slidesPerView": 5
+              },
+              "1100": {
+                "slidesPerView": 6
+              }
+            }
+          }'>
+          <div class="swiper-wrapper">
 
-        <div class="col">
-          <div class="card card-hover border-0 bg-transparent">
-            <div class="position-relative">
-              <img
-                src="assets/images/players/Blackflexxy.png"
-                class="rounded-3" alt="Blackflexxy">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 opacity-35 rounded-3"></span>
-              </div>
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="https://cravatar.eu/helmhead/Blackflexxy/190.png" class="d-block mx-auto" width="154" alt="Blackflexxy">
+                <div class="card-body text-center p-3">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">Blackflexxy</h3>
+                  <p class="fs-sm mb-0">Подельник Илона Туска</p>
+                </div>
+              </span>
             </div>
-            <div class="card-body text-center p-3">
-              <h3 class="fs-lg fw-semibold pt-1 mb-2">Blackflexxy</h3>
-              <p class="fs-sm mb-0">Подельник Илона Туска</p>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="https://cravatar.eu/helmhead/CREXLIGHT/190.png" class="d-block mx-auto" width="154" alt="CREXLIGHT">
+                <div class="card-body text-center p-3">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">CREXLIGHT</h3>
+                  <p class="fs-sm mb-0">Единственный админ, который что-то делает</p>
+                </div>
+              </span>
             </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 1</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 2</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 3</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 4</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 5</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 6</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 7</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 8</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 9</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
+            <div class="swiper-slide">
+              <span class="d-block py-3">
+                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="Anon">
+                <h3 class="fs-lg fw-semibold pt-1 mb-2">Anon 10</h3>
+                  <p class="fs-sm mb-0">...</p>
+              </span>
+            </div>
+
           </div>
-        </div>
 
-        <div class="col">
-          <div class="card card-hover border-0 bg-transparent">
-            <div class="position-relative">
-              <img
-                src="https://lh3.googleusercontent.com/fwfmXHMaldekFvpbJTVFrweT2M9hadfF7UZIYrCJhK0of0z75U6md20ywSJ0rHEjo9DNysnQsJXwfsb2iChd"
-                class="rounded-3" alt="Steve">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 opacity-35 rounded-3"></span>
-              </div>
-            </div>
-            <div class="card-body text-center p-3">
-              <h3 class="fs-lg fw-semibold pt-1 mb-2">Steve</h3>
-              <p class="fs-sm mb-0">Любит играть в Майнкрафт</p>
-            </div>
-          </div>
+          <div class="swiper-pagination position-relative pt-2 mt-4"></div>
         </div>
-
-        <div class="col">
-          <div class="card card-hover border-0 bg-transparent">
-            <div class="position-relative">
-              <img
-                src="https://lh3.googleusercontent.com/fwfmXHMaldekFvpbJTVFrweT2M9hadfF7UZIYrCJhK0of0z75U6md20ywSJ0rHEjo9DNysnQsJXwfsb2iChd"
-                class="rounded-3" alt="Steve">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 opacity-35 rounded-3"></span>
-              </div>
-            </div>
-            <div class="card-body text-center p-3">
-              <h3 class="fs-lg fw-semibold pt-1 mb-2">Steve</h3>
-              <p class="fs-sm mb-0">Любит играть в Майнкрафт</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card card-hover border-0 bg-transparent">
-            <div class="position-relative">
-              <img
-                src="https://lh3.googleusercontent.com/fwfmXHMaldekFvpbJTVFrweT2M9hadfF7UZIYrCJhK0of0z75U6md20ywSJ0rHEjo9DNysnQsJXwfsb2iChd"
-                class="rounded-3" alt="Steve">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 opacity-35 rounded-3"></span>
-              </div>
-            </div>
-            <div class="card-body text-center p-3">
-              <h3 class="fs-lg fw-semibold pt-1 mb-2">Steve</h3>
-              <p class="fs-sm mb-0">Любит играть в Майнкрафт</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card card-hover border-0 bg-transparent">
-            <div class="position-relative">
-              <img
-                src="https://lh3.googleusercontent.com/fwfmXHMaldekFvpbJTVFrweT2M9hadfF7UZIYrCJhK0of0z75U6md20ywSJ0rHEjo9DNysnQsJXwfsb2iChd"
-                class="rounded-3" alt="Steve">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 opacity-35 rounded-3"></span>
-              </div>
-            </div>
-            <div class="card-body text-center p-3">
-              <h3 class="fs-lg fw-semibold pt-1 mb-2">Steve</h3>
-              <p class="fs-sm mb-0">Любит играть в Майнкрафт</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card card-hover border-0 bg-transparent">
-            <div class="position-relative">
-              <img
-                src="https://lh3.googleusercontent.com/fwfmXHMaldekFvpbJTVFrweT2M9hadfF7UZIYrCJhK0of0z75U6md20ywSJ0rHEjo9DNysnQsJXwfsb2iChd"
-                class="rounded-3" alt="Steve">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 opacity-35 rounded-3"></span>
-              </div>
-            </div>
-            <div class="card-body text-center p-3">
-              <h3 class="fs-lg fw-semibold pt-1 mb-2">Steve</h3>
-              <p class="fs-sm mb-0">Любит играть в Майнкрафт</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card card-hover border-0 bg-transparent">
-            <div class="position-relative">
-              <img
-                src="https://lh3.googleusercontent.com/fwfmXHMaldekFvpbJTVFrweT2M9hadfF7UZIYrCJhK0of0z75U6md20ywSJ0rHEjo9DNysnQsJXwfsb2iChd"
-                class="rounded-3" alt="Steve">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 opacity-35 rounded-3"></span>
-              </div>
-            </div>
-            <div class="card-body text-center p-3">
-              <h3 class="fs-lg fw-semibold pt-1 mb-2">Steve</h3>
-              <p class="fs-sm mb-0">Любит играть в Майнкрафт</p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -684,12 +657,14 @@
         <img src="assets/images/logo.png" class="me-2" width="190" alt="Zalupa.Online">
       </div>
       <div class="d-flex justify-content-center pt-4 mt-lg-3">
-        <a href="https://www.twitch.tv/bratishkinoff" class="btn btn-icon btn-secondary btn-twitch mx-2"
-          target="_blank">
+        <a href="https://www.twitch.tv/bratishkinoff" class="btn btn-icon btn-secondary btn-twitch mx-2"target="_blank">
           <i class="bx bxl-twitch"></i>
         </a>
         <a href="https://t.me/zalupaonline" class="btn btn-icon btn-secondary btn-telegram mx-2" target="_blank">
           <i class="bx bxl-telegram"></i>
+        </a>
+        <a href="https://discord.gg/qEqbVbMeEx" class="btn btn-icon btn-secondary btn-discord mx-2" target="_blank">
+          <i class="bx bxl-discord"></i>
         </a>
       </div>
       <p class="nav d-block fs-sm text-center pt-5 mt-lg-4 mb-0">
@@ -732,6 +707,7 @@
       width: screen.width / 2,
       height: screen.height / 2,
       channel: "bratishkinoff",
+      theme: global_theme_,
       parent: ["zalupa.online", "zalupa.world"]
     });
   </script>
