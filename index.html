@@ -133,21 +133,23 @@
     </style>
 
     <script>
-        var global_theme_ = 'light';
+        var global_theme_ = 'light'
         let mode = window.localStorage.getItem('mode'),
-            root = document.getElementsByTagName('html')[0];
-        const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+            root = document.getElementsByTagName('html')[0]
+        const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)")
         if (darkThemeMq.matches) {
-            mode = 'dark';
+            mode = 'dark'
         } else {
-            mode = null;
+            mode = null
         }
         if (mode !== null && mode === 'dark') {
-            root.classList.add('dark-mode');
-            global_theme_ = 'dark';
+            root.classList.add('dark-mode')
+            global_theme_ = 'dark'
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#1f1f1f')
         } else {
-            root.classList.remove('dark-mode');
-            global_theme_ = 'light';
+            root.classList.remove('dark-mode')
+            global_theme_ = 'light'
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
         }
     </script>
 
@@ -783,7 +785,7 @@
     }
 
     function get_game_server_data(callback) {
-        function _data_error(ok=false) {
+        function _data_error(ok = false) {
             let string_ = ""
             if (ok) {
                 string_ = ""
@@ -799,7 +801,7 @@
             success: function (r) {
                 if (r.success) {
                     callback(r.body)
-                    _data_error(ok=true)
+                    _data_error(ok = true)
                 } else {
                     console.log("Error data check (get_game_server_data)")
                     _data_error()
