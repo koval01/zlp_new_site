@@ -270,9 +270,10 @@
 
     <section id="telegram_block" class="position-relative bg-dark py-5">
         <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(255,255,255,.05);"></div>
-        <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
+        <div class="container">
             <h2 class="h3 text-light text-center text-lg-start mb-4 mb-lg-5">Последние новости</h2>
             <div class="telegram_frames"></div>
+            <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
         </div>
     </section>
 
@@ -755,6 +756,9 @@
         for (let i = 0; i < channels; i++) {
             get_last_tg_post_id(function (identifer) {
                 $(".telegram_frames").append(`<script async src="https://telegram.org/js/telegram-widget.js?19" data-telegram-post="${identifer}" data-width="100%" data-userpic="true" data-dark="1"><\/script>`)
+                setTimeout(function () {
+                    $("#telegram_block_load").remove()
+                }, 350)
             }, i)
         }
     }
