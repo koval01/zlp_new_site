@@ -228,7 +228,8 @@
                         style="max-width: 530px;">
                     <h2 class="h3 text-primary">Анархический мир</h2>
                     <h1 class="display-1 pb-lg-3 mb-3">Zalupa.Online</h1>
-                    <h3 id="server_online_status">offline</h3>
+                    <h3 id="server_online_status">Получение данных о сервере...</h3>
+                    <p id="error_get_server_status"></p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5">
                         <a href="#" style="margin-right: 0 !important"
                            class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3">Играть</a>
@@ -782,31 +783,39 @@
     }
 
     function get_game_server_data(callback) {
+        function _data_error(ok=false) {
+            let string_ = ""
+            if (ok) {
+                string_ = ""
+            } else {
+                string_ = "Не удается получить информацию о состоянии сервера..."
+            }
+            $("#error_get_server_status").text(string_)
+        }
+
         $.ajax({
             url: `${backend_host}/server`,
             type: "GET",
             success: function (r) {
                 if (r.success) {
                     callback(r.body)
+                    _data_error(ok=true)
                 } else {
-                    notify("Error data check (get_game_server_data)")
+                    console.log("Error data check (get_game_server_data)")
+                    _data_error()
                 }
             },
             error: function () {
-                notify("Error get info for game server")
+                console.log("Error get info for game server")
+                _data_error()
             }
         })
     }
 
     function monitoring_game_server_update() {
-        try {
-            get_game_server_data(function (data) {
-                // $("#server_online_status").html(data.motd.html)
-                $("#server_online_status").html(`Сейчас играет <span class="text-primary fw-semibold">${data.players.online}</span> ${getNounPlayer(data.players.online)}`)
-            })
-        } catch {
-            console.log("Error update game server data!")
-        }
+        get_game_server_data(function (data) {
+            $("#server_online_status").html(`Сейчас играет <span class="text-primary fw-semibold">${data.players.online}</span> ${getNounPlayer(data.players.online)}`)
+        })
     }
 
     function game_server_updater() {
