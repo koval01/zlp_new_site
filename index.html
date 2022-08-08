@@ -802,7 +802,7 @@
         try {
             get_game_server_data(function (data) {
                 // $("#server_online_status").html(data.motd.html)
-                $("#server_online_status").html(`Сейчас на сервере <span class="text-primary fw-semibold">${data.players.online}</span> ${getNounPlayer(data.players.online)}`)
+                $("#server_online_status").html(`Сейчас играет <span class="text-primary fw-semibold">${data.players.online}</span> ${getNounPlayer(data.players.online)}`)
             })
         } catch {
             console.log("Error update game server data!")
@@ -810,7 +810,7 @@
     }
 
     function game_server_updater() {
-        setInterval(monitoring_game_server_update, 100)
+        setInterval(monitoring_game_server_update, 500)
     }
 
     $(document).ready(function () {
