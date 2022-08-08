@@ -226,7 +226,7 @@
                 <div
                         class="position-relative zindex-5 text-center text-lg-start px-3 px-lg-0 py-xl-4 py-xxl-5 mt-lg-3 mx-auto mx-lg-0"
                         style="max-width: 530px;">
-                    <h2 class="h3 text-primary">Twitch in Minecraft</h2>
+                    <h2 class="h3 text-primary">Анархический мир</h2>
                     <h1 class="display-1 pb-lg-3 mb-3">Zalupa.Online</h1>
                     <h3 id="server_online_status">offline</h3>
                     <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5">
@@ -737,6 +737,22 @@
     const channels = 2
     const backend_host = "https://zlp-proxy.herokuapp.com"
 
+    function getNounPlayer(number, one = "игрок", two = "игрока", five = "игроков") {
+        let n = Math.abs(number)
+        n %= 100
+        if (n >= 5 && n <= 20) {
+            return five
+        }
+        n %= 10;
+        if (n === 1) {
+            return one
+        }
+        if (n >= 2 && n <= 4) {
+            return two
+        }
+        return five
+    }
+
     function get_last_tg_post_id(callback, source) {
         $.ajax({
             url: `${backend_host}/channel?choice=${source}`,
@@ -786,7 +802,7 @@
         try {
             get_game_server_data(function (data) {
                 // $("#server_online_status").html(data.motd.html)
-                $("#server_online_status").text(`${data.players.online}/${data.players.max}`)
+                $("#server_online_status").html(`Сейчас на сервере <span class="text-primary fw-semibold">${data.players.online}</span> ${getNounPlayer(data.players.online)}`)
             })
         } catch {
             console.log("Error update game server data!")
