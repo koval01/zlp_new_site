@@ -228,6 +228,7 @@
                         style="max-width: 530px;">
                     <h2 class="h3 text-primary">Twitch in Minecraft</h2>
                     <h1 class="display-1 pb-lg-3 mb-3">Zalupa.Online</h1>
+                    <h3 id="server_online_status">offline</h3>
                     <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5">
                         <a href="#" style="margin-right: 0 !important"
                            class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3">Играть</a>
@@ -734,10 +735,11 @@
 
 <script>
     const channels = 2
+    const backend_host = "https://zlp-proxy.herokuapp.com"
 
     function get_last_tg_post_id(callback, source) {
         $.ajax({
-            url: `https://zlp-proxy.herokuapp.com/channel?choice=${source}`,
+            url: `${backend_host}/channel?choice=${source}`,
             type: "GET",
             success: function (r) {
                 if (r.success) {
@@ -763,8 +765,41 @@
         }
     }
 
+    function get_game_server_data(callback) {
+        $.ajax({
+            url: `${backend_host}/server`,
+            type: "GET",
+            success: function (r) {
+                if (r.success) {
+                    callback(r.body)
+                } else {
+                    notify("Error data check (get_game_server_data)")
+                }
+            },
+            error: function () {
+                notify("Error get info for game server")
+            }
+        })
+    }
+
+    function monitoring_game_server_update() {
+        try {
+            get_game_server_data(function (data) {
+                // $("#server_online_status").html(data.motd.html)
+                $("#server_online_status").text(`${data.players.online}/${data.players.max}`)
+            })
+        } catch {
+            console.log("Error update game server data!")
+        }
+    }
+
+    function game_server_updater() {
+        setInterval(monitoring_game_server_update, 100)
+    }
+
     $(document).ready(function () {
-      append_posts()
+        append_posts()
+        game_server_updater()
     })
 </script>
 
