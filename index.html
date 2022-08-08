@@ -60,6 +60,14 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        .background_video_filter {
+            filter: blur(4px);
+        }
+
+        .dark-mode .background_video_filter {
+            filter: blur(4px) brightness(0.5);
+        }
     </style>
 
     <style>
@@ -216,7 +224,7 @@
         <div class="row g-0">
             <div class="col-xl-7 col-lg-6 pe-lg-5">
                 <div class="d-flex h-100 pe-xl-4">
-                    <video class="w-100" autoplay muted loop style="object-fit: cover;">
+                    <video class="w-100 background_video_filter" autoplay muted loop style="object-fit: cover;">
                         <source src="assets/video/zalupa.mp4" type="video/mp4">
                     </video>
                 </div>
