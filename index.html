@@ -286,7 +286,15 @@
         </div>
     </section>
 
-    <section class="position-relative bg-dark py-5">
+    <section id="telegram_block" class="position-relative bg-dark py-5">
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(255,255,255,.05);"></div>
+        <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
+            <h2 class="h3 text-light text-center text-lg-start mb-4 mb-lg-5">Последние новости</h2>
+            <div class="telegram_frames"></div>
+        </div>
+    </section>
+
+    <section id="clans_block" class="position-relative bg-dark py-5">
         <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(255,255,255,.05);"></div>
         <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
             <h2 class="h3 text-light text-center text-lg-start mb-4 mb-lg-5">Топ-кланы Zalupa.Online</h2>
@@ -378,7 +386,7 @@
         </div>
     </section>
 
-    <section class="position-relative py-5">
+    <section id="players_block" class="position-relative py-5">
         <div class="position-absolute top-0 start-0 w-100 h-100"></div>
         <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
             <h2 class="h3 text-light text-center text-lg-start mb-4 mb-lg-5">Известные игроки</h2>
@@ -548,7 +556,7 @@
         </div>
     </section>
 
-    <section class="bg-secondary py-5">
+    <section id="video_block" class="bg-secondary py-5">
         <div class="container py-2 py-md-4 py-lg-5">
             <h3 class="h1 text-center mb-lg-4">Наглядно о сервере</h3>
             <p class="fs-lg text-muted text-center mb-4 mb-lg-5">
@@ -578,7 +586,7 @@
         </div>
     </section>
 
-    <section class="bg-secondary py-5">
+    <section id="comments_block" class="bg-secondary py-5">
         <div class="container py-2 py-md-4 py-lg-5">
             <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-5">Что об этом проекте думают игроки</h2>
             <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;">
@@ -692,7 +700,7 @@
         </div>
     </section>
 
-    <section class="bg-gradient-primary py-5">
+    <section id="twitch_block" class="bg-gradient-primary py-5">
         <div class="container py-2 py-md-4 py-lg-5">
             <div class="row py-xl-3">
                 <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4">
@@ -736,6 +744,43 @@
     <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Наверх</span>
     <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
 </a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    const channels = 2
+
+    function get_last_tg_post_id(callback, source) {
+        $.ajax({
+            url: `https://zlp-proxy.herokuapp.com/channel?choice=${source}`,
+            type: "GET",
+            success: function (r) {
+                if (r.success) {
+                    return callback(r.last_post)
+                } else {
+                    console.log("Error data check (get_last_tg_post_id)")
+                }
+            },
+            error: function () {
+                console.log("Error get last post id for Telegram")
+            }
+        })
+    }
+
+    function append_posts() {
+        for (let i = 0; i < channels; i++) {
+            get_last_tg_post_id(function (identifer) {
+                $(".telegram_frames").append(`<script async src="https://telegram.org/js/telegram-widget.js?19" data-telegram-post="${identifer}" data-width="100%" data-userpic="true" data-dark="1"><\/script>`)
+            }, i)
+        }
+    }
+
+    $(document).ready(function () {
+      append_posts()
+    })
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"
         integrity="sha512-8Y8eGK92dzouwpROIppwr+0kPauu0qqtnzZZNEF8Pat5tuRNJxJXCkbQfJ0HlUG3y1HB3z18CSKmUo7i2zcPpg=="
