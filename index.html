@@ -70,6 +70,19 @@
             filter: blur(4px) brightness(0.5);
             margin-bottom: -1em;
         }
+
+        @media (min-width: 992px) {
+            .mt-lg-4 {
+                height: calc(100vh - 25px);
+            }
+            .background_video_filter {
+                height: 118%;
+            }
+        }
+
+        .display-1 {
+            font-size: calc(60px + 6 * ((100vw - 320px) / 680))
+        }
     </style>
 
     <style>
@@ -242,11 +255,11 @@
                     <h1 class="display-1 pb-lg-3 mb-3">Zalupa.Online</h1>
                     <h3 id="server_online_status">Получение данных о сервере...</h3>
                     <p id="error_get_server_status"></p>
-                    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5">
+                    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5" style="padding-bottom: 0 !important;">
                         <a href="#" style="margin-right: 0 !important"
                            class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3">Играть</a>
                     </div>
-                    <div class="justify-content-center justify-content-lg-start py-4 py-lg-5">
+                    <div class="justify-content-center justify-content-lg-start py-4">
                         <a href="https://www.twitch.tv/bratishkinoff" class="btn btn-icon btn-secondary btn-twitch mx-2"
                            target="_blank">
                             <i class="bx bxl-twitch"></i>
@@ -261,7 +274,7 @@
                         </a>
                     </div>
                     <div
-                            class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5 mt-xxl-5">
+                            class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5">
               <span class="fs-sm"><span class="text-primary fw-semibold">Тысячи</span> школьников уже наши рабы,
                 присоединяйся к ним</span>
                     </div>
