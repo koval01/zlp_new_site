@@ -763,6 +763,7 @@
 <script>
     const channels = 2
     const backend_host = "https://zlp-api.herokuapp.com"
+    const donate_token = "c40359bf1f64ce933e" // test token
 
     function getNounPlayer(number, one = "игрок", two = "игрока", five = "игроков") {
         let n = Math.abs(number)
@@ -848,9 +849,26 @@
         setInterval(monitoring_game_server_update, 500)
     }
 
+    function get_donate_services(callback) {
+        $.ajax({
+            url: `${backend_host}/donate/services?token=${donate_token}`,
+            type: "GET",
+            success: function (r) {
+                if (r.success) {
+                    return callback(r.services)
+                } else {
+                    console.log("Error data check (get_donate_services)")
+                }
+            },
+            error: function () {
+                console.log("Error get donate services list")
+            }
+        })
+    }
+
     function donate_post_(account, service, count=null) {
         var form_ = $('<form>', {
-            action: "https://gamesdonate.com/pay/c40359bf1f64ce933e", // this test project
+            action: `https://gamesdonate.com/pay/${donate_token}`,
             method: 'POST'
         })
         var submit_data_ = [
