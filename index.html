@@ -848,6 +848,26 @@
         setInterval(monitoring_game_server_update, 500)
     }
 
+    function donate_post_(account, service, count=null) {
+        var form_ = $('<form>', {
+            action: "https://gamesdonate.com/pay/c40359bf1f64ce933e", // this test project
+            method: 'POST'
+        })
+        var submit_data_ = [
+            {"name": "account", "value": account},
+            {"name": "good", "value": service},
+            {"name": "sum", "value": count}
+        ]
+        for (let i = 0; i < submit_data_.length; i++) {
+            $('<input>').attr({
+             type: "hidden",
+             name: submit_data_[i].name,
+             value: submit_data_[i].value
+            }).appendTo(form_)
+        }
+        form_.appendTo('body').submit()
+    }
+
     $(document).ready(function () {
         append_posts()
         game_server_updater()
