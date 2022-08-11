@@ -83,7 +83,7 @@ function monitoring_game_server_update() {
 }
 
 function game_server_updater() {
-    setInterval(monitoring_game_server_update, 500)
+    setInterval(monitoring_game_server_update, 1500)
 }
 
 function get_donate_services(callback) {
