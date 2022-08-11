@@ -759,139 +759,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script>
-    const channels = 2
-    const backend_host = "https://zlp-api.herokuapp.com"
-    const donate_token = "c40359bf1f64ce933e" // test token
-
-    function getNounPlayer(number, one = "игрок", two = "игрока", five = "игроков") {
-        let n = Math.abs(number)
-        n %= 100
-        if (n >= 5 && n <= 20) {
-            return five
-        }
-        n %= 10;
-        if (n === 1) {
-            return one
-        }
-        if (n >= 2 && n <= 4) {
-            return two
-        }
-        return five
-    }
-
-    function get_last_tg_post_id(callback, source) {
-        $.ajax({
-            url: `${backend_host}/channel?choice=${source}`,
-            type: "GET",
-            success: function (r) {
-                if (r.success) {
-                    return callback(r.last_post)
-                } else {
-                    console.log("Error data check (get_last_tg_post_id)")
-                }
-            },
-            error: function () {
-                console.log("Error get last post id for Telegram")
-            }
-        })
-    }
-
-    function append_posts() {
-        for (let i = 0; i < channels; i++) {
-            get_last_tg_post_id(function (identifer) {
-                $(".telegram_frames").append(`<script async src="https://telegram.org/js/telegram-widget.js?19" data-telegram-post="${identifer}" data-width="100%" data-userpic="true" data-dark="1"><\/script>`)
-                setTimeout(function () {
-                    $("#telegram_block_load").remove()
-                }, 150)
-            }, i)
-        }
-    }
-
-    function get_game_server_data(callback) {
-        function _data_error(ok = false) {
-            let string_ = ""
-            if (ok) {
-                string_ = ""
-            } else {
-                string_ = "Не удается обновить информацию о сервере..."
-            }
-            $("#error_get_server_status").text(string_)
-        }
-
-        $.ajax({
-            url: `${backend_host}/server`,
-            type: "GET",
-            success: function (r) {
-                if (r.success) {
-                    callback(r.body)
-                    _data_error(ok = true)
-                } else {
-                    console.log("Error data check (get_game_server_data)")
-                    _data_error()
-                }
-            },
-            error: function () {
-                console.log("Error get info for game server")
-                _data_error()
-            }
-        })
-    }
-
-    function monitoring_game_server_update() {
-        get_game_server_data(function (data) {
-            $("#server_online_status").html(`Сейчас играет <span class="text-primary fw-semibold">${data.players.online}</span> ${getNounPlayer(data.players.online)}`)
-        })
-    }
-
-    function game_server_updater() {
-        setInterval(monitoring_game_server_update, 500)
-    }
-
-    function get_donate_services(callback) {
-        $.ajax({
-            url: `${backend_host}/donate/services?token=${donate_token}`,
-            type: "GET",
-            success: function (r) {
-                if (r.success) {
-                    return callback(r.services)
-                } else {
-                    console.log("Error data check (get_donate_services)")
-                }
-            },
-            error: function () {
-                console.log("Error get donate services list")
-            }
-        })
-    }
-
-    function donate_post_(account, service, count=null) {
-        var form_ = $('<form>', {
-            action: `https://gamesdonate.com/pay/${donate_token}`,
-            method: 'POST'
-        })
-        var submit_data_ = [
-            {"name": "account", "value": account},
-            {"name": "good", "value": service},
-            {"name": "sum", "value": count}
-        ]
-        for (let i = 0; i < submit_data_.length; i++) {
-            $('<input>').attr({
-             type: "hidden",
-             name: submit_data_[i].name,
-             value: submit_data_[i].value
-            }).appendTo(form_)
-        }
-        form_.appendTo('body').submit()
-    }
-
-    $(document).ready(function () {
-        append_posts()
-        game_server_updater()
-    })
-</script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"
         integrity="sha512-8Y8eGK92dzouwpROIppwr+0kPauu0qqtnzZZNEF8Pat5tuRNJxJXCkbQfJ0HlUG3y1HB3z18CSKmUo7i2zcPpg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -914,6 +781,8 @@
         integrity="sha512-o9OFTaNg7w+f68Ga28rNSTz5kIxAcmPc3oxMG38LAuW/DWcHvYlNKA9OltEKokNlwwT/q1gU+VKkBVrIO7KrEg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<script src="assets/js/theme.min.js"></script>
+<script src="assets/js/core.js"></script>
 <script src="https://embed.twitch.tv/embed/v1.js"></script>
 
 <script type="text/javascript">
@@ -925,8 +794,6 @@
         parent: ["zalupa.online", "zalupa.world"]
     });
 </script>
-
-<script src="assets/js/theme.min.js"></script>
 </body>
 
 </html>
