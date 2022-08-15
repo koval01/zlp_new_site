@@ -82,10 +82,10 @@
             display: block;
             background: var(--si-body-bg);
             color: var(--si-body-color);
-            border-color: #4044ee;
             border: 2px;
             border-style: solid;
-            padding: 5px;
+            font-size: 16px;
+            padding: 6px;
             border-radius: 5px;
             outline: none;
         }
@@ -137,6 +137,9 @@
             filter: invert(0.5);
             text-decoration: none;
             cursor: pointer;
+        }
+        .form-control:focus {
+            border: 2px solid #6366f1 !important;
         }
     </style>
     <style>
@@ -361,13 +364,13 @@
                     <p id="donate_item_select_text"></p>
                     <div class="add_data_cart">
                         <p style="text-align: end; margin: 0">Количество:</p>
-                        <input id="items_count_donate" type="number" required="" class="custom_input_ me-xl-4 mb-3 form-control"
+                        <input id="items_count_donate" type="number" required="" class="custom_input_ mb-3 form-control"
                                style="
                                 max-width: 16vw;
                                 margin-right: 0;
                             ">
                         <button style="margin-left: auto; display: block"
-                                class="btn btn-primary shadow-primary btn-lg me-xl-4">
+                                class="btn btn-primary shadow-primary btn-lg">
                             Добавить
                         </button>
                     </div>

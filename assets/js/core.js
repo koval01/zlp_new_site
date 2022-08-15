@@ -179,19 +179,24 @@ function donate_element_click(product_data) {
     let desc = $("#donate_item_select_text")
     let text_template = `Вы выбрали товар ${product_data.name}, цена одной единицы ${product_data.price} 
         ${getNoun(product_data.price, "рубль", "рубля", "рублей")}.`
+    let items_count_donate = $("#items_count_donate")
+    items_count_donate.val("1")
 
     function _exit() {
         modal.style.display = "none"
     }
 
-    desc.text(text_template)
-
-    $("#items_count_donate").keyup(function() {
+    function _calculate_price() {
         let _price = product_data.price * parseInt($("#items_count_donate").val())
         if (isNaN(_price)) { _price = 0 }
         desc.html(`${text_template}<br/>Стоимость выбранного количества - ${_price} 
         ${getNoun(_price, "рубль", "рубля", "рублей")}`)
-    })
+    }
+
+    desc.text(text_template)
+
+    _calculate_price()
+    items_count_donate.keyup(_calculate_price)
 
     // this function called
     modal.style.display = "block"
