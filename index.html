@@ -144,6 +144,41 @@
         .form-control:focus {
             border: 2px solid #6366f1 !important;
         }
+
+        .parent-image-shadow {
+          margin: 40px auto;
+          width: min-content;
+          display: grid;
+          gap: 40px;
+          transition: all 0.5s ease;
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+        .parent-image-shadow .imageContainer {
+          position: relative;
+          width: max-content;
+        }
+        .parent-image-shadow .imageContainer .foregroundImg {
+          cursor: pointer;
+          position: relative;
+          left: 25%;
+          z-index: 2;
+          pointer-events: none;
+        }
+        .parent-image-shadow .imageContainer .backgroundImg {
+          position: absolute;
+          top: 2px;
+          left: 60%;
+          transform: scale(1);
+          transition: all 0.5s ease;
+          opacity: 0;
+          z-index: 1;
+          opacity: 1;
+          filter: blur(24px);
+        }
+
+        .col:hover .backgroundImg {
+            transform: scale(1.8);
+        }
     </style>
     <style>
         .page-loading {
@@ -307,8 +342,12 @@
                     <p id="error_get_server_status"></p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5"
                          style="padding-bottom: 0 !important;">
-                        <a href="https://www.youtube.com/watch?v=X51UnF7LGpo" style="margin-right: 0 !important"
-                           class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3" data-bs-toggle="video">Играть</a>
+                        <a href="https://www.youtube.com/watch?v=X51UnF7LGpo"
+                           class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3"
+                           data-bs-toggle="video">Играть</a>
+                        <a href="#donate_block"
+                           class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3"
+                           data-scroll data-scroll-offset="70">К магазину</a>
                     </div>
                     <div class="justify-content-center justify-content-lg-start py-4">
                         <a style="margin-left: 0 !important" href="https://www.twitch.tv/bratishkinoff"
@@ -478,7 +517,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-2 mt-lg-4"
              id="donate_items_list"></div>
         <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
-        <div id="donate_item_modal" class="modal">
+        <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
             <div class="modal-content">
                 <span class="close_b">&times;</span>
                 <p id="donate_item_select_text"></p>

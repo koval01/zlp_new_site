@@ -118,20 +118,25 @@ function append_services() {
                 "type": services[i].type
             }
             $("#donate_items_list").append(`
-                <div class="col">
+                <div class="col" id="donate_item_${services[i].id}">
                     <div class="card card-hover border-0 bg-transparent" 
                         onClick='donate_element_click(${JSON.stringify(click_data)})'>
                       <div class="position-relative">
-                        <img src="${services[i].image}"
-                             class="rounded-3" alt="${services[i].name}" style="display: block; margin: auto; width: 25%">
+                        <div class="parent-image-shadow donate_item_hover" id="donate_item_hover_${services[i].id}">
+                            <div class="imageContainer">
+                                <img src="${services[i].image}"
+                                 class="rounded-3 foregroundImg" alt="${services[i].name}" style="display: block; margin: auto; width: 35%">
+                                <img src="${services[i].image}"
+                                 class="rounded-3 backgroundImg" alt="${services[i].name}" style="display: block; margin: auto; width: 35%">
+                             </div>
+                        </div>
                         <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3" 
                              style="margin: auto">
-                          <span class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-35 rounded-3"></span>
-                          <div class="position-relative d-flex zindex-2">
-                            <button class="btn btn-primary shadow-primary btn-lg">
-                              Купить
-                            </button>
-                          </div>
+<!--                          <div class="position-relative d-flex zindex-2">-->
+<!--                            <button class="btn btn-primary shadow-primary btn-lg">-->
+<!--                              Купить-->
+<!--                            </button>-->
+<!--                          </div>-->
                         </div>
                       </div>
                       <div class="card-body text-center p-3">
