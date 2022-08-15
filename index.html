@@ -630,17 +630,26 @@
             </div>
         </div>
     </section>
-    <section id="twitch_block" class="bg-gradient-primary py-5">
+    <section id="discord_block" class="bg-gradient-primary py-5">
         <div class="container py-2 py-md-4 py-lg-5">
             <div class="row py-xl-3">
                 <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4">
-                    <h2 class="h1 text-light text-center text-sm-start pb-4 mb-0 mb-lg-3">Смотри стрим на Twitch 🤫</h2>
+                    <h2 class="h1 text-light text-center text-sm-start pb-4 mb-0 mb-lg-3">Discord-Залупа 🤫</h2>
                     <div class="stream_description">
-                        <span>Поддерживай Братишкина, глядя его трансляции. Ты можешь это делать как на Twitch, так и прямо на этом сайте.</span>
+                        <span>Пизди с такими же дебилами как и ты - безлимитно, хоть целый день, правда.</span>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7 order-lg-1">
-                    <div id="twitch-embed"></div>
+                    <div id="discord-embed">
+                        <iframe
+                            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                            src="https://discordapp.com/widget?id=259124796971941890&theme=dark"
+                            width="100%"
+                            height="300px"
+                            allowtransparency="true"
+                            frameborder="0">
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -739,16 +748,6 @@
             nextEl: "#next_comment"
         }
     })
-</script>
-<script src="https://embed.twitch.tv/embed/v1.js"></script>
-<script type="text/javascript">
-    new Twitch.Embed("twitch-embed", {
-        width: screen.width / 2,
-        height: screen.height / 2,
-        channel: "bratishkinoff",
-        theme: global_theme_,
-        parent: ["zalupa.online", "zalupa.world"]
-    });
 </script>
 </body>
 </html>
