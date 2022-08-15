@@ -112,7 +112,7 @@ function append_services() {
 
             $("#donate_items_list").append(`
                 <div class="swiper-slide">
-                  <span class="d-block py-3">
+                  <span class="d-block py-3" id="${services[i].id}">
                     <img src="${services[i].image}" class="d-block mx-auto" width="154"
                          alt="${services[i].name}">
                     <div class="card-body text-center p-3">
@@ -130,10 +130,39 @@ function append_services() {
                 </div>
             `)
         }
+        let swiper = new Swiper('#donate_items_container', {
+            slidesPerView: 2,
+            spaceBetween: 24,
+            loop: true,
+            observer: true,
+            observeParents: true,
+            pagination: {
+                el: ".swiper-pagination-donate",
+                clickable: true
+            },
+            breakpoints: {
+                500: {
+                    slidesPerView: 3
+                },
+                650: {
+                    slidesPerView: 4
+                },
+                900: {
+                    slidesPerView: 5
+                },
+                1100: {
+                    slidesPerView: 6
+                }
+            }
+        })
         setTimeout(function () {
             $("#donate_block_load").remove()
             $("#donate_items_container").css("display", "")
+            swiper.update()
         }, 100)
+        $(window).resize(function(){
+          swiper.update()
+        })
     })
 }
 
