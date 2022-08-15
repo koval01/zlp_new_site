@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8">
     <title>Zalupa.Online</title>
-
-    <meta name="description"
-          content="Залупа – это проект в Minecraft стримера Братишкина. Он создавался как экспериментальный, но довольно быстро набрал обороты и разросся до больших масштабов, превратившись из небольшого сервера для фанатов этого стримера в целый пероект, который посещают другие контент-мейкеры.">
+    <meta name="description" content="Залупа – это проект в Minecraft стримера Братишкина. Он создавался как экспериментальный, но довольно быстро набрал обороты и разросся до больших масштабов, превратившись из небольшого сервера для фанатов этого стримера в целый пероект, который посещают другие контент-мейкеры.">
     <meta name="keywords" content="Minecraft, Twitch, Stream, Bratishkin, Майнкрафт, Твич, Стрим, Братишкин">
     <meta name="author" content="Yaroslav Koval">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -20,697 +15,569 @@
     <link rel="manifest" href="assets/favicon/site.webmanifest">
     <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#6366f1">
     <link rel="shortcut icon" href="assets/favicon/favicon.ico">
-
     <meta name="theme-color" content="#ffffff">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.2/css/boxicons.min.css"
-          integrity="sha512-AGmpdsTqvAh2GvTWzVhhJ9VqQb1eAXwOM7uiWtv0DzcnGaGWy98K51z2cK5OG3gp4NB1HbMaD7p0MeO9kE7E3w=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.css"
-          integrity="sha512-T3xwtELy3dqQUajk2sl4V6x/VnT+WbXgAKIu/Go7L6oDDWf4A5dJbG49vKn0am3dTNh/KHAbU2+4Ih2vVioxSg=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/css/lightgallery-bundle.min.css"
-          integrity="sha512-lgRFGedXdci5Ykc5Wbgd8QCzt3lBmnkWcMRAS8myln2eMCDwQBrHmjqvUj9rBcKOyWMC+EYJnvEppggw1v+m8Q=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.2/css/boxicons.min.css" integrity="sha512-AGmpdsTqvAh2GvTWzVhhJ9VqQb1eAXwOM7uiWtv0DzcnGaGWy98K51z2cK5OG3gp4NB1HbMaD7p0MeO9kE7E3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.css" integrity="sha512-T3xwtELy3dqQUajk2sl4V6x/VnT+WbXgAKIu/Go7L6oDDWf4A5dJbG49vKn0am3dTNh/KHAbU2+4Ih2vVioxSg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/css/lightgallery-bundle.min.css" integrity="sha512-lgRFGedXdci5Ykc5Wbgd8QCzt3lBmnkWcMRAS8myln2eMCDwQBrHmjqvUj9rBcKOyWMC+EYJnvEppggw1v+m8Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" media="screen" href="assets/css/theme.min.css">
-
     <style>
-        iframe {
-            border-radius: 0.5em !important;
-        }
+      iframe {
+        border-radius: 0.5em !important;
+      }
 
-        .stream_description {
-            background: var(--si-body-bg);
-            padding: 1em;
-            border-radius: 0.5em;
-        }
+      .stream_description {
+        background: var(--si-body-bg);
+        padding: 1em;
+        border-radius: 0.5em;
+      }
 
-        .swipe_el_name {
-            display: block;
-            text-align: center;
-        }
+      .swipe_el_name {
+        display: block;
+        text-align: center;
+      }
 
-        .noselect {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+      .noselect {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .background_video_filter {
+        filter: blur(4px);
+        margin-bottom: -1em;
+      }
+
+      .dark-mode .background_video_filter {
+        filter: blur(4px) brightness(0.5);
+        margin-bottom: -1em;
+      }
+
+      @media (min-width: 992px) {
+        .mt-lg-4-first {
+          height: calc(100vh - 16px);
         }
 
         .background_video_filter {
-            filter: blur(4px);
-            margin-bottom: -1em;
+          height: 100vh;
         }
+      }
 
-        .dark-mode .background_video_filter {
-            filter: blur(4px) brightness(0.5);
-            margin-bottom: -1em;
-        }
-
-        @media (min-width: 992px) {
-            .mt-lg-4-first {
-                height: calc(100vh - 16px);
-            }
-            .background_video_filter {
-                height: 100vh;
-            }
-        }
-
-        .display-1 {
-            font-size: calc(48px + 6 * ((100vw - 320px) / 680))
-        }
+      .display-1 {
+        font-size: calc(48px + 6 * ((100vw - 320px) / 680))
+      }
     </style>
-
     <style>
-        .page-loading {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            -webkit-transition: all .4s .2s ease-in-out;
-            transition: all .4s .2s ease-in-out;
-            background-color: #fff;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 9999;
-        }
+      .page-loading {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: all .4s .2s ease-in-out;
+        transition: all .4s .2s ease-in-out;
+        background-color: #fff;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+      }
 
-        .dark-mode .page-loading {
-            background-color: #0b0f19;
-        }
+      .dark-mode .page-loading {
+        background-color: #0b0f19;
+      }
 
-        .page-loading.active {
-            opacity: 1;
-            visibility: visible;
-        }
+      .page-loading.active {
+        opacity: 1;
+        visibility: visible;
+      }
 
-        .page-loading-inner {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-            -webkit-transition: opacity .2s ease-in-out;
-            transition: opacity .2s ease-in-out;
-            opacity: 0;
-        }
+      .page-loading-inner {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 0;
+      }
 
-        .page-loading.active > .page-loading-inner {
-            opacity: 1;
-        }
+      .page-loading.active>.page-loading-inner {
+        opacity: 1;
+      }
 
-        .page-loading-inner > span {
-            display: block;
-            font-size: 1rem;
-            font-weight: normal;
-            color: #9397ad;
-        }
+      .page-loading-inner>span {
+        display: block;
+        font-size: 1rem;
+        font-weight: normal;
+        color: #9397ad;
+      }
 
-        .dark-mode .page-loading-inner > span {
-            color: #fff;
-            opacity: .6;
-        }
+      .dark-mode .page-loading-inner>span {
+        color: #fff;
+        opacity: .6;
+      }
 
-        .page-spinner {
-            display: inline-block;
-            width: 7.5rem;
-            height: 7.5rem;
-            margin-bottom: .75rem;
-            vertical-align: text-bottom;
-            background: url("assets/images/loading_animation.webp")
-        }
+      .page-spinner {
+        display: inline-block;
+        width: 7.5rem;
+        height: 7.5rem;
+        margin-bottom: .75rem;
+        vertical-align: text-bottom;
+        background: url("assets/images/loading_animation.webp")
+      }
 
-        .dark-mode .page-spinner {
-            border-color: rgba(255, 255, 255, .4);
-            border-right-color: transparent;
-        }
+      .dark-mode .page-spinner {
+        border-color: rgba(255, 255, 255, .4);
+        border-right-color: transparent;
+      }
     </style>
-
     <script>
-        let global_theme_ = 'light';
-        let mode = window.localStorage.getItem('mode'),
-            root = document.getElementsByTagName('html')[0]
-        const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)")
-        if (darkThemeMq.matches) {
-            mode = 'dark'
-        } else {
-            mode = null
-        }
-        if (mode !== null && mode === 'dark') {
-            root.classList.add('dark-mode')
-            global_theme_ = 'dark'
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b0f19')
-        } else {
-            root.classList.remove('dark-mode')
-            global_theme_ = 'light'
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
+      let global_theme_ = 'light';
+      let mode = window.localStorage.getItem('mode'),
+        root = document.getElementsByTagName('html')[0]
+      const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)")
+      if (darkThemeMq.matches) {
+        mode = 'dark'
+      } else {
+        mode = null
+      }
+      if (mode !== null && mode === 'dark') {
+        root.classList.add('dark-mode')
+        global_theme_ = 'dark'
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b0f19')
+      } else {
+        root.classList.remove('dark-mode')
+        global_theme_ = 'light'
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+      }
     </script>
-
     <script>
-        (function () {
-            window.onload = function () {
-                const preloader = document.querySelector('.page-loading');
-                preloader.classList.remove('active');
-                setTimeout(function () {
-                    preloader.remove();
-                }, 200);
-            };
-        })();
+      (function() {
+        window.onload = function() {
+          const preloader = document.querySelector('.page-loading');
+          preloader.classList.remove('active');
+          setTimeout(function() {
+            preloader.remove();
+          }, 200);
+        };
+      })();
     </script>
-</head>
-
-<body class="noselect">
-
-<div class="page-loading active">
-    <div class="page-loading-inner">
+  </head>
+  <body class="noselect">
+    <div class="page-loading active">
+      <div class="page-loading-inner">
         <div class="page-spinner"></div>
-        <span>Загрузка...<br/>Zalupa.Online</span>
+        <span>Загрузка... <br />Zalupa.Online </span>
+      </div>
     </div>
-</div>
-
-<main class="page-wrapper">
-    <header class="header navbar navbar-expand-lg bg-light shadow-sm fixed-top">
+    <main class="page-wrapper">
+      <header class="header navbar navbar-expand-lg bg-light shadow-sm fixed-top">
         <div class="container px-3">
-            <a href="index.html" class="navbar-brand pe-3">
-                <img src="assets/images/logo.png" width="128" alt="Zalupa.Online">
-            </a>
-            <div id="navbarNav" class="offcanvas offcanvas-end">
-                <div class="offcanvas-header border-bottom">
-                    <h5 class="offcanvas-title">Меню</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a href="https://t.me/zalupa_history" target="_blank" class="nav-link">Новости Залупы</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="offcanvas-header border-top">
-                    <a href="https://t.me/ZalupaKiborgBot" class="btn btn-primary w-100" target="_blank" rel="noopener">
-                        <i class="bx bx-cart fs-4 lh-1 me-1"></i>
-                        &nbsp;Донат
-                    </a>
-                </div>
+          <a href="index.html" class="navbar-brand pe-3">
+            <img src="assets/images/logo.png" width="128" alt="Zalupa.Online">
+          </a>
+          <div id="navbarNav" class="offcanvas offcanvas-end">
+            <div class="offcanvas-header border-bottom">
+              <h5 class="offcanvas-title">Меню</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
             </div>
-            <div class="form-check form-switch mode-switch pe-lg-1 ms-auto me-4" data-bs-toggle="mode">
-                <input type="checkbox" class="form-check-input" id="theme-mode">
-                <label class="form-check-label d-none d-sm-block" for="theme-mode">Светло</label>
-                <label class="form-check-label d-none d-sm-block" for="theme-mode">Темно</label>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a href="https://t.me/zalupa_history" target="_blank" class="nav-link">Новости Залупы</a>
+                </li>
+              </ul>
             </div>
-            <button type="button" class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="offcanvas-header border-top">
+              <a href="https://t.me/ZalupaKiborgBot" class="btn btn-primary w-100" target="_blank" rel="noopener">
+                <i class="bx bx-cart fs-4 lh-1 me-1"></i> &nbsp;Донат </a>
+            </div>
+          </div>
+          <div class="form-check form-switch mode-switch pe-lg-1 ms-auto me-4" data-bs-toggle="mode">
+            <input type="checkbox" class="form-check-input" id="theme-mode">
+            <label class="form-check-label d-none d-sm-block" for="theme-mode">Светло</label>
+            <label class="form-check-label d-none d-sm-block" for="theme-mode">Темно</label>
+          </div>
+          <button type="button" class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </div>
-    </header>
-
-    <section class="container-fluid position-relative px-0 pt-5 mt-3 mt-lg-4-first">
+      </header>
+      <section class="container-fluid position-relative px-0 pt-5 mt-3 mt-lg-4-first">
         <div class="row g-0">
-            <div class="col-xl-7 col-lg-6 pe-lg-5">
-                <div class="d-flex h-100 pe-xl-4">
-                    <video class="w-100 background_video_filter" autoplay muted loop style="object-fit: cover;">
-                        <source src="assets/video/zalupa.mp4" type="video/mp4">
-                    </video>
-                </div>
+          <div class="col-xl-7 col-lg-6 pe-lg-5">
+            <div class="d-flex h-100 pe-xl-4">
+              <video class="w-100 background_video_filter" autoplay muted loop style="object-fit: cover;">
+                <source src="assets/video/zalupa.mp4" type="video/mp4">
+              </video>
             </div>
-            <div class="col-xl-5 col-lg-6 position-relative py-5">
-                <img src="assets/images/hero-bg.png" class="position-absolute top-50 translate-middle-y ms-lg-n4"
-                     width="866"
-                     alt="Background shapes">
-                <div
-                        class="position-relative zindex-5 text-center text-lg-start px-3 px-lg-0 py-xl-4 py-xxl-5 mt-lg-3 mx-auto mx-lg-0"
-                        style="max-width: 530px;">
-                    <h2 class="h3 text-primary">Анархический мир</h2>
-                    <h1 class="display-1 pb-lg-3 mb-3">Zalupa.Online</h1>
-                    <h3 id="server_online_status">Получение данных о сервере...</h3>
-                    <p id="error_get_server_status"></p>
-                    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5" style="padding-bottom: 0 !important;">
-                        <a href="https://www.youtube.com/watch?v=X51UnF7LGpo" style="margin-right: 0 !important"
-                           class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3" data-bs-toggle="video">Играть</a>
-                    </div>
-                    <div class="justify-content-center justify-content-lg-start py-4">
-                        <a style="margin-left: 0 !important" href="https://www.twitch.tv/bratishkinoff" class="btn btn-icon btn-secondary btn-twitch mx-2"
-                           target="_blank">
-                            <i class="bx bxl-twitch"></i>
-                        </a>
-                        <a href="https://t.me/zalupaonline" class="btn btn-icon btn-secondary btn-telegram mx-2"
-                           target="_blank">
-                            <i class="bx bxl-telegram"></i>
-                        </a>
-                        <a href="https://discord.gg/qEqbVbMeEx" class="btn btn-icon btn-secondary btn-discord mx-2"
-                           target="_blank">
-                            <i class="bx bxl-discord"></i>
-                        </a>
-                    </div>
-                    <div
-                            class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5">
-              <span class="fs-sm"><span class="text-primary fw-semibold">Тысячи</span> школьников уже наши рабы,
-                присоединяйся к ним</span>
-                    </div>
-                </div>
+          </div>
+          <div class="col-xl-5 col-lg-6 position-relative py-5">
+            <img src="assets/images/hero-bg.png" class="position-absolute top-50 translate-middle-y ms-lg-n4" width="866" alt="Background shapes">
+            <div class="position-relative zindex-5 text-center text-lg-start px-3 px-lg-0 py-xl-4 py-xxl-5 mt-lg-3 mx-auto mx-lg-0" style="max-width: 530px;">
+              <h2 class="h3 text-primary">Анархический мир</h2>
+              <h1 class="display-1 pb-lg-3 mb-3">Zalupa.Online</h1>
+              <h3 id="server_online_status">Получение данных о сервере...</h3>
+              <p id="error_get_server_status"></p>
+              <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5" style="padding-bottom: 0 !important;">
+                <a href="https://www.youtube.com/watch?v=X51UnF7LGpo" style="margin-right: 0 !important" class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3" data-bs-toggle="video">Играть</a>
+              </div>
+              <div class="justify-content-center justify-content-lg-start py-4">
+                <a style="margin-left: 0 !important" href="https://www.twitch.tv/bratishkinoff" class="btn btn-icon btn-secondary btn-twitch mx-2" target="_blank">
+                  <i class="bx bxl-twitch"></i>
+                </a>
+                <a href="https://t.me/zalupaonline" class="btn btn-icon btn-secondary btn-telegram mx-2" target="_blank">
+                  <i class="bx bxl-telegram"></i>
+                </a>
+                <a href="https://discord.gg/qEqbVbMeEx" class="btn btn-icon btn-secondary btn-discord mx-2" target="_blank">
+                  <i class="bx bxl-discord"></i>
+                </a>
+              </div>
+              <div class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5">
+                <span class="fs-sm">
+                  <span class="text-primary fw-semibold">Тысячи</span> школьников уже наши рабы, присоединяйся к ним </span>
+              </div>
             </div>
+          </div>
         </div>
         <div class="position-absolute d-none d-lg-block bottom-0 start-0 w-100 zindex-5 pb-xxl-5">
-            <div class="container pb-4 mb-3 mb-xxl-0">
-                <a href="#server_history" class="d-table text-light opacity-80 text-decoration-none w-auto py-4"
-                   data-scroll
-                   data-scroll-offset="70">
-            <span class="d-flex align-items-center">
-              Крути вниз, чтобы увидеть больше
-              <i class="bx bx-down-arrow-circle fs-3 ms-2"></i>
-            </span>
-                </a>
-            </div>
+          <div class="container pb-4 mb-3 mb-xxl-0">
+            <a href="#server_history" class="d-table text-light opacity-80 text-decoration-none w-auto py-4" data-scroll data-scroll-offset="70">
+              <span class="d-flex align-items-center"> Крути вниз, чтобы увидеть больше <i class="bx bx-down-arrow-circle fs-3 ms-2"></i>
+              </span>
+            </a>
+          </div>
         </div>
-    </section>
-
-    <section id="telegram_block" class="position-relative bg-dark py-5">
+      </section>
+      <section id="telegram_block" class="position-relative bg-dark py-5">
         <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(255,255,255,.05);"></div>
         <div class="container">
-            <h2 class="h3 text-light text-center mb-4 mb-lg-5">Последние новости</h2>
-            <div class="telegram_frames"></div>
-            <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+          <h2 class="h3 text-light text-center mb-4 mb-lg-5">Последние новости</h2>
+          <div class="telegram_frames"></div>
+          <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
         </div>
-    </section>
-
-    <section id="donate_block" class="position-relative py-5">
+      </section>
+      <section id="donate_block" class="position-relative py-5">
         <div class="position-absolute top-0 start-0 w-100 h-100"></div>
         <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
-            <h2 class="h1 text-center text-sm-start mb-4">Магазин</h2>
-            <p class="pb-2 pb-lg-4 pb-xl-5 mb-3">
-                Ты можешь поддержать наш проект, купив хоть какой продукт. Средства будут отправлены
-                на оплату серверов, чтобы проект мог продолжать свою работу.
-            </p>
-            <div style="display: none" class="swiper ms-xxl-n5 me-xxl-n4" id="donate_items_container">
-                <div class="swiper-wrapper" id="donate_items_list"></div>
-                <div class="swiper-pagination-donate position-relative pt-2 mt-4"></div>
-            </div>
-            <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+          <h2 class="h1 text-center text-sm-start mb-4">Магазин</h2>
+          <p class="pb-2 pb-lg-4 pb-xl-5 mb-3"> Ты можешь поддержать наш проект, купив хоть какой продукт. Средства будут отправлены на оплату серверов, чтобы проект мог продолжать свою работу. </p>
+          <div style="display: none" class="swiper ms-xxl-n5 me-xxl-n4" id="donate_items_container">
+            <div class="swiper-wrapper" id="donate_items_list"></div>
+            <div class="swiper-pagination-donate position-relative pt-2 mt-4"></div>
+          </div>
+          <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
         </div>
-    </section>
-
-    <section id="server_history" class="position-relative py-5">
+      </section>
+      <section id="server_history" class="position-relative py-5">
         <div class="position-absolute top-0 start-0 w-100 h-100"></div>
         <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
-            <h2 class="h1 text-center text-sm-start mb-4">Большое начало в 2021-м году</h2>
-            <p class="pb-2 pb-lg-4 pb-xl-5 mb-3">
-                Здесь будет небольшая история о том, как сервер начинал свою работу. Также, какие игроки повлияли на
-                вектор
-                его развития, как это было.
-            </p>
-            <h2 class="h3 text-lg-start mb-4 mb-lg-5">Известные игроки</h2>
-            <div class="swiper ms-xxl-n5 me-xxl-n4" data-swiper-options='{
-            "slidesPerView": 2,
-            "spaceBetween": 24,
-            "loop": true,
-            "pagination": {
-              "el": ".swiper-pagination-players",
-              "clickable": true
-            },
-            "breakpoints": {
-              "500": {
-                "slidesPerView": 3
-              },
-              "650": {
-                "slidesPerView": 4
-              },
-              "900": {
-                "slidesPerView": 5
-              },
-              "1100": {
-                "slidesPerView": 6
-              }
-            }
-          }'>
-                <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/Blackflexxy/190.png" class="d-block mx-auto" width="154"
-                     alt="Blackflexxy">
-                <div class="card-body text-center p-3">
-                  <h3 class="fs-lg fw-semibold pt-1 mb-2">Blackflexxy</h3>
-                  <p class="fs-sm mb-0">Подельник Илона Туска</p>
-                </div>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/CREXLIGHT/190.png" class="d-block mx-auto" width="154"
-                     alt="CREXLIGHT">
-                <div class="card-body text-center p-3">
-                  <h3 class="fs-lg fw-semibold pt-1 mb-2">CREXLIGHT</h3>
-                  <p class="fs-sm mb-0">Единственный админ, который что-то делает</p>
-                </div>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="assets/images/players/Elon_Tusk.png" class="d-block mx-auto" width="154" alt="Elon_Tusk"
-                >
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">Elon_Tusk</h3>
+          <h2 class="h1 text-center text-sm-start mb-4">Большое начало в 2021-м году</h2>
+          <p class="pb-2 pb-lg-4 pb-xl-5 mb-3"> Здесь будет небольшая история о том, как сервер начинал свою работу. Также, какие игроки повлияли на вектор его развития, как это было. </p>
+          <h2 class="h3 text-lg-start mb-4 mb-lg-5">Известные игроки</h2>
+          <div class="swiper ms-xxl-n5 me-xxl-n4" id="players_swipe_container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/Blackflexxy/190.png" class="d-block mx-auto" width="154" alt="Blackflexxy">
+                  <div class="card-body text-center p-3">
+                    <h3 class="fs-lg fw-semibold pt-1 mb-2">Blackflexxy</h3>
+                    <p class="fs-sm mb-0">Подельник Илона Туска</p>
+                  </div>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/CREXLIGHT/190.png" class="d-block mx-auto" width="154" alt="CREXLIGHT">
+                  <div class="card-body text-center p-3">
+                    <h3 class="fs-lg fw-semibold pt-1 mb-2">CREXLIGHT</h3>
+                    <p class="fs-sm mb-0">Единственный админ, который что-то делает</p>
+                  </div>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="assets/images/players/Elon_Tusk.png" class="d-block mx-auto" width="154" alt="Elon_Tusk">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">Elon_Tusk</h3>
                   <p class="fs-sm mb-0">Очень любит девушек и ЧСВ-шник</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/MinDzoM/190.png" class="d-block mx-auto" width="154"
-                     alt="MinDzoM">
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">MinDzoM</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/MinDzoM/190.png" class="d-block mx-auto" width="154" alt="MinDzoM">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">MinDzoM</h3>
                   <p class="fs-sm mb-0">Немного агент, немного пиздабол</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/D3st0ny/190.png" class="d-block mx-auto" width="154"
-                     alt="D3st0ny">
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">D3st0ny</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/D3st0ny/190.png" class="d-block mx-auto" width="154" alt="D3st0ny">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">D3st0ny</h3>
                   <p class="fs-sm mb-0">Просто админ которого уволили, это все, что мы о нем знаем</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/KovalYRS/190.png" class="d-block mx-auto" width="154"
-                     alt="KovalYRS">
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">KovalYRS</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/KovalYRS/190.png" class="d-block mx-auto" width="154" alt="KovalYRS">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">KovalYRS</h3>
                   <p class="fs-sm mb-0">Веб-разработчик</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="assets/images/players/Masha2008.png" class="d-block mx-auto" width="154" alt="Masha2008"
-                >
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">Masha2008</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="assets/images/players/Masha2008.png" class="d-block mx-auto" width="154" alt="Masha2008">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">Masha2008</h3>
                   <p class="fs-sm mb-0">Тупая, неэффективная женщина</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/JelleyFish/190.png" class="d-block mx-auto" width="154"
-                     alt="JelleyFish">
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">JelleyFish</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/JelleyFish/190.png" class="d-block mx-auto" width="154" alt="JelleyFish">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">JelleyFish</h3>
                   <p class="fs-sm mb-0">Нуб с кристаллами</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/lomaka/190.png" class="d-block mx-auto" width="154" alt="lomaka"
-                >
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">lomaka</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/lomaka/190.png" class="d-block mx-auto" width="154" alt="lomaka">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">lomaka</h3>
                   <p class="fs-sm mb-0">Стример, что тут ещё говорить</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="adamoov"
-                >
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">adamoov</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="assets/images/players/anon.png" class="d-block mx-auto" width="154" alt="adamoov">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">adamoov</h3>
                   <p class="fs-sm mb-0">Играет в попе пальчиком, когда дома нет мамы</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/sadwaiter/190.png" class="d-block mx-auto" width="154"
-                     alt="sadwaiter">
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">sadwaiter</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/sadwaiter/190.png" class="d-block mx-auto" width="154" alt="sadwaiter">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">sadwaiter</h3>
                   <p class="fs-sm mb-0">Добавлен в этот список по просьбе Илона Туска</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/0vva/190.png" class="d-block mx-auto" width="154"
-                     alt="0vva">
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">0vva</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/0vva/190.png" class="d-block mx-auto" width="154" alt="0vva">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">0vva</h3>
                   <p class="fs-sm mb-0">Добавлен в этот список по просьбе Илона Туска</p>
-              </span>
-                    </div>
-
-                    <div class="swiper-slide">
-              <span class="d-block py-3">
-                <img src="https://cravatar.eu/helmhead/teen_wave_/190.png" class="d-block mx-auto" width="154"
-                     alt="teen_wave_">
-                <h3 class="fs-lg fw-semibold pt-1 mb-2">teen_wave_</h3>
+                </span>
+              </div>
+              <div class="swiper-slide">
+                <span class="d-block py-3">
+                  <img src="https://cravatar.eu/helmhead/teen_wave_/190.png" class="d-block mx-auto" width="154" alt="teen_wave_">
+                  <h3 class="fs-lg fw-semibold pt-1 mb-2">teen_wave_</h3>
                   <p class="fs-sm mb-0">Поддержка проекта, служит связью со своим начальством</p>
-              </span>
-                    </div>
-
-                </div>
-
-                <div class="swiper-pagination-players position-relative pt-2 mt-4"></div>
+                </span>
+              </div>
             </div>
+            <div class="swiper-pagination-players position-relative pt-2 mt-4"></div>
+          </div>
         </div>
-    </section>
-
-    <section id="video_block" class="bg-secondary py-5">
+      </section>
+      <section id="video_block" class="bg-secondary py-5">
         <div class="container py-2 py-md-4 py-lg-5">
-            <h3 class="h1 text-center mb-lg-4">Наглядно о сервере</h3>
-            <p class="fs-lg text-muted text-center mb-4 mb-lg-5">
-                Предлагаем тебе просмотреть видео ниже, чтобы лучше понять о чем наш сервер, какова его философия, кто
-                там
-                живет.
-            </p>
-            <div class="position-relative overflow-hidden rounded-3 mb-4 mb-lg-5" style="max-height: 60vh">
-                <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark"
-                      style="background-size: cover; background-image: url(https://img.youtube.com/vi/BzvZxCXKctM/maxresdefault.jpg)"></span>
-                <img src="https://img.youtube.com/vi/BzvZxCXKctM/maxresdefault.jpg" alt="Обложка для видео">
-                <div
-                        class="position-absolute top-0 start-0 w-100 h-100 zindex-5 d-flex align-items-center justify-content-center">
-                    <a href="https://www.youtube.com/watch?v=BzvZxCXKctM"
-                       class="btn btn-video btn-icon bg-white btn-xl stretched-link" data-bs-toggle="video">
-                        <i class="bx bx-play"></i>
-                    </a>
-                </div>
+          <h3 class="h1 text-center mb-lg-4">Наглядно о сервере</h3>
+          <p class="fs-lg text-muted text-center mb-4 mb-lg-5"> Предлагаем тебе просмотреть видео ниже, чтобы лучше понять о чем наш сервер, какова его философия, кто там живет. </p>
+          <div class="position-relative overflow-hidden rounded-3 mb-4 mb-lg-5" style="max-height: 60vh">
+            <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark" style="background-size: cover; background-image: url(https://img.youtube.com/vi/BzvZxCXKctM/maxresdefault.jpg)"></span>
+            <img src="https://img.youtube.com/vi/BzvZxCXKctM/maxresdefault.jpg" alt="Обложка для видео">
+            <div class="position-absolute top-0 start-0 w-100 h-100 zindex-5 d-flex align-items-center justify-content-center">
+              <a href="https://www.youtube.com/watch?v=BzvZxCXKctM" class="btn btn-video btn-icon bg-white btn-xl stretched-link" data-bs-toggle="video">
+                <i class="bx bx-play"></i>
+              </a>
             </div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 pt-2 pt-md-3 pt-lg-2">
-                <div class="col" style="margin: auto">
-                    <div class="d-flex align-items-center">
-                        <div class="display-4 text-primary">3</div>
-                        <p class="ps-3 mb-0">Сервера: Лобби, Общение ну и Анархия</p>
-                    </div>
-                </div>
+          </div>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 pt-2 pt-md-3 pt-lg-2">
+            <div class="col" style="margin: auto">
+              <div class="d-flex align-items-center">
+                <div class="display-4 text-primary">3</div>
+                <p class="ps-3 mb-0">Сервера: Лобби, Общение ну и Анархия</p>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-
-    <section id="comments_block" class="bg-secondary py-5">
+      </section>
+      <section id="comments_block" class="bg-secondary py-5">
         <div class="container py-2 py-md-4 py-lg-5">
-            <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-5">Что об этом проекте думают игроки</h2>
-            <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;">
-
-                <button type="button" id="prev"
-                        class="btn btn-prev btn-icon btn-sm position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
-                    <i class="bx bx-chevron-left"></i>
-                </button>
-
-                <button type="button" id="next"
-                        class="btn btn-next btn-icon btn-sm position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
-                    <i class="bx bx-chevron-right"></i>
-                </button>
-
-                <div class="swiper swiper-nav-onhover pt-1 mx-md-2" data-swiper-options='{
-            "spaceBetween": 12,
-            "loop": true,
-            "pagination": {
-              "el": ".swiper-pagination",
-              "clickable": true
-            },
-            "navigation": {
-              "prevEl": "#prev",
-              "nextEl": "#next"
-            }
-          }'>
-                    <div class="swiper-wrapper pt-4 pb-3">
-
-                        <div class="swiper-slide h-auto px-2">
-                            <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
-                  <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
-                    <i class="bx bxs-quote-left"></i>
-                  </span>
-                                <blockquote class="card-body mt-2 mb-2">
-                                    <p class="fs-lg mb-0">
-                                        Я довольно давно играю в Minecraft, тоже смотрю трансляции Братишкина. И как
-                                        только он анонсировал
-                                        этот сервер, я сразу зашел на него. Я был одним из первых, но помню, как все
-                                        начиналось. Раньше
-                                        здесь играть могли только игроки с лицензионной копией игры и был один сервер,
-                                        основной - Анархия.
-                                    </p>
-                                </blockquote>
-                                <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
-                                    <img src="assets/images/players/2d/steve.png"
-                                         width="60" class="rounded-circle" alt="Steve">
-                                    <div class="ps-3">
-                                        <h6 class="fw-semibold lh-base mb-0">Steve</h6>
-                                        <span class="fs-sm text-muted">Основатель клана Красных воинов</span>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-
-                        <div class="swiper-slide h-auto px-2">
-                            <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
-                  <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
-                    <i class="bx bxs-quote-left"></i>
-                  </span>
-                                <blockquote class="card-body mt-2 mb-2">
-                                    <p class="fs-lg mb-0">
-                                        Я довольно давно играю в Minecraft, тоже смотрю трансляции Братишкина. И как
-                                        только он анонсировал
-                                        этот сервер, я сразу зашел на него. Я был одним из первых, но помню, как все
-                                        начиналось. Раньше
-                                        здесь играть могли только игроки с лицензионной копией игры и был один сервер,
-                                        основной - Анархия.
-                                    </p>
-                                </blockquote>
-                                <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
-                                    <img src="assets/images/players/2d/steve.png"
-                                         width="60" class="rounded-circle" alt="Steve">
-                                    <div class="ps-3">
-                                        <h6 class="fw-semibold lh-base mb-0">Steve</h6>
-                                        <span class="fs-sm text-muted">Основатель клана Красных воинов</span>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-
-                        <div class="swiper-slide h-auto px-2">
-                            <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
-                  <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
-                    <i class="bx bxs-quote-left"></i>
-                  </span>
-                                <blockquote class="card-body mt-2 mb-2">
-                                    <p class="fs-lg mb-0">
-                                        Я довольно давно играю в Minecraft, тоже смотрю трансляции Братишкина. И как
-                                        только он анонсировал
-                                        этот сервер, я сразу зашел на него. Я был одним из первых, но помню, как все
-                                        начиналось. Раньше
-                                        здесь играть могли только игроки с лицензионной копией игры и был один сервер,
-                                        основной - Анархия.
-                                    </p>
-                                </blockquote>
-                                <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
-                                    <img src="assets/images/players/2d/steve.png"
-                                         width="60" class="rounded-circle" alt="Steve">
-                                    <div class="ps-3">
-                                        <h6 class="fw-semibold lh-base mb-0">Steve</h6>
-                                        <span class="fs-sm text-muted">Основатель клана Красных воинов</span>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-
-                    <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4"></div>
+          <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-5">Что об этом проекте думают игроки</h2>
+          <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;">
+            <button type="button" id="prev_comment" class="btn btn-prev btn-icon btn-sm position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
+              <i class="bx bx-chevron-left"></i>
+            </button>
+            <button type="button" id="next_comment" class="btn btn-next btn-icon btn-sm position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
+              <i class="bx bx-chevron-right"></i>
+            </button>
+            <div class="swiper swiper-nav-onhover pt-1 mx-md-2" id="comment_swipe_container">
+              <div class="swiper-wrapper pt-4 pb-3">
+                <div class="swiper-slide h-auto px-2">
+                  <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
+                    <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
+                      <i class="bx bxs-quote-left"></i>
+                    </span>
+                    <blockquote class="card-body mt-2 mb-2">
+                      <p class="fs-lg mb-0"> Я довольно давно играю в Minecraft, тоже смотрю трансляции Братишкина. И как только он анонсировал этот сервер, я сразу зашел на него. Я был одним из первых, но помню, как все начиналось. Раньше здесь играть могли только игроки с лицензионной копией игры и был один сервер, основной - Анархия. </p>
+                    </blockquote>
+                    <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
+                      <img src="assets/images/players/2d/steve.png" width="60" class="rounded-circle" alt="Steve">
+                      <div class="ps-3">
+                        <h6 class="fw-semibold lh-base mb-0">Steve</h6>
+                        <span class="fs-sm text-muted">Основатель клана Красных воинов</span>
+                      </div>
+                    </figcaption>
+                  </figure>
                 </div>
+                <div class="swiper-slide h-auto px-2">
+                  <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
+                    <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
+                      <i class="bx bxs-quote-left"></i>
+                    </span>
+                    <blockquote class="card-body mt-2 mb-2">
+                      <p class="fs-lg mb-0"> Я довольно давно играю в Minecraft, тоже смотрю трансляции Братишкина. И как только он анонсировал этот сервер, я сразу зашел на него. Я был одним из первых, но помню, как все начиналось. Раньше здесь играть могли только игроки с лицензионной копией игры и был один сервер, основной - Анархия. </p>
+                    </blockquote>
+                    <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
+                      <img src="assets/images/players/2d/steve.png" width="60" class="rounded-circle" alt="Steve">
+                      <div class="ps-3">
+                        <h6 class="fw-semibold lh-base mb-0">Steve</h6>
+                        <span class="fs-sm text-muted">Основатель клана Красных воинов</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+                <div class="swiper-slide h-auto px-2">
+                  <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
+                    <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
+                      <i class="bx bxs-quote-left"></i>
+                    </span>
+                    <blockquote class="card-body mt-2 mb-2">
+                      <p class="fs-lg mb-0"> Я довольно давно играю в Minecraft, тоже смотрю трансляции Братишкина. И как только он анонсировал этот сервер, я сразу зашел на него. Я был одним из первых, но помню, как все начиналось. Раньше здесь играть могли только игроки с лицензионной копией игры и был один сервер, основной - Анархия. </p>
+                    </blockquote>
+                    <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
+                      <img src="assets/images/players/2d/steve.png" width="60" class="rounded-circle" alt="Steve">
+                      <div class="ps-3">
+                        <h6 class="fw-semibold lh-base mb-0">Steve</h6>
+                        <span class="fs-sm text-muted">Основатель клана Красных воинов</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="swiper-pagination-comments position-relative pt-2 pt-sm-3 mt-4"></div>
             </div>
+          </div>
         </div>
-    </section>
-
-    <section id="twitch_block" class="bg-gradient-primary py-5">
+      </section>
+      <section id="twitch_block" class="bg-gradient-primary py-5">
         <div class="container py-2 py-md-4 py-lg-5">
-            <div class="row py-xl-3">
-                <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4">
-                    <h2 class="h1 text-light text-center text-sm-start pb-4 mb-0 mb-lg-3">Смотри стрим на Twitch 🤫</h2>
-                    <div class="stream_description">
-                        <span>Поддерживай Братишкина, глядя его трансляции. Ты можешь это делать как на Twitch, так и прямо на этом сайте.</span>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-7 order-lg-1">
-                    <div id="twitch-embed"></div>
-                </div>
+          <div class="row py-xl-3">
+            <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4">
+              <h2 class="h1 text-light text-center text-sm-start pb-4 mb-0 mb-lg-3">Смотри стрим на Twitch 🤫</h2>
+              <div class="stream_description">
+                <span>Поддерживай Братишкина, глядя его трансляции. Ты можешь это делать как на Twitch, так и прямо на этом сайте.</span>
+              </div>
             </div>
+            <div class="col-xl-6 col-lg-7 order-lg-1">
+              <div id="twitch-embed"></div>
+            </div>
+          </div>
         </div>
-    </section>
-</main>
-
-<footer class="footer dark-mode bg-dark pt-5 pb-4 pb-lg-5">
-    <div class="container text-center pt-lg-3">
+      </section>
+    </main>
+    <footer class="footer dark-mode bg-dark pt-5 pb-4 pb-lg-5">
+      <div class="container text-center pt-lg-3">
         <div class="navbar-brand justify-content-center text-dark mb-2 mb-lg-4">
-            <img src="assets/images/logo.png" class="me-2" width="190" alt="Zalupa.Online">
+          <img src="assets/images/logo.png" class="me-2" width="190" alt="Zalupa.Online">
         </div>
         <div class="d-flex justify-content-center pt-4 mt-lg-3">
-            <a href="https://www.twitch.tv/bratishkinoff" class="btn btn-icon btn-secondary btn-twitch mx-2"
-               target="_blank">
-                <i class="bx bxl-twitch"></i>
-            </a>
-            <a href="https://t.me/zalupaonline" class="btn btn-icon btn-secondary btn-telegram mx-2" target="_blank">
-                <i class="bx bxl-telegram"></i>
-            </a>
-            <a href="https://discord.gg/qEqbVbMeEx" class="btn btn-icon btn-secondary btn-discord mx-2" target="_blank">
-                <i class="bx bxl-discord"></i>
-            </a>
+          <a href="https://www.twitch.tv/bratishkinoff" class="btn btn-icon btn-secondary btn-twitch mx-2" target="_blank">
+            <i class="bx bxl-twitch"></i>
+          </a>
+          <a href="https://t.me/zalupaonline" class="btn btn-icon btn-secondary btn-telegram mx-2" target="_blank">
+            <i class="bx bxl-telegram"></i>
+          </a>
+          <a href="https://discord.gg/qEqbVbMeEx" class="btn btn-icon btn-secondary btn-discord mx-2" target="_blank">
+            <i class="bx bxl-discord"></i>
+          </a>
         </div>
         <p class="nav d-block fs-sm text-center pt-5 mt-lg-4 mb-0">
-            <span class="text-light opacity-50">Made with ❤️ for Zalupa.Online</span>
+          <span class="text-light opacity-50">Made with ❤️ for Zalupa.Online</span>
         </p>
-    </div>
-</footer>
-
-<a href="#top" class="btn-scroll-top" data-scroll>
-    <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Наверх</span>
-    <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
-</a>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"
-        integrity="sha512-8Y8eGK92dzouwpROIppwr+0kPauu0qqtnzZZNEF8Pat5tuRNJxJXCkbQfJ0HlUG3y1HB3z18CSKmUo7i2zcPpg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.polyfills.min.js"
-        integrity="sha512-LZ6YBzwuQvIG41twjliX3HUVeAd+ErnJ0UsqRnkI4firX2l71jxbKJoax/hu7XY2tiyLl0YA2kcnz/XEW+9O3g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.js"
-        integrity="sha512-V1mUBtsuFY9SNr+ptlCQAlPkhsH0RGLcazvOCFt415od2Bf9/YkdjXxZCdhrP/TVYsPeAWuHa+KYLbjNbeEnWg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/lightgallery.min.js"
-        integrity="sha512-FDbnUqS6P7md6VfBoH57otIQB3rwZKvvs/kQ080nmpK876/q4rycGB0KZ/yzlNIDuNc+ybpu0HV3ePdUYfT5cA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/fullscreen/lg-fullscreen.min.js"
-        integrity="sha512-705ImNrRILAxWjuet0gwUMqQ249szpivFOpZilZeIMacaS/BcSQaGNE5UkfHKFNBzJaN2b4G4uzvjeoaNQFOKg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/zoom/lg-zoom.min.js"
-        integrity="sha512-5kOfZonUGdOM0k5LCWttgUTvxceTa3DCwYtH3alvvE+oULFgoIN11oMIoubI1HcOXOmGDuuMvi00Px0HwHZsaQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/video/lg-video.min.js"
-        integrity="sha512-o9OFTaNg7w+f68Ga28rNSTz5kIxAcmPc3oxMG38LAuW/DWcHvYlNKA9OltEKokNlwwT/q1gU+VKkBVrIO7KrEg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script src="assets/js/theme.min.js"></script>
-<script src="assets/js/core.js"></script>
-<script src="https://embed.twitch.tv/embed/v1.js"></script>
-
-<script type="text/javascript">
-    new Twitch.Embed("twitch-embed", {
+      </div>
+    </footer>
+    <a href="#top" class="btn-scroll-top" data-scroll>
+      <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Наверх</span>
+      <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
+    </a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js" integrity="sha512-8Y8eGK92dzouwpROIppwr+0kPauu0qqtnzZZNEF8Pat5tuRNJxJXCkbQfJ0HlUG3y1HB3z18CSKmUo7i2zcPpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.polyfills.min.js" integrity="sha512-LZ6YBzwuQvIG41twjliX3HUVeAd+ErnJ0UsqRnkI4firX2l71jxbKJoax/hu7XY2tiyLl0YA2kcnz/XEW+9O3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.js" integrity="sha512-V1mUBtsuFY9SNr+ptlCQAlPkhsH0RGLcazvOCFt415od2Bf9/YkdjXxZCdhrP/TVYsPeAWuHa+KYLbjNbeEnWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/lightgallery.min.js" integrity="sha512-FDbnUqS6P7md6VfBoH57otIQB3rwZKvvs/kQ080nmpK876/q4rycGB0KZ/yzlNIDuNc+ybpu0HV3ePdUYfT5cA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/fullscreen/lg-fullscreen.min.js" integrity="sha512-705ImNrRILAxWjuet0gwUMqQ249szpivFOpZilZeIMacaS/BcSQaGNE5UkfHKFNBzJaN2b4G4uzvjeoaNQFOKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/zoom/lg-zoom.min.js" integrity="sha512-5kOfZonUGdOM0k5LCWttgUTvxceTa3DCwYtH3alvvE+oULFgoIN11oMIoubI1HcOXOmGDuuMvi00Px0HwHZsaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/plugins/video/lg-video.min.js" integrity="sha512-o9OFTaNg7w+f68Ga28rNSTz5kIxAcmPc3oxMG38LAuW/DWcHvYlNKA9OltEKokNlwwT/q1gU+VKkBVrIO7KrEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="assets/js/theme.min.js"></script>
+    <script src="assets/js/core.js"></script>
+    <script>
+      // local swipers
+      let swiper_players = new Swiper('#players_swipe_container', {
+        slidesPerView: 2,
+        spaceBetween: 24,
+        loop: true,
+        observer: true,
+        observeParents: true,
+        pagination: {
+          el: ".swiper-pagination-players",
+          clickable: true
+        },
+        breakpoints: {
+          500: {
+            slidesPerView: 3
+          },
+          650: {
+            slidesPerView: 4
+          },
+          900: {
+            slidesPerView: 5
+          },
+          1100: {
+            slidesPerView: 6
+          }
+        }
+      })
+      let swiper_comments = new Swiper('#comment_swipe_container', {
+        spaceBetween: 12,
+        loop: true,
+        observer: true,
+        observeParents: true,
+        pagination: {
+          el: ".swiper-pagination-comments",
+          clickable: true
+        },
+        navigation: {
+          prevEl: "#prev_comment",
+          nextEl: "#next_comment"
+        }
+      })
+    </script>
+    <script src="https://embed.twitch.tv/embed/v1.js"></script>
+    <script type="text/javascript">
+      new Twitch.Embed("twitch-embed", {
         width: screen.width / 2,
         height: screen.height / 2,
         channel: "bratishkinoff",
         theme: global_theme_,
         parent: ["zalupa.online", "zalupa.world"]
-    });
-</script>
-</body>
-
+      });
+    </script>
+  </body>
 </html>
