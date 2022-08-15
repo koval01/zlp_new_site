@@ -114,7 +114,7 @@ function append_services() {
                 <div class="swiper-slide">
                   <span class="d-block py-3" id="${services[i].id}">
                     <img src="${services[i].image}" class="d-block mx-auto" width="154"
-                         alt="${services[i].name}">
+                         alt="${services[i].name}" style="max-width: 12vw">
                     <div class="card-body text-center p-3">
                       <h3 class="fs-lg fw-semibold pt-1 mb-2">${services[i].name}</h3>
                       <p class="mb-0">
@@ -132,7 +132,7 @@ function append_services() {
         }
         let swiper = new Swiper('#donate_items_container', {
             slidesPerView: 2,
-            spaceBetween: 24,
+            spaceBetween: 6,
             loop: true,
             observer: true,
             observeParents: true,
@@ -142,16 +142,16 @@ function append_services() {
             },
             breakpoints: {
                 500: {
-                    slidesPerView: 3
+                    slidesPerView: 1
                 },
                 650: {
-                    slidesPerView: 4
+                    slidesPerView: 2
                 },
                 900: {
-                    slidesPerView: 5
+                    slidesPerView: 3
                 },
                 1100: {
-                    slidesPerView: 6
+                    slidesPerView: 4
                 }
             }
         })
