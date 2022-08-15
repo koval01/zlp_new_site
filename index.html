@@ -76,6 +76,68 @@
         .display-1 {
             font-size: calc(48px + 6 * ((100vw - 320px) / 680))
         }
+
+        .custom_input_ {
+            margin: auto;
+            display: block;
+            background: var(--si-body-bg);
+            color: var(--si-body-color);
+            border-color: #4044ee;
+            border: 2px;
+            border-style: solid;
+            padding: 5px;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background-color: var(--si-body-bg);
+            filter: invert(0.15);
+            margin: auto;
+            padding: 20px;
+            border: 0;
+            width: 80%;
+            border-radius: .6em;
+            color: var(--si-heading-color);
+        }
+
+        .close_b {
+            color: var(--si-body-color);
+            float: right;
+            font-weight: bold;
+            font-size: 36px;
+            margin-top: -24px;
+            margin-left: auto;
+        }
+
+        .close_b:hover,
+        .close_b:focus {
+            color: var(--si-body-color);
+            filter: invert(0.5);
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
     <style>
         .page-loading {
@@ -293,6 +355,24 @@
                 <div class="swiper-pagination-donate position-relative pt-2 mt-4"></div>
             </div>
             <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+            <div id="donate_item_modal" class="modal">
+                <div class="modal-content">
+                    <span class="close_b">&times;</span>
+                    <p id="donate_item_select_text"></p>
+                    <div class="add_data_cart">
+                        <p style="text-align: end; margin: 0">Количество:</p>
+                        <input id="items_count_donate" type="number" required="" class="custom_input_ me-xl-4 mb-3 form-control"
+                               style="
+                                max-width: 16vw;
+                                margin-right: 0;
+                            ">
+                        <button style="margin-left: auto; display: block"
+                                class="btn btn-primary shadow-primary btn-lg me-xl-4">
+                            Добавить
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <section id="server_history" class="position-relative py-5">

@@ -111,15 +111,19 @@ function append_services() {
         for (let i = 0; i < services.length; i++) {
 
             $("#donate_items_list").append(`
-                <div class="swiper-slide">
-                  <span class="d-block py-3" id="${services[i].id}">
+                <div class="swiper-slide" onClick='donate_element_click({
+                    "name": "${services[i].name}",
+                    "price": ${services[i].price},
+                    "description": "${services[i].description}"
+                  })'>
+                  <span class="d-block py-3">
                     <img src="${services[i].image}" class="d-block mx-auto" width="154"
                          alt="${services[i].name}" style="max-width: 12vw">
                     <div class="card-body text-center p-3">
                       <h3 class="fs-lg fw-semibold pt-1 mb-2">${services[i].name}</h3>
                       <p class="mb-0">
                         ${services[i].price} 
-                        ${getNoun(services[i].price, "рубль","рубля", "рублей")} 
+                        ${getNoun(services[i].price, "рубль", "рубля", "рублей")} 
                         = 
                         ${services[i].number} 
                         ${getNoun(services[i].number, "единица", "единицы", "единиц")}
@@ -137,8 +141,7 @@ function append_services() {
             observer: true,
             observeParents: true,
             pagination: {
-                el: ".swiper-pagination-donate",
-                clickable: true
+                el: ".swiper-pagination-donate"
             },
             breakpoints: {
                 500: {
@@ -160,14 +163,50 @@ function append_services() {
             $("#donate_items_container").css("display", "")
             swiper.update()
         }, 100)
-        $(window).resize(function(){
-          swiper.update()
+        $(window).resize(function () {
+            swiper.update()
         })
     })
 }
 
 function redirect_(url) {
     return window.location.replace(url)
+}
+
+function donate_element_click(product_data) {
+    let modal = document.getElementById("donate_item_modal")
+    let span = document.getElementsByClassName("close_b")[0]
+    let desc = $("#donate_item_select_text")
+    let text_template = `Вы выбрали товар ${product_data.name}, цена одной единицы ${product_data.price} 
+        ${getNoun(product_data.price, "рубль", "рубля", "рублей")}.`
+
+    function _exit() {
+        modal.style.display = "none"
+    }
+
+    desc.text(text_template)
+
+    $("#items_count_donate").keyup(function() {
+        let _price = product_data.price * parseInt($("#items_count_donate").val())
+        if (isNaN(_price)) { _price = 0 }
+        desc.html(`${text_template}<br/>Стоимость выбранного количества - ${_price} 
+        ${getNoun(_price, "рубль", "рубля", "рублей")}`)
+    })
+
+    // this function called
+    modal.style.display = "block"
+
+    // create callback function for close button
+    span.onclick = function () {
+        _exit()
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            _exit()
+        }
+    }
 }
 
 $(document).ready(function () {
