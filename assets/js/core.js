@@ -1,8 +1,7 @@
 const channels = 2
 const backend_host = "https://zlp-api.herokuapp.com"
-const donate_token = "c40359bf1f64ce933e" // test token
 
-function getNounPlayer(number, one = "игрок", two = "игрока", five = "игроков") {
+function getNoun(number, one = "игрок", two = "игрока", five = "игроков") {
     let n = Math.abs(number)
     n %= 100
     if (n >= 5 && n <= 20) {
@@ -38,10 +37,12 @@ function get_last_tg_post_id(callback, source) {
 function append_posts() {
     for (let i = 0; i < channels; i++) {
         get_last_tg_post_id(function (identifer) {
-            $(".telegram_frames").append(`<script async src="https://telegram.org/js/telegram-widget.js?19" data-telegram-post="${identifer}" data-width="100%" data-userpic="true" data-dark="1"><\/script>`)
+            $(".telegram_frames").append(
+                `<script async src="https://telegram.org/js/telegram-widget.js?19" data-telegram-post="${identifer}" data-width="100%" data-userpic="true" data-dark="1"><\/script>`
+            )
             setTimeout(function () {
                 $("#telegram_block_load").remove()
-            }, 150)
+            }, 100)
         }, i)
     }
 }
@@ -78,7 +79,9 @@ function get_game_server_data(callback) {
 
 function monitoring_game_server_update() {
     get_game_server_data(function (data) {
-        $("#server_online_status").html(`Сейчас играет <span class="text-primary fw-semibold">${data.players.online}</span> ${getNounPlayer(data.players.online)}`)
+        $("#server_online_status").html(
+            `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span> ${getNoun(data.online)}`
+        )
     })
 }
 
@@ -88,7 +91,7 @@ function game_server_updater() {
 
 function get_donate_services(callback) {
     $.ajax({
-        url: `${backend_host}/donate/services?token=${donate_token}`,
+        url: `${backend_host}/donate/services`,
         type: "GET",
         success: function (r) {
             if (r.success) {
@@ -103,17 +106,35 @@ function get_donate_services(callback) {
     })
 }
 
-function donate_url(account, service, count = null) {
-    var submit_data_ = [
-        {"name": "account", "value": account},
-        {"name": "good", "value": service},
-        {"name": "sum", "value": count}
-    ]
-    var url = new URL(`https://gamesdonate.com/pay/${donate_token}`)
-    for (let i = 0; i < submit_data_.length; i++) {
-        url.searchParams.set(submit_data_[i].name, submit_data_[i].value)
-    }
-    return url.href
+function append_services() {
+    get_donate_services(function (services) {
+        for (let i = 0; i < services.length; i++) {
+
+            $("#donate_items_list").append(`
+                <div class="swiper-slide">
+                  <span class="d-block py-3">
+                    <img src="${services[i].image}" class="d-block mx-auto" width="154"
+                         alt="${services[i].name}">
+                    <div class="card-body text-center p-3">
+                      <h3 class="fs-lg fw-semibold pt-1 mb-2">${services[i].name}</h3>
+                      <p class="mb-0">
+                        ${services[i].price} 
+                        ${getNoun(services[i].price, "рубль","рубля", "рублей")} 
+                        = 
+                        ${services[i].number} 
+                        ${getNoun(services[i].number, "единица", "единицы", "единиц")}
+                      </p>
+                      <p class="fs-sm mb-0">${services[i].description}</p>
+                    </div>
+                  </span>
+                </div>
+            `)
+        }
+        setTimeout(function () {
+            $("#donate_block_load").remove()
+            $("#donate_items_container").css("display", "")
+        }, 100)
+    })
 }
 
 function redirect_(url) {
@@ -122,5 +143,6 @@ function redirect_(url) {
 
 $(document).ready(function () {
     append_posts()
+    append_services()
     game_server_updater()
 })
