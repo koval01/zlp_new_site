@@ -1,3 +1,5 @@
+const _body = $("body")
+
 const channels = 2
 const backend_host = "https://zlp-api.herokuapp.com"
 
@@ -109,63 +111,49 @@ function get_donate_services(callback) {
 function append_services() {
     get_donate_services(function (services) {
         for (let i = 0; i < services.length; i++) {
-
+            let click_data = {
+                "name": services[i].name,
+                "price": services[i].price,
+                "description": services[i].description,
+                "type": services[i].type
+            }
             $("#donate_items_list").append(`
-                <div class="swiper-slide" onClick='donate_element_click({
-                    "name": "${services[i].name}",
-                    "price": ${services[i].price},
-                    "description": "${services[i].description}"
-                  })'>
-                  <span class="d-block py-3">
-                    <img src="${services[i].image}" class="d-block mx-auto" width="154"
-                         alt="${services[i].name}" style="max-width: 12vw">
-                    <div class="card-body text-center p-3">
-                      <h3 class="fs-lg fw-semibold pt-1 mb-2">${services[i].name}</h3>
-                      <p class="mb-0">
-                        ${services[i].price} 
-                        ${getNoun(services[i].price, "рубль", "рубля", "рублей")} 
-                        = 
-                        ${services[i].number} 
-                        ${getNoun(services[i].number, "единица", "единицы", "единиц")}
-                      </p>
-                      <p class="fs-sm mb-0">${services[i].description}</p>
+                <div class="col">
+                    <div class="card card-hover border-0 bg-transparent" 
+                        onClick='donate_element_click(${JSON.stringify(click_data)})'>
+                      <div class="position-relative">
+                        <img src="${services[i].image}"
+                             class="rounded-3" alt="${services[i].name}" style="display: block; margin: auto; width: 25%">
+                        <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3" 
+                             style="margin: auto">
+                          <span class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-35 rounded-3"></span>
+                          <div class="position-relative d-flex zindex-2">
+                            <button class="btn btn-primary shadow-primary btn-lg">
+                              Купить
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-body text-center p-3">
+                            <h3 class="fs-lg fw-semibold pt-1 mb-2">${services[i].name}</h3>
+                            <p class="mb-0">
+                                ${services[i].price} 
+                                ${getNoun(services[i].price, "рубль", "рубля", "рублей")} 
+                                = 
+                                ${services[i].number} 
+                                ${getNoun(services[i].number, "единица", "единицы", "единиц")}
+                            </p>
+                            <p class="fs-sm mb-0">${services[i].description}</p>
+                      </div>
                     </div>
-                  </span>
                 </div>
             `)
         }
-        let swiper = new Swiper('#donate_items_container', {
-            slidesPerView: 2,
-            spaceBetween: 6,
-            loop: true,
-            observer: true,
-            observeParents: true,
-            pagination: {
-                el: ".swiper-pagination-donate"
-            },
-            breakpoints: {
-                500: {
-                    slidesPerView: 1
-                },
-                650: {
-                    slidesPerView: 2
-                },
-                900: {
-                    slidesPerView: 3
-                },
-                1100: {
-                    slidesPerView: 4
-                }
-            }
-        })
+
         setTimeout(function () {
             $("#donate_block_load").remove()
-            $("#donate_items_container").css("display", "")
-            swiper.update()
+            $("#donate_items_list").css("display", "")
         }, 100)
-        $(window).resize(function () {
-            swiper.update()
-        })
     })
 }
 
@@ -174,31 +162,47 @@ function redirect_(url) {
 }
 
 function donate_element_click(product_data) {
+    const exclude_types = ["group"]
     let modal = document.getElementById("donate_item_modal")
     let span = document.getElementsByClassName("close_b")[0]
     let desc = $("#donate_item_select_text")
-    let text_template = `Вы выбрали товар ${product_data.name}, цена одной единицы ${product_data.price} 
-        ${getNoun(product_data.price, "рубль", "рубля", "рублей")}.`
+    let text_template = `Вы выбрали товар <span class="text-primary fw-semibold">${product_data.name}</span>, 
+        цена одной единицы <span class="text-primary fw-semibold">${product_data.price} 
+        ${getNoun(product_data.price, "рубль", "рубля", "рублей")}</span>.`
     let items_count_donate = $("#items_count_donate")
+    let count_hint = $("#donate_count_text_hint")
     items_count_donate.val("1")
 
+    let count_state = "block"
+    if (exclude_types.includes(product_data.type)) { count_state = "none" }
+
+    items_count_donate.css("display", count_state)
+    count_hint.css("display", count_state)
+
     function _exit() {
+        _body.removeClass("modal-open")
         modal.style.display = "none"
     }
 
     function _calculate_price() {
-        let _price = product_data.price * parseInt($("#items_count_donate").val())
-        if (isNaN(_price)) { _price = 0 }
-        desc.html(`${text_template}<br/>Стоимость выбранного количества - ${_price} 
-        ${getNoun(_price, "рубль", "рубля", "рублей")}`)
+        if (!exclude_types.includes(product_data.type)) {
+            let _price = product_data.price * parseInt(items_count_donate.val())
+            if (isNaN(_price)) {
+                _price = 0
+            }
+            desc.html(`${text_template}<br/>Стоимость выбранного количества - 
+            <span class="text-primary fw-semibold">${_price} 
+            ${getNoun(_price, "рубль", "рубля", "рублей")}</span>`)
+        }
     }
 
-    desc.text(text_template)
+    desc.html(text_template)
 
     _calculate_price()
     items_count_donate.keyup(_calculate_price)
 
     // this function called
+    _body.addClass("modal-open")
     modal.style.display = "block"
 
     // create callback function for close button
