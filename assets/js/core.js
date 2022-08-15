@@ -132,11 +132,6 @@ function append_services() {
                         </div>
                         <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3" 
                              style="margin: auto">
-<!--                          <div class="position-relative d-flex zindex-2">-->
-<!--                            <button class="btn btn-primary shadow-primary btn-lg">-->
-<!--                              Купить-->
-<!--                            </button>-->
-<!--                          </div>-->
                         </div>
                       </div>
                       <div class="card-body text-center p-3">
