@@ -209,6 +209,7 @@ function modal_close_() {
 }
 
 function switch_modal_containers(mode="service") {
+    const span = document.getElementsByClassName("close_b")
     const info = $("#modal-info-container-c")
     const service = $("#modal-donate-container-c")
     const finish_donate = $("#modal-donate-finish-container-c")
@@ -219,7 +220,12 @@ function switch_modal_containers(mode="service") {
     ]
     for (let i = 0; i < _array.length; i++) {
         let _mode = "none"
-        if (mode === _array[i].name) { _mode = "block" }
+        if (mode === _array[i].name) {
+            _mode = "block"
+            span[i].onclick = function () {
+                modal_close_()
+            }
+        }
         _array[i].selector.css("display", _mode)
     }
 }
@@ -229,7 +235,6 @@ function donate_element_click(product_data) {
 
     const exclude_types = ["group"]
     let modal = document.getElementById("donate_item_modal")
-    let span = document.getElementsByClassName("close_b")
     let desc = $("#donate_item_select_text")
     let text_template = `Вы выбрали товар <span class="text-primary fw-semibold">${product_data.name}</span>, 
         цена ${product_data.count} ${getNoun(product_data.count, "единицы", "единиц", "единиц")} 
@@ -275,8 +280,6 @@ function donate_element_click(product_data) {
     items_count_donate.css("display", count_state)
     count_hint.css("display", count_state)
 
-    const _exit = function() {modal_close_()}
-
     function _calculate_price() {
         if (!exclude_types.includes(product_data.type)) {
             let _price = parseInt(items_count_donate.val()) * product_data.count * product_data.price
@@ -297,12 +300,6 @@ function donate_element_click(product_data) {
 
     _body.addClass("modal-open")
     modal.style.display = "block"
-
-    let index_ = 0
-    if (switch_) { index_ = 1}
-    span[index_].onclick = function () {
-        _exit()
-    }
 
     window.onclick = function (event) {
         if (event.target === modal) {
