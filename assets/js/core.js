@@ -352,7 +352,19 @@ function donate_init() {
     donate_cart_button(els)
 }
 
+function landing_init() {
+    const dev_hostnames = [
+        "localhost", "zalupa.world"
+    ]
+    let land_desc = $("#landing_description_gb")
+    if (dev_hostnames.includes(window.location.hostname)) {
+        land_desc.html("This is development version!")
+        land_desc.css("color", "#fff")
+    }
+}
+
 $(document).ready(function () {
+    landing_init()
     append_posts()
     append_services()
     game_server_updater()
