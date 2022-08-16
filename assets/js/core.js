@@ -383,8 +383,7 @@ function landing_init() {
     ]
     let land_desc = $("#landing_description_gb")
     if (dev_hostnames.includes(window.location.hostname)) {
-        land_desc.html("This is development version!")
-        land_desc.css("color", "#fff")
+        land_desc.text("This is development version!")
     }
 }
 
