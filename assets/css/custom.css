@@ -222,3 +222,7 @@ body.modal-open {
     font-weight: bold;
     font-size: 3.5em;
 }
+
+.discord-block-gradient {
+    background: linear-gradient(90deg, #ac63f1 0%, #8069c0 50%, #b41fc5 100%) !important;
+}
