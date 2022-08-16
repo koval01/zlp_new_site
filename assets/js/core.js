@@ -211,13 +211,16 @@ function modal_close_() {
 function switch_modal_containers(mode="service") {
     const info = $("#modal-info-container-c")
     const service = $("#modal-donate-container-c")
-
-    if (mode === "service") {
-        service.css("display", "block")
-        info.css("display", "none")
-    } else if (mode === "info") {
-        service.css("display", "none")
-        info.css("display", "block")
+    const finish_donate = $("#modal-donate-finish-container-c")
+    const _array = [
+        {"name": "service", "selector": service},
+        {"name": "info", "selector": info},
+        {"name": "donate_finish", "selector": finish_donate}
+    ]
+    for (let i = 0; i < _array.length; i++) {
+        let _mode = "none"
+        if (mode === _array[i].name) { _mode = "block" }
+        _array[i].selector.css("display", _mode)
     }
 }
 
