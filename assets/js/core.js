@@ -283,11 +283,8 @@ function donate_element_click(product_data) {
 
     const product_in_cart = cookie_cart.hasOwnProperty(product_data.service_id.toString())
     if (
-        (
-            (exclude_types.includes(product_data.type) ||
-            product_data.type === "group") && group_already_in_cart(cookie_cart)
-        ) ||
-        (product_in_cart)
+        (exclude_types.includes(product_data.type) ||
+        product_data.type === "group") && group_already_in_cart(cookie_cart)
     ) {
         switch_modal_containers("info")
         switch_ = true
