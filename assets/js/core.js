@@ -53,7 +53,9 @@ function append_posts() {
     for (let i = 0; i < channels; i++) {
         get_last_tg_post_id(function (identifer) {
             $(".telegram_frames").append(
-                `<script async src="https://telegram.org/js/telegram-widget.js?19" data-telegram-post="${identifer}" data-width="100%" data-userpic="true" data-dark="1"><\/script>`
+                `<script async src="https://telegram.org/js/telegram-widget.js?19" 
+                    data-telegram-post="${identifer}" 
+                    data-width="100%" data-userpic="true" data-dark="1"><\/script>`
             )
             setTimeout(function () {
                 $("#telegram_block_load").remove()
@@ -290,18 +292,15 @@ function donate_element_click(product_data) {
     _calculate_price()
     items_count_donate.keyup(_calculate_price)
 
-    // this function called
     _body.addClass("modal-open")
     modal.style.display = "block"
 
-    // create callback function for close button
     let index_ = 0
     if (switch_) { index_ = 1}
     span[index_].onclick = function () {
         _exit()
     }
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target === modal) {
             _exit()
