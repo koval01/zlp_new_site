@@ -1,5 +1,6 @@
 const _body = $("body")
 
+const cart_cookie = "cart_box"
 const channels = 2
 const backend_host = "https://zlp-api.herokuapp.com"
 
@@ -9,6 +10,10 @@ function url_builder_(base_url, submit_data_) {
         url.searchParams.set(submit_data_[i].name, submit_data_[i].value)
     }
     return url.href
+}
+
+function countProperties(obj) {
+    return Object.keys(obj).length;
 }
 
 function getNoun(number, one = "игрок", two = "игрока", five = "игроков") {
@@ -253,12 +258,33 @@ function donate_element_click(product_data) {
     }
 }
 
-function donate_cart(product, count) {
-    // pass
+function donate_cart(product, count, remove=false) {
+    if (!Number.isInteger(product) || !Number.isInteger(count)) {
+        console.log("Error data donate_cart")
+        return
+    }
+    let cart = Cookies.get(cart_cookie)
+    if (!cart) { Cookies.set(cart_cookie, JSON.stringify({})) }
+    let els_ = JSON.parse(Cookies.get(cart_cookie))
+    if (remove) {
+        delete els_[product]
+    } else {
+        if (els_[product]) {
+            els_[product] = els_[product] + count
+        } else {
+            els_[product] = count
+        }
+    }
+    Cookies.set(cart_cookie, JSON.stringify(els_))
+}
+
+function donate_init() {
+    let els_ = countProperties(JSON.parse(Cookies.get(cart_cookie)))
 }
 
 $(document).ready(function () {
     append_posts()
     append_services()
     game_server_updater()
+    donate_init()
 })
