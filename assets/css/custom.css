@@ -152,13 +152,22 @@ body.modal-open {
     transform: scale(2);
 }
 
-.css-selector {
-    background: linear-gradient(315deg, #6466f1, #7e44dd, #8b33d2);
-    background-size: 600% 600%;
+#discord-embed iframe {
+    border: 2px solid #fff !important;
+}
+
+.hero-bg-st {
+    background: linear-gradient(315deg, #ffffff00, #7e44dd94, #ffffff00);
+    background-size: 200% 600%;
 
     -webkit-animation: HerokuGradientBack 5s ease infinite;
     -moz-animation: HerokuGradientBack 5s ease infinite;
-    animation: HerokuGradientBack 5s ease infinite;
+    animation: HerokuGradientBack 6s ease infinite;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    filter: blur(150px);
 }
 
 @-webkit-keyframes HerokuGradientBack {
