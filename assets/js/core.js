@@ -3,6 +3,14 @@ const _body = $("body")
 const channels = 2
 const backend_host = "https://zlp-api.herokuapp.com"
 
+function url_builder_(base_url, submit_data_) {
+    let url = new URL(base_url)
+    for (let i = 0; i < submit_data_.length; i++) {
+        url.searchParams.set(submit_data_[i].name, submit_data_[i].value)
+    }
+    return url.href
+}
+
 function getNoun(number, one = "игрок", two = "игрока", five = "игроков") {
     let n = Math.abs(number)
     n %= 100
@@ -98,6 +106,31 @@ function get_donate_services(callback) {
         success: function (r) {
             if (r.success) {
                 return callback(r.services)
+            } else {
+                console.log("Error data check (get_donate_services)")
+            }
+        },
+        error: function () {
+            console.log("Error get donate services list")
+        }
+    })
+}
+
+function create_payment(callback, customer, products, email=null, coupon=null) {
+    $.ajax({
+        url: `${backend_host}/donate/payment/create`,
+        type: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify({
+            "customer": customer,
+            "products": products,
+            "email": email,
+            "coupon": coupon
+        }),
+        dataType: 'json',
+        success: function (r) {
+            if (r.success) {
+                return callback(r.payment)
             } else {
                 console.log("Error data check (get_donate_services)")
             }
