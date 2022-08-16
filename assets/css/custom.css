@@ -145,7 +145,7 @@ body.modal-open {
     opacity: 0;
     z-index: 1;
     opacity: 1;
-    filter: blur(24px);
+    filter: blur(24px) brightness(1.4);
 }
 
 .col:hover .backgroundImg {
