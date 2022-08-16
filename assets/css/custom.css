@@ -212,3 +212,13 @@ body.modal-open {
         background-position: 87% 0%
     }
 }
+
+.donate-cart-button-cn {
+    transition: margin-top 1s, opacity 0.4s linear;
+}
+
+.donate-cancel-cart {
+    color: var(--si-body-color);
+    font-weight: bold;
+    font-size: 3.5em;
+}

@@ -262,21 +262,40 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-2 mt-lg-4"
              id="donate_items_list"></div>
         <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+        <div class="donate_cart_button_cn mb-4 row-cols-3 d-flex flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5">
+            <button
+                    class="btn btn-primary shadow-primary btn-lg donate-cart-button-cn"
+                    style="opacity: 0; margin-top: -50px; padding: 0">Корзина</button>
+            <button
+                    class="btn btn-icon btn-secondary donate-cart-button-cn mx-2"
+                    style="opacity: 0; margin-top: -50px"
+                    onclick="donate_flush_cart()">
+                <span class="donate-cancel-cart">&times;</span></button>
+        </div>
         <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
             <div class="modal-content" style="text-align: center">
-                <span class="close_b">&times;</span>
-                <p id="donate_item_select_text"></p>
-                <div class="add_data_cart">
-                    <p id="donate_count_text_hint" style="margin: 0">Количество</p>
-                    <input id="items_count_donate" type="number" required="" class="custom_input_ mb-3 form-control"
-                           min="1" max="9999"
-                           style="
-                            max-width: 20vw;
-                            margin: auto;
-                        ">
-                    <button style="margin: auto; display: block" class="btn btn-primary shadow-primary btn-lg">
-                        Добавить
-                    </button>
+                <div id="modal-donate-container-c">
+                    <span class="close_b">&times;</span>
+                    <p id="donate_item_select_text"></p>
+                    <div class="add_data_cart">
+                        <p id="donate_count_text_hint" style="margin: 0">Количество</p>
+                        <input id="items_count_donate" type="number" required="" class="custom_input_ mb-3 form-control"
+                               min="1" max="9999"
+                               style="
+                                max-width: 20vw;
+                                margin: auto;
+                            ">
+                        <button
+                                style="margin: auto; display: block"
+                                id="donate_button_add_to_cart"
+                                class="btn btn-primary shadow-primary btn-lg">
+                            Добавить
+                        </button>
+                    </div>
+                </div>
+                <div id="modal-info-container-c" style="display: none">
+                    <span class="close_b">&times;</span>
+                    <p id="donate_info_block_text"></p>
                 </div>
             </div>
         </div>

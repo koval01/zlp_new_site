@@ -154,7 +154,8 @@ function append_services() {
                 "price": services[i].price,
                 "count": services[i].number,
                 "description": services[i].description,
-                "type": services[i].type
+                "type": services[i].type,
+                "service_id": services[i].id
             }
             $("#donate_items_list").append(`
                 <div class="col" id="donate_item_${services[i].id}">
@@ -200,10 +201,30 @@ function redirect_(url) {
     return window.location.replace(url)
 }
 
+function modal_close_() {
+    _body.removeClass("modal-open")
+    document.getElementById("donate_item_modal").style.display = "none"
+}
+
+function switch_modal_containers(mode="service") {
+    const info = $("#modal-info-container-c")
+    const service = $("#modal-donate-container-c")
+
+    if (mode === "service") {
+        service.css("display", "block")
+        info.css("display", "none")
+    } else if (mode === "info") {
+        service.css("display", "none")
+        info.css("display", "block")
+    }
+}
+
 function donate_element_click(product_data) {
+    switch_modal_containers("service")
+
     const exclude_types = ["group"]
     let modal = document.getElementById("donate_item_modal")
-    let span = document.getElementsByClassName("close_b")[0]
+    let span = document.getElementsByClassName("close_b")
     let desc = $("#donate_item_select_text")
     let text_template = `Вы выбрали товар <span class="text-primary fw-semibold">${product_data.name}</span>, 
         цена ${product_data.count} ${getNoun(product_data.count, "единицы", "единиц", "единиц")} 
@@ -211,7 +232,37 @@ function donate_element_click(product_data) {
         ${getNoun(product_data.price, "рубль", "рубля", "рублей")}</span>.`
     let items_count_donate = $("#items_count_donate")
     let count_hint = $("#donate_count_text_hint")
+    let add_to_cart = $("#donate_button_add_to_cart")
+
+    let switch_ = false
+    let cookie_cart = {}
+    try { cookie_cart = JSON.parse(Cookies.get(cart_cookie)) } catch (_) {}
+
+    let _update_count = function () {
+        add_to_cart.attr(
+            "onClick", `donate_cart(${product_data.service_id}, ${items_count_donate.val()})`
+        )
+    }
+
     items_count_donate.val("1")
+    _update_count()
+
+    if (
+        cookie_cart.hasOwnProperty(product_data.service_id.toString()) &&
+        exclude_types.includes(product_data.type) &&
+        product_data.type === "group"
+    ) {
+        switch_modal_containers("info")
+        switch_ = true
+        let group_error = ""
+        if (product_data.type === "group") {
+            group_error = "Вы уже выбрали привилегию. Удалите её из корзины, если хотите выбрать другую."
+        }
+        $("#donate_info_block_text").html(
+            `Ошибка, вы можете добавить товар 
+            <span class="text-primary fw-semibold">${product_data.name}</span> 
+            только один раз.<br/>${group_error}`)
+    }
 
     let count_state = "block"
     if (exclude_types.includes(product_data.type)) { count_state = "none" }
@@ -219,10 +270,7 @@ function donate_element_click(product_data) {
     items_count_donate.css("display", count_state)
     count_hint.css("display", count_state)
 
-    function _exit() {
-        _body.removeClass("modal-open")
-        modal.style.display = "none"
-    }
+    const _exit = function() {modal_close_()}
 
     function _calculate_price() {
         if (!exclude_types.includes(product_data.type)) {
@@ -233,6 +281,7 @@ function donate_element_click(product_data) {
             desc.html(`${text_template}<br/>Стоимость выбранного количества - 
             <span class="text-primary fw-semibold">${_price} 
             ${getNoun(_price, "рубль", "рубля", "рублей")}</span>`)
+            _update_count()
         }
     }
 
@@ -246,7 +295,9 @@ function donate_element_click(product_data) {
     modal.style.display = "block"
 
     // create callback function for close button
-    span.onclick = function () {
+    let index_ = 0
+    if (switch_) { index_ = 1}
+    span[index_].onclick = function () {
         _exit()
     }
 
@@ -276,10 +327,30 @@ function donate_cart(product, count, remove=false) {
         }
     }
     Cookies.set(cart_cookie, JSON.stringify(els_))
+    modal_close_()
+    donate_init()
+}
+
+function donate_cart_button(els={}) {
+    const selector_ = $(".donate-cart-button-cn")
+    if (!jQuery.isEmptyObject(els)) {
+        selector_.css("opacity", 1)
+        selector_.css("margin-top", "15px")
+    } else {
+        selector_.css("opacity", 0)
+        selector_.css("margin-top", "-50px")
+    }
+}
+
+function donate_flush_cart() {
+    Cookies.remove(cart_cookie)
+    donate_cart_button({})
 }
 
 function donate_init() {
-    let els_ = countProperties(JSON.parse(Cookies.get(cart_cookie)))
+    const els = JSON.parse(Cookies.get(cart_cookie))
+    const count_els = countProperties(els)
+    donate_cart_button(els)
 }
 
 $(document).ready(function () {
