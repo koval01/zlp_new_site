@@ -104,6 +104,7 @@ function monitoring_game_server_update() {
 }
 
 function game_server_updater() {
+    monitoring_game_server_update()
     setInterval(monitoring_game_server_update, 3000)
 }
 
