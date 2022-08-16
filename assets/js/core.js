@@ -287,5 +287,4 @@ $(document).ready(function () {
     append_services()
     game_server_updater()
     donate_init()
-    video_load()
 })
