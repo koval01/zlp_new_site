@@ -1,3 +1,11 @@
+html {
+    --back-modal-st: #ffffff91;
+}
+
+.dark-mode {
+    --back-modal-st: #ffffff22;
+}
+
 iframe {
     border-radius: 0.5em !important;
 }
@@ -83,8 +91,7 @@ body.modal-open {
 }
 
 .modal-content {
-    background-color: var(--si-body-bg);
-    filter: invert(0.15);
+    background-color: var(--back-modal-st);
     margin: auto;
     padding: 20px;
     border: 0;
