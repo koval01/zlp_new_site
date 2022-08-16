@@ -147,6 +147,7 @@ function append_services() {
             let click_data = {
                 "name": services[i].name,
                 "price": services[i].price,
+                "count": services[i].number,
                 "description": services[i].description,
                 "type": services[i].type
             }
@@ -200,7 +201,8 @@ function donate_element_click(product_data) {
     let span = document.getElementsByClassName("close_b")[0]
     let desc = $("#donate_item_select_text")
     let text_template = `Вы выбрали товар <span class="text-primary fw-semibold">${product_data.name}</span>, 
-        цена одной единицы <span class="text-primary fw-semibold">${product_data.price} 
+        цена ${product_data.count} ${getNoun(product_data.count, "единицы", "единиц", "единиц")} 
+        <span class="text-primary fw-semibold">${product_data.price} 
         ${getNoun(product_data.price, "рубль", "рубля", "рублей")}</span>.`
     let items_count_donate = $("#items_count_donate")
     let count_hint = $("#donate_count_text_hint")
@@ -219,7 +221,7 @@ function donate_element_click(product_data) {
 
     function _calculate_price() {
         if (!exclude_types.includes(product_data.type)) {
-            let _price = product_data.price * parseInt(items_count_donate.val())
+            let _price = parseInt(items_count_donate.val()) * product_data.count * product_data.price
             if (isNaN(_price)) {
                 _price = 0
             }
@@ -249,6 +251,10 @@ function donate_element_click(product_data) {
             _exit()
         }
     }
+}
+
+function donate_cart(product, count) {
+    // pass
 }
 
 $(document).ready(function () {

@@ -146,34 +146,37 @@
         }
 
         .parent-image-shadow {
-          margin: 40px auto;
-          width: min-content;
-          display: grid;
-          gap: 40px;
-          transition: all 0.5s ease;
-          grid-template-columns: 1fr 1fr 1fr;
+            margin: 40px auto;
+            width: min-content;
+            display: grid;
+            gap: 40px;
+            transition: all 0.5s ease;
+            grid-template-columns: 1fr 1fr 1fr;
         }
+
         .parent-image-shadow .imageContainer {
-          position: relative;
-          width: max-content;
+            position: relative;
+            width: max-content;
         }
+
         .parent-image-shadow .imageContainer .foregroundImg {
-          cursor: pointer;
-          position: relative;
-          left: 25%;
-          z-index: 2;
-          pointer-events: none;
+            cursor: pointer;
+            position: relative;
+            left: 25%;
+            z-index: 2;
+            pointer-events: none;
         }
+
         .parent-image-shadow .imageContainer .backgroundImg {
-          position: absolute;
-          top: 2px;
-          left: 60%;
-          transform: scale(1);
-          transition: all 0.5s ease;
-          opacity: 0;
-          z-index: 1;
-          opacity: 1;
-          filter: blur(24px);
+            position: absolute;
+            top: 2px;
+            left: 60%;
+            transform: scale(1);
+            transition: all 0.5s ease;
+            opacity: 0;
+            z-index: 1;
+            opacity: 1;
+            filter: blur(24px);
         }
 
         .col:hover .backgroundImg {
@@ -642,12 +645,12 @@
                 <div class="col-xl-6 col-lg-7 order-lg-1">
                     <div id="discord-embed">
                         <iframe
-                            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-                            src="https://discordapp.com/widget?id=259124796971941890&theme=dark"
-                            width="100%"
-                            height="300px"
-                            allowtransparency="true"
-                            frameborder="0">
+                                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                                src="https://discordapp.com/widget?id=259124796971941890&theme=dark"
+                                width="100%"
+                                height="300px"
+                                allowtransparency="true"
+                                frameborder="0">
                         </iframe>
                     </div>
                 </div>
@@ -683,6 +686,9 @@
 </a>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
+        integrity="sha512-wT7uPE7tOP6w4o28u1DN775jYjHQApdBnib5Pho4RB0Pgd9y7eSkAV1BTqQydupYDB9GBhTcQQzyNMPMV3cAew=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"
         integrity="sha512-8Y8eGK92dzouwpROIppwr+0kPauu0qqtnzZZNEF8Pat5tuRNJxJXCkbQfJ0HlUG3y1HB3z18CSKmUo7i2zcPpg=="
