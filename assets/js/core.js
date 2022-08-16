@@ -2,7 +2,8 @@ const _body = $("body")
 
 const cart_cookie = "cart_box"
 const channels = 2
-const backend_host = "https://zlp-api.herokuapp.com"
+const backend_host = "https://backend.zalupa.world"
+var donate_services_array = []
 
 function url_builder_(base_url, submit_data_) {
     let url = new URL(base_url)
@@ -150,6 +151,7 @@ function create_payment(callback, customer, products, email=null, coupon=null) {
 
 function append_services() {
     get_donate_services(function (services) {
+        donate_services_array = services
         for (let i = 0; i < services.length; i++) {
             let click_data = {
                 "name": services[i].name,
@@ -230,6 +232,28 @@ function switch_modal_containers(mode="service") {
     }
 }
 
+function get_cookie_cart() {
+    let cookie_cart = {}
+    try { cookie_cart = JSON.parse(Cookies.get(cart_cookie)) } catch (_) {}
+    return cookie_cart
+}
+
+function update_cart_count() {
+    $("#count_cart_items_dn").text(countProperties(get_cookie_cart()))
+}
+
+function group_already_in_cart(user_cart) {
+    let cart = Object.keys(user_cart)
+    for (let i = 0; i < donate_services_array.length; i++) {
+        if (donate_services_array[i].type === "group") {
+            if (cart.includes(donate_services_array[i].id.toString())) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
 function donate_element_click(product_data) {
     switch_modal_containers("service")
 
@@ -243,10 +267,9 @@ function donate_element_click(product_data) {
     let items_count_donate = $("#items_count_donate")
     let count_hint = $("#donate_count_text_hint")
     let add_to_cart = $("#donate_button_add_to_cart")
+    const cookie_cart = get_cookie_cart()
 
     let switch_ = false
-    let cookie_cart = {}
-    try { cookie_cart = JSON.parse(Cookies.get(cart_cookie)) } catch (_) {}
 
     let _update_count = function () {
         add_to_cart.attr(
@@ -257,10 +280,13 @@ function donate_element_click(product_data) {
     items_count_donate.val("1")
     _update_count()
 
+    const product_in_cart = cookie_cart.hasOwnProperty(product_data.service_id.toString())
     if (
-        cookie_cart.hasOwnProperty(product_data.service_id.toString()) &&
-        exclude_types.includes(product_data.type) &&
-        product_data.type === "group"
+        (
+            (exclude_types.includes(product_data.type) ||
+            product_data.type === "group") && group_already_in_cart(cookie_cart)
+        ) ||
+        (product_in_cart)
     ) {
         switch_modal_containers("info")
         switch_ = true
@@ -303,7 +329,7 @@ function donate_element_click(product_data) {
 
     window.onclick = function (event) {
         if (event.target === modal) {
-            _exit()
+            modal_close_()
         }
     }
 }
@@ -328,6 +354,7 @@ function donate_cart(product, count, remove=false) {
     Cookies.set(cart_cookie, JSON.stringify(els_))
     modal_close_()
     donate_init()
+    update_cart_count()
 }
 
 function donate_cart_button(els={}) {
@@ -367,6 +394,7 @@ $(document).ready(function () {
     landing_init()
     append_posts()
     append_services()
+    update_cart_count()
     game_server_updater()
     donate_init()
 })
