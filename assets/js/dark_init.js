@@ -1,5 +1,5 @@
-let global_theme_ = 'light';
-let mode = window.localStorage.getItem('mode'),
+var global_theme_ = 'light';
+var mode = window.localStorage.getItem('mode'),
     root = document.getElementsByTagName('html')[0]
 const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)")
 if (darkThemeMq.matches) {

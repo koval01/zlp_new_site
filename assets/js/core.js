@@ -528,5 +528,7 @@ function finish_load() {
 
 $(document).ready(function () {
     landing_init(); build_players_swiper(); append_posts(); append_services();
-    update_cart_count(); game_server_updater(); donate_init(); finish_load()
+    update_cart_count(); game_server_updater(); donate_init(); finish_load();
+
+    $("#dark-perm-set-bv").remove()
 })
