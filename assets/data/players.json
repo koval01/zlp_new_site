@@ -113,5 +113,10 @@
     "name": "rsimson",
     "head": "assets/images/players/rsimson.png",
     "desc": "Главный шизик сервера"
+  },
+  {
+    "name": "dangl1",
+    "head": "assets/images/players/dangl1.png",
+    "desc": "Местный репер\n"
   }
 ]
