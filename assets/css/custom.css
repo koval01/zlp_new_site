@@ -42,9 +42,13 @@ iframe {
     user-select: none;
 }
 
-.background_video_filter {
-    filter: blur(4px);
-    margin-bottom: -1em;
+.background_video_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(0.5vw);
 }
 
 .dark-mode .background_video_filter {
