@@ -4,6 +4,24 @@ const cart_cookie = "cart_box"
 const channels = 2
 const backend_host = "https://backend.zalupa.world"
 var donate_services_array = []
+var notify_hidden = true
+
+function notify(text) {
+    const error_box = $(".error_box_cst")
+    const error_text = $(".error_text_cst")
+    const scroll_top = $(".btn-scroll-top")
+    if (notify_hidden) {
+        notify_hidden = false
+        scroll_top.css("bottom", "3.5rem")
+        error_text.html(text)
+        error_box.css("margin-bottom", "0")
+        setTimeout(function () {
+            error_box.css("margin-bottom", "-150px")
+            scroll_top.attr("style", "")
+            notify_hidden = true
+        }, 2500)
+    }
+}
 
 function url_builder_(base_url, submit_data_) {
     let url = new URL(base_url)
@@ -335,6 +353,15 @@ function donate_element_click(product_data) {
     }
 }
 
+function donate_get_service_by_id(id) {
+    for (let i = 0; i < donate_services_array.length; i++) {
+        if (donate_services_array[i].id === parseInt(id)) {
+            return donate_services_array[i]
+        }
+    }
+    return null
+}
+
 function donate_cart(product, count, remove=false) {
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart")
@@ -342,14 +369,19 @@ function donate_cart(product, count, remove=false) {
     }
     let cart = Cookies.get(cart_cookie)
     if (!cart) { Cookies.set(cart_cookie, JSON.stringify({})) }
-    let els_ = JSON.parse(Cookies.get(cart_cookie))
+    const els_ = JSON.parse(Cookies.get(cart_cookie))
+    const product_data = donate_get_service_by_id(product)
+    const local_prm = "<span style=\"color: #a4a6ff !important\">"
     if (remove) {
         delete els_[product]
+        notify(`Товар ${local_prm} ${product_data.name}</span> убран из корзины`)
     } else {
         if (els_[product]) {
             els_[product] = els_[product] + count
+            notify(`В корзину добавлено ${local_prm} ${count} </span> единиц товара ${local_prm} ${product_data.name} </span>`)
         } else {
             els_[product] = count
+            notify(`Товар ${local_prm} ${product_data.name}</span> добавлен в корзину`)
         }
     }
     Cookies.set(cart_cookie, JSON.stringify(els_))
@@ -372,6 +404,7 @@ function donate_cart_button(els={}) {
 function donate_flush_cart() {
     Cookies.remove(cart_cookie)
     donate_cart_button({})
+    notify("Корзина очищена")
 }
 
 function donate_init() {

@@ -1,9 +1,15 @@
 html {
     --back-modal-st: rgba(255, 255, 255, 0.60);
+    --notify-theme-bg: rgba(23, 27, 37, 0.7);
+    --notify-theme-shadow: rgba(0, 0, 0, 0.35);
+    --modal-shadow: rgba(255, 255, 255, 0.75)
 }
 
 .dark-mode {
-    --back-modal-st: rgba(255, 255, 255, 0.13);
+    --back-modal-st: rgba(41, 41, 41, 0.65);
+    --notify-theme-bg: rgba(23, 27, 37, 0.6);
+    --notify-theme-shadow: rgba(255, 255, 255, 0.2);
+    --modal-shadow: rgba(100, 102, 241, 0.65);
 }
 
 iframe {
@@ -95,9 +101,10 @@ body.modal-open {
     margin: auto;
     padding: 20px;
     border: 0;
-    width: 80%;
+    width: 330px;
     border-radius: .6em;
     color: var(--si-heading-color);
+    box-shadow: 0 8px 120px 0 var(--modal-shadow);
 }
 
 .close_b {
@@ -225,4 +232,23 @@ body.modal-open {
 
 .discord-block-gradient {
     background: linear-gradient(90deg, #ac63f1 0%, #8069c0 50%, #b41fc5 100%) !important;
+}
+
+.error_text_cst {
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+    backdrop-filter: blur(4px);
+}
+
+.error_box_cst {
+    bottom: 0;
+    position: fixed;
+    background: var(--notify-theme-bg);
+    width: 100%;
+    height: auto;
+    transition: margin-bottom 0.2s;
+    z-index: 9999;
+    box-shadow: 0 -5px 50px 0 var(--notify-theme-shadow);
+    border-top: 1px solid;
 }
