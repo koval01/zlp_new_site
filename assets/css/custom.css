@@ -15,6 +15,7 @@ html {
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
     background-color: rgba(11, 15, 25, 0.6) !important;
     backdrop-filter: blur(16px);
+    border-bottom: 2px solid #1f222f;
 }
 
 iframe {
@@ -241,7 +242,7 @@ body.modal-open {
 
 .error_text_cst {
     color: #fff;
-    padding: 10px;
+    padding: 1em;
     margin: 0;
     backdrop-filter: blur(4px);
 }
