@@ -6,6 +6,17 @@ const backend_host = "https://backend.zalupa.world"
 var donate_services_array = []
 var notify_hidden = true
 
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex--
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]]
+    }
+    return array
+}
+
 function notify(text) {
     const error_box = $(".error_box_cst")
     const error_text = $(".error_text_cst")
@@ -84,7 +95,7 @@ function append_posts() {
 }
 
 function get_game_server_data(callback) {
-    function _data_error(ok = false) {
+    const _data_error = function (ok = false) {
         let string_ = ""
         if (ok) {
             string_ = ""
@@ -116,7 +127,8 @@ function get_game_server_data(callback) {
 function monitoring_game_server_update() {
     get_game_server_data(function (data) {
         $("#server_online_status").html(
-            `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span> ${getNoun(data.online)}`
+            `Сейчас играет <span class="text-primary fw-semibold">
+                ${data.online}</span> ${getNoun(data.online)}`
         )
     })
 }
@@ -185,7 +197,8 @@ function append_services() {
                     <div class="card card-hover border-0 bg-transparent" 
                         onClick='donate_element_click(${JSON.stringify(click_data)})'>
                       <div class="position-relative">
-                        <div class="parent-image-shadow donate_item_hover" id="donate_item_hover_${services[i].id}">
+                        <div class="parent-image-shadow donate_item_hover" 
+                            id="donate_item_hover_${services[i].id}">
                             <div class="imageContainer">
                                 <img src="${services[i].image}"
                                  class="rounded-3 foregroundImg" alt="${services[i].name}" 
@@ -279,6 +292,55 @@ function group_already_in_cart(user_cart) {
     return false
 }
 
+function build_players_swiper() {
+    let array_ = $("#players-swiper-array")
+    const create_swiper = function () {
+        new Swiper('#players_swipe_container', {
+            slidesPerView: 2,
+            spaceBetween: 24,
+            loop: true,
+            observer: true,
+            observeParents: true,
+            pagination: {
+                el: ".swiper-pagination-players",
+                clickable: true
+            },
+            breakpoints: {
+                500: {
+                    slidesPerView: 3
+                },
+                650: {
+                    slidesPerView: 4
+                },
+                900: {
+                    slidesPerView: 5
+                },
+                1100: {
+                    slidesPerView: 6
+                }
+            }
+        })
+    }
+    $.getJSON("assets/data/players.json", function (players) {
+        shuffle(players)
+        for (let i = 0; i < players.length; i++) {
+            array_.append(`
+                <div class="swiper-slide">
+                    <span class="d-block py-3">
+                        <img src="${players[i].head}" class="d-block mx-auto" width="154"
+                           alt="${players[i].name}">
+                        <div class="card-body text-center p-3">
+                            <h3 class="fs-lg fw-semibold pt-1 mb-2">${players[i].name}</h3>
+                            <p class="fs-sm mb-0">${players[i].desc}</p>
+                        </div>
+                    </span>
+                </div>
+            `)
+        }
+        create_swiper()
+    })
+}
+
 function donate_element_click(product_data) {
     switch_modal_containers("service")
 
@@ -333,10 +395,17 @@ function donate_element_click(product_data) {
     items_count_donate.css("display", count_state)
     count_hint.css("display", count_state)
 
-    function _calculate_price() {
+    const only_dig = function () {
+        let value = items_count_donate.val()
+        items_count_donate.val(
+            value.replace(/\D+/g, ''))
+    }
+
+    const _calculate_price = function () {
+        only_dig()
         if (!exclude_types.includes(product_data.type)) {
             let _price = parseInt(items_count_donate.val()) * product_data.count * product_data.price
-            if (isNaN(_price)) {
+            if (isNaN(_price) || 1 > Math.sign(_price)) {
                 _price = 0
             }
             desc.html(`${text_template}<br/>Стоимость выбранного количества - 
@@ -373,6 +442,10 @@ function donate_get_service_by_id(id) {
 function donate_cart(product, count, remove = false) {
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart")
+        return
+    }
+    if (1 > Math.sign(count)) {
+        notify("Количество не может быть равно нулю или меньше.")
         return
     }
     let cart = Cookies.get(cart_cookie)
@@ -419,7 +492,11 @@ function donate_flush_cart() {
 }
 
 function donate_init() {
-    const els = JSON.parse(Cookies.get(cart_cookie))
+    let els = {}
+    try {
+        els = JSON.parse(Cookies.get(cart_cookie))
+    } catch (_) {
+    }
     const count_els = countProperties(els)
     donate_cart_button(els)
 }
@@ -436,6 +513,7 @@ function landing_init() {
 
 $(document).ready(function () {
     landing_init()
+    build_players_swiper()
     append_posts()
     append_services()
     update_cart_count()
