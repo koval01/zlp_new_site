@@ -377,8 +377,7 @@ function donate_element_click(product_data) {
         )
     }
 
-    items_count_donate.val("1")
-    _update_count()
+    items_count_donate.val("1"); _update_count()
 
     const product_in_cart = cookie_cart.hasOwnProperty(product_data.service_id.toString())
     if (
@@ -481,10 +480,9 @@ function donate_cart(product, count, remove = false) {
             notify(`Товар ${local_prm} ${product_data.name}</span> добавлен в корзину`)
         }
     }
-    Cookies.set(cart_cookie, JSON.stringify(els_))
-    modal_close_()
-    donate_init()
-    update_cart_count()
+
+    Cookies.set(cart_cookie, JSON.stringify(els_));
+    modal_close_(); donate_init(); update_cart_count()
 }
 
 function donate_cart_button(els = {}) {
@@ -510,7 +508,6 @@ function donate_init() {
         els = JSON.parse(Cookies.get(cart_cookie))
     } catch (_) {
     }
-    const count_els = countProperties(els)
     donate_cart_button(els)
 }
 
@@ -525,17 +522,11 @@ function landing_init() {
 }
 
 function finish_load() {
-    $("main").attr("style", "")
+    $("main").attr("style", "");
     $("footer").attr("style", "")
 }
 
 $(document).ready(function () {
-    landing_init()
-    build_players_swiper()
-    append_posts()
-    append_services()
-    update_cart_count()
-    game_server_updater()
-    donate_init()
-    finish_load()
+    landing_init(); build_players_swiper(); append_posts(); append_services();
+    update_cart_count(); game_server_updater(); donate_init(); finish_load()
 })
