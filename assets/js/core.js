@@ -524,6 +524,11 @@ function landing_init() {
     }
 }
 
+function finish_load() {
+    $("main").attr("style", "")
+    $("footer").attr("style", "")
+}
+
 $(document).ready(function () {
     landing_init()
     build_players_swiper()
@@ -532,4 +537,5 @@ $(document).ready(function () {
     update_cart_count()
     game_server_updater()
     donate_init()
+    finish_load()
 })
