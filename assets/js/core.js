@@ -5,7 +5,7 @@ const channels = 2
 const backend_host = "https://backend.zalupa.world"
 var donate_services_array = []
 var notify_hidden = true
-var timer = null
+var timer_notify = null
 
 function shuffle(array) {
     let currentIndex = array.length, randomIndex
@@ -43,8 +43,8 @@ function notify(text) {
         setTimeout(notify_display, 200)
     }
 
-    clearTimeout(timer)
-    timer = setTimeout(notify_hide, 2500)
+    clearTimeout(timer_notify)
+    timer_notify = setTimeout(notify_hide, 2500)
 }
 
 function url_builder_(base_url, submit_data_) {
