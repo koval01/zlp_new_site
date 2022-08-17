@@ -5,6 +5,7 @@ const channels = 2
 const backend_host = "https://backend.zalupa.world"
 var donate_services_array = []
 var notify_hidden = true
+var timer = null
 
 function shuffle(array) {
     let currentIndex = array.length, randomIndex
@@ -21,17 +22,29 @@ function notify(text) {
     const error_box = $(".error_box_cst")
     const error_text = $(".error_text_cst")
     const scroll_top = $(".btn-scroll-top")
-    if (notify_hidden) {
+
+    let notify_hide = function () {
+        error_box.css("margin-bottom", "-150px")
+        scroll_top.attr("style", "")
+        notify_hidden = true
+    }
+
+    let notify_display = function () {
         notify_hidden = false
         scroll_top.css("bottom", "3.5rem")
         error_text.html(text)
         error_box.css("margin-bottom", "0")
-        setTimeout(function () {
-            error_box.css("margin-bottom", "-150px")
-            scroll_top.attr("style", "")
-            notify_hidden = true
-        }, 2500)
     }
+
+    if (notify_hidden) {
+        notify_display()
+    } else {
+        notify_hide()
+        setTimeout(notify_display, 200)
+    }
+
+    clearTimeout(timer)
+    timer = setTimeout(notify_hide, 2500)
 }
 
 function url_builder_(base_url, submit_data_) {
