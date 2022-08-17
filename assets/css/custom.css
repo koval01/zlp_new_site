@@ -252,3 +252,8 @@ body.modal-open {
     box-shadow: 0 -5px 50px 0 var(--notify-theme-shadow);
     border-top: 1px solid;
 }
+
+.btn-scroll-top.show {
+    border: 2px solid;
+    box-shadow: 0 0 20px #0000008a;
+}

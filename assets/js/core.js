@@ -445,7 +445,7 @@ function donate_cart(product, count, remove = false) {
         return
     }
     if (1 > Math.sign(count)) {
-        notify("Количество не может быть равно нулю или меньше.")
+        notify("Количество не может быть равно нулю или меньше")
         return
     }
     let cart = Cookies.get(cart_cookie)
