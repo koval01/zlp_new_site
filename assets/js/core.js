@@ -143,7 +143,7 @@ function get_donate_services(callback) {
     })
 }
 
-function create_payment(callback, customer, products, email=null, coupon=null) {
+function create_payment(callback, customer, products, email = null, coupon = null) {
     $.ajax({
         url: `${backend_host}/donate/payment/create`,
         type: "POST",
@@ -188,12 +188,15 @@ function append_services() {
                         <div class="parent-image-shadow donate_item_hover" id="donate_item_hover_${services[i].id}">
                             <div class="imageContainer">
                                 <img src="${services[i].image}"
-                                 class="rounded-3 foregroundImg" alt="${services[i].name}" style="display: block; margin: auto; width: 35%">
+                                 class="rounded-3 foregroundImg" alt="${services[i].name}" 
+                                 style="display: block; margin: auto; width: 35%">
                                 <img src="${services[i].image}"
-                                 class="rounded-3 backgroundImg" alt="${services[i].name}" style="display: block; margin: auto; width: 35%">
+                                 class="rounded-3 backgroundImg" alt="${services[i].name}" 
+                                 style="display: block; margin: auto; width: 35%">
                              </div>
                         </div>
-                        <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3" 
+                        <div class="card-img-overlay d-flex flex-column align-items-center 
+                                    justify-content-center rounded-3" 
                              style="margin: auto">
                         </div>
                       </div>
@@ -229,7 +232,7 @@ function modal_close_() {
     document.getElementById("donate_item_modal").style.display = "none"
 }
 
-function switch_modal_containers(mode="service") {
+function switch_modal_containers(mode = "service") {
     const span = document.getElementsByClassName("close_b")
     const info = $("#modal-info-container-c")
     const service = $("#modal-donate-container-c")
@@ -253,7 +256,10 @@ function switch_modal_containers(mode="service") {
 
 function get_cookie_cart() {
     let cookie_cart = {}
-    try { cookie_cart = JSON.parse(Cookies.get(cart_cookie)) } catch (_) {}
+    try {
+        cookie_cart = JSON.parse(Cookies.get(cart_cookie))
+    } catch (_) {
+    }
     return cookie_cart
 }
 
@@ -302,7 +308,7 @@ function donate_element_click(product_data) {
     const product_in_cart = cookie_cart.hasOwnProperty(product_data.service_id.toString())
     if (
         (exclude_types.includes(product_data.type) ||
-        product_data.type === "group") && group_already_in_cart(cookie_cart)
+            product_data.type === "group") && group_already_in_cart(cookie_cart)
     ) {
         switch_modal_containers("info")
         switch_ = true
@@ -320,7 +326,9 @@ function donate_element_click(product_data) {
     }
 
     let count_state = "block"
-    if (exclude_types.includes(product_data.type)) { count_state = "none" }
+    if (exclude_types.includes(product_data.type)) {
+        count_state = "none"
+    }
 
     items_count_donate.css("display", count_state)
     count_hint.css("display", count_state)
@@ -362,13 +370,15 @@ function donate_get_service_by_id(id) {
     return null
 }
 
-function donate_cart(product, count, remove=false) {
+function donate_cart(product, count, remove = false) {
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart")
         return
     }
     let cart = Cookies.get(cart_cookie)
-    if (!cart) { Cookies.set(cart_cookie, JSON.stringify({})) }
+    if (!cart) {
+        Cookies.set(cart_cookie, JSON.stringify({}))
+    }
     const els_ = JSON.parse(Cookies.get(cart_cookie))
     const product_data = donate_get_service_by_id(product)
     const local_prm = "<span style=\"color: #a4a6ff !important\">"
@@ -378,7 +388,8 @@ function donate_cart(product, count, remove=false) {
     } else {
         if (els_[product]) {
             els_[product] = els_[product] + count
-            notify(`В корзину добавлено ${local_prm} ${count} </span> единиц товара ${local_prm} ${product_data.name} </span>`)
+            notify(`В корзину добавлено ${local_prm} ${count} </span> 
+                        единиц товара ${local_prm} ${product_data.name} </span>`)
         } else {
             els_[product] = count
             notify(`Товар ${local_prm} ${product_data.name}</span> добавлен в корзину`)
@@ -390,7 +401,7 @@ function donate_cart(product, count, remove=false) {
     update_cart_count()
 }
 
-function donate_cart_button(els={}) {
+function donate_cart_button(els = {}) {
     const selector_ = $(".donate-cart-button-cn")
     if (!jQuery.isEmptyObject(els)) {
         selector_.css("opacity", 1)
