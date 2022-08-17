@@ -263,3 +263,9 @@ body.modal-open {
     border: 2px solid;
     box-shadow: 0 0 20px #0000008a;
 }
+
+.cst-icon-svg {
+    height: 1.5em;
+    filter: invert(1);
+    margin: 5px;
+}
