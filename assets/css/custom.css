@@ -12,6 +12,11 @@ html {
     --modal-shadow: rgba(100, 102, 241, 0.65);
 }
 
+.dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
+    background-color: rgba(11, 15, 25, 0.6) !important;
+    backdrop-filter: blur(16px);
+}
+
 iframe {
     border-radius: 0.5em !important;
 }
