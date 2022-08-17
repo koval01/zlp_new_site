@@ -67,7 +67,7 @@
   {
     "name": "2p0y",
     "head": "assets/images/players/2p0y.png",
-    "desc": "JS-разработчик"
+    "desc": "Мега-кодер на JS"
   },
   {
     "name": "adamoov",
@@ -98,5 +98,20 @@
     "name": "Rmpl-FFF",
     "head": "assets/images/players/Rmpl-FFF.png",
     "desc": "Билдер на сервере общения"
+  },
+  {
+    "name": "_AppleTony_",
+    "head": "assets/images/players/_AppleTony_.png",
+    "desc": "Главный админ проекта"
+  },
+  {
+    "name": "SaiG4",
+    "head": "assets/images/players/SaiG4.png",
+    "desc": "Создатель клана STIK"
+  },
+  {
+    "name": "rsimson",
+    "head": "assets/images/players/rsimson.png",
+    "desc": "Главный шизик сервера"
   }
 ]
