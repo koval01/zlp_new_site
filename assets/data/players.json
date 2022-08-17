@@ -117,6 +117,11 @@
   {
     "name": "dangl1",
     "head": "assets/images/players/dangl1.png",
-    "desc": "Местный репер\n"
+    "desc": "Местный репер"
+  },
+  {
+    "name": "Sunflower",
+    "head": "assets/images/players/Sunflower.png",
+    "desc": "Очередная женщина сервера"
   }
 ]
