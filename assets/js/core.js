@@ -291,11 +291,14 @@ function donate_element_click(product_data) {
         let group_error = ""
         if (product_data.type === "group") {
             group_error = "Вы уже выбрали привилегию. Удалите её из корзины, если хотите выбрать другую."
-        }
-        $("#donate_info_block_text").html(
-            `Ошибка, вы можете добавить товар 
+        } else if (product_in_cart) {
+            group_error = `Ошибка, вы можете добавить товар 
             <span class="text-primary fw-semibold">${product_data.name}</span> 
-            только один раз.<br/>${group_error}`)
+            только один раз.`
+        } else {
+            group_error = "Мы не знаем почему, но эта ошибка вызвана по неизвестным причинам."
+        }
+        $("#donate_info_block_text").html(group_error)
     }
 
     let count_state = "block"

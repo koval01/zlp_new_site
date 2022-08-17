@@ -1,9 +1,9 @@
 html {
-    --back-modal-st: #ffffff91;
+    --back-modal-st: rgba(255, 255, 255, 0.60);
 }
 
 .dark-mode {
-    --back-modal-st: #ffffff22;
+    --back-modal-st: rgba(255, 255, 255, 0.13);
 }
 
 iframe {
