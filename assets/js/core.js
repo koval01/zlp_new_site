@@ -122,7 +122,7 @@ function append_posts() {
             script.setAttribute("data-dark", "1");
             sl.appendChild(script);
             setTimeout(function () {
-                let sl = document.querySelector("#telegram_block_load");
+                let sl = document.getElementById("telegram_block_load");
                 sl.parentNode.removeChild(sl)
             }, 100)
         }, i)
@@ -186,7 +186,8 @@ function append_services() {
                 "type": services[i].type,
                 "service_id": services[i].id
             };
-            $("#donate_items_list").append(`
+            let sl = document.getElementById("donate_items_list");
+            sl.innerHTML = sl.innerHTML + `
                 <div class="col" id="donate_item_${services[i].id}">
                     <div class="card card-hover border-0 bg-transparent" 
                         onClick='donate_element_click(${JSON.stringify(click_data)})'>
@@ -220,12 +221,13 @@ function append_services() {
                       </div>
                     </div>
                 </div>
-            `)
+            `
         };
 
         setTimeout(function () {
-            $("#donate_block_load").remove();
-            $("#donate_items_list").css("display", "")
+            let elem = document.getElementById('donate_block_load');
+            elem.parentNode.removeChild(elem);
+            document.getElementById("donate_items_list").style.display = ""
         }, 100)
     })
 };
@@ -241,9 +243,9 @@ function modal_close_() {
 
 function switch_modal_containers(mode = "service") {
     const span = document.getElementsByClassName("close_b");
-    const info = $("#modal-info-container-c");
-    const service = $("#modal-donate-container-c");
-    const finish_donate = $("#modal-donate-finish-container-c");
+    const info = document.getElementById("modal-info-container-c");
+    const service = document.getElementById("modal-donate-container-c");
+    const finish_donate = document.getElementById("modal-donate-finish-container-c");
     const _array = [
         {"name": "service", "selector": service},
         {"name": "info", "selector": info},
@@ -257,7 +259,7 @@ function switch_modal_containers(mode = "service") {
                 modal_close_()
             }
         };
-        _array[i].selector.css("display", _mode)
+        _array[i].selector.style.display = _mode
     }
 };
 
@@ -271,7 +273,7 @@ function get_cookie_cart() {
 };
 
 function update_cart_count() {
-    $("#count_cart_items_dn").text(countProperties(get_cookie_cart()))
+    document.getElementById("count_cart_items_dn").innerText = countProperties(get_cookie_cart())
 };
 
 function group_already_in_cart(user_cart) {
@@ -287,7 +289,7 @@ function group_already_in_cart(user_cart) {
 };
 
 function build_players_swiper() {
-    let array_ = $("#players-swiper-array");
+    let array_ = document.getElementById("players-swiper-array");
     const create_swiper = function () {
         new Swiper('#players_swipe_container', {
             slidesPerView: 2,
@@ -315,24 +317,25 @@ function build_players_swiper() {
             }
         })
     };
-    $.getJSON("assets/data/players.json", function (players) {
-        shuffle(players);
-        for (let i = 0; i < players.length; i++) {
-            array_.append(`
+    request_call(function (r) {
+        let player = r;
+        shuffle(player);
+        for (let i = 0; i < player.length; i++) {
+            array_.innerHTML = array_.innerHTML + `
                 <div class="swiper-slide">
                     <span class="d-block py-3">
-                        <img src="${players[i].head}" class="d-block mx-auto" width="154"
-                           alt="${players[i].name}" loading="lazy"
+                        <img src="${player[i].head}" class="d-block mx-auto" width="154"
+                           alt="${player[i].name}" loading="lazy"
                         <div class="card-body text-center p-3">
-                            <h3 class="fs-lg fw-semibold pt-1 mb-2">${players[i].name}</h3>
-                            <p class="fs-sm mb-0">${players[i].desc}</p>
+                            <h3 class="fs-lg fw-semibold pt-1 mb-2">${player[i].name}</h3>
+                            <p class="fs-sm mb-0">${player[i].desc}</p>
                         </div>
                     </span>
                 </div>
-            `)
+            `
         };
         create_swiper()
-    })
+    }, "assets/data/players.json", "GET", json=true)
 };
 
 function donate_element_click(product_data) {
@@ -377,7 +380,7 @@ function donate_element_click(product_data) {
         } else {
             group_error = "Мы не знаем почему, но эта ошибка вызвана по неизвестным причинам."
         };
-        $("#donate_info_block_text").html(group_error)
+        document.getElementById("donate_info_block_text").innerHTML = group_error
     };
 
     let count_state = "block";
@@ -511,6 +514,6 @@ document.addEventListener("DOMContentLoaded", function() {
     landing_init(); build_players_swiper(); append_posts(); append_services();
     update_cart_count(); game_server_updater(); donate_init(); finish_load();
 
-    let elem = document.querySelector('#dark-perm-set-bv');
+    let elem = document.getElementById('dark-perm-set-bv');
     elem.parentNode.removeChild(elem)
 })
