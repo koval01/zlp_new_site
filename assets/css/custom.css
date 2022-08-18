@@ -15,7 +15,7 @@ html {
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
     background-color: rgba(11, 15, 25, 0.6) !important;
     backdrop-filter: blur(16px);
-    border-bottom: 2px solid #1f222f;
+    border-bottom: 1px solid rgba(255,255,255,0.24);
 }
 
 iframe {
@@ -49,6 +49,7 @@ iframe {
     right: 0;
     bottom: 0;
     backdrop-filter: blur(0.5vw);
+    z-index: -4;
 }
 
 .dark-mode .background_video_filter {
