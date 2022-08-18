@@ -1,21 +1,21 @@
-const _body = $("body")
+const _body = $("body");
 
-const cart_cookie = "cart_box"
-const channels = 2
-const backend_host = "https://backend.zalupa.world"
-var donate_services_array = []
-var notify_hidden = true
-var timer_notify = null
+const cart_cookie = "cart_box";
+const channels = 2;
+const backend_host = "https://backend.zalupa.world";
+var donate_services_array = [];
+var notify_hidden = true;
+var timer_notify = null;
 
 function shuffle(array) {
-    let currentIndex = array.length, randomIndex
+    let currentIndex = array.length, randomIndex;
     while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex)
-        currentIndex--
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
         [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]]
-    }
-    return array
+            array[randomIndex], array[currentIndex]];
+    };
+    return array;
 }
 
 function notify(text) {
