@@ -140,10 +140,9 @@ function get_game_server_data(callback) {
 
 function monitoring_game_server_update() {
     get_game_server_data(function (data) {
-        $("#server_online_status").html(
+        document.getElementById("server_online_status").innerHTML =
             `Сейчас играет <span class="text-primary fw-semibold">
                 ${data.online}</span> ${getNoun(data.online)}`
-        )
     })
 };
 
@@ -153,20 +152,9 @@ function game_server_updater() {
 };
 
 function get_donate_services(callback) {
-    $.ajax({
-        url: `${backend_host}/donate/services`,
-        type: "GET",
-        success: function (r) {
-            if (r.success) {
-                return callback(r.services)
-            } else {
-                console.log("Error data check (get_donate_services)")
-            }
-        },
-        error: function () {
-            console.log("Error get donate services list")
-        }
-    })
+    request_call(function (r) {
+        if (r.success) { callback(r.services) }
+    }, `${backend_host}/donate/services`, "GET", json=true)
 };
 
 function create_payment(callback, customer, products, email = null, coupon = null) {
