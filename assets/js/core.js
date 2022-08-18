@@ -1,5 +1,3 @@
-const _body = $("body");
-
 const cart_cookie = "cart_box";
 const channels = 2;
 const backend_host = "https://backend.zalupa.world";
@@ -18,24 +16,43 @@ function shuffle(array) {
     return array;
 };
 
+function request_call(callback, url, method) {
+    let request = new XMLHttpRequest();
+    request.open(method, url, true);
+
+    request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+            callback(request.responseText)
+        } else {
+            console.log(`Request status code is ${request.status}`)
+        }
+    };
+
+    request.onerror = function(error) {
+        console.log(`Error make request! Details: ${error}`)
+    };
+
+    request.send()
+}
+
 function notify(text) {
-    const error_box = $(".error_box_cst");
-    const error_text = $(".error_text_cst");
-    const scroll_top = $(".btn-scroll-top");
+    const error_box = document.querySelector(".error_box_cst");
+    const error_text = document.querySelector(".error_text_cst");
+    const scroll_top = document.querySelector(".btn-scroll-top");
 
     let notify_hide = function () {
-        error_box.css("margin-bottom", "-150px");
-        scroll_top.attr("style", "");
+        error_box.style.marginBottom = "-150px";
+        scroll_top.setAttribute("style", "");
         notify_hidden = true
     };
 
     let notify_display = function () {
         notify_hidden = false;
-        error_text.html(text);
-        scroll_top.css("bottom", `calc(
-            ${document.getElementById("error_box_cst_id").offsetHeight}px + 1em
-        )`);
-        error_box.css("margin-bottom", "0")
+        error_text.innerHTML = text;
+        scroll_top.style.marginBottom = `calc(
+            ${document.getElementById("error_box_cst_id").offsetHeight}px
+        )`;
+        error_box.style.marginBottom = 0
     };
 
     if (notify_hidden) {
@@ -78,32 +95,26 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
 };
 
 function get_last_tg_post_id(callback, source) {
-    $.ajax({
-        url: `${backend_host}/channel?choice=${source}`,
-        type: "GET",
-        success: function (r) {
-            if (r.success) {
-                return callback(r.last_post)
-            } else {
-                console.log("Error data check (get_last_tg_post_id)")
-            }
-        },
-        error: function () {
-            console.log("Error get last post id for Telegram")
-        }
-    })
+    request_call(function (r) {
+        r = JSON.parse(r)
+        if (r.success) { return callback(r.last_post) }
+    }, `${backend_host}/channel?choice=${source}`, "GET")
 };
 
 function append_posts() {
     for (let i = 0; i < channels; i++) {
         get_last_tg_post_id(function (identifer) {
-            $(".telegram_frames").append(
-                `<script async src="https://telegram.org/js/telegram-widget.js?19"
-                    data-telegram-post="${identifer}"
-                    data-width="100%" data-userpic="true" data-dark="1"><\/script>`
-            );
+            let sl = document.querySelector(".telegram_frames");
+            let script = document.createElement('script');
+            script.src = "https://telegram.org/js/telegram-widget.js?19";
+            script.setAttribute("data-telegram-post", identifer);
+            script.setAttribute("data-width", "100%");
+            script.setAttribute("data-userpic", "true");
+            script.setAttribute("data-dark", "1");
+            sl.appendChild(script);
             setTimeout(function () {
-                $("#telegram_block_load").remove()
+                let sl = document.querySelector("#telegram_block_load");
+                sl.parentNode.removeChild(sl)
             }, 100)
         }, i)
     }
@@ -256,7 +267,7 @@ function redirect_(url) {
 };
 
 function modal_close_() {
-    _body.removeClass("modal-open");
+    document.body.classList.remove("modal-open");
     document.getElementById("donate_item_modal").style.display = "none"
 };
 
@@ -434,7 +445,7 @@ function donate_element_click(product_data) {
     _calculate_price();
     items_count_donate.keyup(_calculate_price);
 
-    _body.addClass("modal-open");
+    document.body.classList.add("modal-open");
     modal.style.display = "block";
 
     window.onclick = function (event) {

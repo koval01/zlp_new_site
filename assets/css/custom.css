@@ -277,6 +277,7 @@ body.modal-open {
 .btn-scroll-top.show {
     border: 2px solid;
     box-shadow: 0 0 20px #0000008a;
+    transition: all .4s;
 }
 
 .cst-icon-svg {
