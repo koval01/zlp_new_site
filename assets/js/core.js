@@ -16,13 +16,17 @@ function shuffle(array) {
     return array;
 };
 
-function request_call(callback, url, method) {
+function request_call(callback, url, method, json=false) {
     let request = new XMLHttpRequest();
     request.open(method, url, true);
 
     request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
-            callback(request.responseText)
+            if (json) {
+                callback(JSON.parse(request.responseText))
+            } else {
+                callback(request.responseText)
+            }
         } else {
             console.log(`Request status code is ${request.status}`)
         }
@@ -96,9 +100,8 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
 
 function get_last_tg_post_id(callback, source) {
     request_call(function (r) {
-        r = JSON.parse(r)
         if (r.success) { return callback(r.last_post) }
-    }, `${backend_host}/channel?choice=${source}`, "GET")
+    }, `${backend_host}/channel?choice=${source}`, "GET", json=true)
 };
 
 function append_posts() {
@@ -128,26 +131,11 @@ function get_game_server_data(callback) {
         } else {
             string_ = "Не удается обновить информацию о сервере..."
         };
-        $("#error_get_server_status").text(string_)
+        document.getElementById("error_get_server_status").innerText = string_
     };
-
-    $.ajax({
-        url: `${backend_host}/server`,
-        type: "GET",
-        success: function (r) {
-            if (r.success) {
-                callback(r.body);
-                _data_error(ok = true)
-            } else {
-                console.log("Error data check (get_game_server_data)");
-                _data_error()
-            }
-        },
-        error: function () {
-            console.log("Error get info for game server");
-            _data_error()
-        }
-    })
+    request_call(function (r) {
+        if (r.success) { callback(r.body) }
+    }, `${backend_host}/server`, "GET", json=true)
 };
 
 function monitoring_game_server_update() {
