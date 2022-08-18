@@ -31,8 +31,10 @@ function notify(text) {
 
     let notify_display = function () {
         notify_hidden = false
-        scroll_top.css("bottom", "3.5rem")
         error_text.html(text)
+        scroll_top.css("bottom", `calc(
+            ${document.getElementById("error_box_cst_id").offsetHeight}px + 1em
+        )`)
         error_box.css("margin-bottom", "0")
     }
 
