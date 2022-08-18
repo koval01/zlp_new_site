@@ -16,9 +16,15 @@ function shuffle(array) {
     return array;
 };
 
-function request_call(callback, url, method, json=false) {
+function request_call(callback, url, method, json=false, json_body=null) {
     let request = new XMLHttpRequest();
+    let json_body_local = {};
     request.open(method, url, true);
+
+    if (method.toUpperCase() === "POST") {
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        json_body_local = JSON.stringify(json_body)
+    };
 
     request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
@@ -36,7 +42,7 @@ function request_call(callback, url, method, json=false) {
         console.log(`Error make request! Details: ${error}`)
     };
 
-    request.send()
+    request.send(json_body_local)
 }
 
 function notify(text) {
@@ -158,27 +164,13 @@ function get_donate_services(callback) {
 };
 
 function create_payment(callback, customer, products, email = null, coupon = null) {
-    $.ajax({
-        url: `${backend_host}/donate/payment/create`,
-        type: "POST",
-        contentType: 'application/json',
-        data: JSON.stringify({
-            "customer": customer,
-            "products": products,
-            "email": email,
-            "coupon": coupon
-        }),
-        dataType: 'json',
-        success: function (r) {
-            if (r.success) {
-                return callback(r.payment)
-            } else {
-                console.log("Error data check (get_donate_services)")
-            }
-        },
-        error: function () {
-            console.log("Error get donate services list")
-        }
+    request_call(function (r) {
+        if (r.success) { callback(r.payment) }
+    }, `${backend_host}/donate/payment/create`, "POST", json=true, json_body={
+        "customer": customer,
+        "products": products,
+        "email": email,
+        "coupon": coupon
     })
 };
 
