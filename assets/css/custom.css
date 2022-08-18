@@ -62,7 +62,7 @@ iframe {
         height: calc(100vh - 16px);
     }
 
-    .background_video_filter {
+    .background_video_overlay_tag {
         height: 100vh;
     }
 }
