@@ -488,13 +488,16 @@ function donate_cart(product, count, remove = false) {
 };
 
 function donate_cart_button(els = {}) {
-    const selector_ = $(".donate-cart-button-cn");
-    if (!jQuery.isEmptyObject(els)) {
-        selector_.css("opacity", 1);
-        selector_.css("margin-top", "15px")
-    } else {
-        selector_.css("opacity", 0);
-        selector_.css("margin-top", "-50px")
+    const selector_ = document.querySelectorAll('.donate-cart-button-cn');
+    for (let i = 0; i < selector_.length; i++) {
+        let sl = selector_[i].style;
+        if (countProperties(els)) {
+            sl.opacity = 1;
+            sl.marginTop = "15px"
+        } else {
+            sl.opacity = 0;
+            sl.marginTop = "-50px"
+        }
     }
 };
 
@@ -514,23 +517,21 @@ function donate_init() {
 };
 
 function landing_init() {
-    const dev_hostnames = [
-        "localhost", "zalupa.world"
-    ];
-    let land_desc = $("#landing_description_gb");
-    if (dev_hostnames.includes(window.location.hostname)) {
-        land_desc.text("This is development version!")
+    if (["localhost", "zalupa.world"].includes(window.location.hostname)) {
+        document.getElementById("landing_description_gb").innerText =
+            "This is development version!"
     }
 };
 
 function finish_load() {
-    $("main").attr("style", "");
-    $("footer").attr("style", "")
+    document.querySelector("main").setAttribute("style", "");
+    document.querySelector("footer").setAttribute("style", "")
 };
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function() {
     landing_init(); build_players_swiper(); append_posts(); append_services();
     update_cart_count(); game_server_updater(); donate_init(); finish_load();
 
-    $("#dark-perm-set-bv").remove()
+    let elem = document.querySelector('#dark-perm-set-bv');
+    elem.parentNode.removeChild(elem)
 })
