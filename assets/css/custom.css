@@ -22,6 +22,12 @@ iframe {
     border-radius: 0.5em !important;
 }
 
+.fake-block-sett-bg {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
 .stream_description {
     background: var(--si-body-bg);
     padding: 1em;

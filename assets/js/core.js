@@ -98,8 +98,8 @@ function append_posts() {
     for (let i = 0; i < channels; i++) {
         get_last_tg_post_id(function (identifer) {
             $(".telegram_frames").append(
-                `<script async src="https://telegram.org/js/telegram-widget.js?19" 
-                    data-telegram-post="${identifer}" 
+                `<script async src="https://telegram.org/js/telegram-widget.js?19"
+                    data-telegram-post="${identifer}"
                     data-width="100%" data-userpic="true" data-dark="1"><\/script>`
             )
             setTimeout(function () {
@@ -217,10 +217,10 @@ function append_services() {
                             <div class="imageContainer">
                                 <img src="${services[i].image}"
                                  class="rounded-3 foregroundImg" alt="${services[i].name}" 
-                                 style="display: block; margin: auto; width: 35%">
+                                 style="display: block; margin: auto; width: 35%" loading="lazy">
                                 <img src="${services[i].image}"
                                  class="rounded-3 backgroundImg" alt="${services[i].name}" 
-                                 style="display: block; margin: auto; width: 35%">
+                                 style="display: block; margin: auto; width: 35%" loading="lazy">
                              </div>
                         </div>
                         <div class="card-img-overlay d-flex flex-column align-items-center 
@@ -343,7 +343,7 @@ function build_players_swiper() {
                 <div class="swiper-slide">
                     <span class="d-block py-3">
                         <img src="${players[i].head}" class="d-block mx-auto" width="154"
-                           alt="${players[i].name}">
+                           alt="${players[i].name}" loading="lazy"
                         <div class="card-body text-center p-3">
                             <h3 class="fs-lg fw-semibold pt-1 mb-2">${players[i].name}</h3>
                             <p class="fs-sm mb-0">${players[i].desc}</p>
