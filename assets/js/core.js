@@ -16,36 +16,36 @@ function shuffle(array) {
             array[randomIndex], array[currentIndex]];
     };
     return array;
-}
+};
 
 function notify(text) {
-    const error_box = $(".error_box_cst")
-    const error_text = $(".error_text_cst")
-    const scroll_top = $(".btn-scroll-top")
+    const error_box = $(".error_box_cst");
+    const error_text = $(".error_text_cst");
+    const scroll_top = $(".btn-scroll-top");
 
     let notify_hide = function () {
-        error_box.css("margin-bottom", "-150px")
-        scroll_top.attr("style", "")
+        error_box.css("margin-bottom", "-150px");
+        scroll_top.attr("style", "");
         notify_hidden = true
-    }
+    };
 
     let notify_display = function () {
-        notify_hidden = false
-        error_text.html(text)
+        notify_hidden = false;
+        error_text.html(text);
         scroll_top.css("bottom", `calc(
             ${document.getElementById("error_box_cst_id").offsetHeight}px + 1em
-        )`)
+        )`);
         error_box.css("margin-bottom", "0")
-    }
+    };
 
     if (notify_hidden) {
         notify_display()
     } else {
-        notify_hide()
+        notify_hide();
         setTimeout(notify_display, 200)
-    }
+    };
 
-    clearTimeout(timer_notify)
+    clearTimeout(timer_notify);
     timer_notify = setTimeout(notify_hide, 2500)
 }
 
