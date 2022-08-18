@@ -47,15 +47,15 @@ function notify(text) {
 
     clearTimeout(timer_notify);
     timer_notify = setTimeout(notify_hide, 2500)
-}
+};
 
 function url_builder_(base_url, submit_data_) {
-    let url = new URL(base_url)
+    let url = new URL(base_url);
     for (let i = 0; i < submit_data_.length; i++) {
         url.searchParams.set(submit_data_[i].name, submit_data_[i].value)
-    }
+    };
     return url.href
-}
+};
 
 function countProperties(obj) {
     return Object.keys(obj).length;
