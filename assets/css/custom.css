@@ -42,19 +42,23 @@ iframe {
     user-select: none;
 }
 
-.background_video_overlay {
+.background_media_overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    backdrop-filter: blur(0.5vw);
+    backdrop-filter: blur(0.15vw);
     z-index: -4;
 }
 
-.dark-mode .background_video_filter {
-    filter: blur(4px) brightness(0.5);
-    margin-bottom: -1em;
+.background_media_overlay_tag {
+    transition: all 1s;
+    box-shadow: 20px 0 300px 2px black;
+}
+
+.dark-mode .background_media_overlay_tag {
+    filter: brightness(0.6);
 }
 
 @media (min-width: 992px) {
@@ -62,7 +66,7 @@ iframe {
         height: calc(100vh - 16px);
     }
 
-    .background_video_overlay_tag {
+    .background_media_overlay_tag {
         height: 100vh;
     }
 }
