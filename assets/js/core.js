@@ -58,24 +58,24 @@ function url_builder_(base_url, submit_data_) {
 };
 
 function countProperties(obj) {
-    return Object.keys(obj).length;
-}
+    return Object.keys(obj).length
+};
 
 function getNoun(number, one = "игрок", two = "игрока", five = "игроков") {
-    let n = Math.abs(number)
-    n %= 100
+    let n = Math.abs(number);
+    n %= 100;
     if (n >= 5 && n <= 20) {
         return five
-    }
+    };
     n %= 10;
     if (n === 1) {
         return one
-    }
+    };
     if (n >= 2 && n <= 4) {
         return two
-    }
+    };
     return five
-}
+};
 
 function get_last_tg_post_id(callback, source) {
     $.ajax({
@@ -92,7 +92,7 @@ function get_last_tg_post_id(callback, source) {
             console.log("Error get last post id for Telegram")
         }
     })
-}
+};
 
 function append_posts() {
     for (let i = 0; i < channels; i++) {
@@ -101,43 +101,43 @@ function append_posts() {
                 `<script async src="https://telegram.org/js/telegram-widget.js?19"
                     data-telegram-post="${identifer}"
                     data-width="100%" data-userpic="true" data-dark="1"><\/script>`
-            )
+            );
             setTimeout(function () {
                 $("#telegram_block_load").remove()
             }, 100)
         }, i)
     }
-}
+};
 
 function get_game_server_data(callback) {
     const _data_error = function (ok = false) {
-        let string_ = ""
+        let string_ = "";
         if (ok) {
             string_ = ""
         } else {
             string_ = "Не удается обновить информацию о сервере..."
-        }
+        };
         $("#error_get_server_status").text(string_)
-    }
+    };
 
     $.ajax({
         url: `${backend_host}/server`,
         type: "GET",
         success: function (r) {
             if (r.success) {
-                callback(r.body)
+                callback(r.body);
                 _data_error(ok = true)
             } else {
-                console.log("Error data check (get_game_server_data)")
+                console.log("Error data check (get_game_server_data)");
                 _data_error()
             }
         },
         error: function () {
-            console.log("Error get info for game server")
+            console.log("Error get info for game server");
             _data_error()
         }
     })
-}
+};
 
 function monitoring_game_server_update() {
     get_game_server_data(function (data) {
@@ -146,10 +146,10 @@ function monitoring_game_server_update() {
                 ${data.online}</span> ${getNoun(data.online)}`
         )
     })
-}
+};
 
 function game_server_updater() {
-    monitoring_game_server_update()
+    monitoring_game_server_update();
     setInterval(monitoring_game_server_update, 3000)
 }
 
