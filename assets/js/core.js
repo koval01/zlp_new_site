@@ -288,6 +288,23 @@ function group_already_in_cart(user_cart) {
     return false
 };
 
+function comments_init() {
+    const swiper_comments = new Swiper('#comment_swipe_container', {
+        spaceBetween: 12,
+        loop: true,
+        observer: true,
+        observeParents: true,
+        pagination: {
+            el: ".swiper-pagination-comments",
+            clickable: true
+        },
+        navigation: {
+            prevEl: "#prev_comment",
+            nextEl: "#next_comment"
+        }
+    })
+};
+
 function build_players_swiper() {
     let array_ = document.getElementById("players-swiper-array");
     const create_swiper = function () {
@@ -343,25 +360,26 @@ function donate_element_click(product_data) {
 
     const exclude_types = ["group"];
     let modal = document.getElementById("donate_item_modal");
-    let desc = $("#donate_item_select_text");
+    let desc = document.getElementById("donate_item_select_text");
     let text_template = `Вы выбрали товар <span class="text-primary fw-semibold">${product_data.name}</span>, 
         цена ${product_data.count} ${getNoun(product_data.count, "единицы", "единиц", "единиц")} 
         <span class="text-primary fw-semibold">${product_data.price} 
         ${getNoun(product_data.price, "рубль", "рубля", "рублей")}</span>.`;
-    let items_count_donate = $("#items_count_donate");
-    let count_hint = $("#donate_count_text_hint");
-    let add_to_cart = $("#donate_button_add_to_cart");
+    let items_count_donate = document.getElementById("items_count_donate");
+    let count_hint = document.getElementById("donate_count_text_hint");
+    let add_to_cart = document.getElementById("donate_button_add_to_cart");
     const cookie_cart = get_cookie_cart();
 
     let switch_ = false;
 
     let _update_count = function () {
-        add_to_cart.attr(
-            "onClick", `donate_cart(${product_data.service_id}, ${items_count_donate.val()})`
+        add_to_cart.setAttribute(
+            "onClick", `donate_cart(${product_data.service_id}, ${items_count_donate.value})`
         )
     };
 
-    items_count_donate.val("1"); _update_count();
+    items_count_donate.value = 1;
+    _update_count();
 
     const product_in_cart = cookie_cart.hasOwnProperty(product_data.service_id.toString());
     if (
@@ -388,33 +406,34 @@ function donate_element_click(product_data) {
         count_state = "none"
     };
 
-    items_count_donate.css("display", count_state);
-    count_hint.css("display", count_state);
+    items_count_donate.style.display = count_state;
+    count_hint.style.display = count_state;
 
     const only_dig = function () {
-        let value = items_count_donate.val();
-        items_count_donate.val(
-            value.replace(/\D+/g, ''))
+        let value = items_count_donate.value;
+        items_count_donate.value = value.replace(/\D+/g, '')
     };
 
     const _calculate_price = function () {
         only_dig();
         if (!exclude_types.includes(product_data.type)) {
-            let _price = parseInt(items_count_donate.val()) * product_data.count * product_data.price;
+            let _price = parseInt(items_count_donate.value) * product_data.count * product_data.price;
             if (isNaN(_price) || 1 > Math.sign(_price)) {
                 _price = 0
             };
-            desc.html(`${text_template}<br/>Стоимость выбранного количества - 
+            desc.innerHTML = `${text_template}<br/>Стоимость выбранного количества - 
             <span class="text-primary fw-semibold">${_price} 
-            ${getNoun(_price, "рубль", "рубля", "рублей")}</span>`);
+            ${getNoun(_price, "рубль", "рубля", "рублей")}</span>`;
             _update_count()
         }
     };
 
-    desc.html(text_template);
+    desc.innerHTML = text_template;
 
-    _calculate_price();
-    items_count_donate.keyup(_calculate_price);
+    _calculate_price()
+    items_count_donate.addEventListener('input', function (_) {
+        _calculate_price()
+    });
 
     document.body.classList.add("modal-open");
     modal.style.display = "block";
@@ -511,7 +530,7 @@ function finish_load() {
 };
 
 document.addEventListener("DOMContentLoaded", function() {
-    landing_init(); build_players_swiper(); append_posts(); append_services();
+    landing_init(); build_players_swiper(); append_posts(); comments_init(); append_services();
     update_cart_count(); game_server_updater(); donate_init(); finish_load();
 
     let elem = document.getElementById('dark-perm-set-bv');
