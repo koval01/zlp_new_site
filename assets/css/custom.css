@@ -28,6 +28,11 @@ iframe {
     height: 100vh;
 }
 
+.scroll-bottom-landing {
+    float: right;
+    padding-bottom: 2em !important;
+}
+
 .stream_description {
     background: var(--si-body-bg);
     padding: 1em;
@@ -74,6 +79,10 @@ iframe {
 
     .background_media_overlay_tag {
         height: 100vh;
+    }
+
+    .landing-global-block-set {
+        float: right;
     }
 }
 
