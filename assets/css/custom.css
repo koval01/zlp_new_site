@@ -33,12 +33,6 @@ iframe {
     padding-bottom: 2em !important;
 }
 
-.stream_description {
-    background: var(--si-body-bg);
-    padding: 1em;
-    border-radius: 0.5em;
-}
-
 .swipe_el_name {
     display: block;
     text-align: center;
@@ -197,7 +191,7 @@ body.modal-open {
 }
 
 #discord-embed iframe {
-    border: 3px solid #fff !important;
+    box-shadow: 0 0 150px 8px #5765f2;
 }
 
 .hero-bg-st {
