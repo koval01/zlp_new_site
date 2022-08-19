@@ -123,5 +123,10 @@
     "name": "Sunflower",
     "head": "assets/images/players/Sunflower.png",
     "desc": "Очередная женщина сервера"
+  },
+  {
+    "name": "DjyZott",
+    "head": "assets/images/players/DjyZott.png",
+    "desc": "Хуйлан на сервере анархии который никому не нужен"
   }
 ]
