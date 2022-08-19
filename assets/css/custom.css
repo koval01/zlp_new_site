@@ -64,7 +64,7 @@ iframe {
 }
 
 .dark-mode .background_media_overlay_tag {
-    filter: brightness(0.6);
+    filter: brightness(0.8);
 }
 
 @media (min-width: 992px) {
