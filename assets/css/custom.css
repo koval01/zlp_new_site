@@ -248,14 +248,30 @@ body.modal-open {
     transition: margin-top 1s, opacity 0.4s linear;
 }
 
+.theme-styled-text-st {
+    color: #000000c7;
+}
+
+.theme-styled-text-st:hover {
+    color: #000000c7;
+}
+
+.dark-mode .theme-styled-text-st {
+    color: #fff;
+}
+
+.dark-mode .theme-styled-text-st:hover {
+    color: #fff;
+}
+
 .donate-cancel-cart {
     color: var(--si-body-color);
     font-weight: bold;
     font-size: 3.5em;
 }
 
-.discord-block-gradient {
-    background: linear-gradient(90deg, #ac63f1 0%, #8069c0 50%, #b41fc5 100%) !important;
+.discord-block-back-st {
+    backdrop-filter: blur(100px);
 }
 
 .error_text_cst {
