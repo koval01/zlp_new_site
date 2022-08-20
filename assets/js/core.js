@@ -528,13 +528,34 @@ function donate_flush_cart() {
     notify("Корзина очищена")
 };
 
+
+
+function donate_check_services_cart() {
+    const services_cookie = Object.keys(get_cookie_cart());
+    get_donate_services(function (services_origin) {
+        let services = [];
+        for (let i = 0; i < services_origin.length; i++) {
+            services.push(services_origin[i].id)
+        };
+        for (let i = 0; i < services_cookie.length; i++) {
+            if (!services.includes(parseInt(services_cookie[i]))) {
+                let cart = JSON.parse(Cookies.get(cart_cookie));
+                delete cart[parseInt(services_cookie[i])];
+                Cookies.set(cart_cookie, JSON.stringify(cart));
+                console.log(`Remove ${services_cookie[i]} from cart`)
+            }
+        }
+    })
+};
+
 function donate_init() {
     let els = {};
     try {
         els = JSON.parse(Cookies.get(cart_cookie))
     } catch (_) {
     };
-    donate_cart_button(els)
+    donate_cart_button(els);
+    donate_check_services_cart()
 };
 
 function donate_cart_call(coupon=null) {
@@ -587,12 +608,14 @@ function donate_cart_call(coupon=null) {
         </li>
     `
 
-}
+};
 
 function landing_init() {
     if (["localhost", "zalupa.world"].includes(window.location.hostname)) {
         document.getElementById("landing_description_gb").innerText =
-            "This is development version!"
+            "Этот сайт - development-версия!";
+        document.getElementById("donate-test-mode-enb").innerText =
+            "Этот блок работает в демонстративном режиме и не является функциональным."
     }
 };
 
