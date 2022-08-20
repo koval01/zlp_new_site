@@ -264,12 +264,12 @@ body.modal-open {
     color: #fff;
 }
 
-.video-hover-blur-rl {
+.hover-blur-rl {
     filter: blur(8px);
     transition: all .6s;
 }
 
-.video-hover-blur-rl:hover {
+.hover-blur-rl:hover {
     filter: blur(0);
 }
 
