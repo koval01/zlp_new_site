@@ -499,7 +499,8 @@ function donate_cart(product, count, remove = false) {
         if (els_[product]) {
             els_[product] = els_[product] + count;
             notify(`В корзину добавлено ${local_prm} ${count} </span> 
-                        единиц товара ${local_prm} ${product_data.name} </span>`)
+                        ${getNoun(count, "единица", "единицы", "единиц")} 
+                        товара ${local_prm} ${product_data.name} </span>`)
         } else {
             els_[product] = count;
             notify(`Товар ${local_prm} ${product_data.name}</span> добавлен в корзину`)
