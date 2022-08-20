@@ -270,7 +270,9 @@ function append_services() {
             } catch (_) {
             }
             ;
-            document.getElementById("donate_items_list").style.display = ""
+            document.getElementById("donate_items_list").style.display = "";
+            document.getElementById("donate-title-desc").style.display = "";
+            document.getElementById("donate-test-mode-enb").style.display = ""
         }, 100)
     })
 };
@@ -779,5 +781,9 @@ document.addEventListener("DOMContentLoaded", function () {
     finish_load();
 
     let elem = document.getElementById('dark-perm-set-bv');
-    elem.parentNode.removeChild(elem)
+    elem.parentNode.removeChild(elem);
+
+    window.matchMedia("(prefers-color-scheme: dark)").addListener(
+        // pass
+    )
 })

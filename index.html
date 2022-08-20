@@ -156,15 +156,16 @@
     <section id="donate_block" class="container my-2 my-md-4 my-lg-5">
         <div class="d-md-flex align-items-center justify-content-between text-center text-md-start pt-md-1 pt-lg-3">
             <h2 class="h1 mb-4 mb-md-0 me-md-3">Магазин</h2>
-            <p class="pb-2 pb-lg-4 pb-xl-5 mb-3" style="margin-bottom: 0 !important; padding-bottom: 0 !important"> Ты
-                можешь поддержать наш проект, купив хоть какой продукт. Средства будут отправлены на оплату серверов,
-                чтобы проект мог продолжать свою работу. Деньги не возвращаем, пошел на хуй уважаемый клиент.</p>
+            <p class="pb-2 pb-lg-4 pb-xl-5 mb-3" id="donate-title-desc"
+               style="margin-bottom: 0 !important; padding-bottom: 0 !important; display: none"> Ты можешь поддержать наш
+                проект, купив хоть какой продукт. Средства будут отправлены на оплату серверов, чтобы проект
+                мог продолжать свою работу. Деньги не возвращаем, пошел на хуй уважаемый клиент.</p>
         </div>
         <div class="row row-cols-1 g-4 mt-2 mt-lg-4"
              id="donate_items_list"></div>
         <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
         <div>
-            <p id="donate-test-mode-enb" class="text-center"></p>
+            <p id="donate-test-mode-enb" class="text-center" style="display: none"></p>
         </div>
         <div class="donate_cart_button_cn mb-4 row-cols-3 d-flex flex-sm-row justify-content-center">
             <button class="btn btn-primary shadow-primary btn-lg donate-cart-button-cn min-w-zl"
