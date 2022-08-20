@@ -123,7 +123,7 @@ function append_posts() {
             sl.appendChild(script);
             setTimeout(function () {
                 let sl = document.getElementById("telegram_block_load");
-                sl.parentNode.removeChild(sl)
+                try { sl.parentNode.removeChild(sl) } catch (_) {}
             }, 100)
         }, i)
     }
@@ -234,7 +234,7 @@ function append_services() {
 
         setTimeout(function () {
             let elem = document.getElementById('donate_block_load');
-            elem.parentNode.removeChild(elem);
+            try { elem.parentNode.removeChild(elem) } catch (_) {};
             document.getElementById("donate_items_list").style.display = ""
         }, 100)
     })
@@ -246,13 +246,16 @@ function redirect_(url) {
 
 function modal_close_() {
     document.body.classList.remove("modal-open");
-    document.getElementById("donate_item_modal").style.display = "none"
+    let modal = document.getElementById("donate_item_modal");
+    modal.style.display = "none";
+    modal.style.opacity = 0;
 };
 
 function modal_open_() {
     document.body.classList.add("modal-open");
     let modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
+    modal.style.opacity = 1;
 
     window.onclick = function (event) {
         if (event.target === modal) {
@@ -384,7 +387,6 @@ function donate_element_click(product_data) {
     switch_modal_containers("service");
 
     const exclude_types = ["group"];
-    let modal = document.getElementById("donate_item_modal");
     let desc = document.getElementById("donate_item_select_text");
     let text_template = `Товар <span class="text-primary fw-semibold">${product_data.name}</span>, 
         цена ${product_data.count} ${getNoun(product_data.count, "единицы", "единиц", "единиц")} 
@@ -534,6 +536,54 @@ function donate_init() {
     };
     donate_cart_button(els)
 };
+
+function donate_cart_call(coupon=null) {
+    const cart = get_cookie_cart();
+    const cart_keys = Object.keys(cart);
+    const cart_dom = document.getElementById("donate-cart-list");
+
+    switch_modal_containers("donate_finish");
+    modal_open_();
+    cart_dom.innerHTML = "";
+    let sum_price = 0;
+
+    for (let i = 0; i < cart_keys.length; i++) {
+        let item = donate_get_service_by_id(cart_keys[i]);
+        let price = item.price * cart[item.id] * item.number;
+        sum_price += price;
+        cart_dom.innerHTML = cart_dom.innerHTML + `
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                    <h6 class="my-0 text-start">${item.name}</h6>
+                    <small class="text-muted text-start cart-desc-td">${item.description}</small>
+                </div>
+                <span class="text-muted text-end" style="width: 30%">
+                    ${price} ${getNoun(price, "рубль", "рубля", "рублей")}
+                    <br/>x${cart[item.id]}</span>
+            </li>
+        `
+    };
+
+    if (coupon) {
+        cart_dom.innerHTML = cart_dom.innerHTML + `
+            <li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-success">
+                    <h6 class="my-0 text-start">Купон</h6>
+                    <small>${coupon}</small>
+                </div>
+                <span class="text-success">−0 рублей</span>
+            </li>
+        `
+    }
+
+    cart_dom.innerHTML = cart_dom.innerHTML + `
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Сумма</span>
+            <strong>${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}</strong>
+        </li>
+    `
+
+}
 
 function landing_init() {
     if (["localhost", "zalupa.world"].includes(window.location.hostname)) {
