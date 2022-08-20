@@ -249,7 +249,7 @@ body.modal-open {
     opacity: 0;
     margin-top: -50px;
     padding: 0 5px 0 5px;
-    transition: all .4s;
+    transition: margin-top .4s, opactity .3s;
 }
 
 .theme-styled-text-st {
