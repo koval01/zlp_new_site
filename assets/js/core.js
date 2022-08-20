@@ -55,7 +55,7 @@ function request_call(callback, url, method, json = false, json_body = null) {
     };
 
     request.send(json_body_local)
-}
+};
 
 function notify(text) {
     const error_box = document.querySelector(".error_box_cst");
@@ -71,9 +71,8 @@ function notify(text) {
     let notify_display = function () {
         notify_hidden = false;
         error_text.innerHTML = text;
-        scroll_top.style.marginBottom = `calc(
-            ${document.getElementById("error_box_cst_id").offsetHeight}px
-        )`;
+        scroll_top.style.marginBottom =
+            `calc(${document.getElementById("error_box_cst_id").offsetHeight}px)`;
         error_box.style.marginBottom = 0
     };
 
@@ -172,8 +171,7 @@ function get_game_server_data(callback) {
 function monitoring_game_server_update() {
     get_game_server_data(function (data) {
         document.getElementById("server_online_status").innerHTML =
-            `Сейчас играет <span class="text-primary fw-semibold">
-                ${data.online}</span> ${getNoun(data.online)}`
+            `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span> ${getNoun(data.online)}`
     })
 };
 
@@ -293,7 +291,7 @@ function modal_close_() {
 function modal_open_() {
     document.body.classList.add("modal-open");
     let modal = document.getElementById("donate_item_modal");
-    modal.style.display = "block"
+    modal.style.display = "block";
     setTimeout(function () {
         modal.style.opacity = 1
     }, 50);
@@ -303,7 +301,7 @@ function modal_open_() {
             modal_close_()
         }
     }
-}
+};
 
 function switch_modal_containers(mode = "service") {
     const span = document.getElementsByClassName("close_b")[0];
@@ -508,7 +506,7 @@ function donate_element_click(product_data) {
 
     desc.innerHTML = text_template;
 
-    _calculate_price()
+    _calculate_price();
     items_count_donate.addEventListener('input', function (_) {
         _calculate_price()
     });
@@ -685,7 +683,7 @@ function donate_reset_payment_state() {
     const button = document.getElementById("payment-button-donate");
     button.setAttribute("onClick", "generate_payment_link()");
     button.innerText = "Дальше"
-}
+};
 
 function donate_cart_call(coupon = null) {
     const cart = get_cookie_cart();
@@ -707,7 +705,7 @@ function donate_cart_call(coupon = null) {
         selectors_payment[i].addEventListener('input', function (_) {
             donate_reset_payment_state()
         })
-    }
+    };
 
     for (let i = 0; i < cart_keys.length; i++) {
         let item = donate_get_service_by_id(cart_keys[i]);
