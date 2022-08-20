@@ -186,19 +186,22 @@
                 </div>
                 <div class="modal-body py-0">
                     <div id="modal-donate-container-c">
-                        <p id="donate_item_select_text" style="text-align: start"></p>
-                        <div class="add_data_cart">
-                            <p id="donate_count_text_hint" style="margin: 0">Количество</p>
-                            <input id="items_count_donate" type="number" required=""
-                                   class="custom_input_ mb-3 form-control"
-                                   min="1" max="9999" style="
-                                    max-width: 40%;
-                                    margin: auto;
-                                ">
-                            <button style="margin: auto; display: block" id="donate_button_add_to_cart"
-                                    class="btn btn-primary shadow-primary btn-lg"> Добавить
-                            </button>
-                        </div>
+                        <form class="needs-validation" novalidate="">
+                            <p id="donate_item_select_text" class="text-start"></p>
+                            <div class="row g-3 add_data_cart">
+                                <div class="col-sm-6" style="margin: auto">
+                                    <label id="donate_count_text_hint" for="donate_customer" class="form-label">
+                                        Количество</label>
+                                    <input type="number" class="form-control" id="items_count_donate"
+                                           placeholder="" value="" required="">
+                                </div>
+                            </div>
+                            <br/>
+                            <button
+                                    id="donate_button_add_to_cart"
+                                    class="w-100 btn btn-primary btn-lg" type="button">
+                                Добавить</button>
+                        </form>
                     </div>
                     <div id="modal-info-container-c" style="display: none">
                         <p id="donate_info_block_text"></p>
