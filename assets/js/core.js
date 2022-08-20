@@ -4,6 +4,7 @@ const backend_host = "https://backend.zalupa.world";
 var donate_services_array = [];
 var notify_hidden = true;
 var timer_notify = null;
+var glob_players = [];
 
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
@@ -366,6 +367,7 @@ function build_players_swiper() {
         let player = r;
         shuffle(player);
         for (let i = 0; i < player.length; i++) {
+            glob_players.push(player[i].name);
             array_.innerHTML = array_.innerHTML + `
                 <div class="swiper-slide">
                     <span class="d-block py-3">
@@ -604,7 +606,10 @@ function donate_cart_call(coupon=null) {
             <span>Сумма</span>
             <strong>${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}</strong>
         </li>
-    `
+    `;
+
+    shuffle(glob_players);
+    document.querySelector("input#customer").setAttribute("placeholder", glob_players[0])
 
 };
 
