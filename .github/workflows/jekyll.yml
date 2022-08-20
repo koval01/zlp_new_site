@@ -57,3 +57,4 @@ jobs:
           disable_console_output: true
           rename_globals: false
           options_preset: medium-obfuscation
+          target: browser
