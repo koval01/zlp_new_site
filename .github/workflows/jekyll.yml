@@ -37,3 +37,23 @@ jobs:
         with:
           commit_message: "Github Action: Auto Minified JS and CSS files"
           branch: ${{ github.ref }}
+          
+  obfuscate:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Create distribution path
+        run: |
+         mkdir -p distribution_path
+      
+      - name: Low obfuscation test
+        uses: KevinRohn/github-action-javascript-obfuscator@v1
+        with:
+          input_path: input_path
+          output_path: distribution_path
+          compact: true
+          log: false
+          disable_console_output: true
+          rename_globals: false
+          options_preset: medium-obfuscation
