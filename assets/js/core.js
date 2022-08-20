@@ -784,6 +784,6 @@ document.addEventListener("DOMContentLoaded", function () {
     elem.parentNode.removeChild(elem);
 
     window.matchMedia("(prefers-color-scheme: dark)").addListener(
-        // pass
+        console.log("dark now")
     )
 })
