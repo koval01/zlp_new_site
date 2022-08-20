@@ -750,7 +750,7 @@ function donate_cart_call(coupon = null) {
     `;
 
     shuffle(glob_players);
-    document.querySelector("input#customer").setAttribute("placeholder", glob_players[0])
+    document.querySelector("input#donate_customer").setAttribute("placeholder", glob_players[0])
 };
 
 function landing_init() {
