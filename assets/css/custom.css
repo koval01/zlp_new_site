@@ -18,18 +18,6 @@ html {
     border-bottom: 1px solid rgba(255,255,255,0.24);
 }
 
-@media (prefers-color-scheme: dark) {
-    .quoute_container_loader {
-        color: #fff;
-    }
-}
-
-@media (prefers-color-scheme: light) {
-  .quoute_container_loader {
-        color: #000;
-    }
-}
-
 iframe {
     border-radius: 0.5em !important;
 }
