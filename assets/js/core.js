@@ -311,6 +311,9 @@ function build_players_swiper() {
         new Swiper('#players_swipe_container', {
             slidesPerView: 2,
             spaceBetween: 24,
+            autoplay: {
+               delay: 3000,
+            },
             loop: true,
             observer: true,
             observeParents: true,
