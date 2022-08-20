@@ -50,8 +50,8 @@ jobs:
       - name: Low obfuscation test
         uses: KevinRohn/github-action-javascript-obfuscator@v1
         with:
-          input_path: input_path
-          output_path: distribution_path
+          input_path: "assets/js"
+          output_path: "assets/js"
           compact: true
           log: false
           disable_console_output: true
