@@ -133,5 +133,10 @@
     "name": "TaidaKN",
     "head": "assets/images/players/TaidaKN.png",
     "desc": "НН-чик с сервера общения"
+  },
+  {
+    "name": "EXPlaned",
+    "head": "assets/images/players/EXPlaned.png",
+    "desc": "Создатель клана SWAT"
   }
 ]
