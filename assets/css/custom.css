@@ -156,7 +156,7 @@ body.modal-open {
     margin: 40px auto;
     width: min-content;
     display: grid;
-    gap: 40px;
+    gap: 50px;
     transition: all 0.5s ease;
     grid-template-columns: 1fr 1fr 1fr;
 }
@@ -169,7 +169,7 @@ body.modal-open {
 .parent-image-shadow .imageContainer .foregroundImg {
     cursor: pointer;
     position: relative;
-    left: 25%;
+    left: 50px;
     z-index: 2;
     pointer-events: none;
 }
@@ -177,10 +177,9 @@ body.modal-open {
 .parent-image-shadow .imageContainer .backgroundImg {
     position: absolute;
     top: 2px;
-    left: 60%;
+    left: 50px;
     transform: scale(1);
     transition: all 0.5s ease;
-    opacity: 0;
     z-index: 1;
     opacity: 1;
     filter: blur(24px) brightness(1.4);

@@ -177,51 +177,59 @@ function create_payment(callback, customer, products, email = null, coupon = nul
 function append_services() {
     get_donate_services(function (services) {
         donate_services_array = services;
-        for (let i = 0; i < services.length; i++) {
-            let click_data = {
-                "name": services[i].name,
-                "price": services[i].price,
-                "count": services[i].number,
-                "description": services[i].description,
-                "type": services[i].type,
-                "service_id": services[i].id
-            };
-            let sl = document.getElementById("donate_items_list");
-            sl.innerHTML = sl.innerHTML + `
-                <div class="col" id="donate_item_${services[i].id}">
-                    <div class="card card-hover border-0 bg-transparent" 
-                        onClick='donate_element_click(${JSON.stringify(click_data)})'>
-                      <div class="position-relative">
-                        <div class="parent-image-shadow donate_item_hover" 
-                            id="donate_item_hover_${services[i].id}">
-                            <div class="imageContainer">
-                                <img src="${services[i].image}"
-                                 class="rounded-3 foregroundImg" alt="${services[i].name}" 
-                                 style="display: block; margin: auto; width: 35%" loading="lazy">
-                                <img src="${services[i].image}"
-                                 class="rounded-3 backgroundImg" alt="${services[i].name}" 
-                                 style="display: block; margin: auto; width: 35%" loading="lazy">
-                             </div>
+        const size_classes = [
+            "row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"
+        ];
+        let sl = document.getElementById("donate_items_list");
+        if (!services.length) {
+            sl.innerHTML = "<span class=\"text-center\">Не удалось получить список товаров.</span>"
+        } else {
+            for (let i = 0; i < services.length; i++) {
+                let click_data = {
+                    "name": services[i].name,
+                    "price": services[i].price,
+                    "count": services[i].number,
+                    "description": services[i].description,
+                    "type": services[i].type,
+                    "service_id": services[i].id
+                };
+                if (i && size_classes.length >= i) { sl.classList.add(size_classes[i - 1]) };
+                sl.innerHTML = sl.innerHTML + `
+                    <div class="col" id="donate_item_${services[i].id}">
+                        <div class="card card-hover border-0 bg-transparent" 
+                            onClick='donate_element_click(${JSON.stringify(click_data)})'>
+                          <div class="position-relative">
+                            <div class="parent-image-shadow donate_item_hover" 
+                                id="donate_item_hover_${services[i].id}">
+                                <div class="imageContainer">
+                                    <img src="${services[i].image}"
+                                     class="rounded-3 foregroundImg" alt="${services[i].name}" 
+                                     style="display: block; margin: auto; width: 100px" loading="lazy">
+                                    <img src="${services[i].image}"
+                                     class="rounded-3 backgroundImg" alt="${services[i].name}" 
+                                     style="display: block; margin: auto; width: 100px" loading="lazy">
+                                 </div>
+                            </div>
+                            <div class="card-img-overlay d-flex flex-column align-items-center 
+                                        justify-content-center rounded-3" 
+                                 style="margin: auto">
+                            </div>
+                          </div>
+                          <div class="card-body text-center p-3">
+                                <h3 class="fs-lg fw-semibold pt-1 mb-2">${services[i].name}</h3>
+                                <p class="mb-0">
+                                    ${services[i].price} 
+                                    ${getNoun(services[i].price, "рубль", "рубля", "рублей")} 
+                                    = 
+                                    ${services[i].number} 
+                                    ${getNoun(services[i].number, "единица", "единицы", "единиц")}
+                                </p>
+                                <p class="fs-sm mb-0">${services[i].description}</p>
+                          </div>
                         </div>
-                        <div class="card-img-overlay d-flex flex-column align-items-center 
-                                    justify-content-center rounded-3" 
-                             style="margin: auto">
-                        </div>
-                      </div>
-                      <div class="card-body text-center p-3">
-                            <h3 class="fs-lg fw-semibold pt-1 mb-2">${services[i].name}</h3>
-                            <p class="mb-0">
-                                ${services[i].price} 
-                                ${getNoun(services[i].price, "рубль", "рубля", "рублей")} 
-                                = 
-                                ${services[i].number} 
-                                ${getNoun(services[i].number, "единица", "единицы", "единиц")}
-                            </p>
-                            <p class="fs-sm mb-0">${services[i].description}</p>
-                      </div>
                     </div>
-                </div>
-            `
+                `
+            }
         };
 
         setTimeout(function () {
