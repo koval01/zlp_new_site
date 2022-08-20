@@ -554,7 +554,11 @@ function donate_cart_call(coupon=null) {
         cart_dom.innerHTML = cart_dom.innerHTML + `
             <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
-                    <h6 class="my-0 text-start">${item.name}</h6>
+                    <h6 class="my-0 text-start">
+                        <span class="text-primary fw-semibold">
+                            x${item.number}</span> 
+                        ${item.name}
+                    </h6>
                     <small class="text-muted text-start cart-desc-td">${item.description}</small>
                 </div>
                 <span class="text-muted text-end" style="width: 30%">
