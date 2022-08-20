@@ -116,6 +116,7 @@ body.modal-open {
     width: 70%;
 }
 
+
 .modal {
     display: none;
     opacity: 0;
@@ -139,7 +140,7 @@ body.modal-open {
     padding: 20px;
 }
 
-@media(min-width: 600px) {
+@media(min-width: 760px) {
     .modal-content {
         max-width: 70%;
     }
@@ -240,8 +241,14 @@ body.modal-open {
     }
 }
 
+.min-w-zl {
+    min-width: 40%;
+}
+
 .donate-cart-button-cn {
-    transition: margin-top 1s, opacity 0.4s linear;
+    opacity: 0;
+    margin-top: -50px;
+    padding: 0 5px 0 5px;
 }
 
 .theme-styled-text-st {

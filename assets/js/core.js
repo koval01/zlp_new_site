@@ -3,8 +3,9 @@ const channels = 2;
 const backend_host = "https://backend.zalupa.world";
 var donate_services_array = [];
 var notify_hidden = true;
-var timer_notify = null;
 var glob_players = [];
+var timer_notify;
+var payment_url_global;
 
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
@@ -531,6 +532,57 @@ function donate_flush_cart() {
     notify("Корзина очищена")
 };
 
+function donate_enable_coupon(enabled=true) {
+    const input = document.getElementById("coupon-input");
+    const button = document.getElementById("coupon-button");
+
+    if (enabled) {
+        input.setAttribute("placeholder", "BRFF");
+        input.removeAttribute("disabled");
+        button.removeAttribute("disabled")
+    } else {
+        input.setAttribute("disabled", null);
+        input.setAttribute("placeholder", "Сейчас недоступно");
+        button.setAttribute("disabled", null)
+    }
+};
+
+function generate_payment_link() {
+    const button = document.getElementById("payment-button-donate");
+
+    const customer = document.getElementById("donate_customer");
+    let email = document.getElementById("donate_email");
+    let coupon = document.getElementById("coupon-input");
+
+    if (!customer.value.length) {
+        notify("Введите пожалуйста ваш никнейм");
+        return
+    } else if (customer.value.length > 40) {
+        notify("Ваш никнейм слишком длинный");
+        return
+    };
+    if (!email.value.length) { email = null };
+    if (!coupon.value.length) { coupon = null };
+
+    button.setAttribute("disabled", null);
+    button.innerText = "Проверяем данные...";
+
+    create_payment(function (callback_data) {
+        if (callback_data) {
+            button.removeAttribute("disabled");
+            button.innerText = "Оплатить";
+            payment_url_global = callback_data.url;
+            button.setAttribute("onClick", "payment_action_bt()")
+        } else {
+            button.innerText = "Ошибка..."
+        }
+    }, customer, get_cookie_cart(), email, coupon)
+};
+
+function payment_action_bt() {
+    window.open(payment_url_global, '_blank')
+};
+
 function donate_check_services_cart() {
     const services_cookie = Object.keys(get_cookie_cart());
     get_donate_services(function (services_origin) {
@@ -556,7 +608,8 @@ function donate_init() {
     } catch (_) {
     };
     donate_cart_button(els);
-    donate_check_services_cart()
+    donate_check_services_cart();
+    donate_enable_coupon(enabled=false)
 };
 
 function donate_cart_call(coupon=null) {
@@ -611,7 +664,6 @@ function donate_cart_call(coupon=null) {
 
     shuffle(glob_players);
     document.querySelector("input#customer").setAttribute("placeholder", glob_players[0])
-
 };
 
 function landing_init() {

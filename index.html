@@ -163,12 +163,13 @@
             <p id="donate-test-mode-enb" class="text-center"></p>
         </div>
         <div class="donate_cart_button_cn mb-4 row-cols-3 d-flex flex-sm-row justify-content-center">
-            <button class="btn btn-primary shadow-primary btn-lg donate-cart-button-cn"
-                    style="opacity: 0; margin-top: -50px; padding: 0 5px 0 5px" onclick="donate_cart_call()">
+            <button class="btn btn-primary shadow-primary btn-lg donate-cart-button-cn min-w-zl"
+                    onclick="donate_cart_call()">
                 <embed src="assets/images/shopping-cart.svg" class="cst-icon-svg">
                 Корзина ( <span id="count_cart_items_dn">0</span>)
             </button>
-            <button class="btn btn-icon btn-secondary donate-cart-button-cn mx-2" style="opacity: 0; margin-top: -50px"
+            <button class="btn btn-icon btn-secondary mx-2 donate-cart-button-cn"
+                    style="opacity: 0; margin-top: -50px"
                     onclick="donate_flush_cart()">
                 <span class="donate-cancel-cart">&times;</span>
             </button>
@@ -203,37 +204,33 @@
                         <form class="needs-validation" novalidate="">
                             <div class="row g-3">
                                 <div class="col-sm-6">
-                                    <label for="customer" class="form-label">Никнейм</label>
-                                    <input type="text" class="form-control" id="customer"
+                                    <label for="donate_customer" class="form-label">Никнейм</label>
+                                    <input type="text" class="form-control" id="donate_customer"
                                            placeholder="Blackflexxy" value="" required="">
-                                    <div class="invalid-feedback">
-                                        Укажи никнейм
-                                    </div>
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <label for="email" class="form-label">Почта <span
+                                    <label for="donate_email" class="form-label">Почта <span
                                             class="text-muted">(Необязательно)</span></label>
-                                    <input type="email" class="form-control" id="email" placeholder="eblan@mail.ru">
-                                    <div class="invalid-feedback">
-                                        Почта указана неверно
-                                    </div>
+                                    <input type="email" class="form-control" id="donate_email" placeholder="eblan@mail.ru">
                                 </div>
 
                                 <div class="col-12">
                                     <label for="coupon" class="form-label">Купон <span
                                             class="text-muted">(Необязательно)</span></label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="#penis300">
-                                        <div class="invalid-feedback">
-                                            Купон указан неверно
-                                        </div>
-                                        <button class="btn btn-dark" type="button">Проверить</button>
+                                        <input type="text" class="form-control" id="coupon-input"
+                                               placeholder="BRFF" disabled>
+                                        <button class="btn btn-dark" id="coupon-button"
+                                                type="button" disabled>Проверить</button>
                                     </div>
                                 </div>
                             </div>
                             <br/>
-                            <button class="w-100 btn btn-primary btn-lg" type="button">Оплатить</button>
+                            <button
+                                    id="payment-button-donate" onclick="generate_payment_link()"
+                                    class="w-100 btn btn-primary btn-lg" type="button">
+                                Дальше</button>
                         </form>
                     </div>
                 </div>
