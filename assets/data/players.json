@@ -128,5 +128,10 @@
     "name": "DjyZott",
     "head": "assets/images/players/DjyZott.png",
     "desc": "Хуйлан на сервере анархии который никому не нужен"
+  },
+  {
+    "name": "TaidaKN",
+    "head": "assets/images/players/TaidaKN.png",
+    "desc": "НН-чик с сервера общения"
   }
 ]
