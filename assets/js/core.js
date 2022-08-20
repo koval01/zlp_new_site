@@ -14,11 +14,20 @@ function shuffle(array) {
         currentIndex--;
         [array[currentIndex], array[randomIndex]] = [
             array[randomIndex], array[currentIndex]];
-    };
+    }
+    ;
     return array;
 };
 
-function request_call(callback, url, method, json=false, json_body=null) {
+function validateEmail(email) {
+    return String(email)
+        .toLowerCase()
+        .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+};
+
+function request_call(callback, url, method, json = false, json_body = null) {
     let request = new XMLHttpRequest();
     let json_body_local = {};
     request.open(method, url, true);
@@ -26,9 +35,10 @@ function request_call(callback, url, method, json=false, json_body=null) {
     if (method.toUpperCase() === "POST") {
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         json_body_local = JSON.stringify(json_body)
-    };
+    }
+    ;
 
-    request.onload = function() {
+    request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
             if (json) {
                 callback(JSON.parse(request.responseText))
@@ -40,7 +50,7 @@ function request_call(callback, url, method, json=false, json_body=null) {
         }
     };
 
-    request.onerror = function(error) {
+    request.onerror = function (error) {
         console.log(`Error make request! Details: ${error}`)
     };
 
@@ -72,7 +82,8 @@ function notify(text) {
     } else {
         notify_hide();
         setTimeout(notify_display, 200)
-    };
+    }
+    ;
 
     clearTimeout(timer_notify);
     timer_notify = setTimeout(notify_hide, 2500)
@@ -82,7 +93,8 @@ function url_builder_(base_url, submit_data_) {
     let url = new URL(base_url);
     for (let i = 0; i < submit_data_.length; i++) {
         url.searchParams.set(submit_data_[i].name, submit_data_[i].value)
-    };
+    }
+    ;
     return url.href
 };
 
@@ -95,21 +107,26 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
     n %= 100;
     if (n >= 5 && n <= 20) {
         return five
-    };
+    }
+    ;
     n %= 10;
     if (n === 1) {
         return one
-    };
+    }
+    ;
     if (n >= 2 && n <= 4) {
         return two
-    };
+    }
+    ;
     return five
 };
 
 function get_last_tg_post_id(callback, source) {
     request_call(function (r) {
-        if (r.success) { return callback(r.last_post) }
-    }, `${backend_host}/channel?choice=${source}`, "GET", json=true)
+        if (r.success) {
+            return callback(r.last_post)
+        }
+    }, `${backend_host}/channel?choice=${source}`, "GET", json = true)
 };
 
 function append_posts() {
@@ -125,7 +142,10 @@ function append_posts() {
             sl.appendChild(script);
             setTimeout(function () {
                 let sl = document.getElementById("telegram_block_load");
-                try { sl.parentNode.removeChild(sl) } catch (_) {}
+                try {
+                    sl.parentNode.removeChild(sl)
+                } catch (_) {
+                }
             }, 100)
         }, i)
     }
@@ -138,12 +158,15 @@ function get_game_server_data(callback) {
             string_ = ""
         } else {
             string_ = "Не удается обновить информацию о сервере..."
-        };
+        }
+        ;
         document.getElementById("error_get_server_status").innerText = string_
     };
     request_call(function (r) {
-        if (r.success) { callback(r.body) }
-    }, `${backend_host}/server`, "GET", json=true)
+        if (r.success) {
+            callback(r.body)
+        }
+    }, `${backend_host}/server`, "GET", json = true)
 };
 
 function monitoring_game_server_update() {
@@ -161,14 +184,18 @@ function game_server_updater() {
 
 function get_donate_services(callback) {
     request_call(function (r) {
-        if (r.success) { callback(r.services) }
-    }, `${backend_host}/donate/services`, "GET", json=true)
+        if (r.success) {
+            callback(r.services)
+        }
+    }, `${backend_host}/donate/services`, "GET", json = true)
 };
 
 function create_payment(callback, customer, products, email = null, coupon = null) {
     request_call(function (r) {
-        if (r.success) { callback(r.payment) }
-    }, `${backend_host}/donate/payment/create`, "POST", json=true, json_body={
+        if (r.success) {
+            callback(r.payment)
+        }
+    }, `${backend_host}/donate/payment/create`, "POST", json = true, json_body = {
         "customer": customer,
         "products": products,
         "email": email,
@@ -195,7 +222,10 @@ function append_services() {
                     "type": services[i].type,
                     "service_id": services[i].id
                 };
-                if (i && size_classes.length >= i) { sl.classList.add(size_classes[i - 1]) };
+                if (i && size_classes.length >= i) {
+                    sl.classList.add(size_classes[i - 1])
+                }
+                ;
                 sl.innerHTML = sl.innerHTML + `
                     <div class="col" id="donate_item_${services[i].id}">
                         <div class="card card-hover border-0 bg-transparent" 
@@ -232,11 +262,16 @@ function append_services() {
                     </div>
                 `
             }
-        };
+        }
+        ;
 
         setTimeout(function () {
             let elem = document.getElementById('donate_block_load');
-            try { elem.parentNode.removeChild(elem) } catch (_) {};
+            try {
+                elem.parentNode.removeChild(elem)
+            } catch (_) {
+            }
+            ;
             document.getElementById("donate_items_list").style.display = ""
         }, 100)
     })
@@ -250,14 +285,18 @@ function modal_close_() {
     document.body.classList.remove("modal-open");
     let modal = document.getElementById("donate_item_modal");
     modal.style.opacity = 0;
-    setTimeout(function () { modal.style.display = "none" }, 350);
+    setTimeout(function () {
+        modal.style.display = "none"
+    }, 350);
 };
 
 function modal_open_() {
     document.body.classList.add("modal-open");
     let modal = document.getElementById("donate_item_modal");
     modal.style.display = "block"
-    setTimeout(function () { modal.style.opacity = 1 }, 50);
+    setTimeout(function () {
+        modal.style.opacity = 1
+    }, 50);
 
     window.onclick = function (event) {
         if (event.target === modal) {
@@ -282,9 +321,11 @@ function switch_modal_containers(mode = "service") {
         if (mode === _array[i].name) {
             _mode = "block";
             title.innerText = _array[i].title
-        };
+        }
+        ;
         _array[i].selector.style.display = _mode
-    };
+    }
+    ;
     span.onclick = function () {
         modal_close_()
     }
@@ -295,7 +336,8 @@ function get_cookie_cart() {
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie))
     } catch (_) {
-    };
+    }
+    ;
     return cookie_cart
 };
 
@@ -311,7 +353,8 @@ function group_already_in_cart(user_cart) {
                 return true
             }
         }
-    };
+    }
+    ;
     return false
 };
 
@@ -339,7 +382,7 @@ function build_players_swiper() {
             slidesPerView: 2,
             spaceBetween: 24,
             autoplay: {
-               delay: 3000,
+                delay: 3000,
             },
             loop: true,
             observer: true,
@@ -381,9 +424,10 @@ function build_players_swiper() {
                     </span>
                 </div>
             `
-        };
+        }
+        ;
         create_swiper()
-    }, "assets/data/players.json", "GET", json=true)
+    }, "assets/data/players.json", "GET", json = true)
 };
 
 function donate_element_click(product_data) {
@@ -427,14 +471,17 @@ function donate_element_click(product_data) {
             только один раз.`
         } else {
             group_error = "Мы не знаем почему, но эта ошибка вызвана по неизвестным причинам."
-        };
+        }
+        ;
         document.getElementById("donate_info_block_text").innerHTML = group_error
-    };
+    }
+    ;
 
     let count_state = "block";
     if (exclude_types.includes(product_data.type)) {
         count_state = "none"
-    };
+    }
+    ;
 
     items_count_donate.style.display = count_state;
     count_hint.style.display = count_state;
@@ -450,7 +497,8 @@ function donate_element_click(product_data) {
             let _price = parseInt(items_count_donate.value) * product_data.price;
             if (isNaN(_price) || 1 > Math.sign(_price)) {
                 _price = 0
-            };
+            }
+            ;
             desc.innerHTML = `${text_template}<br/>Стоимость - 
             <span class="text-primary fw-semibold">${_price} 
             ${getNoun(_price, "рубль", "рубля", "рублей")}</span>`;
@@ -473,7 +521,8 @@ function donate_get_service_by_id(id) {
         if (donate_services_array[i].id === parseInt(id)) {
             return donate_services_array[i]
         }
-    };
+    }
+    ;
     return null
 };
 
@@ -481,15 +530,18 @@ function donate_cart(product, count, remove = false) {
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart");
         return
-    };
+    }
+    ;
     if (1 > Math.sign(count)) {
         notify("Количество не может быть равно нулю или меньше");
         return
-    };
+    }
+    ;
     let cart = Cookies.get(cart_cookie);
     if (!cart) {
         Cookies.set(cart_cookie, JSON.stringify({}))
-    };
+    }
+    ;
     const els_ = JSON.parse(Cookies.get(cart_cookie));
     const product_data = donate_get_service_by_id(product);
     const local_prm = "<span style=\"color: #a4a6ff !important\">";
@@ -506,10 +558,13 @@ function donate_cart(product, count, remove = false) {
             els_[product] = count;
             notify(`Товар ${local_prm} ${product_data.name}</span> добавлен в корзину`)
         }
-    };
+    }
+    ;
 
     Cookies.set(cart_cookie, JSON.stringify(els_));
-    modal_close_(); donate_init(); update_cart_count()
+    modal_close_();
+    donate_init();
+    update_cart_count()
 };
 
 function donate_cart_button(els = {}) {
@@ -532,7 +587,7 @@ function donate_flush_cart() {
     notify("Корзина очищена")
 };
 
-function donate_enable_coupon(enabled=true) {
+function donate_enable_coupon(enabled = true) {
     const input = document.getElementById("coupon-input");
     const button = document.getElementById("coupon-button");
 
@@ -550,19 +605,31 @@ function donate_enable_coupon(enabled=true) {
 function generate_payment_link() {
     const button = document.getElementById("payment-button-donate");
 
-    const customer = document.getElementById("donate_customer");
-    let email = document.getElementById("donate_email");
-    let coupon = document.getElementById("coupon-input");
+    const customer = document.getElementById("donate_customer").value.trim();
+    let email = document.getElementById("donate_email").value.trim();
+    let coupon = document.getElementById("coupon-input").value.trim();
 
-    if (!customer.value.length) {
+    if (!customer.length) {
         notify("Введите пожалуйста ваш никнейм");
         return
-    } else if (customer.value.length > 40) {
+    } else if (customer.length > 40) {
         notify("Ваш никнейм слишком длинный");
         return
-    };
-    if (!email.value.length) { email = null };
-    if (!coupon.value.length) { coupon = null };
+    } else if (!customer.match(/[A-z\d_\S]/i)) {
+        notify("Никнейм не соотвествует формату")
+    }
+    ;
+    if (!email.length) {
+        email = null
+    } else if (!validateEmail(email)) {
+        notify("Ошибка, адрес почты недействительный");
+        return
+    }
+    ;
+    if (!coupon) {
+        coupon = null
+    }
+    ;
 
     button.setAttribute("disabled", null);
     button.innerText = "Проверяем данные...";
@@ -589,7 +656,8 @@ function donate_check_services_cart() {
         let services = [];
         for (let i = 0; i < services_origin.length; i++) {
             services.push(services_origin[i].id)
-        };
+        }
+        ;
         for (let i = 0; i < services_cookie.length; i++) {
             if (!services.includes(parseInt(services_cookie[i]))) {
                 let cart = JSON.parse(Cookies.get(cart_cookie));
@@ -606,21 +674,40 @@ function donate_init() {
     try {
         els = JSON.parse(Cookies.get(cart_cookie))
     } catch (_) {
-    };
+    }
+    ;
     donate_cart_button(els);
     donate_check_services_cart();
-    donate_enable_coupon(enabled=false)
+    donate_enable_coupon(enabled = false)
 };
 
-function donate_cart_call(coupon=null) {
+function donate_reset_payment_state() {
+    const button = document.getElementById("payment-button-donate");
+    button.setAttribute("onClick", "generate_payment_link()");
+    button.innerText = "Дальше"
+}
+
+function donate_cart_call(coupon = null) {
     const cart = get_cookie_cart();
     const cart_keys = Object.keys(cart);
     const cart_dom = document.getElementById("donate-cart-list");
+
+    const selectors_payment = [
+        document.getElementById("donate_customer"),
+        document.getElementById("donate_email"),
+        document.getElementById("coupon-input")
+    ];
 
     switch_modal_containers("donate_finish");
     modal_open_();
     cart_dom.innerHTML = "";
     let sum_price = 0;
+
+    for (let i = 0; i < selectors_payment.length; i++) {
+        selectors_payment[i].addEventListener('input', function (_) {
+            donate_reset_payment_state()
+        })
+    }
 
     for (let i = 0; i < cart_keys.length; i++) {
         let item = donate_get_service_by_id(cart_keys[i]);
@@ -641,7 +728,8 @@ function donate_cart_call(coupon=null) {
                     <br/>x${cart[item.id]}</span>
             </li>
         `
-    };
+    }
+    ;
 
     if (coupon) {
         cart_dom.innerHTML = cart_dom.innerHTML + `
@@ -653,7 +741,8 @@ function donate_cart_call(coupon=null) {
                 <span class="text-success">−0 рублей</span>
             </li>
         `
-    };
+    }
+    ;
 
     cart_dom.innerHTML = cart_dom.innerHTML + `
         <li class="list-group-item d-flex justify-content-between">
@@ -680,9 +769,16 @@ function finish_load() {
     document.querySelector("footer").setAttribute("style", "")
 };
 
-document.addEventListener("DOMContentLoaded", function() {
-    landing_init(); build_players_swiper(); append_posts(); comments_init(); append_services();
-    update_cart_count(); game_server_updater(); donate_init(); finish_load();
+document.addEventListener("DOMContentLoaded", function () {
+    landing_init();
+    build_players_swiper();
+    append_posts();
+    comments_init();
+    append_services();
+    update_cart_count();
+    game_server_updater();
+    donate_init();
+    finish_load();
 
     let elem = document.getElementById('dark-perm-set-bv');
     elem.parentNode.removeChild(elem)
