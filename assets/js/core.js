@@ -526,6 +526,12 @@ function donate_get_service_by_id(id) {
     return null
 };
 
+function donate_reset_payment_state() {
+    const button = document.getElementById("payment-button-donate");
+    button.setAttribute("onClick", "generate_payment_link()");
+    button.innerText = "Дальше"
+};
+
 function donate_cart(product, count, remove = false) {
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart");
@@ -564,7 +570,8 @@ function donate_cart(product, count, remove = false) {
     Cookies.set(cart_cookie, JSON.stringify(els_));
     modal_close_();
     donate_init();
-    update_cart_count()
+    update_cart_count();
+    donate_reset_payment_state()
 };
 
 function donate_cart_button(els = {}) {
@@ -679,12 +686,6 @@ function donate_init() {
     donate_cart_button(els);
     donate_check_services_cart();
     donate_enable_coupon(enabled = false)
-};
-
-function donate_reset_payment_state() {
-    const button = document.getElementById("payment-button-donate");
-    button.setAttribute("onClick", "generate_payment_link()");
-    button.innerText = "Дальше"
 };
 
 function donate_cart_call(coupon = null) {
