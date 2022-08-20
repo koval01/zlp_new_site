@@ -247,15 +247,15 @@ function redirect_(url) {
 function modal_close_() {
     document.body.classList.remove("modal-open");
     let modal = document.getElementById("donate_item_modal");
-    modal.style.display = "none";
     modal.style.opacity = 0;
+    setTimeout(function () { modal.style.display = "none" }, 350);
 };
 
 function modal_open_() {
     document.body.classList.add("modal-open");
     let modal = document.getElementById("donate_item_modal");
-    modal.style.display = "block";
-    modal.style.opacity = 1;
+    modal.style.display = "block"
+    setTimeout(function () { modal.style.opacity = 1 }, 50);
 
     window.onclick = function (event) {
         if (event.target === modal) {
