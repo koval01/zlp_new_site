@@ -170,30 +170,35 @@
             </button>
         </div>
         <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
-            <div class="modal-content" style="text-align: center">
-                <div id="modal-donate-container-c">
-                    <span class="close_b">&times;</span>
-                    <p id="donate_item_select_text"></p>
-                    <div class="add_data_cart">
-                        <p id="donate_count_text_hint" style="margin: 0">Количество</p>
-                        <input id="items_count_donate" type="number" required="" class="custom_input_ mb-3 form-control"
-                               min="1" max="9999" style="
-                                max-width: 20vw;
-                                margin: auto;
-                            ">
-                        <button style="margin: auto; display: block" id="donate_button_add_to_cart"
-                                class="btn btn-primary shadow-primary btn-lg"> Добавить
-                        </button>
+            <div class="modal-content rounded-4 shadow" style="text-align: center">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title"></h5>
+                </div>
+                <div class="modal-body py-0">
+                    <div id="modal-donate-container-c">
+                        <p id="donate_item_select_text" style="text-align: start"></p>
+                        <div class="add_data_cart">
+                            <p id="donate_count_text_hint" style="margin: 0">Количество</p>
+                            <input id="items_count_donate" type="number" required="" class="custom_input_ mb-3 form-control"
+                                   min="1" max="9999" style="
+                                    max-width: 40%;
+                                    margin: auto;
+                                ">
+                            <button style="margin: auto; display: block" id="donate_button_add_to_cart"
+                                    class="btn btn-primary shadow-primary btn-lg"> Добавить
+                            </button>
+                        </div>
+                    </div>
+                    <div id="modal-info-container-c" style="display: none">
+                        <p id="donate_info_block_text"></p>
+                    </div>
+                    <div id="modal-donate-finish-container-c" style="display: none">
+                        <p id="donate_info_block_text"></p>
                     </div>
                 </div>
-                <div id="modal-info-container-c" style="display: none">
-                    <span class="close_b">&times;</span>
-                    <p id="donate_info_block_text"></p>
-                </div>
-                <div id="modal-donate-finish-container-c" style="display: none">
-                    <span class="close_b">&times;</span>
-                    <p id="donate_info_block_text"></p>
-                </div>
+                <div class="modal-footer flex-column border-top-0">
+                    <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b">Закрыть</button>
+                  </div>
             </div>
         </div>
     </section>

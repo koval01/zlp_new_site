@@ -249,25 +249,39 @@ function modal_close_() {
     document.getElementById("donate_item_modal").style.display = "none"
 };
 
+function modal_open_() {
+    document.body.classList.add("modal-open");
+    let modal = document.getElementById("donate_item_modal");
+    modal.style.display = "block";
+
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal_close_()
+        }
+    }
+}
+
 function switch_modal_containers(mode = "service") {
-    const span = document.getElementsByClassName("close_b");
+    const span = document.getElementsByClassName("close_b")[0];
     const info = document.getElementById("modal-info-container-c");
     const service = document.getElementById("modal-donate-container-c");
     const finish_donate = document.getElementById("modal-donate-finish-container-c");
+    const title = document.querySelector(".modal-title");
     const _array = [
-        {"name": "service", "selector": service},
-        {"name": "info", "selector": info},
-        {"name": "donate_finish", "selector": finish_donate}
+        {"name": "service", "selector": service, "title": "Товар"},
+        {"name": "info", "selector": info, "title": "Сообщение"},
+        {"name": "donate_finish", "selector": finish_donate, "title": "Корзина"}
     ];
     for (let i = 0; i < _array.length; i++) {
         let _mode = "none";
         if (mode === _array[i].name) {
             _mode = "block";
-            span[i].onclick = function () {
-                modal_close_()
-            }
+            title.innerText = _array[i].title
         };
         _array[i].selector.style.display = _mode
+    };
+    span.onclick = function () {
+        modal_close_()
     }
 };
 
@@ -372,7 +386,7 @@ function donate_element_click(product_data) {
     const exclude_types = ["group"];
     let modal = document.getElementById("donate_item_modal");
     let desc = document.getElementById("donate_item_select_text");
-    let text_template = `Вы выбрали товар <span class="text-primary fw-semibold">${product_data.name}</span>, 
+    let text_template = `Товар <span class="text-primary fw-semibold">${product_data.name}</span>, 
         цена ${product_data.count} ${getNoun(product_data.count, "единицы", "единиц", "единиц")} 
         <span class="text-primary fw-semibold">${product_data.price} 
         ${getNoun(product_data.price, "рубль", "рубля", "рублей")}</span>.`;
@@ -432,7 +446,7 @@ function donate_element_click(product_data) {
             if (isNaN(_price) || 1 > Math.sign(_price)) {
                 _price = 0
             };
-            desc.innerHTML = `${text_template}<br/>Стоимость выбранного количества - 
+            desc.innerHTML = `${text_template}<br/>Стоимость - 
             <span class="text-primary fw-semibold">${_price} 
             ${getNoun(_price, "рубль", "рубля", "рублей")}</span>`;
             _update_count()
@@ -446,14 +460,7 @@ function donate_element_click(product_data) {
         _calculate_price()
     });
 
-    document.body.classList.add("modal-open");
-    modal.style.display = "block";
-
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal_close_()
-        }
-    }
+    modal_open_()
 };
 
 function donate_get_service_by_id(id) {
