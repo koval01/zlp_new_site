@@ -444,7 +444,7 @@ function donate_element_click(product_data) {
     const _calculate_price = function () {
         only_dig();
         if (!exclude_types.includes(product_data.type)) {
-            let _price = parseInt(items_count_donate.value) * product_data.count * product_data.price;
+            let _price = parseInt(items_count_donate.value) * product_data.price;
             if (isNaN(_price) || 1 > Math.sign(_price)) {
                 _price = 0
             };
@@ -549,7 +549,7 @@ function donate_cart_call(coupon=null) {
 
     for (let i = 0; i < cart_keys.length; i++) {
         let item = donate_get_service_by_id(cart_keys[i]);
-        let price = item.price * cart[item.id] * item.number;
+        let price = item.price * cart[item.id];
         sum_price += price;
         cart_dom.innerHTML = cart_dom.innerHTML + `
             <li class="list-group-item d-flex justify-content-between lh-sm">
