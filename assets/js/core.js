@@ -528,8 +528,6 @@ function donate_flush_cart() {
     notify("Корзина очищена")
 };
 
-
-
 function donate_check_services_cart() {
     const services_cookie = Object.keys(get_cookie_cart());
     get_donate_services(function (services_origin) {
@@ -599,7 +597,7 @@ function donate_cart_call(coupon=null) {
                 <span class="text-success">−0 рублей</span>
             </li>
         `
-    }
+    };
 
     cart_dom.innerHTML = cart_dom.innerHTML + `
         <li class="list-group-item d-flex justify-content-between">
