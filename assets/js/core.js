@@ -2,6 +2,12 @@ const cart_cookie = "cart_box";
 const channels = 2;
 const backend_host = "https://backend.zalupa.world";
 const development_hosts = ["localhost", "zalupa.world"];
+const links_lt = [
+    {"name": "twitch", "link": "https://www.twitch.tv/bratishkinoff"},
+    {"name": "youtube", "link": "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ"},
+    {"name": "telegram", "link": "https://t.me/zalupaonline"},
+    {"name": "discord", "link": "https://discord.gg/qEqbVbMeEx"}
+];
 var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
@@ -194,6 +200,8 @@ function create_payment(callback, customer, products, email = null, coupon = nul
     request_call(function (r) {
         if (r.success) {
             callback(r.payment)
+        } else {
+            callback(null)
         }
     }, `${backend_host}/donate/payment/create`, "POST", json = true, json_body = {
         "customer": customer,
@@ -437,10 +445,10 @@ function donate_element_click(product_data) {
 
     const exclude_types = ["group"];
     let desc = document.getElementById("donate_item_select_text");
-    let text_template = `Товар <span class="text-primary fw-semibold">${product_data.name}</span>, 
-        цена ${product_data.count} ${getNoun(product_data.count, "единицы", "единиц", "единиц")} 
-        <span class="text-primary fw-semibold">${product_data.price} 
-        ${getNoun(product_data.price, "рубль", "рубля", "рублей")}</span>.`;
+    let text_template = `Товар <span class="text-primary fw-semibold">${product_data.name}</span>,` +
+        `цена ${product_data.count} ${getNoun(product_data.count, "единицы", "единиц", "единиц")} ` +
+        `<span class="text-primary fw-semibold">${product_data.price} ` +
+        `${getNoun(product_data.price, "рубль", "рубля", "рублей")}</span>.`;
     let items_count_donate = document.getElementById("items_count_donate");
     let count_hint = document.getElementById("donate_count_text_hint");
     let add_to_cart = document.getElementById("donate_button_add_to_cart");
@@ -468,9 +476,9 @@ function donate_element_click(product_data) {
         if (product_data.type === "group") {
             group_error = "Вы уже выбрали привилегию. Удалите её из корзины, если хотите выбрать другую."
         } else if (product_in_cart) {
-            group_error = `Ошибка, вы можете добавить товар 
-            <span class="text-primary fw-semibold">${product_data.name}</span> 
-            только один раз.`
+            group_error = `Ошибка, вы можете добавить товар ` +
+            `<span class="text-primary fw-semibold">${product_data.name}</span> ` +
+            `только один раз.`
         } else {
             group_error = "Мы не знаем почему, но эта ошибка вызвана по неизвестным причинам."
         }
@@ -501,9 +509,9 @@ function donate_element_click(product_data) {
                 _price = 0
             }
             ;
-            desc.innerHTML = `${text_template}<br/>Стоимость - 
-            <span class="text-primary fw-semibold">${_price} 
-            ${getNoun(_price, "рубль", "рубля", "рублей")}</span>`;
+            desc.innerHTML = `${text_template}<br/>Стоимость - ` +
+            `<span class="text-primary fw-semibold">${_price} ` +
+            `${getNoun(_price, "рубль", "рубля", "рублей")}</span>`;
             _update_count()
         }
     };
@@ -528,10 +536,11 @@ function donate_get_service_by_id(id) {
     return null
 };
 
-function donate_reset_payment_state() {
+function donate_reset_payment_state(repeat=false) {
     const button = document.getElementById("payment-button-donate");
     button.setAttribute("onClick", "generate_payment_link()");
-    button.innerText = "Дальше"
+    button.removeAttribute("disabled");
+    button.innerText = repeat ? "Повторить" : "Дальше"
 };
 
 function donate_cart(product, count, remove = false) {
@@ -559,9 +568,9 @@ function donate_cart(product, count, remove = false) {
     } else {
         if (els_[product]) {
             els_[product] = els_[product] + count;
-            notify(`В корзину добавлено ${local_prm} ${count} </span> 
-                        ${getNoun(count, "единица", "единицы", "единиц")} 
-                        товара ${local_prm} ${product_data.name} </span>`)
+            notify(`В корзину добавлено ${local_prm} ${count} </span>` +
+                        `${getNoun(count, "единица", "единицы", "единиц")}` +
+                        `товара ${local_prm} ${product_data.name} </span>`)
         } else {
             els_[product] = count;
             notify(`Товар ${local_prm} ${product_data.name}</span> добавлен в корзину`)
@@ -650,7 +659,8 @@ function generate_payment_link() {
             payment_url_global = callback_data.url;
             button.setAttribute("onClick", "payment_action_bt()")
         } else {
-            button.innerText = "Ошибка..."
+            notify("Ошибка, не удалось сформировать чек для оплаты");
+            donate_reset_payment_state(repeat=true)
         }
     }, customer, get_cookie_cart(), email, coupon)
 };
@@ -758,18 +768,35 @@ function donate_cart_call(coupon = null) {
     document.querySelector("input#donate_customer").setAttribute("placeholder", glob_players[0])
 };
 
+function links_set_() {
+    let sl = document.getElementById("links-block-footer-v");
+    for (let i = 0; i < links_lt.length; i++) {
+        let a_tg = document.createElement('a');
+        a_tg.href = links_lt[i].link;
+        a_tg.target = "_blank";
+        a_tg.setAttribute("class", `btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2`);
+        let i_tg = document.createElement('i');
+        i_tg.setAttribute("class", `bx bxl-${links_lt[i].name}`);
+        a_tg.appendChild(i_tg);
+        sl.appendChild(a_tg);
+    }
+};
+
 function landing_init() {
     if (development_hosts.includes(window.location.hostname)) {
         document.getElementById("landing_description_gb").innerText =
             "Этот сайт - development-версия!";
         document.getElementById("donate-test-mode-enb").innerText =
             "Этот блок работает в демонстративном режиме и не является функциональным."
-    }
+    };
+    links_set_()
 };
 
 function finish_load() {
     document.querySelector("main").setAttribute("style", "");
-    document.querySelector("footer").setAttribute("style", "")
+    document.querySelector("footer").setAttribute("style", "");
+
+    document.getElementById("footer-text-blc").innerText = "Made with ❤️ by KovalYRS for Zalupa.Online"
 };
 
 document.addEventListener("DOMContentLoaded", function () {
