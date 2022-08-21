@@ -744,25 +744,45 @@ function donate_cart_call(coupon = null) {
     }
     ;
 
-    if (coupon) {
-        cart_dom.innerHTML = cart_dom.innerHTML + `
-            <li class="list-group-item d-flex justify-content-between bg-light">
-                <div class="text-success">
-                    <h6 class="my-0 text-start">Купон</h6>
-                    <small>${coupon}</small>
-                </div>
-                <span class="text-success">−0 рублей</span>
-            </li>
-        `
-    }
-    ;
 
-    cart_dom.innerHTML = cart_dom.innerHTML + `
-        <li class="list-group-item d-flex justify-content-between">
-            <span>Сумма</span>
-            <strong>${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}</strong>
-        </li>
-    `;
+    // coupon container
+    let coupon_tag = document.createElement('li');
+    let coupon_container = document.createElement('div');
+    let coupon_container_title = document.createElement('h6');
+    let coupon_container_desc = document.createElement('small');
+    let coupon_desc = document.createElement("span");
+    let coupon_value = document.createElement('strong');
+
+    coupon_tag.setAttribute("class", "list-group-item d-flex justify-content-between bg-light");
+
+    coupon_container.setAttribute("class", "text-success");
+    coupon_container_title.setAttribute("class", "my-0 text-start");
+    coupon_container_title.innerText = "Купон";
+    coupon_container_desc.innerText = coupon;
+
+    coupon_desc.setAttribute("class", "text-success");
+    coupon_desc.innerText = "−0 рублей";
+
+    coupon_container.appendChild(coupon_container_title);
+    coupon_container.appendChild(coupon_container_desc);
+    coupon_tag.appendChild(coupon_container);
+    coupon_tag.appendChild(coupon_desc)
+    cart_dom.appendChild(coupon_tag)
+
+
+    // sum container
+    let sum_tag = document.createElement('li');
+    let sum_tag_title = document.createElement('span');
+    let sum_tag_desc = document.createElement('strong');
+
+    sum_tag.setAttribute("class", "list-group-item d-flex justify-content-between");
+    sum_tag_title.innerText = "Сумма";
+    sum_tag_desc.innerText = `${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}`
+
+    sum_tag.appendChild(sum_tag_title);
+    sum_tag.appendChild(sum_tag_desc);
+    cart_dom.appendChild(sum_tag);
+
 
     shuffle(glob_players);
     document.querySelector("input#donate_customer").setAttribute("placeholder", glob_players[0])
