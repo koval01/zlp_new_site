@@ -477,8 +477,8 @@ function donate_element_click(product_data) {
             group_error = "Вы уже выбрали привилегию. Удалите её из корзины, если хотите выбрать другую."
         } else if (product_in_cart) {
             group_error = `Ошибка, вы можете добавить товар ` +
-            `<span class="text-primary fw-semibold">${product_data.name}</span> ` +
-            `только один раз.`
+                `<span class="text-primary fw-semibold">${product_data.name}</span> ` +
+                `только один раз.`
         } else {
             group_error = "Мы не знаем почему, но эта ошибка вызвана по неизвестным причинам."
         }
@@ -510,8 +510,8 @@ function donate_element_click(product_data) {
             }
             ;
             desc.innerHTML = `${text_template}<br/>Стоимость - ` +
-            `<span class="text-primary fw-semibold">${_price} ` +
-            `${getNoun(_price, "рубль", "рубля", "рублей")}</span>`;
+                `<span class="text-primary fw-semibold">${_price} ` +
+                `${getNoun(_price, "рубль", "рубля", "рублей")}</span>`;
             _update_count()
         }
     };
@@ -536,7 +536,7 @@ function donate_get_service_by_id(id) {
     return null
 };
 
-function donate_reset_payment_state(repeat=false) {
+function donate_reset_payment_state(repeat = false) {
     const button = document.getElementById("payment-button-donate");
     button.setAttribute("onClick", "generate_payment_link()");
     button.removeAttribute("disabled");
@@ -569,8 +569,8 @@ function donate_cart(product, count, remove = false) {
         if (els_[product]) {
             els_[product] = els_[product] + count;
             notify(`В корзину добавлено ${local_prm} ${count} </span>` +
-                        `${getNoun(count, "единица", "единицы", "единиц")}` +
-                        `товара ${local_prm} ${product_data.name} </span>`)
+                `${getNoun(count, "единица", "единицы", "единиц")}` +
+                `товара ${local_prm} ${product_data.name} </span>`)
         } else {
             els_[product] = count;
             notify(`Товар ${local_prm} ${product_data.name}</span> добавлен в корзину`)
@@ -660,7 +660,7 @@ function generate_payment_link() {
             button.setAttribute("onClick", "payment_action_bt()")
         } else {
             notify("Ошибка, не удалось сформировать чек для оплаты");
-            donate_reset_payment_state(repeat=true)
+            donate_reset_payment_state(repeat = true)
         }
     }, customer, get_cookie_cart(), email, coupon)
 };
@@ -720,7 +720,8 @@ function donate_cart_call(coupon = null) {
         selectors_payment[i].addEventListener('input', function (_) {
             donate_reset_payment_state()
         })
-    };
+    }
+    ;
 
     for (let i = 0; i < cart_keys.length; i++) {
         let item = donate_get_service_by_id(cart_keys[i]);
@@ -744,45 +745,50 @@ function donate_cart_call(coupon = null) {
     }
     ;
 
+    const coupon_container = function () {
+        let coupon_tag = document.createElement('li');
+        let coupon_container = document.createElement('div');
+        let coupon_container_title = document.createElement('h6');
+        let coupon_container_desc = document.createElement('small');
+        let coupon_desc = document.createElement("span");
+        let coupon_value = document.createElement('strong');
 
-    // coupon container
-    let coupon_tag = document.createElement('li');
-    let coupon_container = document.createElement('div');
-    let coupon_container_title = document.createElement('h6');
-    let coupon_container_desc = document.createElement('small');
-    let coupon_desc = document.createElement("span");
-    let coupon_value = document.createElement('strong');
+        coupon_tag.setAttribute("class", "list-group-item d-flex justify-content-between bg-light");
 
-    coupon_tag.setAttribute("class", "list-group-item d-flex justify-content-between bg-light");
+        coupon_container.setAttribute("class", "text-success");
+        coupon_container_title.setAttribute("class", "my-0 text-start");
+        coupon_container_title.innerText = "Купон";
+        coupon_container_desc.innerText = coupon;
 
-    coupon_container.setAttribute("class", "text-success");
-    coupon_container_title.setAttribute("class", "my-0 text-start");
-    coupon_container_title.innerText = "Купон";
-    coupon_container_desc.innerText = coupon;
+        coupon_desc.setAttribute("class", "text-success");
+        coupon_desc.innerText = "−0 рублей";
 
-    coupon_desc.setAttribute("class", "text-success");
-    coupon_desc.innerText = "−0 рублей";
+        coupon_container.appendChild(coupon_container_title);
+        coupon_container.appendChild(coupon_container_desc);
+        coupon_tag.appendChild(coupon_container);
+        coupon_tag.appendChild(coupon_desc)
+        cart_dom.appendChild(coupon_tag)
+    };
 
-    coupon_container.appendChild(coupon_container_title);
-    coupon_container.appendChild(coupon_container_desc);
-    coupon_tag.appendChild(coupon_container);
-    coupon_tag.appendChild(coupon_desc)
-    cart_dom.appendChild(coupon_tag)
+    const sum_container = function () {
+        let sum_tag = document.createElement('li');
+        let sum_tag_title = document.createElement('span');
+        let sum_tag_desc = document.createElement('strong');
 
+        sum_tag.setAttribute("class", "list-group-item d-flex justify-content-between");
+        sum_tag_title.innerText = "Сумма";
+        sum_tag_desc.innerText = `${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}`
 
-    // sum container
-    let sum_tag = document.createElement('li');
-    let sum_tag_title = document.createElement('span');
-    let sum_tag_desc = document.createElement('strong');
+        sum_tag.appendChild(sum_tag_title);
+        sum_tag.appendChild(sum_tag_desc);
+        cart_dom.appendChild(sum_tag);
+    };
 
-    sum_tag.setAttribute("class", "list-group-item d-flex justify-content-between");
-    sum_tag_title.innerText = "Сумма";
-    sum_tag_desc.innerText = `${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}`
-
-    sum_tag.appendChild(sum_tag_title);
-    sum_tag.appendChild(sum_tag_desc);
-    cart_dom.appendChild(sum_tag);
-
+    if (coupon) {
+        coupon_container()
+    }
+    ;
+    sum_container();
 
     shuffle(glob_players);
     document.querySelector("input#donate_customer").setAttribute("placeholder", glob_players[0])
@@ -808,7 +814,8 @@ function landing_init() {
             "Этот сайт - development-версия!";
         document.getElementById("donate-test-mode-enb").innerText =
             "Этот блок работает в демонстративном режиме и не является функциональным."
-    };
+    }
+    ;
     links_set_()
 };
 
