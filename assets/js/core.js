@@ -808,6 +808,21 @@ function links_set_() {
     }
 };
 
+function discord_init() {
+    let frame = document.createElement('iframe');
+    let container = document.getElementById("discord-embed");
+
+    frame.src = "https://discordapp.com/widget?id=259124796971941890&theme=dark";
+    frame.setAttribute("width", "100%");
+    frame.setAttribute("height", "300px");
+    frame.setAttribute("allowTransparency", "true");
+    frame.setAttribute("frameBorder", "0");
+    frame.setAttribute("loading", "lazy");
+    frame.setAttribute(
+        "sandbox", "allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts");
+    container.appendChild(frame);
+};
+
 function landing_init() {
     if (development_hosts.includes(window.location.hostname)) {
         document.getElementById("landing_description_gb").innerText =
@@ -816,14 +831,16 @@ function landing_init() {
             "Этот блок работает в демонстративном режиме и не является функциональным."
     }
     ;
-    links_set_()
+    links_set_();
+    discord_init()
 };
 
 function finish_load() {
     document.querySelector("main").setAttribute("style", "");
     document.querySelector("footer").setAttribute("style", "");
 
-    document.getElementById("footer-text-blc").innerText = "Made with ❤️ by KovalYRS for Zalupa.Online"
+    let heart = "&#10084;&#65039;";
+    document.getElementById("footer-text-blc").innerHTML = `Made with ${heart} by KovalYRS for Zalupa.Online`
 };
 
 document.addEventListener("DOMContentLoaded", function () {
