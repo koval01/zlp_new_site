@@ -1,6 +1,7 @@
 const cart_cookie = "cart_box";
 const channels = 2;
 const backend_host = "https://backend.zalupa.world";
+const development_hosts = ["localhost", "zalupa.world"];
 var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
@@ -134,6 +135,7 @@ function append_posts() {
             let sl = document.querySelector(".telegram_frames");
             let script = document.createElement('script');
             script.src = "https://telegram.org/js/telegram-widget.js?19";
+            script.setAttribute("async", "");
             script.setAttribute("data-telegram-post", identifer);
             script.setAttribute("data-width", "100%");
             script.setAttribute("data-userpic", "true");
@@ -757,7 +759,7 @@ function donate_cart_call(coupon = null) {
 };
 
 function landing_init() {
-    if (["localhost", "zalupa.world"].includes(window.location.hostname)) {
+    if (development_hosts.includes(window.location.hostname)) {
         document.getElementById("landing_description_gb").innerText =
             "Этот сайт - development-версия!";
         document.getElementById("donate-test-mode-enb").innerText =
