@@ -95,7 +95,7 @@ iframe {
     background-repeat: no-repeat;
     background-size: contain;
     left: 45%;
-    z-index: 0;
+    z-index: 3;
     filter: brightness(0.95);
   }
   .vova-bg-landing-mask {
@@ -105,8 +105,8 @@ iframe {
     background-repeat: no-repeat;
     background-size: contain;
     left: 45%;
-    z-index: -1;
-    filter: drop-shadow(0 0 20px #392568);
+    z-index: 2;
+    filter: drop-shadow(0 0 35px #392568);
   }
 }
 .display-1 {
