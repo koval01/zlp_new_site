@@ -226,8 +226,8 @@ body.modal-open {
   -moz-animation: HerokuGradientBack 8s ease infinite;
   animation: HerokuGradientBack 8s ease infinite;
   width: 100%;
-  height: 180%;
-  backdrop-filter: blur(24px);
+  height: 200%;
+  backdrop-filter: blur(16px);
 }
 
 @-webkit-keyframes HerokuGradientBack {
