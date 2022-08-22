@@ -221,12 +221,12 @@ body.modal-open {
 
 .hero-bg-st {
   background: linear-gradient(315deg, rgba(255, 255, 255, 0), rgba(126, 68, 221, 0.5803921569), rgba(255, 255, 255, 0));
-  background-size: 200% 900%;
+  background-size: 100% 700%;
   -webkit-animation: HerokuGradientBack 8s ease infinite;
   -moz-animation: HerokuGradientBack 8s ease infinite;
   animation: HerokuGradientBack 8s ease infinite;
   width: 100%;
-  height: 200%;
+  height: 100%;
   backdrop-filter: blur(16px);
 }
 
