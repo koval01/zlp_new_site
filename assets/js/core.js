@@ -746,45 +746,25 @@ function donate_cart_call(coupon = null) {
     ;
 
     const coupon_container = function () {
-        let coupon_tag = document.createElement('li');
-        let coupon_container = document.createElement('div');
-        let coupon_container_title = document.createElement('h6');
-        let coupon_container_desc = document.createElement('small');
-        let coupon_desc = document.createElement("span");
-        let coupon_value = document.createElement('strong');
-
-        coupon_tag.setAttribute("class", "list-group-item d-flex justify-content-between bg-light");
-
-        coupon_container.setAttribute("class", "text-success");
-        coupon_container_title.setAttribute("class", "my-0 text-start");
-        coupon_container_title.innerText = "Купон";
-        coupon_container_desc.innerText = coupon;
-
-        coupon_desc.setAttribute("class", "text-success");
-        coupon_desc.innerText = "−0 рублей";
-
-        coupon_container.appendChild(coupon_container_title);
-        coupon_container.appendChild(coupon_container_desc);
-        coupon_tag.appendChild(coupon_container);
-        coupon_tag.appendChild(coupon_desc)
-        cart_dom.appendChild(coupon_tag)
+        cart_dom.innerHTML = cart_dom.innerHTML +
+            `<li class="list-group-item d-flex justify-content-between bg-light">` +
+                `<div class="text-primary">` +
+                    `<h6 class="my-0 text-start">Купон</h6>` +
+                    `<small class="text-start font-monospace" style="float: left">${coupon}</small>` +
+                `</div>` +
+                `<span class="text-primary">−0 рублей</span>` +
+            `</li>`
     };
 
     const sum_container = function () {
-        let sum_tag = document.createElement('li');
-        let sum_tag_title = document.createElement('span');
-        let sum_tag_desc = document.createElement('strong');
-
-        sum_tag.setAttribute("class", "list-group-item d-flex justify-content-between");
-        sum_tag_title.innerText = "Сумма";
-        sum_tag_desc.innerText = `${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}`
-
-        sum_tag.appendChild(sum_tag_title);
-        sum_tag.appendChild(sum_tag_desc);
-        cart_dom.appendChild(sum_tag);
+        cart_dom.innerHTML = cart_dom.innerHTML +
+            `<li class="list-group-item d-flex justify-content-between">` +
+                `<span>Сумма</span>` +
+                `<strong>${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}</strong>` +
+            `</li>`
     };
 
-    if (coupon) {
+    if (coupon || true) {
         coupon_container()
     }
     ;
@@ -797,30 +777,22 @@ function donate_cart_call(coupon = null) {
 function links_set_() {
     let sl = document.getElementById("links-block-footer-v");
     for (let i = 0; i < links_lt.length; i++) {
-        let a_tg = document.createElement('a');
-        a_tg.href = links_lt[i].link;
-        a_tg.target = "_blank";
-        a_tg.setAttribute("class", `btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2`);
-        let i_tg = document.createElement('i');
-        i_tg.setAttribute("class", `bx bxl-${links_lt[i].name}`);
-        a_tg.appendChild(i_tg);
-        sl.appendChild(a_tg);
+        sl.innerHTML = sl.innerHTML +
+            `<a href="${links_lt[i].link}" target="_blank" ` +
+            `class="btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2">` +
+            `<i class="bx bxl-${links_lt[i].name}"></i></a>`
     }
 };
 
 function discord_init() {
-    let frame = document.createElement('iframe');
+    let src = "https://discordapp.com/widget?id=259124796971941890&theme=dark"
     let container = document.getElementById("discord-embed");
 
-    frame.src = "https://discordapp.com/widget?id=259124796971941890&theme=dark";
-    frame.setAttribute("width", "100%");
-    frame.setAttribute("height", "300px");
-    frame.setAttribute("allowTransparency", "true");
-    frame.setAttribute("frameBorder", "0");
-    frame.setAttribute("loading", "lazy");
-    frame.setAttribute(
-        "sandbox", "allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts");
-    container.appendChild(frame);
+    container.innerHTML =
+        `<iframe ` +
+        `src="${src}" width="100%" height="300px" allowTransparency="true" frameBorder="0" ` +
+        `loading="lazy" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"` +
+        `></iframe>`
 };
 
 function landing_init() {
