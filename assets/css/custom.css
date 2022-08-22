@@ -17,6 +17,13 @@ html {
   border-bottom: 1px solid rgba(255, 255, 255, 0.24);
 }
 
+.video-container-yt {
+  width: 90vw;
+  height: 50.625vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
 iframe {
   border-radius: 0.5em !important;
 }
@@ -74,6 +81,12 @@ iframe {
   }
   .landing-global-block-set {
     float: right;
+  }
+  .video-container-yt {
+    width: 45vw;
+    height: 25.3125vw;
+    margin-left: 2vw;
+    margin-right: 2vw;
   }
 }
 .display-1 {
