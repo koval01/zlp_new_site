@@ -8,6 +8,7 @@ const links_lt = [
     {"name": "telegram", "link": "https://t.me/zalupaonline"},
     {"name": "discord", "link": "https://discord.gg/qEqbVbMeEx"}
 ];
+
 var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
@@ -132,7 +133,7 @@ function get_last_tg_post_id(callback, source) {
         if (r.success) {
             return callback(r.last_post)
         }
-    }, `${backend_host}/channel?choice=${source}`, "GET", json = true)
+    }, `${backend_host}/channel?choice=${source}`, "GET", true)
 };
 
 function append_posts() {
@@ -173,7 +174,7 @@ function get_game_server_data(callback) {
         if (r.success) {
             callback(r.body)
         }
-    }, `${backend_host}/server`, "GET", json = true)
+    }, `${backend_host}/server`, "GET", true)
 };
 
 function monitoring_game_server_update() {
@@ -193,7 +194,7 @@ function get_donate_services(callback) {
         if (r.success) {
             callback(r.services)
         }
-    }, `${backend_host}/donate/services`, "GET", json = true)
+    }, `${backend_host}/donate/services`, "GET", true)
 };
 
 function create_payment(callback, customer, products, email = null, coupon = null) {
@@ -203,7 +204,7 @@ function create_payment(callback, customer, products, email = null, coupon = nul
         } else {
             callback(null)
         }
-    }, `${backend_host}/donate/payment/create`, "POST", json = true, json_body = {
+    }, `${backend_host}/donate/payment/create`, "POST", true, {
         "customer": customer,
         "products": products,
         "email": email,
@@ -437,7 +438,7 @@ function build_players_swiper() {
         }
         ;
         create_swiper()
-    }, "assets/data/players.json", "GET", json = true)
+    }, "assets/data/players.json", "GET", true)
 };
 
 function donate_element_click(product_data) {
@@ -660,7 +661,7 @@ function generate_payment_link() {
             button.setAttribute("onClick", "payment_action_bt()")
         } else {
             notify("Ошибка, не удалось сформировать чек для оплаты");
-            donate_reset_payment_state(repeat = true)
+            donate_reset_payment_state(true)
         }
     }, customer, get_cookie_cart(), email, coupon)
 };
@@ -697,7 +698,7 @@ function donate_init() {
     ;
     donate_cart_button(els);
     donate_check_services_cart();
-    donate_enable_coupon(enabled = false)
+    donate_enable_coupon(false)
 };
 
 function donate_cart_call(coupon = null) {
@@ -764,7 +765,7 @@ function donate_cart_call(coupon = null) {
             `</li>`
     };
 
-    if (coupon || true) {
+    if (coupon) {
         coupon_container()
     }
     ;
