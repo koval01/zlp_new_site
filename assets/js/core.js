@@ -749,19 +749,19 @@ function donate_cart_call(coupon = null) {
     const coupon_container = function () {
         cart_dom.innerHTML = cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between bg-light">` +
-                `<div class="text-primary">` +
-                    `<h6 class="my-0 text-start">Купон</h6>` +
-                    `<small class="text-start font-monospace" style="float: left">${coupon}</small>` +
-                `</div>` +
-                `<span class="text-primary">−0 рублей</span>` +
+            `<div class="text-primary">` +
+            `<h6 class="my-0 text-start">Купон</h6>` +
+            `<small class="text-start font-monospace" style="float: left">${coupon}</small>` +
+            `</div>` +
+            `<span class="text-primary">−0 рублей</span>` +
             `</li>`
     };
 
     const sum_container = function () {
         cart_dom.innerHTML = cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between">` +
-                `<span>Сумма</span>` +
-                `<strong>${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}</strong>` +
+            `<span>Сумма</span>` +
+            `<strong>${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}</strong>` +
             `</li>`
     };
 
@@ -775,11 +775,13 @@ function donate_cart_call(coupon = null) {
     document.querySelector("input#donate_customer").setAttribute("placeholder", glob_players[0])
 };
 
-function links_set_() {
-    let sl = document.getElementById("links-block-footer-v");
+function links_set_(selector_, fisrt_el_mrg = false) {
+    let sl = document.getElementById(selector_);
+    let mrg = "margin-left: 0 !important";
     for (let i = 0; i < links_lt.length; i++) {
+        if (!fisrt_el_mrg || i) { mrg = "" };
         sl.innerHTML = sl.innerHTML +
-            `<a href="${links_lt[i].link}" target="_blank" ` +
+            `<a href="${links_lt[i].link}" target="_blank" style="${mrg}"` +
             `class="btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2">` +
             `<i class="bx bxl-${links_lt[i].name}"></i></a>`
     }
@@ -804,7 +806,8 @@ function landing_init() {
             "Этот блок работает в демонстративном режиме и не является функциональным."
     }
     ;
-    links_set_();
+    links_set_("landing-links-tp", true);
+    links_set_("links-block-footer-v");
     discord_init()
 };
 
