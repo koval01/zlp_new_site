@@ -591,11 +591,19 @@ function donate_cart_button(els = {}) {
     for (let i = 0; i < selector_.length; i++) {
         let sl = selector_[i].style;
         if (countProperties(els)) {
-            sl.opacity = 1;
-            sl.marginTop = "15px"
+            sl.display = "flex"
+            setTimeout(function () {
+                sl.opacity = 1;
+                sl.marginTop = "15px"
+                selector_[i].removeAttribute("disabled")
+            }, 50)
         } else {
+            selector_[i].setAttribute("disabled", "")
             sl.opacity = 0;
             sl.marginTop = "-50px"
+            setTimeout(function () {
+                sl.display = "none"
+            }, 350)
         }
     }
 };
