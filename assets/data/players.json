@@ -138,5 +138,10 @@
     "name": "EXPlaned",
     "head": "assets/images/players/EXPlaned.png",
     "desc": "Создатель клана SWAT"
+  },
+  {
+    "name": "i5b",
+    "head": "assets/images/players/i5b.png",
+    "desc": "24/7 на Анархии, 5000 часов в Minecraft"
   }
 ]
