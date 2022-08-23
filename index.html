@@ -83,12 +83,7 @@
         <div class="row g-0">
             <div class="vova-bg-landing"></div>
             <div class="vova-bg-landing-mask"></div>
-            <div class="vova-bg-mobile col-xl-7 col-lg-6 pe-lg-5">
-                <div class="d-flex h-100 w-100 pe-xl-4">
-                    <div class="vova-bg-l-mobile"></div>
-                    <div class="vova-bg-l-mobile-mask"></div>
-                </div>
-            </div>
+            <div class="col-xl-7 col-lg-6 pe-lg-5"></div>
             <div class="col-xl-5 col-lg-6 position-relative py-5">
                 <div class="position-relative zindex-5 text-center text-lg-start px-3 px-lg-0 py-xl-4 py-xxl-5 mt-lg-3 mx-auto mx-lg-0 landing-global-block-set"
                      style="max-width: 530px;">
@@ -105,8 +100,9 @@
                     </div>
                     <div id="landing-links-tp" class="justify-content-center justify-content-lg-start py-4"></div>
                     <div class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5">
-                <span class="fs-sm" id="landing_description_gb">
-                  <span class="text-primary fw-semibold">Тысячи</span> школьников уже наши рабы, присоединяйся к ним </span>
+                        <span class="fs-sm" id="landing_description_gb">
+                          <span class="text-primary fw-semibold">Тысячи</span>
+                            школьников уже наши рабы, присоединяйся к ним </span>
                     </div>
                 </div>
             </div>
@@ -153,12 +149,11 @@
         <div class="d-md-flex align-items-center justify-content-between text-center text-md-start pt-md-1 pt-lg-3">
             <h2 class="h1 mb-4 mb-md-0 me-md-3">Магазин</h2>
             <p class="pb-2 pb-lg-4 pb-xl-5 mb-3" id="donate-title-desc"
-               style="margin-bottom: 0 !important; padding-bottom: 0 !important; display: none"> Ты можешь поддержать наш
-                проект, купив хоть какой продукт. Средства будут отправлены на оплату серверов, чтобы проект
-                мог продолжать свою работу. Деньги не возвращаем, пошел на хуй уважаемый клиент.</p>
+               style="margin-bottom: 0 !important; padding-bottom: 0 !important; display: none"> Ты можешь поддержать
+                наш проект, купив хоть какой продукт. Средства будут отправлены на оплату серверов, чтобы проект мог
+                продолжать свою работу. Деньги не возвращаем, пошел на хуй уважаемый клиент.</p>
         </div>
-        <div class="row row-cols-1 g-4 mt-2 mt-lg-4"
-             id="donate_items_list"></div>
+        <div class="row row-cols-1 g-4 mt-2 mt-lg-4" id="donate_items_list"></div>
         <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
         <div>
             <p id="donate-test-mode-enb" class="text-center" style="display: none"></p>
@@ -169,8 +164,7 @@
                 <embed src="assets/images/shopping-cart.svg" class="cst-icon-svg">
                 Корзина ( <span id="count_cart_items_dn">0</span>)
             </button>
-            <button class="btn btn-icon btn-secondary mx-2 donate-cart-button-cn"
-                    onclick="donate_flush_cart()">
+            <button class="btn btn-icon btn-secondary mx-2 donate-cart-button-cn" onclick="donate_flush_cart()">
                 <span class="donate-cancel-cart">&times;</span>
             </button>
         </div>
@@ -187,15 +181,14 @@
                                 <div class="col-sm-6" style="margin: auto">
                                     <label id="donate_count_text_hint" for="donate_customer" class="form-label">
                                         Количество</label>
-                                    <input type="number" class="form-control" id="items_count_donate"
-                                           placeholder="" value="" required="">
+                                    <input type="number" class="form-control" id="items_count_donate" placeholder=""
+                                           value="" required="">
                                 </div>
                             </div>
                             <br/>
-                            <button
-                                    id="donate_button_add_to_cart"
-                                    class="w-100 btn btn-primary btn-lg" type="button">
-                                Добавить</button>
+                            <button id="donate_button_add_to_cart" class="w-100 btn btn-primary btn-lg" type="button">
+                                Добавить
+                            </button>
                         </form>
                     </div>
                     <div id="modal-info-container-c" style="display: none">
@@ -203,7 +196,6 @@
                     </div>
                     <div id="modal-donate-finish-container-c" style="display: none">
                         <ul id="donate-cart-list" class="list-group mb-3"></ul>
-
                         <form class="needs-validation" novalidate="">
                             <div class="row g-3">
                                 <div class="col-sm-6">
@@ -211,29 +203,28 @@
                                     <input type="text" class="form-control" id="donate_customer"
                                            placeholder="Blackflexxy" value="" required="">
                                 </div>
-
                                 <div class="col-sm-6">
-                                    <label for="donate_email" class="form-label">Почта <span
-                                            class="text-muted">(Необязательно)</span></label>
-                                    <input type="email" class="form-control" id="donate_email" placeholder="eblan@mail.ru">
+                                    <label for="donate_email" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
+                                    </label>
+                                    <input type="email" class="form-control" id="donate_email"
+                                           placeholder="eblan@mail.ru">
                                 </div>
-
                                 <div class="col-12">
-                                    <label for="coupon" class="form-label">Купон <span
-                                            class="text-muted">(Необязательно)</span></label>
+                                    <label for="coupon" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
+                                    </label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="coupon-input"
-                                               placeholder="BRFF" disabled>
-                                        <button class="btn btn-dark" id="coupon-button"
-                                                type="button" disabled>Проверить</button>
+                                        <input type="text" class="form-control" id="coupon-input" placeholder="BRFF"
+                                               disabled>
+                                        <button class="btn btn-dark" id="coupon-button" type="button" disabled>
+                                            Проверить
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                             <br/>
-                            <button
-                                    id="payment-button-donate" onclick="generate_payment_link()"
-                                    class="w-100 btn btn-primary btn-lg" type="button">
-                                Дальше</button>
+                            <button id="payment-button-donate" onclick="generate_payment_link()"
+                                    class="w-100 btn btn-primary btn-lg" type="button"> Дальше
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -367,8 +358,8 @@
             <div class="row py-xl-3">
                 <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4">
                     <h2 class="h1 text-light text-center text-sm-start pb-4 mb-0 mb-lg-3">Discord-Залупа 🤫</h2>
-                    <h2 class="h5 text-light text-lg-start mb-4 mb-lg-5">
-                        Пизди с такими же дебилами как и ты - безлимитно, хоть целый день, правда.</h2>
+                    <h2 class="h5 text-light text-lg-start mb-4 mb-lg-5"> Пизди с такими же дебилами как и ты -
+                        безлимитно, хоть целый день, правда.</h2>
                 </div>
                 <div class="col-xl-6 col-lg-7 order-lg-1">
                     <div id="discord-embed"></div>
@@ -376,7 +367,9 @@
             </div>
         </div>
     </section>
-    <div class="error_box_cst" id="error_box_cst_id" style="margin-bottom:-150px"><p class="error_text_cst"></p></div>
+    <div class="error_box_cst" id="error_box_cst_id" style="margin-bottom:-150px">
+        <p class="error_text_cst"></p>
+    </div>
 </main>
 <footer class="footer dark-mode bg-dark pt-5 pb-4 pb-lg-5" style="display: none">
     <div class="container text-center pt-lg-3">
