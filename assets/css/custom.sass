@@ -64,9 +64,24 @@ iframe
 .vova-bg-mobile
   display: none
 
-@media (max-width: 992px)
-  .vova-bg-mobile
-    display: block
+@media (max-width: 725px)
+  .vova-right-back
+    opacity: 0
+    display: none
+
+@media (min-width: 725px) and (max-width: 991px)
+  .vova-right-back
+    height: 400px
+    width: 100%
+    z-index: 0
+    display: flex
+    opacity: 1
+    background-image: url(../images/vova-background-mobile.webp)
+    background-position: right
+    background-repeat: no-repeat
+    background-size: contain
+    bottom: -20px
+    position: absolute
 
 .vova-bg-l-mobile
   position: absolute
