@@ -567,12 +567,20 @@ function donate_element_click(product_data) {
         only_dig();
         if (!exclude_types.includes(product_data.type)) {
             let _price = parseInt(items_count_donate.value) * product_data.price;
+            let currenct_in_cart = cookie_cart[product_data.service_id];
+            let template_counter_i = "";
             if (isNaN(_price) || 1 > Math.sign(_price)) {
                 _price = 0
             };
+            if (currenct_in_cart) {
+                template_counter_i =
+                    `Уже в корзине -  <span class="text-primary fw-semibold">` +
+                    `${currenct_in_cart}</span>`
+            };
             desc.innerHTML = `${text_template}<br/>Стоимость - ` +
                 `<span class="text-primary fw-semibold">${_price} ` +
-                `${getNoun(_price, "рубль", "рубля", "рублей")}</span>`;
+                `${getNoun(_price, "рубль", "рубля", "рублей")}</span>` +
+                `<br/>${template_counter_i}`;
             _update_count()
         }
     };
@@ -604,6 +612,10 @@ function donate_reset_payment_state(repeat = false) {
 };
 
 function donate_cart(product, count, remove = false) {
+    let cart = Cookies.get(cart_cookie);
+    let cart_parsed = get_cookie_cart();
+    let product_count_in_cart = 0;
+    try { product_count_in_cart =+ cart_parsed[product] } catch (_) {};
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart");
         return
@@ -612,7 +624,10 @@ function donate_cart(product, count, remove = false) {
         notify("Количество не может быть равно нулю или меньше");
         return
     };
-    let cart = Cookies.get(cart_cookie);
+    if (product_count_in_cart + count > 100000) {
+        notify("Максимальное количество - 100 тысяч");
+        return
+    };
     if (!cart) {
         Cookies.set(cart_cookie, JSON.stringify({}))
     };
