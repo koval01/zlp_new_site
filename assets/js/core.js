@@ -401,7 +401,7 @@ function comments_init() {
                           <i class="bx bxs-quote-left"></i>
                         </span>
                         <blockquote class="card-body mt-2 mb-2">
-                            <p class="fs-lg mb-0" style="font-family: sans-serif">${comment[i].text}</p>
+                            <p class="fs-lg mb-0" style="font-family: sans-serif">&#171;${comment[i].text}&#187;</p>
                         </blockquote>
                         <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
                             <div>
