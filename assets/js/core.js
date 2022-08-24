@@ -3,11 +3,22 @@ const channels = 2;
 const backend_host = "https://backend.zalupa.world";
 const re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
 const development_hosts = ["localhost", "zalupa.world"];
-const links_lt = [
-    {"name": "twitch", "link": "https://www.twitch.tv/bratishkinoff"},
-    {"name": "youtube", "link": "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ"},
-    {"name": "telegram", "link": "https://t.me/zalupaonline"},
-    {"name": "discord", "link": "https://discord.gg/qEqbVbMeEx"}
+const links_lt = [{
+    "name": "twitch",
+    "link": "https://www.twitch.tv/bratishkinoff"
+},
+    {
+        "name": "youtube",
+        "link": "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ"
+    },
+    {
+        "name": "telegram",
+        "link": "https://t.me/zalupaonline"
+    },
+    {
+        "name": "discord",
+        "link": "https://discord.gg/qEqbVbMeEx"
+    }
 ];
 
 var donate_services_array = [];
@@ -17,14 +28,15 @@ var timer_notify;
 var payment_url_global;
 
 function shuffle(array) {
-    let currentIndex = array.length, randomIndex;
+    let currentIndex = array.length,
+        randomIndex;
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
         [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
-    }
-    ;
+            array[randomIndex], array[currentIndex]
+        ];
+    };
     return array;
 };
 
@@ -44,10 +56,9 @@ function request_call(callback, url, method, json = false, json_body = null) {
     if (method.toUpperCase() === "POST") {
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         json_body_local = JSON.stringify(json_body)
-    }
-    ;
+    };
 
-    request.onload = function () {
+    request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
             if (json) {
                 callback(JSON.parse(request.responseText))
@@ -59,7 +70,7 @@ function request_call(callback, url, method, json = false, json_body = null) {
         }
     };
 
-    request.onerror = function (error) {
+    request.onerror = function(error) {
         console.log(`Error make request! Details: ${error}`)
     };
 
@@ -71,13 +82,13 @@ function notify(text) {
     const error_text = document.querySelector(".error_text_cst");
     const scroll_top = document.querySelector(".btn-scroll-top");
 
-    let notify_hide = function () {
+    let notify_hide = function() {
         error_box.style.marginBottom = "-150px";
         scroll_top.setAttribute("style", "");
         notify_hidden = true
     };
 
-    let notify_display = function () {
+    let notify_display = function() {
         notify_hidden = false;
         error_text.innerHTML = text;
         scroll_top.style.marginBottom =
@@ -90,8 +101,7 @@ function notify(text) {
     } else {
         notify_hide();
         setTimeout(notify_display, 200)
-    }
-    ;
+    };
 
     clearTimeout(timer_notify);
     timer_notify = setTimeout(notify_hide, 2500)
@@ -101,8 +111,7 @@ function url_builder_(base_url, submit_data_) {
     let url = new URL(base_url);
     for (let i = 0; i < submit_data_.length; i++) {
         url.searchParams.set(submit_data_[i].name, submit_data_[i].value)
-    }
-    ;
+    };
     return url.href
 };
 
@@ -115,22 +124,19 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
     n %= 100;
     if (n >= 5 && n <= 20) {
         return five
-    }
-    ;
+    };
     n %= 10;
     if (n === 1) {
         return one
-    }
-    ;
+    };
     if (n >= 2 && n <= 4) {
         return two
-    }
-    ;
+    };
     return five
 };
 
 function get_last_tg_post_id(callback, source) {
-    request_call(function (r) {
+    request_call(function(r) {
         if (r.success) {
             return callback(r.last_post)
         }
@@ -139,7 +145,7 @@ function get_last_tg_post_id(callback, source) {
 
 function append_posts() {
     for (let i = 0; i < channels; i++) {
-        get_last_tg_post_id(function (identifer) {
+        get_last_tg_post_id(function(identifer) {
             let sl = document.querySelector(".telegram_frames");
             let script = document.createElement('script');
             script.src = "https://telegram.org/js/telegram-widget.js?19";
@@ -149,29 +155,27 @@ function append_posts() {
             script.setAttribute("data-userpic", "true");
             script.setAttribute("data-dark", "1");
             sl.appendChild(script);
-            setTimeout(function () {
+            setTimeout(function() {
                 let sl = document.getElementById("telegram_block_load");
                 try {
                     sl.parentNode.removeChild(sl)
-                } catch (_) {
-                }
+                } catch (_) {}
             }, 100)
         }, i)
     }
 };
 
 function get_game_server_data(callback) {
-    const _data_error = function (ok = false) {
+    const _data_error = function(ok = false) {
         let string_ = "";
         if (ok) {
             string_ = ""
         } else {
             string_ = "Не удается обновить информацию о сервере..."
-        }
-        ;
+        };
         document.getElementById("error_get_server_status").innerText = string_
     };
-    request_call(function (r) {
+    request_call(function(r) {
         if (r.success) {
             callback(r.body)
         }
@@ -179,7 +183,7 @@ function get_game_server_data(callback) {
 };
 
 function monitoring_game_server_update() {
-    get_game_server_data(function (data) {
+    get_game_server_data(function(data) {
         document.getElementById("server_online_status").innerHTML =
             `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span> ${getNoun(data.online)}`
     })
@@ -191,7 +195,7 @@ function game_server_updater() {
 };
 
 function get_donate_services(callback) {
-    request_call(function (r) {
+    request_call(function(r) {
         if (r.success) {
             callback(r.services)
         }
@@ -199,9 +203,11 @@ function get_donate_services(callback) {
 };
 
 function create_payment(callback, customer, products, email = null, coupon = null) {
-    grecaptcha.ready(function () {
-        grecaptcha.execute(re_token, {action: 'submit'}).then(function (token_update) {
-            request_call(function (r) {
+    grecaptcha.ready(function() {
+        grecaptcha.execute(re_token, {
+            action: 'submit'
+        }).then(function(token_update) {
+            request_call(function(r) {
                 if (r.success) {
                     callback(r.payment)
                 } else {
@@ -219,9 +225,11 @@ function create_payment(callback, customer, products, email = null, coupon = nul
 };
 
 function check_coupon(callback, coupon) {
-    grecaptcha.ready(function () {
-        grecaptcha.execute(re_token, {action: 'submit'}).then(function (token_update) {
-            request_call(function (r) {
+    grecaptcha.ready(function() {
+        grecaptcha.execute(re_token, {
+            action: 'submit'
+        }).then(function(token_update) {
+            request_call(function(r) {
                 if (r.success) {
                     callback(r.coupon)
                 } else {
@@ -236,7 +244,7 @@ function check_coupon(callback, coupon) {
 };
 
 function append_services() {
-    get_donate_services(function (services) {
+    get_donate_services(function(services) {
         donate_services_array = services;
         const size_classes = [
             "row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"
@@ -256,8 +264,7 @@ function append_services() {
                 };
                 if (i && size_classes.length >= i) {
                     sl.classList.add(size_classes[i - 1])
-                }
-                ;
+                };
                 sl.innerHTML = sl.innerHTML + `
                     <div class="col" id="donate_item_${services[i].id}">
                         <div class="card card-hover border-0 bg-transparent" 
@@ -294,16 +301,13 @@ function append_services() {
                     </div>
                 `
             }
-        }
-        ;
+        };
 
-        setTimeout(function () {
+        setTimeout(function() {
             let elem = document.getElementById('donate_block_load');
             try {
                 elem.parentNode.removeChild(elem)
-            } catch (_) {
-            }
-            ;
+            } catch (_) {};
             document.getElementById("donate_items_list").style.display = "";
             document.getElementById("donate-title-desc").style.display = "";
             document.getElementById("donate-test-mode-enb").style.display = ""
@@ -319,7 +323,7 @@ function modal_close_() {
     document.body.classList.remove("modal-open");
     let modal = document.getElementById("donate_item_modal");
     modal.style.opacity = 0;
-    setTimeout(function () {
+    setTimeout(function() {
         modal.style.display = "none"
     }, 350);
 };
@@ -328,11 +332,11 @@ function modal_open_() {
     document.body.classList.add("modal-open");
     let modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
-    setTimeout(function () {
+    setTimeout(function() {
         modal.style.opacity = 1
     }, 50);
 
-    window.onclick = function (event) {
+    window.onclick = function(event) {
         if (event.target === modal) {
             modal_close_()
         }
@@ -345,22 +349,31 @@ function switch_modal_containers(mode = "service") {
     const service = document.getElementById("modal-donate-container-c");
     const finish_donate = document.getElementById("modal-donate-finish-container-c");
     const title = document.querySelector(".modal-title");
-    const _array = [
-        {"name": "service", "selector": service, "title": "Товар"},
-        {"name": "info", "selector": info, "title": "Сообщение"},
-        {"name": "donate_finish", "selector": finish_donate, "title": "Корзина"}
+    const _array = [{
+        "name": "service",
+        "selector": service,
+        "title": "Товар"
+    },
+        {
+            "name": "info",
+            "selector": info,
+            "title": "Сообщение"
+        },
+        {
+            "name": "donate_finish",
+            "selector": finish_donate,
+            "title": "Корзина"
+        }
     ];
     for (let i = 0; i < _array.length; i++) {
         let _mode = "none";
         if (mode === _array[i].name) {
             _mode = "block";
             title.innerText = _array[i].title
-        }
-        ;
+        };
         _array[i].selector.style.display = _mode
-    }
-    ;
-    span.onclick = function () {
+    };
+    span.onclick = function() {
         modal_close_()
     }
 };
@@ -369,9 +382,7 @@ function get_cookie_cart() {
     let cookie_cart = {};
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie))
-    } catch (_) {
-    }
-    ;
+    } catch (_) {};
     return cookie_cart
 };
 
@@ -387,14 +398,13 @@ function group_already_in_cart(user_cart) {
                 return true
             }
         }
-    }
-    ;
+    };
     return false
 };
 
 function comments_init() {
     let array_ = document.getElementById("comment_swipe_array");
-    const create_swiper = function () {
+    const create_swiper = function() {
         new Swiper('#comment_swipe_container', {
             spaceBetween: 12,
             loop: true,
@@ -413,7 +423,7 @@ function comments_init() {
             }
         })
     };
-    request_call(function (r) {
+    request_call(function(r) {
         let comment = r;
         shuffle(comment);
         for (let i = 0; i < comment.length; i++) {
@@ -436,15 +446,14 @@ function comments_init() {
                     </figure>
                 </div>
             `
-        }
-        ;
+        };
         create_swiper()
     }, "assets/data/comments.json", "GET", true)
 };
 
 function build_players_swiper() {
     let array_ = document.getElementById("players-swiper-array");
-    const create_swiper = function () {
+    const create_swiper = function() {
         new Swiper('#players_swipe_container', {
             slidesPerView: 2,
             spaceBetween: 24,
@@ -474,7 +483,7 @@ function build_players_swiper() {
             }
         })
     };
-    request_call(function (r) {
+    request_call(function(r) {
         let player = r;
         shuffle(player);
         for (let i = 0; i < player.length; i++) {
@@ -491,8 +500,7 @@ function build_players_swiper() {
                     </span>
                 </div>
             `
-        }
-        ;
+        };
         create_swiper()
     }, "assets/data/players.json", "GET", true)
 };
@@ -513,7 +521,7 @@ function donate_element_click(product_data) {
 
     let switch_ = false;
 
-    let _update_count = function () {
+    let _update_count = function() {
         add_to_cart.setAttribute(
             "onClick", `donate_cart(${product_data.service_id}, ${items_count_donate.value})`
         )
@@ -538,34 +546,30 @@ function donate_element_click(product_data) {
                 `только один раз.`
         } else {
             group_error = "Мы не знаем почему, но эта ошибка вызвана по неизвестным причинам."
-        }
-        ;
+        };
         document.getElementById("donate_info_block_text").innerHTML = group_error
-    }
-    ;
+    };
 
     let count_state = "block";
     if (exclude_types.includes(product_data.type)) {
         count_state = "none"
-    }
-    ;
+    };
 
     items_count_donate.style.display = count_state;
     count_hint.style.display = count_state;
 
-    const only_dig = function () {
+    const only_dig = function() {
         let value = items_count_donate.value;
         items_count_donate.value = value.replace(/\D+/g, '')
     };
 
-    const _calculate_price = function () {
+    const _calculate_price = function() {
         only_dig();
         if (!exclude_types.includes(product_data.type)) {
             let _price = parseInt(items_count_donate.value) * product_data.price;
             if (isNaN(_price) || 1 > Math.sign(_price)) {
                 _price = 0
-            }
-            ;
+            };
             desc.innerHTML = `${text_template}<br/>Стоимость - ` +
                 `<span class="text-primary fw-semibold">${_price} ` +
                 `${getNoun(_price, "рубль", "рубля", "рублей")}</span>`;
@@ -576,7 +580,7 @@ function donate_element_click(product_data) {
     desc.innerHTML = text_template;
 
     _calculate_price();
-    items_count_donate.addEventListener('input', function (_) {
+    items_count_donate.addEventListener('input', function(_) {
         _calculate_price()
     });
 
@@ -588,8 +592,7 @@ function donate_get_service_by_id(id) {
         if (donate_services_array[i].id === parseInt(id)) {
             return donate_services_array[i]
         }
-    }
-    ;
+    };
     return null
 };
 
@@ -604,18 +607,15 @@ function donate_cart(product, count, remove = false) {
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart");
         return
-    }
-    ;
+    };
     if (1 > Math.sign(count)) {
         notify("Количество не может быть равно нулю или меньше");
         return
-    }
-    ;
+    };
     let cart = Cookies.get(cart_cookie);
     if (!cart) {
         Cookies.set(cart_cookie, JSON.stringify({}))
-    }
-    ;
+    };
     const els_ = JSON.parse(Cookies.get(cart_cookie));
     const product_data = donate_get_service_by_id(product);
     const local_prm = "<span style=\"color: #a4a6ff !important\">";
@@ -632,8 +632,7 @@ function donate_cart(product, count, remove = false) {
             els_[product] = count;
             notify(`Товар ${local_prm} ${product_data.name}</span> добавлен в корзину`)
         }
-    }
-    ;
+    };
 
     Cookies.set(cart_cookie, JSON.stringify(els_));
     modal_close_();
@@ -648,7 +647,7 @@ function donate_cart_button(els = {}) {
         let sl = selector_[i].style;
         if (countProperties(els)) {
             sl.display = "flex"
-            setTimeout(function () {
+            setTimeout(function() {
                 sl.opacity = 1;
                 sl.marginTop = "15px"
                 selector_[i].removeAttribute("disabled")
@@ -657,7 +656,7 @@ function donate_cart_button(els = {}) {
             selector_[i].setAttribute("disabled", "")
             sl.opacity = 0;
             sl.marginTop = "-50px"
-            setTimeout(function () {
+            setTimeout(function() {
                 sl.display = "none"
             }, 350)
         }
@@ -700,24 +699,21 @@ function generate_payment_link() {
         return
     } else if (!customer.match(/[A-z\d_\S]/i)) {
         notify("Никнейм не соотвествует формату")
-    }
-    ;
+    };
     if (!email.length) {
         email = null
     } else if (!validateEmail(email)) {
         notify("Ошибка, адрес почты недействительный");
         return
-    }
-    ;
+    };
     if (!coupon) {
         coupon = null
-    }
-    ;
+    };
 
     button.setAttribute("disabled", null);
     button.innerText = "Проверяем данные...";
 
-    create_payment(function (callback_data) {
+    create_payment(function(callback_data) {
         if (callback_data) {
             button.removeAttribute("disabled");
             button.innerText = "Оплатить";
@@ -736,12 +732,11 @@ function payment_action_bt() {
 
 function donate_check_services_cart() {
     const services_cookie = Object.keys(get_cookie_cart());
-    get_donate_services(function (services_origin) {
+    get_donate_services(function(services_origin) {
         let services = [];
         for (let i = 0; i < services_origin.length; i++) {
             services.push(services_origin[i].id)
-        }
-        ;
+        };
         for (let i = 0; i < services_cookie.length; i++) {
             if (!services.includes(parseInt(services_cookie[i]))) {
                 let cart = JSON.parse(Cookies.get(cart_cookie));
@@ -757,9 +752,7 @@ function donate_init() {
     let els = {};
     try {
         els = JSON.parse(Cookies.get(cart_cookie))
-    } catch (_) {
-    }
-    ;
+    } catch (_) {};
     donate_cart_button(els);
     donate_check_services_cart();
     donate_enable_coupon(false)
@@ -782,11 +775,10 @@ function donate_cart_call(coupon = null) {
     let sum_price = 0;
 
     for (let i = 0; i < selectors_payment.length; i++) {
-        selectors_payment[i].addEventListener('input', function (_) {
+        selectors_payment[i].addEventListener('input', function(_) {
             donate_reset_payment_state()
         })
-    }
-    ;
+    };
 
     for (let i = 0; i < cart_keys.length; i++) {
         let item = donate_get_service_by_id(cart_keys[i]);
@@ -807,10 +799,9 @@ function donate_cart_call(coupon = null) {
                     <br/>x${cart[item.id]}</span>
             </li>
         `
-    }
-    ;
+    };
 
-    const coupon_container = function () {
+    const coupon_container = function() {
         cart_dom.innerHTML = cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between bg-light">` +
             `<div class="text-primary">` +
@@ -821,7 +812,7 @@ function donate_cart_call(coupon = null) {
             `</li>`
     };
 
-    const sum_container = function () {
+    const sum_container = function() {
         cart_dom.innerHTML = cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between">` +
             `<span>Сумма</span>` +
@@ -831,8 +822,7 @@ function donate_cart_call(coupon = null) {
 
     if (coupon) {
         coupon_container()
-    }
-    ;
+    };
     sum_container();
 
     shuffle(glob_players);
@@ -845,8 +835,7 @@ function links_set_(selector_, fisrt_el_mrg = false) {
     for (let i = 0; i < links_lt.length; i++) {
         if (!fisrt_el_mrg || i) {
             mrg = ""
-        }
-        ;
+        };
         sl.innerHTML = sl.innerHTML +
             `<a href="${links_lt[i].link}" target="_blank" style="${mrg}"` +
             `class="btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2">` +
@@ -871,8 +860,7 @@ function landing_init() {
             "Этот сайт - development-версия!";
         document.getElementById("donate-test-mode-enb").innerText =
             "Этот блок работает в демонстративном режиме и не является функциональным."
-    }
-    ;
+    };
     links_set_("landing-links-tp", true);
     links_set_("links-block-footer-v");
     discord_init()
@@ -886,7 +874,7 @@ function finish_load() {
     document.getElementById("footer-text-blc").innerHTML = `Made with ${heart} by KovalYRS for Zalupa.Online`
 };
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     landing_init();
     build_players_swiper();
     append_posts();
@@ -900,10 +888,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let elem = document.getElementById('dark-perm-set-bv');
     elem.parentNode.removeChild(elem);
 
-    window.onload = function () {
+    window.onload = function() {
         const preloader = document.querySelector('.page-loading');
         preloader.classList.remove('active');
-        setTimeout(function () {
+        setTimeout(function() {
             preloader.remove();
         }, 600);
     }
