@@ -65,6 +65,11 @@
     "desc": "Юморист, душа компании"
   },
   {
+    "name": "hauzmaster",
+    "head": "https://cravatar.eu/helmhead/hauzmaster/190.png",
+    "desc": "Все дюпы стоят за ним"
+  },
+  {
     "name": "2p0y",
     "head": "assets/images/players/2p0y.png",
     "desc": "Мега-кодер на JS"
