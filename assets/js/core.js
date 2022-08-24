@@ -370,20 +370,52 @@ function group_already_in_cart(user_cart) {
 };
 
 function comments_init() {
-    const swiper_comments = new Swiper('#comment_swipe_container', {
-        spaceBetween: 12,
-        loop: true,
-        observer: true,
-        observeParents: true,
-        pagination: {
-            el: ".swiper-pagination-comments",
-            clickable: true
-        },
-        navigation: {
-            prevEl: "#prev_comment",
-            nextEl: "#next_comment"
+    let array_ = document.getElementById("comment_swipe_array");
+    const create_swiper = function() {
+        new Swiper('#comment_swipe_container', {
+            spaceBetween: 12,
+            loop: true,
+            observer: true,
+            observeParents: true,
+            autoplay: {
+                delay: 6000,
+            },
+            pagination: {
+                el: ".swiper-pagination-comments",
+                clickable: true
+            },
+            navigation: {
+                prevEl: "#prev_comment",
+                nextEl: "#next_comment"
+            }
+        })
+    };
+    request_call(function (r) {
+        let comment = r;
+        shuffle(comment);
+        for (let i = 0; i < comment.length; i++) {
+            array_.innerHTML = array_.innerHTML + `
+                <div class="swiper-slide h-auto px-2">
+                    <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
+                        <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
+                          <i class="bx bxs-quote-left"></i>
+                        </span>
+                        <blockquote class="card-body mt-2 mb-2">
+                            <p class="fs-lg mb-0" style="font-family: sans-serif">${comment[i].text}</p>
+                        </blockquote>
+                        <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
+                            <div>
+                                <h6 class="fw-semibold lh-base mb-0">${comment[i].name}</h6>
+                                <span class="fs-sm text-muted">${comment[i].sign}</span>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+            `
         }
-    })
+        ;
+        create_swiper()
+    }, "assets/data/comments.json", "GET", true)
 };
 
 function build_players_swiper() {
