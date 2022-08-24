@@ -126,6 +126,7 @@ iframe {
   }
   .background_media_overlay_tag {
     height: 100vh;
+    height: 100vh;
   }
   .video-container-yt {
     width: 45vw;
@@ -321,6 +322,11 @@ body.modal-open {
   margin-top: -50px;
   padding: 0 5px 0 5px;
   transition: margin-top 0.4s, opactity 0.3s;
+}
+
+#donate-title-desc {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .theme-styled-text-st {
