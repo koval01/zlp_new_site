@@ -906,9 +906,5 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(function () {
             preloader.remove();
         }, 600);
-    };
-
-    window.matchMedia("(prefers-color-scheme: dark)").addListener(
-        console.log("dark now")
-    )
+    }
 })
