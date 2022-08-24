@@ -394,4 +394,11 @@ body.modal-open {
   margin: 5px;
 }
 
+.zlp-comment-icon {
+  padding: 0.7em !important;
+}
+.zlp-comment-icon > i {
+  margin-right: 0.3em;
+}
+
 /*# sourceMappingURL=custom.css.map */

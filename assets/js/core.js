@@ -397,8 +397,9 @@ function comments_init() {
             array_.innerHTML = array_.innerHTML + `
                 <div class="swiper-slide h-auto px-2">
                     <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
-                        <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5">
+                        <span class="btn btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5 zlp-comment-icon">
                           <i class="bx bxs-quote-left"></i>
+                          Залупный комментарий
                         </span>
                         <blockquote class="card-body mt-2 mb-2">
                             <p class="fs-lg mb-0" style="font-family: sans-serif">&#171;${comment[i].text}&#187;</p>
