@@ -401,4 +401,8 @@ body.modal-open {
   margin-right: 0.3em;
 }
 
+.grecaptcha-badge {
+  display: none !important;
+}
+
 /*# sourceMappingURL=custom.css.map */

@@ -1,6 +1,7 @@
 const cart_cookie = "cart_box";
 const channels = 2;
 const backend_host = "https://backend.zalupa.world";
+const re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
 const development_hosts = ["localhost", "zalupa.world"];
 const links_lt = [
     {"name": "twitch", "link": "https://www.twitch.tv/bratishkinoff"},
@@ -198,17 +199,39 @@ function get_donate_services(callback) {
 };
 
 function create_payment(callback, customer, products, email = null, coupon = null) {
-    request_call(function (r) {
-        if (r.success) {
-            callback(r.payment)
-        } else {
-            callback(null)
-        }
-    }, `${backend_host}/donate/payment/create`, "POST", true, {
-        "customer": customer,
-        "products": products,
-        "email": email,
-        "coupon": coupon
+    grecaptcha.ready(function() {
+        grecaptcha.execute(re_token, {action: 'submit'}).then(function (token_update) {
+            request_call(function (r) {
+                if (r.success) {
+                    callback(r.payment)
+                } else {
+                    callback(null)
+                }
+            }, `${backend_host}/donate/payment/create`, "POST", true, {
+                "customer": customer,
+                "products": products,
+                "email": email,
+                "coupon": coupon,
+                "token": token_update
+            })
+        })
+    })
+};
+
+function check_coupon(callback, coupon) {
+    grecaptcha.ready(function() {
+        grecaptcha.execute(re_token, {action: 'submit'}).then(function (token_update) {
+            request_call(function (r) {
+                if (r.success) {
+                    callback(r.coupon)
+                } else {
+                    callback(null)
+                }
+            }, `${backend_host}/donate/coupon`, "POST", true, {
+                "code": coupon,
+                "token": token_update
+            })
+        })
     })
 };
 
