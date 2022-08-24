@@ -3,12 +3,22 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/assets/js/core.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/core.min.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/core.min.min.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/core.min.min.min.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/core.min.min.min.min.min.js" />
+        <item url="file://$PROJECT_DIR$/assets/js/core.min.min.min.min.min.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/dark_init.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/theme.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/assets/js/core.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/core.min.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/core.min.min.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/core.min.min.min.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/core.min.min.min.min.min.js" />
+      <root url="file://$PROJECT_DIR$/assets/js/core.min.min.min.min.min.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/dark_init.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/theme.min.js" />
     </CLASSES>

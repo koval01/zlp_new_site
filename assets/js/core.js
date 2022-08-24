@@ -74,6 +74,16 @@ function request_call(callback, url, method, json = false, json_body = null) {
         console.log(`Error make request! Details: ${error}`)
     };
 
+    request.onreadystatechange = () => {
+        if (request.status >= 400) {
+            if (json) {
+                callback({"success": false})
+            } else {
+                callback(null)
+            }
+        }
+    };
+
     request.send(json_body_local)
 };
 
