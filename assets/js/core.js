@@ -199,7 +199,7 @@ function get_donate_services(callback) {
 };
 
 function create_payment(callback, customer, products, email = null, coupon = null) {
-    grecaptcha.ready(function() {
+    grecaptcha.ready(function () {
         grecaptcha.execute(re_token, {action: 'submit'}).then(function (token_update) {
             request_call(function (r) {
                 if (r.success) {
@@ -219,7 +219,7 @@ function create_payment(callback, customer, products, email = null, coupon = nul
 };
 
 function check_coupon(callback, coupon) {
-    grecaptcha.ready(function() {
+    grecaptcha.ready(function () {
         grecaptcha.execute(re_token, {action: 'submit'}).then(function (token_update) {
             request_call(function (r) {
                 if (r.success) {
@@ -394,7 +394,7 @@ function group_already_in_cart(user_cart) {
 
 function comments_init() {
     let array_ = document.getElementById("comment_swipe_array");
-    const create_swiper = function() {
+    const create_swiper = function () {
         new Swiper('#comment_swipe_container', {
             spaceBetween: 12,
             loop: true,
@@ -843,7 +843,10 @@ function links_set_(selector_, fisrt_el_mrg = false) {
     let sl = document.getElementById(selector_);
     let mrg = "margin-left: 0 !important";
     for (let i = 0; i < links_lt.length; i++) {
-        if (!fisrt_el_mrg || i) { mrg = "" };
+        if (!fisrt_el_mrg || i) {
+            mrg = ""
+        }
+        ;
         sl.innerHTML = sl.innerHTML +
             `<a href="${links_lt[i].link}" target="_blank" style="${mrg}"` +
             `class="btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2">` +
