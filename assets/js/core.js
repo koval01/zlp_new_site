@@ -873,6 +873,14 @@ document.addEventListener("DOMContentLoaded", function () {
     let elem = document.getElementById('dark-perm-set-bv');
     elem.parentNode.removeChild(elem);
 
+    window.onload = function () {
+        const preloader = document.querySelector('.page-loading');
+        preloader.classList.remove('active');
+        setTimeout(function () {
+            preloader.remove();
+        }, 600);
+    };
+
     window.matchMedia("(prefers-color-scheme: dark)").addListener(
         console.log("dark now")
     )
