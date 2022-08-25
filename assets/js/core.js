@@ -277,7 +277,7 @@ function append_services() {
                 };
                 sl.innerHTML = sl.innerHTML + `
                     <div class="col" id="donate_item_${services[i].id}">
-                        <div class="card card-hover border-0 bg-transparent" 
+                        <div class="card border-0 bg-transparent" 
                             onClick='donate_element_click(${JSON.stringify(click_data)})'>
                           <div class="position-relative">
                             <div class="parent-image-shadow donate_item_hover" 
