@@ -190,8 +190,7 @@ function append_posts() {
 
                 try {
                     sl.parentNode.removeChild(sl);
-                } catch (_) {
-                }
+                } catch (_) {}
             }, 100);
         }, i);
     }
@@ -396,8 +395,7 @@ function append_services() {
 
             try {
                 elem.parentNode.removeChild(elem);
-            } catch (_) {
-            }
+            } catch (_) {}
 
             document.getElementById("donate_items_list").style.display = "";
             document.getElementById("donate-title-desc").style.display = "";
@@ -478,7 +476,7 @@ function switch_modal_containers(mode = "service") {
 
 function discount_calculate(price, discount) {
     discount = discount / 100;
-    return (price * discount).toFixed()
+    return (price * discount).toFixed();
 }
 
 function get_cookie_cart() {
@@ -486,8 +484,7 @@ function get_cookie_cart() {
 
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {
-    }
+    } catch (_) {}
 
     return cookie_cart;
 }
@@ -772,16 +769,15 @@ function donate_cart(product, count, remove = false) {
     let cart_parsed = get_cookie_cart();
     let product_count_in_cart = 0;
     let max_item_count = 15000;
-
     const local_prm = '<span style="color: #a4a6ff">';
 
     try {
         let p = cart_parsed[product];
+
         if (Number.isInteger(p)) {
-            product_count_in_cart = +p
+            product_count_in_cart = +p;
         }
-    } catch (_) {
-    }
+    } catch (_) {}
 
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart");
@@ -793,9 +789,10 @@ function donate_cart(product, count, remove = false) {
         return;
     }
 
-    console.log(product_count_in_cart)
-    console.log(count)
-    console.log(max_item_count)
+    console.log(product_count_in_cart);
+    console.log(count);
+    console.log(max_item_count);
+
     if (product_count_in_cart + count > max_item_count) {
         notify(`Максимальное количество - ${local_prm}${max_item_count}</span>`);
         return;
@@ -870,14 +867,14 @@ function coupon_check() {
     const code = input.value.trim();
 
     if (!code.length) {
-        notify("Вы не указали купон")
-        return
+        notify("Вы не указали купон");
+        return;
     } else if (code.length > 20) {
-        notify("Купон слишком длинный")
-        return
+        notify("Купон слишком длинный");
+        return;
     } else if (!/^[A-z\d_]+$/.test(code)) {
-        notify("Купон указан неверно")
-        return
+        notify("Купон указан неверно");
+        return;
     }
 
     const input_lock = function (lock = false) {
@@ -890,18 +887,23 @@ function coupon_check() {
             button.removeAttribute("disabled");
             button.innerText = "Проверить";
         }
-    }
+    };
 
-    input_lock(true)
+    input_lock(true);
     check_coupon(function (r) {
         if (r) {
-            notify(`Купон <span class="text-primary fw-semibold">${code}</span> действительный`);
-            donate_cart_call(code, false)
+            notify(
+                `Купон <span class="text-primary fw-semibold">${code}</span> действительный`
+            );
+            donate_cart_call(code, false);
         } else {
-            notify(`Купон <span class="text-primary fw-semibold">${code}</span> не найден`)
+            notify(
+                `Купон <span class="text-primary fw-semibold">${code}</span> не найден`
+            );
         }
-        input_lock()
-    }, code)
+
+        input_lock();
+    }, code);
 }
 
 function donate_enable_coupon(enabled = true) {
@@ -997,8 +999,7 @@ function donate_init() {
 
     try {
         els = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {
-    }
+    } catch (_) {}
 
     donate_cart_button(els);
     donate_check_services_cart();
@@ -1057,8 +1058,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
             `<div class="text-primary">` +
             `<h6 class="my-0 text-start">Купон</h6>` +
             `<small class="text-start font-monospace" style="float: left">${coupon}</small>` +
-            `</div>` +
-            // `<span class="text-primary">−0 рублей</span>` +
+            `</div>` + // `<span class="text-primary">−0 рублей</span>` +
             `</li>`;
     };
 
@@ -1086,7 +1086,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
         shuffle(glob_players);
         document
             .querySelector("input#donate_customer")
-            .setAttribute("placeholder", glob_players[0])
+            .setAttribute("placeholder", glob_players[0]);
     }
 }
 
