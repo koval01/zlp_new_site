@@ -28,6 +28,8 @@ var notify_hidden = true;
 var glob_players = [];
 var timer_notify;
 var payment_url_global;
+var checked_coupon;
+var failed_coupon;
 
 function shuffle(array) {
     let currentIndex = array.length,
@@ -789,10 +791,6 @@ function donate_cart(product, count, remove = false) {
         return;
     }
 
-    console.log(product_count_in_cart);
-    console.log(count);
-    console.log(max_item_count);
-
     if (product_count_in_cart + count > max_item_count) {
         notify(`Максимальное количество - ${local_prm}${max_item_count}</span>`);
         return;
@@ -866,6 +864,12 @@ function coupon_check() {
     const button = document.getElementById("coupon-button");
     const code = input.value.trim();
 
+    const coupon_notfd = function () {
+        notify(
+            `Купон <span class="text-primary fw-semibold">${failed_coupon}</span> не найден`
+        )
+    }
+
     if (!code.length) {
         notify("Вы не указали купон");
         return;
@@ -874,6 +878,12 @@ function coupon_check() {
         return;
     } else if (!/^[A-z\d_]+$/.test(code)) {
         notify("Купон указан неверно");
+        return;
+    } else if (checked_coupon === code) {
+        notify("Этот купон уже используется");
+        return;
+    } else if (failed_coupon === code) {
+        coupon_notfd();
         return;
     }
 
@@ -892,14 +902,14 @@ function coupon_check() {
     input_lock(true);
     check_coupon(function (r) {
         if (r) {
+            checked_coupon = code;
             notify(
                 `Купон <span class="text-primary fw-semibold">${code}</span> действительный`
             );
             donate_cart_call(code, false);
         } else {
-            notify(
-                `Купон <span class="text-primary fw-semibold">${code}</span> не найден`
-            );
+            failed_coupon = code;
+            coupon_notfd()
         }
 
         input_lock();
@@ -926,7 +936,7 @@ function generate_payment_link() {
     const button = document.getElementById("payment-button-donate");
     const customer = document.getElementById("donate_customer").value.trim();
     let email = document.getElementById("donate_email").value.trim();
-    let coupon = document.getElementById("coupon-input").value.trim();
+    let coupon = checked_coupon.trim();
 
     if (!customer.length) {
         notify("Введите пожалуйста ваш никнейм");
