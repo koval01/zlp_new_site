@@ -212,7 +212,7 @@ function get_donate_services(callback) {
     }, `${backend_host}/donate/services`, "GET", true)
 };
 
-function create_payment(callback, customer, products, email = null, coupon = null) {
+function create_payment(callback, customer, products, email = "", coupon = "") {
     grecaptcha.ready(function() {
         grecaptcha.execute(re_token, {
             action: 'submit'
