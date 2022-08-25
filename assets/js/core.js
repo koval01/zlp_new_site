@@ -190,7 +190,8 @@ function append_posts() {
 
                 try {
                     sl.parentNode.removeChild(sl);
-                } catch (_) {}
+                } catch (_) {
+                }
             }, 100);
         }, i);
     }
@@ -395,7 +396,8 @@ function append_services() {
 
             try {
                 elem.parentNode.removeChild(elem);
-            } catch (_) {}
+            } catch (_) {
+            }
 
             document.getElementById("donate_items_list").style.display = "";
             document.getElementById("donate-title-desc").style.display = "";
@@ -475,8 +477,8 @@ function switch_modal_containers(mode = "service") {
 }
 
 function discount_calculate(price, discount) {
-    price = parseFloat(price);
-    return price - price * parseFloat(`.${discount}`);
+    discount = discount / 100;
+    return (price * discount).toFixed()
 }
 
 function get_cookie_cart() {
@@ -484,7 +486,8 @@ function get_cookie_cart() {
 
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {}
+    } catch (_) {
+    }
 
     return cookie_cart;
 }
@@ -774,8 +777,11 @@ function donate_cart(product, count, remove = false) {
 
     try {
         let p = cart_parsed[product];
-        if (Number.isInteger(p)) { product_count_in_cart = +p }
-    } catch (_) {}
+        if (Number.isInteger(p)) {
+            product_count_in_cart = +p
+        }
+    } catch (_) {
+    }
 
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart");
@@ -858,18 +864,59 @@ function donate_flush_cart() {
     notify("Корзина очищена");
 }
 
+function coupon_check() {
+    const input = document.getElementById("coupon-input");
+    const button = document.getElementById("coupon-button");
+    const code = input.value.trim();
+
+    if (!code.length) {
+        notify("Вы не указали купон")
+        return
+    } else if (code.length > 20) {
+        notify("Купон слишком длинный")
+        return
+    } else if (!/^[A-z\d_]+$/.test(code)) {
+        notify("Купон указан неверно")
+        return
+    }
+
+    const input_lock = function (lock = false) {
+        if (lock) {
+            input.setAttribute("disabled", "");
+            button.setAttribute("disabled", "");
+            button.innerText = "Проверяем";
+        } else {
+            input.removeAttribute("disabled");
+            button.removeAttribute("disabled");
+            button.innerText = "Проверить";
+        }
+    }
+
+    input_lock(true)
+    check_coupon(function (r) {
+        if (r) {
+            notify(`Купон <span class="text-primary fw-semibold">${code}</span> действительный`);
+            donate_cart_call(code, false)
+        } else {
+            notify(`Купон <span class="text-primary fw-semibold">${code}</span> не найден`)
+        }
+        input_lock()
+    }, code)
+}
+
 function donate_enable_coupon(enabled = true) {
     const input = document.getElementById("coupon-input");
     const button = document.getElementById("coupon-button");
 
     if (enabled) {
         input.setAttribute("placeholder", "BRFF");
+        button.setAttribute("onClick", "coupon_check()");
         input.removeAttribute("disabled");
         button.removeAttribute("disabled");
     } else {
-        input.setAttribute("disabled", null);
+        input.setAttribute("disabled", "");
         input.setAttribute("placeholder", "Сейчас недоступно");
-        button.setAttribute("disabled", null);
+        button.setAttribute("disabled", "");
     }
 }
 
@@ -885,7 +932,7 @@ function generate_payment_link() {
     } else if (customer.length > 40) {
         notify("Ваш никнейм слишком длинный");
         return;
-    } else if (!customer.match(/[A-z\d_\S]/i)) {
+    } else if (!/^[A-z\d_]+$/.test(customer)) {
         notify("Никнейм не соотвествует формату");
     }
 
@@ -900,7 +947,7 @@ function generate_payment_link() {
         coupon = null;
     }
 
-    button.setAttribute("disabled", null);
+    button.setAttribute("disabled", "");
     button.innerText = "Проверяем данные...";
     create_payment(
         function (callback_data) {
@@ -950,14 +997,15 @@ function donate_init() {
 
     try {
         els = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {}
+    } catch (_) {
+    }
 
     donate_cart_button(els);
     donate_check_services_cart();
-    donate_enable_coupon(false);
+    donate_enable_coupon(true);
 }
 
-function donate_cart_call(coupon = null) {
+function donate_cart_call(coupon = null, nickname_update = true) {
     const cart = get_cookie_cart();
     const cart_keys = Object.keys(cart);
     const cart_dom = document.getElementById("donate-cart-list");
@@ -1010,7 +1058,7 @@ function donate_cart_call(coupon = null) {
             `<h6 class="my-0 text-start">Купон</h6>` +
             `<small class="text-start font-monospace" style="float: left">${coupon}</small>` +
             `</div>` +
-            `<span class="text-primary">−0 рублей</span>` +
+            // `<span class="text-primary">−0 рублей</span>` +
             `</li>`;
     };
 
@@ -1033,10 +1081,13 @@ function donate_cart_call(coupon = null) {
     }
 
     sum_container();
-    shuffle(glob_players);
-    document
-        .querySelector("input#donate_customer")
-        .setAttribute("placeholder", glob_players[0]);
+
+    if (nickname_update) {
+        shuffle(glob_players);
+        document
+            .querySelector("input#donate_customer")
+            .setAttribute("placeholder", glob_players[0])
+    }
 }
 
 function links_set_(selector_, fisrt_el_mrg = false) {
