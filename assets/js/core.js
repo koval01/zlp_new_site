@@ -599,7 +599,7 @@ function build_players_swiper() {
             observer: true,
             observeParents: true,
             pagination: {
-                el: ".swiper-pagination-players",
+                el: ".swiper-pagination",
                 clickable: true
             },
             breakpoints: {
