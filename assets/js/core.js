@@ -27,8 +27,8 @@ var notify_hidden = true;
 var glob_players = [];
 var timer_notify;
 var payment_url_global;
-var checked_coupon;
-var failed_coupon;
+var checked_coupon = "";
+var failed_coupon = "";
 
 function shuffle(array) {
     let currentIndex = array.length,
@@ -876,7 +876,9 @@ function donate_flush_cart() {
 function coupon_check() {
     const input = document.getElementById("coupon-input");
     const button = document.getElementById("coupon-button");
-    const code = input.value.trim();
+    let code = "";
+
+    try { code = input.value.trim() } catch (_) {}
 
     const coupon_notfd = function() {
         notify(
@@ -950,7 +952,9 @@ function generate_payment_link() {
     const button = document.getElementById("payment-button-donate");
     const customer = document.getElementById("donate_customer").value.trim();
     let email = document.getElementById("donate_email").value.trim();
-    let coupon = checked_coupon.trim();
+    let coupon = "";
+
+    try { coupon = checked_coupon.trim() } catch (_) {};
 
     if (!customer.length) {
         notify("Введите пожалуйста ваш никнейм");
