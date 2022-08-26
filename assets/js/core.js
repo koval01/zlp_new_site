@@ -538,7 +538,7 @@ function comments_init() {
                 delay: 6000
             },
             pagination: {
-                el: ".swiper-pagination-comments",
+                el: ".swiper-pagination",
                 clickable: true
             },
             navigation: {
