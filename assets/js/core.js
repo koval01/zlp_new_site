@@ -1161,6 +1161,10 @@ function finish_load() {
     document.getElementById(
         "footer-text-blc"
     ).innerHTML = `Made with ${heart} by KovalYRS for Zalupa.Online`;
+    if (grecaptcha) {
+        document.getElementById("re-badge-text").innerText =
+            "This site uses Google ReCaptcha technology"
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
