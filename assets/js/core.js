@@ -1,14 +1,13 @@
 "use strict";
 
+const development_hosts = ["localhost", "zalupa.world"];
 const cart_cookie = "cart_box";
 const channels = 2;
-const backend_host = "https://backend.zalupa.world";
-const re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
-const development_hosts = ["localhost", "zalupa.world"];
-const links_lt = [{
-    name: "twitch",
-    link: "https://www.twitch.tv/bratishkinoff"
-},
+const links_lt = [
+    {
+        name: "twitch",
+        link: "https://www.twitch.tv/bratishkinoff"
+    },
     {
         name: "youtube",
         link: "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ"
@@ -22,7 +21,7 @@ const links_lt = [{
         link: "https://discord.gg/qEqbVbMeEx"
     }
 ];
-const lock_of = false;
+const lock_of = true;
 var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
@@ -30,6 +29,13 @@ var timer_notify;
 var payment_url_global;
 var checked_coupon = "";
 var failed_coupon = "";
+var backend_host = "https://backend.zalupa.world";
+var re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
+
+if (!development_hosts.includes(window.location.hostname)) {
+    backend_host = "https://api.zalupa.online";
+    re_token = ""
+}
 
 function shuffle(array) {
     let currentIndex = array.length,
