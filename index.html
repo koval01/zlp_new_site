@@ -122,7 +122,7 @@
             <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
         </div>
     </section>
-    <section id="server_history" class="position-relative py-5">
+    <section id="server_history" class="position-relative">
         <div class="position-absolute top-0 start-0 w-100 h-100"></div>
         <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
             <h2 class="h1 text-center text-sm-start mb-4">Большое начало в 2021-м году</h2>
@@ -135,7 +135,7 @@
             </div>
         </div>
     </section>
-    <section id="donate_block" class="container my-2 my-md-4 my-lg-5">
+    <section id="donate_block" class="container my-5">
         <div class="d-md-flex align-items-center justify-content-between text-center text-md-start pt-md-1 pt-lg-3">
             <h2 class="h1 mb-4 mb-md-0 me-md-3">Магазин</h2>
             <p class="pb-2 pb-lg-4 pb-xl-5 mb-3" id="donate-title-desc" style="display: none"> Ты можешь поддержать
@@ -147,7 +147,9 @@
         <div>
             <p id="donate-test-mode-enb" class="text-center" style="display: none"></p>
         </div>
-        <div class="donate_cart_button_cn mb-4 row-cols-3 d-flex flex-sm-row justify-content-center">
+        <div id="donate-cart-container"
+             class="donate_cart_button_cn mb-3 row-cols-3 d-flex flex-sm-row justify-content-center"
+             style="display: none !important;">
             <button class="btn btn-primary shadow-primary btn-lg donate-cart-button-cn min-w-zl"
                     onclick="donate_cart_call()">
                 <embed src="assets/images/shopping-cart.svg" class="cst-icon-svg">

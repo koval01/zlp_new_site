@@ -192,7 +192,8 @@ function append_posts() {
 
                 try {
                     sl.parentNode.removeChild(sl);
-                } catch (_) {}
+                } catch (_) {
+                }
             }, 100);
         }, i);
     }
@@ -239,16 +240,27 @@ function game_server_updater() {
 }
 
 function get_donate_services(callback) {
-    request_call(
-        function (r) {
-            if (r.success) {
-                callback(r.services);
-            }
-        },
-        `${backend_host}/donate/services`,
-        "GET",
-        true
-    );
+    grecaptcha.ready(function () {
+        grecaptcha
+            .execute(re_token, {
+                action: "submit"
+            })
+            .then(function (token_update) {
+                request_call(
+                    function (r) {
+                        if (r.success) {
+                            callback(r.services);
+                        }
+                    },
+                    `${backend_host}/donate/services`,
+                    "POST",
+                    true,
+                    {
+                        token: token_update
+                    }
+                );
+            });
+    });
 }
 
 function create_payment(callback, customer, products, email = "", coupon = "") {
@@ -393,15 +405,24 @@ function append_services() {
         }
 
         setTimeout(function () {
-            let elem = document.getElementById("donate_block_load");
+            const elem = document.getElementById("donate_block_load");
+            const ids = [
+                "donate_items_list", "donate-title-desc",
+                "donate-test-mode-enb", "donate-cart-container"
+            ];
 
             try {
                 elem.parentNode.removeChild(elem);
-            } catch (_) {}
+            } catch (_) {
+            }
 
-            document.getElementById("donate_items_list").style.display = "";
-            document.getElementById("donate-title-desc").style.display = "";
-            document.getElementById("donate-test-mode-enb").style.display = "";
+            for (let i = 0; i < ids.length; i++) {
+                try {
+                    document.getElementById(ids[i]).style.display = ""
+                } catch (e) {
+                    console.log(`Donate block loader error. Details: ${e}`)
+                }
+            }
         }, 100);
     });
 }
@@ -486,7 +507,8 @@ function get_cookie_cart() {
 
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {}
+    } catch (_) {
+    }
 
     return cookie_cart;
 }
@@ -779,7 +801,8 @@ function donate_cart(product, count, remove = false) {
         if (Number.isInteger(p)) {
             product_count_in_cart = +p;
         }
-    } catch (_) {}
+    } catch (_) {
+    }
 
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart");
@@ -1009,7 +1032,8 @@ function donate_init() {
 
     try {
         els = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {}
+    } catch (_) {
+    }
 
     donate_cart_button(els);
     donate_check_services_cart();
