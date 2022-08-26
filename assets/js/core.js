@@ -22,6 +22,7 @@ const links_lt = [{
         link: "https://discord.gg/qEqbVbMeEx"
     }
 ];
+const lock_of = false;
 var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
@@ -1146,7 +1147,7 @@ function discord_init() {
 }
 
 function landing_init() {
-    if (development_hosts.includes(window.location.hostname)) {
+    if (development_hosts.includes(window.location.hostname) && lock_of) {
         document.getElementById("landing_description_gb").innerText =
             "Этот сайт - development-версия!";
         document.getElementById("donate-test-mode-enb").innerText =
