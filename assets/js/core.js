@@ -84,7 +84,7 @@ function request_call(callback, url, method, json = false, json_body = null) {
         json_body_local = JSON.stringify(json_body);
     }
 
-    request.onload = function() {
+    request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
             if (json) {
                 callback(JSON.parse(request.responseText));
@@ -96,7 +96,7 @@ function request_call(callback, url, method, json = false, json_body = null) {
         }
     };
 
-    request.onerror = function(error) {
+    request.onerror = function (error) {
         console.log(`Error make request! Details: ${error}`);
     };
 
@@ -120,13 +120,13 @@ function notify(text) {
     const error_text = document.querySelector(".error_text_cst");
     const scroll_top = document.querySelector(".btn-scroll-top");
 
-    let notify_hide = function() {
+    let notify_hide = function () {
         error_box.style.marginBottom = "-150px";
         scroll_top.setAttribute("style", "");
         notify_hidden = true;
     };
 
-    let notify_display = function() {
+    let notify_display = function () {
         notify_hidden = false;
         error_text.innerHTML = text;
         scroll_top.style.marginBottom = `calc(${
@@ -183,7 +183,7 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
 
 function get_last_tg_post_id(callback, source) {
     request_call(
-        function(r) {
+        function (r) {
             if (r.success) {
                 return callback(r.last_post);
             }
@@ -196,7 +196,7 @@ function get_last_tg_post_id(callback, source) {
 
 function append_posts() {
     for (let i = 0; i < channels; i++) {
-        get_last_tg_post_id(function(identifer) {
+        get_last_tg_post_id(function (identifer) {
             let sl = document.querySelector(".telegram_frames");
             let script = document.createElement("script");
             script.src = "https://telegram.org/js/telegram-widget.js?19";
@@ -206,19 +206,20 @@ function append_posts() {
             script.setAttribute("data-userpic", "true");
             script.setAttribute("data-dark", "1");
             sl.appendChild(script);
-            setTimeout(function() {
+            setTimeout(function () {
                 let sl = document.getElementById("telegram_block_load");
 
                 try {
                     sl.parentNode.removeChild(sl);
-                } catch (_) {}
+                } catch (_) {
+                }
             }, 100);
         }, i);
     }
 }
 
 function get_game_server_data(callback) {
-    const _data_error = function(ok = false) {
+    const _data_error = function (ok = false) {
         let string_ = "";
 
         if (ok) {
@@ -231,7 +232,7 @@ function get_game_server_data(callback) {
     };
 
     request_call(
-        function(r) {
+        function (r) {
             if (r.success) {
                 callback(r.body);
             }
@@ -243,7 +244,7 @@ function get_game_server_data(callback) {
 }
 
 function monitoring_game_server_update() {
-    get_game_server_data(function(data) {
+    get_game_server_data(function (data) {
         document.getElementById(
             "server_online_status"
         ).innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${
@@ -258,14 +259,14 @@ function game_server_updater() {
 }
 
 function get_donate_services(callback) {
-    grecaptcha.ready(function() {
+    grecaptcha.ready(function () {
         grecaptcha
             .execute(re_token, {
                 action: "submit"
             })
-            .then(function(token_update) {
+            .then(function (token_update) {
                 request_call(
-                    function(r) {
+                    function (r) {
                         if (r.success) {
                             callback(r.services);
                         }
@@ -281,14 +282,14 @@ function get_donate_services(callback) {
 }
 
 function create_payment(callback, customer, products, email = "", coupon = "") {
-    grecaptcha.ready(function() {
+    grecaptcha.ready(function () {
         grecaptcha
             .execute(re_token, {
                 action: "submit"
             })
-            .then(function(token_update) {
+            .then(function (token_update) {
                 request_call(
-                    function(r) {
+                    function (r) {
                         if (r.success) {
                             callback(r.payment);
                         } else {
@@ -310,14 +311,14 @@ function create_payment(callback, customer, products, email = "", coupon = "") {
 }
 
 function check_coupon(callback, coupon) {
-    grecaptcha.ready(function() {
+    grecaptcha.ready(function () {
         grecaptcha
             .execute(re_token, {
                 action: "submit"
             })
-            .then(function(token_update) {
+            .then(function (token_update) {
                 request_call(
-                    function(r) {
+                    function (r) {
                         if (r.success) {
                             callback(r.coupon);
                         } else {
@@ -336,7 +337,7 @@ function check_coupon(callback, coupon) {
 }
 
 function append_services() {
-    get_donate_services(function(services) {
+    get_donate_services(function (services) {
         donate_services_array = services;
         const size_classes = ["row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"];
         let sl = document.getElementById("donate_items_list");
@@ -419,7 +420,7 @@ function append_services() {
             }
         }
 
-        setTimeout(function() {
+        setTimeout(function () {
             const elem = document.getElementById("donate_block_load");
             const ids = [
                 "donate_items_list", "donate-title-desc",
@@ -428,7 +429,8 @@ function append_services() {
 
             try {
                 elem.parentNode.removeChild(elem);
-            } catch (_) {}
+            } catch (_) {
+            }
 
             for (let i = 0; i < ids.length; i++) {
                 try {
@@ -449,7 +451,7 @@ function modal_close_() {
     document.body.classList.remove("modal-open");
     let modal = document.getElementById("donate_item_modal");
     modal.style.opacity = 0;
-    setTimeout(function() {
+    setTimeout(function () {
         modal.style.display = "none";
     }, 350);
 }
@@ -458,11 +460,11 @@ function modal_open_() {
     document.body.classList.add("modal-open");
     let modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
-    setTimeout(function() {
+    setTimeout(function () {
         modal.style.opacity = 1;
     }, 50);
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target === modal) {
             modal_close_();
         }
@@ -505,7 +507,7 @@ function switch_modal_containers(mode = "service") {
         _array[i].selector.style.display = _mode;
     }
 
-    span.onclick = function() {
+    span.onclick = function () {
         modal_close_();
     };
 }
@@ -520,7 +522,8 @@ function get_cookie_cart() {
 
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {}
+    } catch (_) {
+    }
 
     return cookie_cart;
 }
@@ -548,7 +551,7 @@ function group_already_in_cart(user_cart) {
 function comments_init() {
     let array_ = document.getElementById("comment_swipe_array");
 
-    const create_swiper = function() {
+    const create_swiper = function () {
         new Swiper("#comment_swipe_container", {
             spaceBetween: 12,
             loop: true,
@@ -569,7 +572,7 @@ function comments_init() {
     };
 
     request_call(
-        function(r) {
+        function (r) {
             let comment = r;
             shuffle(comment);
 
@@ -608,7 +611,7 @@ function comments_init() {
 function build_players_swiper() {
     let array_ = document.getElementById("players-swiper-array");
 
-    const create_swiper = function() {
+    const create_swiper = function () {
         new Swiper("#players_swipe_container", {
             slidesPerView: 2,
             spaceBetween: 24,
@@ -640,7 +643,7 @@ function build_players_swiper() {
     };
 
     request_call(
-        function(r) {
+        function (r) {
             let player = r;
             shuffle(player);
 
@@ -690,7 +693,7 @@ function donate_element_click(product_data) {
     const cookie_cart = get_cookie_cart();
     let switch_ = false;
 
-    let _update_count = function() {
+    let _update_count = function () {
         add_to_cart.setAttribute(
             "onClick",
             `donate_cart(${product_data.service_id}, ${items_count_donate.value})`
@@ -739,12 +742,12 @@ function donate_element_click(product_data) {
     items_count_donate.style.display = count_state;
     count_hint.style.display = count_state;
 
-    const only_dig = function() {
+    const only_dig = function () {
         let value = items_count_donate.value;
         items_count_donate.value = value.replace(/\D+/g, "");
     };
 
-    const _calculate_price = function() {
+    const _calculate_price = function () {
         only_dig();
 
         if (!exclude_types.includes(product_data.type)) {
@@ -777,7 +780,7 @@ function donate_element_click(product_data) {
 
     _calculate_price();
 
-    items_count_donate.addEventListener("input", function(_) {
+    items_count_donate.addEventListener("input", function (_) {
         _calculate_price();
     });
     modal_open_();
@@ -813,7 +816,8 @@ function donate_cart(product, count, remove = false) {
         if (Number.isInteger(p)) {
             product_count_in_cart = +p;
         }
-    } catch (_) {}
+    } catch (_) {
+    }
 
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart");
@@ -871,7 +875,7 @@ function donate_cart_button(els = {}) {
 
         if (countProperties(els)) {
             sl.display = "flex";
-            setTimeout(function() {
+            setTimeout(function () {
                 sl.opacity = 1;
                 sl.marginTop = "15px";
                 selector_[i].removeAttribute("disabled");
@@ -880,7 +884,7 @@ function donate_cart_button(els = {}) {
             selector_[i].setAttribute("disabled", "");
             sl.opacity = 0;
             sl.marginTop = "-50px";
-            setTimeout(function() {
+            setTimeout(function () {
                 sl.display = "none";
             }, 350);
         }
@@ -898,9 +902,12 @@ function coupon_check() {
     const button = document.getElementById("coupon-button");
     let code = "";
 
-    try { code = input.value.trim() } catch (_) {}
+    try {
+        code = input.value.trim()
+    } catch (_) {
+    }
 
-    const coupon_notfd = function() {
+    const coupon_notfd = function () {
         notify(
             `Купон <span class="text-primary fw-semibold">${failed_coupon}</span> не найден`
         )
@@ -923,7 +930,7 @@ function coupon_check() {
         return;
     }
 
-    const input_lock = function(lock = false) {
+    const input_lock = function (lock = false) {
         if (lock) {
             input.setAttribute("disabled", "");
             button.setAttribute("disabled", "");
@@ -936,7 +943,7 @@ function coupon_check() {
     };
 
     input_lock(true);
-    check_coupon(function(r) {
+    check_coupon(function (r) {
         if (r) {
             checked_coupon = code;
             notify(
@@ -974,7 +981,11 @@ function generate_payment_link() {
     let email = document.getElementById("donate_email").value.trim();
     let coupon = "";
 
-    try { coupon = checked_coupon.trim() } catch (_) {};
+    try {
+        coupon = checked_coupon.trim()
+    } catch (_) {
+    }
+    ;
 
     if (!customer.length) {
         notify("Введите пожалуйста ваш никнейм");
@@ -1000,7 +1011,7 @@ function generate_payment_link() {
     button.setAttribute("disabled", "");
     button.innerText = "Проверяем данные...";
     create_payment(
-        function(callback_data) {
+        function (callback_data) {
             if (callback_data) {
                 button.removeAttribute("disabled");
                 button.innerText = "Оплатить";
@@ -1024,7 +1035,7 @@ function payment_action_bt() {
 
 function donate_check_services_cart() {
     const services_cookie = Object.keys(get_cookie_cart());
-    get_donate_services(function(services_origin) {
+    get_donate_services(function (services_origin) {
         let services = [];
 
         for (let i = 0; i < services_origin.length; i++) {
@@ -1047,7 +1058,8 @@ function donate_init() {
 
     try {
         els = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {}
+    } catch (_) {
+    }
 
     donate_cart_button(els);
     donate_check_services_cart();
@@ -1069,7 +1081,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
     let sum_price = 0;
 
     for (let i = 0; i < selectors_payment.length; i++) {
-        selectors_payment[i].addEventListener("input", function(_) {
+        selectors_payment[i].addEventListener("input", function (_) {
             donate_reset_payment_state();
         });
     }
@@ -1099,7 +1111,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
         `;
     }
 
-    const coupon_container = function() {
+    const coupon_container = function () {
         cart_dom.innerHTML =
             cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between bg-light">` +
@@ -1110,7 +1122,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
             `</li>`;
     };
 
-    const sum_container = function() {
+    const sum_container = function () {
         cart_dom.innerHTML =
             cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between">` +
@@ -1191,18 +1203,22 @@ function finish_load() {
     }
 }
 
-function success_pay(data="", load_init=false) {
-    const parsed = data.match(/^(success_pay_i)+([\d]+)$/)[2];
+function success_pay(data = "", load_init = false) {
+    let parsed = "";
+    try {
+        parsed = data.match(/^(success_pay_i)+([\d]+)$/)[2]
+    } catch (_) {
+    }
     if (load_init && /^(success_pay_i)+[\d]+$/.test(linkHash())) {
-        console.log("id "+parsed)
+        console.log("id " + parsed)
     } else if (data.length) {
-        console.log("id "+parsed)
+        console.log("id " + parsed)
     } else {
         console.log("error call success_pay")
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     landing_init();
     build_players_swiper();
     append_posts();
@@ -1217,13 +1233,16 @@ document.addEventListener("DOMContentLoaded", function() {
     let elem = document.getElementById("dark-perm-set-bv");
     elem.parentNode.removeChild(elem);
 
-    addEventListener('hashchange', (event) => { });
-    onhashchange = (event) => { success_pay(getHash(event.newURL)) };
+    addEventListener('hashchange', (event) => {
+    });
+    onhashchange = (event) => {
+        success_pay(getHash(event.newURL))
+    };
 
-    window.onload = function() {
+    window.onload = function () {
         const preloader = document.querySelector(".page-loading");
         preloader.classList.remove("active");
-        setTimeout(function() {
+        setTimeout(function () {
             preloader.remove();
         }, 600);
     };
