@@ -310,6 +310,11 @@ body.modal-open {
   width: 100%;
 }
 
+.donate-button {
+  display: block;
+  margin: auto;
+}
+
 @-webkit-keyframes HerokuGradientBack {
   0% {
     background-position: 87% 0;

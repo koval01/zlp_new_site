@@ -85,7 +85,7 @@
                         <a href="#video_block" class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3"
                            data-scroll data-scroll-offset="20">Играть</a>
                         <a href="#donate_block" class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3"
-                           data-scroll data-scroll-offset="80">К магазину</a>
+                           data-scroll data-scroll-offset="80">Донат</a>
                     </div>
                     <div id="landing-links-tp" class="justify-content-center justify-content-lg-start py-4"></div>
                     <div class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5">
@@ -137,7 +137,7 @@
     </section>
     <section id="donate_block" class="container my-5">
         <div class="d-md-flex align-items-center justify-content-between text-center text-md-start pt-md-1 pt-lg-3">
-            <h2 class="h1 mb-4 mb-md-0 me-md-3">Магазин</h2>
+            <h2 class="h1 mb-4 mb-md-0 me-md-3">Донат</h2>
             <p class="pb-2 pb-lg-4 pb-xl-5 mb-3" id="donate-title-desc" style="display: none"> Ты можешь поддержать
                 наш проект, купив хоть какой продукт. Средства будут отправлены на оплату серверов, чтобы проект мог
                 продолжать свою работу. Деньги не возвращаем, пошел на хуй уважаемый клиент.</p>
@@ -157,6 +157,12 @@
             </button>
             <button class="btn btn-icon btn-secondary mx-2 donate-cart-button-cn" onclick="donate_flush_cart()">
                 <span class="donate-cancel-cart">&times;</span>
+            </button>
+        </div>
+        <div id="donate-button-container" style="display: none">
+            <button class="btn btn-primary shadow-primary btn-lg min-w-zl donate-button"
+                    onclick="donate_modal_call()">
+                Оплата
             </button>
         </div>
         <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
@@ -194,6 +200,40 @@
                                 Оплата прошла успешно, Шеф доволен, спасибо.
                             </span>
                         </div>
+                    </div>
+                    <div id="modal-donate-finish-container-b" style="display: none;">
+                        <span class="text-start mb-4" style="display: block">
+                            Воспользовавшись этой формой, вы можете поддержать проект финансово.
+                            За поддержку вы получите вознаграждение – за каждый рубль по одному игровому токену.
+                        </span>
+                        <ul id="donate-coins-payment" class="list-group mb-3"></ul>
+                        <form class="needs-validation" novalidate="">
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label for="donate_sum" class="form-label">Сумма</label>
+                                    <input type="number" class="form-control" id="donate_sum" placeholder="300" value="" required="">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="donate_customer_c" class="form-label">Никнейм</label>
+                                    <input type="text" class="form-control" id="donate_customer_c" placeholder="R3fraction" value="" required="">
+                                </div>
+                                <div class="col-12">
+                                    <label for="donate_email_c" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
+                                    </label>
+                                    <input type="email" class="form-control" id="donate_email_c" placeholder="eblan@mail.ru">
+                                </div>
+                                <div class="col-12">
+                                    <label for="coupon-input-c" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="coupon-input-c" placeholder="BRFF">
+                                        <button class="btn btn-dark" id="coupon-button-c" type="button" onclick="coupon_check(true)">Проверить</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button id="payment-button-donate-c" onclick="generate_payment_link(0)" class="w-100 btn btn-primary btn-lg" type="button">Дальше</button>
+                        </form>
                     </div>
                     <div id="modal-donate-finish-container-c" style="display: none">
                         <ul id="donate-cart-list" class="list-group mb-3"></ul>

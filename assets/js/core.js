@@ -399,14 +399,19 @@ function append_services() {
                     sl.classList.add(size_classes[i - 1]);
                 }
 
+                let click_template = `onClick="donate_element_click(${JSON.stringify(
+                    click_data
+                )})"`
+
+                if (coins_sell_mode) {
+                    click_template = ""
+                }
+
                 sl.innerHTML =
                     sl.innerHTML +
                     `
                     <div class="col" id="donate_item_${services[i].id}">
-                        <div class="card border-0 bg-transparent" 
-                            onClick='donate_element_click(${JSON.stringify(
-                        click_data
-                    )})'>
+                        <div class="card border-0 bg-transparent" ${click_template}>
                           <div class="position-relative">
                             <div class="parent-image-shadow donate_item_hover" 
                                 id="donate_item_hover_${services[i].id}">
@@ -514,6 +519,7 @@ function switch_modal_containers(mode = "service") {
     const span = document.getElementsByClassName("close_b")[0];
     const info = document.getElementById("modal-info-container-c");
     const service = document.getElementById("modal-donate-container-c");
+    const service_coins = document.getElementById("modal-donate-finish-container-b");
     const success = document.getElementById("modal-donate-success-container");
     const finish_donate = document.getElementById(
         "modal-donate-finish-container-c"
@@ -524,6 +530,11 @@ function switch_modal_containers(mode = "service") {
             name: "service",
             selector: service,
             title: "Товар"
+        },
+        {
+            name: "service_coins",
+            selector: service_coins,
+            title: "Оплата пожертвования"
         },
         {
             name: "info",
@@ -880,14 +891,10 @@ function donate_cart(product, count, remove = false) {
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         console.log("Error data donate_cart");
         return;
-    }
-
-    if (1 > Math.sign(count)) {
+    } else if (1 > Math.sign(count)) {
         notify("Количество не может быть равно нулю или меньше");
         return;
-    }
-
-    if (product_count_in_cart + count > max_item_count) {
+    } else if (product_count_in_cart + count > max_item_count) {
         notify(`Максимальное количество - ${local_prm}${max_item_count}</span>`);
         return;
     }
@@ -930,6 +937,11 @@ function donate_cart(product, count, remove = false) {
 function donate_cart_button(els = {}) {
     const selector_ = document.querySelectorAll(".donate-cart-button-cn");
 
+    if (coins_sell_mode) {
+        document.getElementById("donate-button-container").style.display = ""
+        return;
+    }
+
     for (let i = 0; i < selector_.length; i++) {
         let sl = selector_[i].style;
 
@@ -957,9 +969,12 @@ function donate_flush_cart() {
     notify("Корзина очищена");
 }
 
-function coupon_check() {
-    const input = document.getElementById("coupon-input");
-    const button = document.getElementById("coupon-button");
+function coupon_check(coins=false) {
+    let selector_c = "";
+    if (coins_sell_mode) { selector_c = "-c" }
+
+    const input = document.getElementById("coupon-input"+selector_c);
+    const button = document.getElementById("coupon-button"+selector_c);
     let code = "";
 
     try {
@@ -971,6 +986,15 @@ function coupon_check() {
         notify(
             `Купон <span class="text-primary fw-semibold">${failed_coupon}</span> не найден`
         )
+    }
+
+    const check_coupon_coins = function (products) {
+        for (let i = 0; i < products.length; i++) {
+            if (products[i].id === donate_services_array[0].id) {
+                return true
+            }
+        }
+        return false
     }
 
     if (!code.length) {
@@ -1005,11 +1029,28 @@ function coupon_check() {
     input_lock(true);
     check_coupon(function (r) {
         if (r) {
-            checked_coupon = code;
-            notify(
-                `Купон <span class="text-primary fw-semibold">${code}</span> действительный`
-            );
-            donate_cart_call(code, false);
+            const call = function () {
+                checked_coupon = code;
+                notify(
+                    `Купон <span class="text-primary fw-semibold">${code}</span> действительный`
+                );
+            }
+            if (!coins_sell_mode) {
+                call();
+                donate_cart_call(code, false)
+            } else if (check_coupon_coins(r.products)) {
+                call();
+                let sl = document.getElementById("donate-coins-payment");
+                sl.innerHTML =
+                    `<li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-primary">
+                            <h6 class="my-0 text-start">Купон</h6>
+                            <small class="text-start font-monospace" style="float: left">${code}</small>
+                        </div>
+                    </li>`;
+            } else {
+                notify("Этот купон недействительный")
+            }
         } else {
             failed_coupon = code;
             coupon_notfd()
@@ -1035,17 +1076,32 @@ function donate_enable_coupon(enabled = true) {
     }
 }
 
-function generate_payment_link() {
+function generate_payment_link(sum= 0) {
+    let selector_c = "";
+    if (coins_sell_mode) { selector_c = "_c" }
     const button = document.getElementById("payment-button-donate");
-    const customer = document.getElementById("donate_customer").value.trim();
-    let email = document.getElementById("donate_email").value.trim();
+    const customer = document.getElementById("donate_customer" + selector_c).value.trim();
+    let email = document.getElementById("donate_email" + selector_c).value.trim();
     let coupon = "";
+    const max_sum = 15000;
+    const local_prm = '<span style="color: #a4a6ff">';
 
     try {
         coupon = checked_coupon.trim()
     } catch (_) {
     }
     ;
+
+    if (!Number.isInteger(sum) || !Number.isInteger(sum)) {
+        notify("Ошибка проверки суммы");
+        return;
+    } else if (1 > Math.sign(sum)) {
+        notify("Сумма не может равняться нулю или меньше");
+        return;
+    } else if (sum > max_sum) {
+        notify(`Максимальная сумма - ${local_prm}${max_sum}</span>`);
+        return;
+    }
 
     if (!customer.length) {
         notify("Введите пожалуйста ваш никнейм");
@@ -1068,6 +1124,12 @@ function generate_payment_link() {
         coupon = null;
     }
 
+    if (coins_sell_mode) {
+        products = JSON.parse(`{"${donate_services_array[0].id}": ${sum}}`)
+    } else {
+        products = get_cookie_cart()
+    }
+
     button.setAttribute("disabled", "");
     button.innerText = "Проверяем данные...";
     create_payment(
@@ -1083,7 +1145,7 @@ function generate_payment_link() {
             }
         },
         customer,
-        get_cookie_cart(),
+        products,
         email,
         coupon
     );
@@ -1208,6 +1270,28 @@ function donate_cart_call(coupon = null, nickname_update = true) {
             .querySelector("input#donate_customer")
             .setAttribute("placeholder", glob_players[0]);
     }
+}
+
+function donate_coins_pay() {
+    const button = document.getElementById("payment-button-donate-c");
+    let sum = document.getElementById("donate_sum");
+
+    if (!/^[\d]+$/.test(sum.value)) {
+        sum = 0
+    } else { sum = sum.value }
+
+    button.setAttribute("onClick", `generate_payment_link(${sum})`)
+}
+
+function donate_modal_call() {
+    const sum = document.getElementById("donate_sum");
+
+    switch_modal_containers("service_coins");
+    modal_open_();
+
+    sum.addEventListener("input", function (_) {
+        donate_coins_pay()
+    });
 }
 
 function links_set_(selector_, fisrt_el_mrg = false) {
