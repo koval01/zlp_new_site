@@ -27,6 +27,21 @@
     <link rel="stylesheet" media="screen" href="assets/css/custom.min.css">
     <link rel="stylesheet" media="screen" href="assets/css/loader.css">
     <script src="assets/js/dark_init.min.js"></script>
+    <script>
+        var v_domain_site   = "zalupa.online";
+        var v_domain_back   = "api.zalupa.online";
+        var v_re_token      = "";
+        var v_re_token_test = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
+    </script>
+    <script>
+        var v_re_token_setted = v_re_token_test;
+        if (v_domain_site === window.location.hostname) {
+            v_re_token_setted = v_re_token
+        }
+        let script = document.createElement("script");
+        script.src = `https://www.google.com/recaptcha/api.js?render=${v_re_token_setted}`;
+        document.head.appendChild(script);
+    </script>
     <style id="dark-perm-set-bv">
         @media (prefers-color-scheme: dark) {
             body {
@@ -374,7 +389,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.js"
         integrity="sha512-V1mUBtsuFY9SNr+ptlCQAlPkhsH0RGLcazvOCFt415od2Bf9/YkdjXxZCdhrP/TVYsPeAWuHa+KYLbjNbeEnWg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_"></script>
 <script src="assets/js/theme.min.js"></script>
 <script src="assets/js/core.min.js"></script>
 </body>

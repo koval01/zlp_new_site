@@ -1,7 +1,11 @@
 "use strict";
 
 const development_hosts = ["zalupa.world", "localhost"];
-const site_domains = {"prod": "zalupa.online", "dev": development_hosts[0], "test": development_hosts[1]};
+const site_domains = {
+    "prod": v_domain_site,
+    "dev": development_hosts[0],
+    "test": development_hosts[1]
+};
 const cart_cookie = "cart_box";
 const channels = 2;
 const links_lt = [
@@ -32,12 +36,12 @@ var payment_url_global;
 var checked_coupon = "";
 var failed_coupon = "";
 var backend_host = "https://backend.zalupa.world";
-var re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
+var re_token = v_re_token_setted;
 var work_domain_v = "zalupa.online";
 
 if (!development_hosts.includes(window.location.hostname)) {
-    backend_host = "https://api.zalupa.online";
-    re_token = ""
+    backend_host = v_domain_back;
+    re_token = v_re_token
 }
 
 function init_host_() {
