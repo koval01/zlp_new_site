@@ -36,6 +36,7 @@ var payment_url_global;
 var checked_coupon = "";
 var failed_coupon = "";
 var backend_host = "https://backend.zalupa.world";
+var v_re_token_setted = v_re_token_test;
 var re_token = v_re_token_setted;
 var work_domain_v = "zalupa.online";
 
@@ -1051,6 +1052,8 @@ function coupon_check(coins=false) {
                             <h6 class="my-0 text-start">Купон</h6>
                             <small class="text-start font-monospace" style="float: left">${code}</small>
                         </div>
+                        <span class="text-muted text-end" style="width: 30%">
+                            ${r.discount}%</span>
                     </li>`;
             } else {
                 notify("Этот купон недействительный")
@@ -1440,6 +1443,8 @@ function success_pay(data = "", load_init = false) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("Load core...")
+
     init_host_();
     init_landing();
     build_players_swiper();
@@ -1467,5 +1472,5 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(function () {
             preloader.remove();
         }, 600);
-    };
+    }
 });
