@@ -37,6 +37,19 @@ if (!development_hosts.includes(window.location.hostname)) {
     re_token = ""
 }
 
+function linkHash() {
+    return window.location.hash.substring(1)
+}
+
+function getHash(link) {
+    let hash = window.location.hash.substr(1);
+    return Object.keys(hash.split('&').reduce(function (result, item) {
+        let parts = item.split('=');
+        result[parts[0]] = parts[1];
+        return result;
+    }, {}))[0]
+}
+
 function shuffle(array) {
     let currentIndex = array.length,
         randomIndex;
@@ -1178,6 +1191,17 @@ function finish_load() {
     }
 }
 
+function success_pay(data="", load_init=false) {
+    const parsed = data.match(/^(success_pay_i)+([\d]+)$/)[2];
+    if (load_init && /^(success_pay_i)+[\d]+$/.test(linkHash())) {
+        console.log("id "+parsed)
+    } else if (data.length) {
+        console.log("id "+parsed)
+    } else {
+        console.log("error call success_pay")
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     landing_init();
     build_players_swiper();
@@ -1188,8 +1212,13 @@ document.addEventListener("DOMContentLoaded", function() {
     game_server_updater();
     donate_init();
     finish_load();
+    success_pay(linkHash(), true);
+
     let elem = document.getElementById("dark-perm-set-bv");
     elem.parentNode.removeChild(elem);
+
+    addEventListener('hashchange', (event) => { });
+    onhashchange = (event) => { success_pay(getHash(event.newURL)) };
 
     window.onload = function() {
         const preloader = document.querySelector(".page-loading");
