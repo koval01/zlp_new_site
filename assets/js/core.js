@@ -1348,8 +1348,6 @@ function success_pay(data = "", load_init = false) {
     }
     if ((load_init && /^(success_pay_i)+[\d]+$/.test(linkHash())) || data.length) {
         call_sucess_pay_modal(parsed, data === "success_pay_i_ok")
-    } else {
-        console.log("error call success_pay")
     }
 }
 
