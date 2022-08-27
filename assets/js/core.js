@@ -1,6 +1,7 @@
 "use strict";
 
-const development_hosts = ["localhost", "zalupa.world"];
+const development_hosts = ["zalupa.world", "localhost"];
+const site_domains = {"prod": "zalupa.online", "dev": development_hosts[0], "test": development_hosts[1]};
 const cart_cookie = "cart_box";
 const channels = 2;
 const links_lt = [
@@ -31,10 +32,20 @@ var checked_coupon = "";
 var failed_coupon = "";
 var backend_host = "https://backend.zalupa.world";
 var re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
+var work_domain_v = "zalupa.online";
 
 if (!development_hosts.includes(window.location.hostname)) {
     backend_host = "https://api.zalupa.online";
     re_token = ""
+}
+
+function init_host_() {
+    const keys = Object.keys(site_domains);
+    for (let i = 0; i < keys.length; i++) {
+        if (site_domains[keys[i]] === window.location.hostname) {
+            work_domain_v = site_domains[keys[i]]
+        }
+    }
 }
 
 function linkHash() {
@@ -336,6 +347,32 @@ function check_coupon(callback, coupon) {
     });
 }
 
+function check_payment(callback, payment_id) {
+    grecaptcha.ready(function () {
+        grecaptcha
+            .execute(re_token, {
+                action: "submit"
+            })
+            .then(function (token_update) {
+                request_call(
+                    function (r) {
+                        if (r.success) {
+                            callback(r.payment);
+                        } else {
+                            callback(null);
+                        }
+                    },
+                    `${backend_host}/donate/payment_get`,
+                    "POST",
+                    true, {
+                        payment_id: payment_id,
+                        token: token_update
+                    }
+                );
+            });
+    });
+}
+
 function append_services() {
     get_donate_services(function (services) {
         donate_services_array = services;
@@ -475,19 +512,26 @@ function switch_modal_containers(mode = "service") {
     const span = document.getElementsByClassName("close_b")[0];
     const info = document.getElementById("modal-info-container-c");
     const service = document.getElementById("modal-donate-container-c");
+    const success = document.getElementById("modal-donate-success-container");
     const finish_donate = document.getElementById(
         "modal-donate-finish-container-c"
     );
     const title = document.querySelector(".modal-title");
-    const _array = [{
-        name: "service",
-        selector: service,
-        title: "Товар"
-    },
+    const _array = [
+        {
+            name: "service",
+            selector: service,
+            title: "Товар"
+        },
         {
             name: "info",
             selector: info,
             title: "Сообщение"
+        },
+        {
+            name: "success",
+            selector: success,
+            title: "Чек"
         },
         {
             name: "donate_finish",
@@ -1203,22 +1247,72 @@ function finish_load() {
     }
 }
 
+function call_sucess_pay_modal(payment_id) {
+    const cart_dom = document.getElementById("donate-cart-list-success");
+
+    check_payment(function (payment) {
+        if (payment) {
+            if (!payment.email.length) {
+                payment.email = "Ну указано"
+            }
+            cart_dom.innerHTML = `
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0 text-start">
+                            Номер чека
+                        </h6>
+                    </div>
+                    <span>${payment.id}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0 text-start">
+                            Никнейм
+                        </h6>
+                    </div>
+                    <span>${payment.customer}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0 text-start">
+                            Почта
+                        </h6>
+                    </div>
+                    <span>${payment.email}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Сумма</span>
+                    <strong>${payment.enrolled} ${getNoun(
+                        payment.enrolled,
+                        "рубль",
+                        "рубля",
+                        "рублей"
+                    )}</strong>
+                    </li>
+            `
+            switch_modal_containers("success");
+            modal_open_()
+        } else {
+            notify("Ошибка, чек не найден или EasyDonate вернул недействительный ответ")
+        }
+    }, payment_id)
+}
+
 function success_pay(data = "", load_init = false) {
     let parsed = "";
     try {
-        parsed = data.match(/^(success_pay_i)+([\d]+)$/)[2]
+        parsed = parseInt(data.match(/^(success_pay_i)+([\d]+)$/)[2])
     } catch (_) {
     }
-    if (load_init && /^(success_pay_i)+[\d]+$/.test(linkHash())) {
-        console.log("id " + parsed)
-    } else if (data.length) {
-        console.log("id " + parsed)
+    if ((load_init && /^(success_pay_i)+[\d]+$/.test(linkHash())) || data.length) {
+        call_sucess_pay_modal(parsed)
     } else {
         console.log("error call success_pay")
     }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    init_host_();
     landing_init();
     build_players_swiper();
     append_posts();
