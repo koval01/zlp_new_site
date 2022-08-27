@@ -314,7 +314,8 @@ function create_payment(callback, customer, products, email = "", coupon = "") {
                         products: products,
                         email: email,
                         coupon: coupon,
-                        token: token_update
+                        token: token_update,
+                        success_url: `https://${work_domain_v}/#success_pay_i_ok`
                     }
                 );
             });
@@ -1247,11 +1248,15 @@ function finish_load() {
     }
 }
 
-function call_sucess_pay_modal(payment_id) {
+function call_sucess_pay_modal(payment_id = 0, only_ok = false) {
     const cart_dom = document.getElementById("donate-cart-list-success");
+    const succ_text = document.getElementById("success-pay-text-js");
 
-    check_payment(function (payment) {
-        if (payment) {
+    const build_payment = function (payment) {
+        if (only_ok) {
+            succ_text.innerText =
+                "Оплата прошла успешно, спасибо за поддержку."
+        } else {
             if (!payment.email.length) {
                 payment.email = "Ну указано"
             }
@@ -1283,19 +1288,36 @@ function call_sucess_pay_modal(payment_id) {
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Сумма</span>
                     <strong>${payment.enrolled} ${getNoun(
-                        payment.enrolled,
-                        "рубль",
-                        "рубля",
-                        "рублей"
-                    )}</strong>
+                    payment.enrolled,
+                    "рубль",
+                    "рубля",
+                    "рублей"
+                )}</strong>
                     </li>
             `
-            switch_modal_containers("success");
-            modal_open_()
-        } else {
-            notify("Ошибка, чек не найден или EasyDonate вернул недействительный ответ")
         }
-    }, payment_id)
+    }
+
+    const enable_modal = function (payment, only_ok = false) {
+        build_payment(payment);
+        switch_modal_containers("success");
+        modal_open_()
+        if (only_ok) {
+            document.querySelector(".modal-title").innerText = "Успех"
+        }
+    }
+
+    if (!only_ok) {
+        check_payment(function (payment) {
+            if (payment) {
+                enable_modal(payment)
+            } else if (!only_ok) {
+                notify("Ошибка, чек не найден или EasyDonate вернул недействительный ответ")
+            }
+        }, payment_id)
+    } else {
+        enable_modal(0, true)
+    }
 }
 
 function success_pay(data = "", load_init = false) {
@@ -1305,7 +1327,7 @@ function success_pay(data = "", load_init = false) {
     } catch (_) {
     }
     if ((load_init && /^(success_pay_i)+[\d]+$/.test(linkHash())) || data.length) {
-        call_sucess_pay_modal(parsed)
+        call_sucess_pay_modal(parsed, data === "success_pay_i_ok")
     } else {
         console.log("error call success_pay")
     }
