@@ -23,7 +23,7 @@ const links_lt = [
     }
 ];
 const lock_of = true;
-const one_item_mode = true;
+const coins_sell_mode = true;
 var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
@@ -922,7 +922,7 @@ function donate_cart(product, count, remove = false) {
 
     Cookies.set(cart_cookie, JSON.stringify(els_));
     modal_close_();
-    donate_init();
+    init_donate();
     update_cart_count();
     donate_reset_payment_state();
 }
@@ -1113,7 +1113,7 @@ function donate_check_services_cart() {
     });
 }
 
-function donate_init() {
+function init_donate() {
     let els = {};
 
     try {
@@ -1240,7 +1240,7 @@ function discord_init() {
         ></iframe>`;
 }
 
-function landing_init() {
+function init_landing() {
     if (development_hosts.includes(window.location.hostname) && lock_of) {
         document.getElementById("landing_description_gb").innerText =
             "Этот сайт - development-версия!";
@@ -1355,14 +1355,14 @@ function success_pay(data = "", load_init = false) {
 
 document.addEventListener("DOMContentLoaded", function () {
     init_host_();
-    landing_init();
+    init_landing();
     build_players_swiper();
     append_posts();
     comments_init();
     append_services();
     update_cart_count();
     game_server_updater();
-    donate_init();
+    init_donate();
     finish_load();
     success_pay(linkHash(), true);
 
