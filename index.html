@@ -187,12 +187,18 @@
                     </div>
                     <div id="modal-donate-success-container" style="display: none">
                         <ul id="donate-cart-list-success" class="list-group mb-3"></ul>
-                        <span id="success-pay-text-js"></span>
+                        <div class="d-flex" id="only-ok-payment" style="display: none">
+                            <img src="assets/images/vova-gribnik.webp" alt="Vova"
+                                 class="payment-sucess-vova">
+                            <span id="success-pay-text-js">
+                                Оплата прошла успешно, Шеф доволен, спасибо.
+                            </span>
+                        </div>
                     </div>
                     <div id="modal-donate-finish-container-c" style="display: none">
                         <ul id="donate-cart-list" class="list-group mb-3"></ul>
                         <form class="needs-validation" novalidate="">
-                            <div class="row g-3">
+                            <div class="row g-3" id="cart-build-js">
                                 <div class="col-sm-6">
                                     <label for="donate_customer" class="form-label">Никнейм</label>
                                     <input type="text" class="form-control" id="donate_customer"

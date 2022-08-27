@@ -30,6 +30,34 @@ html {
   margin-right: 5vw;
 }
 
+.payment-sucess-vova {
+  height: 40vh;
+  border-radius: 7em;
+}
+
+#only-ok-payment {
+  margin-top: -3em;
+}
+
+#success-pay-text-js {
+  margin: auto;
+}
+
+@media (max-width: 700px) {
+  .payment-sucess-vova {
+    margin: auto;
+    display: block;
+    height: 20vh;
+    border-radius: 3.5em;
+  }
+  #only-ok-payment {
+    display: block !important;
+  }
+  #success-pay-text-js {
+    padding: 1.5em;
+    display: block;
+  }
+}
 iframe {
   border-radius: 0.5em !important;
 }

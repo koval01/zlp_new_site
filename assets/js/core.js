@@ -23,6 +23,7 @@ const links_lt = [
     }
 ];
 const lock_of = true;
+const one_item_mode = true;
 var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
@@ -723,15 +724,18 @@ function donate_element_click(product_data) {
     const exclude_types = ["group"];
     let desc = document.getElementById("donate_item_select_text");
     let text_template =
-        `Товар <span class="text-primary fw-semibold">${product_data.name}</span>,` +
-        `цена ${product_data.count} ${getNoun(
-            product_data.count,
-            "единицы",
-            "единиц",
-            "единиц"
-        )} ` +
-        `<span class="text-primary fw-semibold">${product_data.price} ` +
-        `${getNoun(product_data.price, "рубль", "рубля", "рублей")}</span>.`;
+        `Товар <span class="text-primary fw-semibold">${product_data.name}</span>,
+            цена ${product_data.count} ${getNoun(
+                product_data.count,
+                "единицы",
+                "единиц",
+                "единиц"
+            )}
+        <span class="text-primary fw-semibold">
+            ${product_data.price}
+            ${getNoun(product_data.price, "рубль", "рубля", "рублей")}
+        </span>.
+    `;
     let items_count_donate = document.getElementById("items_count_donate");
     let count_hint = document.getElementById("donate_count_text_hint");
     let add_to_cart = document.getElementById("donate_button_add_to_cart");
@@ -767,9 +771,9 @@ function donate_element_click(product_data) {
                 "Вы уже выбрали привилегию. Удалите её из корзины, если хотите выбрать другую.";
         } else if (product_in_cart) {
             group_error =
-                `Ошибка, вы можете добавить товар ` +
-                `<span class="text-primary fw-semibold">${product_data.name}</span> ` +
-                `только один раз.`;
+                `Ошибка, вы можете добавить товар 
+                <span class="text-primary fw-semibold">${product_data.name}</span> 
+                только один раз.`;
         } else {
             group_error =
                 "Мы не знаем почему, но эта ошибка вызвана по неизвестным причинам.";
@@ -806,16 +810,25 @@ function donate_element_click(product_data) {
             }
 
             if (currenct_in_cart) {
-                template_counter_i =
-                    `Уже в корзине -  <span class="text-primary fw-semibold">` +
-                    `${currenct_in_cart}</span>`;
+                template_counter_i =  `
+                    Уже в корзине - 
+                        <span class="text-primary fw-semibold">
+                            ${currenct_in_cart}
+                        </span>
+                `;
             }
 
             desc.innerHTML =
-                `${text_template}<br/>Стоимость - ` +
-                `<span class="text-primary fw-semibold">${_price} ` +
-                `${getNoun(_price, "рубль", "рубля", "рублей")}</span>` +
-                `<br/>${template_counter_i}`;
+                `${text_template}
+                    <br/>
+                    Стоимость - 
+                        <span class="text-primary fw-semibold">
+                            ${_price} 
+                            ${getNoun(_price, "рубль", "рубля", "рублей")}
+                        </span>
+                    <br/>
+                    ${template_counter_i}
+                `;
 
             _update_count();
         }
@@ -893,9 +906,11 @@ function donate_cart(product, count, remove = false) {
         if (els_[product]) {
             els_[product] = els_[product] + count;
             notify(
-                `В корзину добавлено ${local_prm} ${count} </span>` +
-                `${getNoun(count, "единица", "единицы", "единиц")}` +
-                `товара ${local_prm} ${product_data.name} </span>`
+                `В корзину добавлено ${local_prm} ${count} 
+                    </span>
+                    ${getNoun(count, "единица", "единицы", "единиц")} 
+                    товара ${local_prm} ${product_data.name} 
+                    </span>`
             );
         } else {
             els_[product] = count;
@@ -1159,26 +1174,26 @@ function donate_cart_call(coupon = null, nickname_update = true) {
     const coupon_container = function () {
         cart_dom.innerHTML =
             cart_dom.innerHTML +
-            `<li class="list-group-item d-flex justify-content-between bg-light">` +
-            `<div class="text-primary">` +
-            `<h6 class="my-0 text-start">Купон</h6>` +
-            `<small class="text-start font-monospace" style="float: left">${coupon}</small>` +
-            `</div>` + // `<span class="text-primary">−0 рублей</span>` +
-            `</li>`;
+            `<li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-primary">
+                    <h6 class="my-0 text-start">Купон</h6>
+                    <small class="text-start font-monospace" style="float: left">${coupon}</small>
+                </div>
+            </li>`;
     };
 
     const sum_container = function () {
         cart_dom.innerHTML =
             cart_dom.innerHTML +
-            `<li class="list-group-item d-flex justify-content-between">` +
-            `<span>Сумма</span>` +
-            `<strong>${sum_price} ${getNoun(
-                sum_price,
-                "рубль",
-                "рубля",
-                "рублей"
-            )}</strong>` +
-            `</li>`;
+            `<li class="list-group-item d-flex justify-content-between">
+                <span>Сумма</span>
+                <strong>${sum_price} ${getNoun(
+                    sum_price,
+                    "рубль",
+                    "рубля",
+                    "рублей"
+                )}</strong>
+            </li>`;
     };
 
     if (coupon) {
@@ -1206,9 +1221,11 @@ function links_set_(selector_, fisrt_el_mrg = false) {
 
         sl.innerHTML =
             sl.innerHTML +
-            `<a href="${links_lt[i].link}" target="_blank" style="${mrg}"` +
-            `class="btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2">` +
-            `<i class="bx bxl-${links_lt[i].name}"></i></a>`;
+            `<a href="${links_lt[i].link}" 
+                target="_blank" style="${mrg}"
+                class="btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2">
+                    <i class="bx bxl-${links_lt[i].name}"></i>
+            </a>`;
     }
 }
 
@@ -1216,10 +1233,11 @@ function discord_init() {
     let src = "https://discordapp.com/widget?id=259124796971941890&theme=dark";
     let container = document.getElementById("discord-embed");
     container.innerHTML =
-        `<iframe ` +
-        `src="${src}" width="100%" height="300px" allowTransparency="true" frameBorder="0" ` +
-        `loading="lazy" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"` +
-        `></iframe>`;
+        `<iframe 
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+            src="${src}" width="100%" height="300px" 
+            allowTransparency="true" frameBorder="0" loading="lazy" 
+        ></iframe>`;
 }
 
 function landing_init() {
@@ -1251,11 +1269,13 @@ function finish_load() {
 function call_sucess_pay_modal(payment_id = 0, only_ok = false) {
     const cart_dom = document.getElementById("donate-cart-list-success");
     const succ_text = document.getElementById("success-pay-text-js");
+    const cont_ok = document.getElementById("only-ok-payment");
 
     const build_payment = function (payment) {
         if (only_ok) {
             succ_text.innerText =
-                "Оплата прошла успешно, спасибо за поддержку."
+                "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
+            cont_ok.style.display = ""
         } else {
             if (!payment.email.length) {
                 payment.email = "Ну указано"
@@ -1303,7 +1323,7 @@ function call_sucess_pay_modal(payment_id = 0, only_ok = false) {
         switch_modal_containers("success");
         modal_open_()
         if (only_ok) {
-            document.querySelector(".modal-title").innerText = "Успех"
+            document.querySelector(".modal-title").innerText = ""
         }
     }
 

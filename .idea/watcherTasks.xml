@@ -2,19 +2,19 @@
 <project version="4">
   <component name="ProjectTasksOptions">
     <TaskOptions isEnabled="false">
-      <option name="arguments" value="$FileName$ -o $FileNameWithoutExtension$.min.js" />
+      <option name="arguments" value="$FileNameWithoutExtension$.min.js -o $FileNameWithoutExtension$.min.js" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="js" />
       <option name="immediateSync" value="true" />
-      <option name="name" value="UglifyJS" />
+      <option name="name" value="minify-html-literals" />
       <option name="output" value="$FileNameWithoutExtension$.min.js" />
       <option name="outputFilters">
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="program" value="uglifyjs" />
+      <option name="program" value="minify-html-literals" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="true" />
