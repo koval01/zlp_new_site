@@ -469,6 +469,7 @@ function append_services() {
 
         setTimeout(function () {
             const elem = document.getElementById("donate_block_load");
+            const butt = document.getElementById("donate-button-container")
             const ids = [
                 "donate_items_list", "donate-title-desc",
                 "donate-test-mode-enb", "donate-cart-container"
@@ -477,6 +478,10 @@ function append_services() {
             try {
                 elem.parentNode.removeChild(elem);
             } catch (_) {
+            }
+
+            if (coins_sell_mode) {
+                butt.style.display = ""
             }
 
             for (let i = 0; i < ids.length; i++) {
@@ -941,7 +946,6 @@ function donate_cart_button(els = {}) {
     const selector_ = document.querySelectorAll(".donate-cart-button-cn");
 
     if (coins_sell_mode) {
-        document.getElementById("donate-button-container").style.display = ""
         return;
     }
 
