@@ -3,180 +3,180 @@
     "name": "Blackflexxy",
     "head": "https://cravatar.eu/helmhead/Blackflexxy/190.png",
     "desc": "Подельник Илона Туска",
-    "ultimate": true
+    "badge": "ultimate"
   },
   {
     "name": "CREXLIGHT",
     "head": "https://cravatar.eu/helmhead/CREXLIGHT/190.png",
     "desc": "Единственный админ, который что-то делает",
-    "ultimate": false
+    "badge": "♂️boy♂️"
   },
   {
     "name": "MinDzoM",
     "head": "https://cravatar.eu/helmhead/MinDzoM/190.png",
     "desc": "Немного агент, немного пиздабол",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "D3st0ny",
     "head": "https://cravatar.eu/helmhead/D3st0ny/190.png",
     "desc": "Просто админ которого уволили, это все, что мы о нем знаем",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "KovalYRS",
     "head": "https://cravatar.eu/helmhead/KovalYRS/190.png",
     "desc": "Веб-разработчик",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "JelleyFish",
     "head": "https://cravatar.eu/helmhead/JelleyFish/190.png",
     "desc": "Нуб с кристаллами",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "lomaka",
     "head": "https://cravatar.eu/helmhead/lomaka/190.png",
     "desc": "Стример, что тут ещё говорить",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "sadwaiter",
     "head": "https://cravatar.eu/helmhead/sadwaiter/190.png",
     "desc": "Авторитет для Илона Туска",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "0vva",
     "head": "https://cravatar.eu/helmhead/0vva/190.png",
     "desc": "Краш Илона Туска",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "teen_wave_",
     "head": "https://cravatar.eu/helmhead/teen_wave_/190.png",
     "desc": "Поддержка проекта, служит связью со своим начальством",
-    "ultimate": false
+    "badge": "fun"
   },
   {
     "name": "vani5677",
     "head": "https://cravatar.eu/helmhead/vani5677/190.png",
     "desc": "Он, и правда, казался слишком юным для своих лет",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "Nopeka",
     "head": "https://cravatar.eu/helmhead/Nopeka/190.png",
     "desc": "Мега-кодер на Java",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "exxtazyyy_ez",
     "head": "https://cravatar.eu/helmhead/exxtazyyy_ez/190.png",
     "desc": "Юморист, душа компании",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "hauzmaster",
     "head": "https://cravatar.eu/helmhead/hauzmaster/190.png",
     "desc": "Все дюпы стоят за ним",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "N3P1X69",
     "head": "https://cravatar.eu/helmhead/N3P1X69/190.png",
     "desc": "Был билдером на общении",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "2p0y",
     "head": "assets/images/players/2p0y.png",
     "desc": "Мега-кодер на JS",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "Masha2008",
     "head": "assets/images/players/Masha2008.png",
     "desc": "Тупая, неэффективная женщина",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "Elon_Tusk",
     "head": "assets/images/players/Elon_Tusk.png",
     "desc": "Очень любит девушек и ЧСВ-шник",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "d1xx1",
     "head": "assets/images/players/d1xx1.png",
     "desc": "Любит хрюшек",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "R3fraction",
     "head": "assets/images/players/R3fraction.png",
     "desc": "Лучшая вертушка на сервере",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "Rmpl-FFF",
     "head": "assets/images/players/Rmpl-FFF.png",
     "desc": "Билдер на сервере общения",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "_AppleTony_",
     "head": "assets/images/players/AppleTony.png",
     "desc": "Главный админ проекта",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "SaiG4",
     "head": "assets/images/players/SaiG4.png",
     "desc": "Создатель клана STIK",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "rsimson",
     "head": "assets/images/players/rsimson.png",
     "desc": "Главный шизик сервера",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "dangl1",
     "head": "assets/images/players/dangl1.png",
     "desc": "Местный репер",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "Sunflower",
     "head": "assets/images/players/Sunflower.png",
     "desc": "Очередная женщина сервера",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "DjyZott",
     "head": "assets/images/players/DjyZott.png",
     "desc": "Хуйлан на сервере анархии который никому не нужен",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "TaidaKN",
     "head": "assets/images/players/TaidaKN.png",
     "desc": "НН-чик с сервера общения",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "EXPlaned",
     "head": "assets/images/players/EXPlaned.png",
     "desc": "Создатель клана SWAT",
-    "ultimate": false
+    "badge": ""
   },
   {
     "name": "i5b",
     "head": "assets/images/players/i5b.png",
     "desc": "24/7 на Анархии, 5000 часов в Minecraft",
-    "ultimate": false
+    "badge": ""
   }
 ]

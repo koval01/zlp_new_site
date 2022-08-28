@@ -319,7 +319,7 @@ function create_payment(callback, customer, products, email = "", coupon = "") {
                         email: email,
                         coupon: coupon,
                         token: token_update,
-                        success_url: `https://${work_domain_v}/#success_pay_i_ok`
+                        success_url: `https://${work_domain_v}`
                     }
                 );
             });
@@ -713,8 +713,13 @@ function build_players_swiper() {
             shuffle(player);
 
             for (let i = 0; i < player.length; i++) {
-                let ult_template = "<h6 class=\"fs-lg fw-semibold pt-1 mb-2 player_badge\">ULTIMATE</h6>";
-                if (!player[i].ultimate) { ult_template = "" }
+                let ult_template = "";
+                if (player[i].badge) {
+                    ult_template =
+                        `<h6 class="fs-lg fw-semibold pt-1 mb-2 player_badge">
+                            ${player[i].badge.toUpperCase()}
+                        </h6>`
+                }
                 glob_players.push(player[i].name);
                 array_.innerHTML =
                     array_.innerHTML +

@@ -40,14 +40,14 @@ html {
 }
 
 #only-ok-payment {
-  margin-top: -3em;
+  margin-top: 0;
 }
 
 #success-pay-text-js {
   margin: auto;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1200px) {
   .payment-sucess-vova {
     margin: auto;
     display: block;
@@ -261,7 +261,7 @@ body.modal-open {
 
 @media (min-width: 280px) {
   .modal-content {
-    max-width: 85% !important;
+    max-width: 95% !important;
   }
 }
 @media (min-width: 760px) {
@@ -328,8 +328,8 @@ body.modal-open {
   text-align: center;
   justify-content: center;
   padding: 0.2em !important;
-  width: 5rem;
   border-radius: 0.14em;
+  display: inline;
 }
 
 .donate-button {
