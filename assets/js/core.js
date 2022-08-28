@@ -874,8 +874,13 @@ function donate_get_service_by_id(id) {
 }
 
 function donate_reset_payment_state(repeat = false) {
-    const button = document.getElementById("payment-button-donate");
-    button.setAttribute("onClick", "generate_payment_link()");
+    let sl = "_c";
+    let vl = document.getElementById("donate_sum").value.trim();
+    if (!coins_sell_mode) {
+        sl, vl = "";
+    }
+    const button = document.getElementById("payment-button-donate" + sl);
+    button.setAttribute("onClick", `generate_payment_link(${vl})`);
     button.removeAttribute("disabled");
     button.innerText = repeat ? "Повторить" : "Дальше";
 }
@@ -1088,7 +1093,7 @@ function donate_enable_coupon(enabled = true) {
 function generate_payment_link(sum= 0) {
     let selector_c = "";
     if (coins_sell_mode) { selector_c = "_c" }
-    const button = document.getElementById("payment-button-donate");
+    const button = document.getElementById("payment-button-donate" + selector_c);
     const customer = document.getElementById("donate_customer" + selector_c).value.trim();
     let email = document.getElementById("donate_email" + selector_c).value.trim();
     let coupon = "";
@@ -1282,7 +1287,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
 }
 
 function donate_coins_pay() {
-    const button = document.getElementById("payment-button-donate-c");
+    const button = document.getElementById("payment-button-donate_c");
     let sum = document.getElementById("donate_sum");
 
     if (!/^[\d]+$/.test(sum.value)) {
