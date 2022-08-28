@@ -877,7 +877,8 @@ function donate_reset_payment_state(repeat = false) {
     let sl = "_c";
     let vl = document.getElementById("donate_sum").value.trim();
     if (!coins_sell_mode) {
-        sl, vl = "";
+        sl = "";
+        vl = "";
     }
     const button = document.getElementById("payment-button-donate" + sl);
     button.setAttribute("onClick", `generate_payment_link(${vl})`);
@@ -1444,7 +1445,11 @@ function success_pay(data = "", load_init = false) {
         parsed = parseInt(data.match(/^(success_pay_i)+([\d]+)$/)[2])
     } catch (_) {
     }
-    if ((load_init && /^(success_pay_i)+[\d]+$/.test(linkHash())) || data.length) {
+    if (
+        (load_init && /^(success_pay_i)+[\d]+$/.test(linkHash()))
+        ||
+        (data.length && data === "success_pay_i_ok")
+    ) {
         call_sucess_pay_modal(parsed, data === "success_pay_i_ok")
     }
 }
