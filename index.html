@@ -191,48 +191,66 @@
             </div>
         </div>
     </section>
-    <section id="instruction_block" class="py-5">
+    <section id="instruction_block" class="py-4">
         <div class="container py-2 py-md-4 py-lg-5">
             <h3 class="h1 text-center mb-lg-4">Инструкция для начала игры</h3>
             <p class="fs-lg text-muted text-center mb-4 mb-lg-5"></p>
-            <div class="row py-xl-3" style="padding: 12px">
-                <div class="position-relative overflow-hidden rounded-3 col-lg-6 order-lg-2 mb-4">
+            <div class="row py-xl-3 g-2" style="padding: 12px">
+                <div class="position-relative overflow-hidden rounded-3 col-lg-6 order-lg-2 mb-4 p-3">
                     <div class="top-0 zindex-5 d-flex align-items-center justify-content-center">
-                        <iframe src="https://www.youtube.com/embed/MmB9b5njVbA" title="YouTube video player"
+                        <iframe src="https://www.youtube.com/embed/BzvZxCXKctM" title="YouTube video player"
                                 frameborder="0" class="video-container-yt"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
-                <div class="col-lg-6 order-lg-2 mb-4" style="padding: 1.2em">
+                <div class="col-lg-6 order-lg-2 mb-4 p-3" style="padding: 1.2em">
                     <div class="col" style="margin: auto">
                         <div class="d-flex align-items-center">
                             <div class="display-6 text-primary">1</div>
-                            <p class="ps-3 mb-0">Скачайте это, чтобы установить</p>
+                            <p class="ps-3 mb-0">
+                                Скачайте лаунчер на ваш выбор.
+                                <a href="https://www.minecraft.net/ru-ru/download" target="_blank">
+                                    Лицензия</a>, или
+                                <a href="https://tlaun.ch" target="_blank">
+                                    TL Legacy</a>
+                            </p>
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="display-6 text-primary">2</div>
-                            <p class="ps-3 mb-0">Установите это, чтобы играть на нашем сервере</p>
+                            <p class="ps-3 mb-0">
+                                Установите
+                                <a href="assets/files/fabric-installer-0.11.0.jar" download="">
+                                    Fabric
+                                </a>
+                            </p>
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="display-6 text-primary">3</div>
-                            <p class="ps-3 mb-0">Запустите это чтобы начать играть</p>
+                            <p class="ps-3 mb-0">
+                                Установите моды необходимые для игры.
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 order-lg-2 mb-4">
-                    <div class="inst-bg-image">
-                        <img src="https://static.wikia.nocookie.net/minecraft_gamepedia/images/1/12/Grass_Block_JE2.png" alt="Instruction background image">
-                    </div>
+                <div class="col-lg-6 order-lg-2 mb-4 p-3">
+                        <p class="noselect-allow">
+                            В блоке со ссылками вы можете скачать необходимые для игры моды
+                            (<span class="text-primary">Fabric API</span> и
+                            <span class="text-primary">Plasmovoice</span>).
+                            Если вы используете систему Windows,
+                            то перейдите в файловый менеджер, в адресной ленте укажите
+                            <code>%appdpata%</code>, вы попадете в папку, где будет .minecraft,
+                            перейдите в нее, далее если нет папки mods, то создайте ее.
+                            В стренную директорию загрузите необходимые моды.
+                        </p>
                 </div>
-                <div class="col-lg-6 order-lg-2 mb-4">
-                    <div class="col" style="margin: auto">
-                        <span>Описание сборки, здесь будет какая-то информация.</span>
-                        <div class="download_button_zp">
-                            <a href="assets/files/" class="btn btn-primary shadow-primary mt-3"
-                               download>Download</a>
-                        </div>
-                    </div>
+                <div class="col-lg-6 order-lg-2 mb-4 p-3">
+                    <h2 class="mb-0 mt-3">Ссылки для скачивания</h2>
+                    <a href="assets/files/fabric-api-0.60.0+1.19.2.jar" class="btn btn-primary shadow-primary mt-3"
+                       download>Fabric API</a>
+                    <a href="assets/files/plasmovoice-fabric-1.19.1-1.2.19.jar" class="btn btn-primary shadow-primary mt-3"
+                       download>Plasmovoice</a>
                 </div>
             </div>
         </div>
