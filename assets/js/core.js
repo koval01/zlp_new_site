@@ -1219,7 +1219,6 @@ function donate_cart_call(coupon = null, nickname_update = true) {
     modal_open_();
     cart_dom.innerHTML = "";
     let sum_price = 0;
-    let sl = "_c";
 
     for (let i = 0; i < selectors_payment.length; i++) {
         selectors_payment[i].addEventListener("input", function (_) {
@@ -1284,12 +1283,9 @@ function donate_cart_call(coupon = null, nickname_update = true) {
     sum_container();
 
     if (nickname_update) {
-        if (!coins_sell_mode) {
-            sl = ""
-        }
         shuffle(glob_players);
         document
-            .querySelector("input#donate_customer" + sl)
+            .querySelector("input#donate_customer")
             .setAttribute("placeholder", glob_players[0]);
     }
 }
@@ -1305,11 +1301,18 @@ function donate_coins_pay() {
     button.setAttribute("onClick", `generate_payment_link(${sum})`)
 }
 
-function donate_modal_call() {
+function donate_modal_call(nickname_update= true) {
     const sum = document.getElementById("donate_sum");
 
     switch_modal_containers("service_coins");
     modal_open_();
+
+    if (nickname_update) {
+        shuffle(glob_players);
+        document
+            .querySelector("input#donate_customer_c")
+            .setAttribute("placeholder", glob_players[0]);
+    }
 
     sum.addEventListener("input", function (_) {
         donate_coins_pay()
