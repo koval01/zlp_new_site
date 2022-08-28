@@ -1380,17 +1380,17 @@ function finish_load() {
     }
 }
 
-function call_sucess_pay_modal(payment_id = 0, only_ok = false) {
+function call_sucess_pay_modal(payment_id = 0) {
     const cart_dom = document.getElementById("donate-cart-list-success");
     const succ_text = document.getElementById("success-pay-text-js");
     const cont_ok = document.getElementById("only-ok-payment");
 
     const build_payment = function (payment) {
-        if (only_ok) {
+        if (payment.status) {
             succ_text.innerText =
                 "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
             cont_ok.style.display = ""
-        } else {
+
             if (!payment.email.length) {
                 payment.email = "Ну указано"
             }
@@ -1419,9 +1419,17 @@ function call_sucess_pay_modal(payment_id = 0, only_ok = false) {
                     </div>
                     <span>${payment.email}</span>
                 </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0 text-start">
+                            Система
+                        </h6>
+                    </div>
+                    <span>${payment.payment_system}</span>
+                </li>
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Сумма</span>
-                    <strong>${payment.enrolled} ${getNoun(
+                    <strong class="text-primary">${payment.enrolled} ${getNoun(
                     payment.enrolled,
                     "рубль",
                     "рубля",
@@ -1429,29 +1437,25 @@ function call_sucess_pay_modal(payment_id = 0, only_ok = false) {
                 )}</strong>
                     </li>
             `
+        } else {
+            succ_text.innerText =
+                "Чек неоплачен, Шеф недоволен.";
         }
     }
 
-    const enable_modal = function (payment, only_ok = false) {
+    const enable_modal = function (payment) {
         build_payment(payment);
         switch_modal_containers("success");
         modal_open_()
-        if (only_ok) {
-            document.querySelector(".modal-title").innerText = ""
-        }
     }
 
-    if (!only_ok) {
-        check_payment(function (payment) {
-            if (payment) {
-                enable_modal(payment)
-            } else if (!only_ok) {
-                notify("Ошибка, чек не найден или EasyDonate вернул недействительный ответ")
-            }
-        }, payment_id)
-    } else {
-        enable_modal(0, true)
-    }
+    check_payment(function (payment) {
+        if (payment) {
+            enable_modal(payment)
+        } else {
+            notify("Ошибка, чек не найден или EasyDonate вернул недействительный ответ")
+        }
+    }, payment_id)
 }
 
 function success_pay() {
