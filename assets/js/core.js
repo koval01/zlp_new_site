@@ -713,6 +713,8 @@ function build_players_swiper() {
             shuffle(player);
 
             for (let i = 0; i < player.length; i++) {
+                let ult_template = "<h6 class=\"fs-lg fw-semibold pt-1 mb-2 player_badge\">ULTIMATE</h6>";
+                if (!player[i].ultimate) { ult_template = "" }
                 glob_players.push(player[i].name);
                 array_.innerHTML =
                     array_.innerHTML +
@@ -723,6 +725,7 @@ function build_players_swiper() {
                            alt="${player[i].name}" loading="lazy"
                         <div class="card-body text-center p-3">
                             <h3 class="fs-lg fw-semibold pt-1 mb-2">${player[i].name}</h3>
+                            ${ult_template}
                             <p class="fs-sm mb-0">${player[i].desc}</p>
                         </div>
                     </span>

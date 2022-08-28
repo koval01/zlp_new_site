@@ -1,11 +1,15 @@
 html
   --back-modal-st:rgba(255, 255, 255, 0.85)
+  --white-theme-black-set:rgb(255, 255, 255)
+  --white-theme-front-set:rgb(0, 0, 0)
   --notify-theme-bg:rgba(23, 27, 37, 0.7)
   --notify-theme-shadow:rgba(0, 0, 0, 0.35)
   --modal-shadow:rgba(255, 255, 255, 0.75)
 
 .dark-mode
   --back-modal-st:rgba(41, 41, 41, 0.85)
+  --white-theme-black-set:rgb(0, 0, 0)
+  --white-theme-front-set:rgb(255, 255, 255)
   --notify-theme-bg:rgba(23, 27, 37, 0.6)
   --notify-theme-shadow:rgba(255, 255, 255, 0.2)
   --modal-shadow:rgba(100, 102, 241, 0.65)
@@ -279,6 +283,16 @@ body.modal-open
   animation: HerokuGradientBack 8s ease infinite
   height: 100%
   width: 100%
+
+.player_badge
+  font-size: 0.9rem !important
+  background: var(--white-theme-front-set) !important
+  color: var(--white-theme-black-set)
+  text-align: center
+  justify-content: center
+  padding: 0.2em !important
+  width: 50%
+  border-radius: 0.14em
 
 .donate-button
   display: block
