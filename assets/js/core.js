@@ -1219,6 +1219,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
     modal_open_();
     cart_dom.innerHTML = "";
     let sum_price = 0;
+    let sl = "_c";
 
     for (let i = 0; i < selectors_payment.length; i++) {
         selectors_payment[i].addEventListener("input", function (_) {
@@ -1283,9 +1284,12 @@ function donate_cart_call(coupon = null, nickname_update = true) {
     sum_container();
 
     if (nickname_update) {
+        if (!coins_sell_mode) {
+            sl = ""
+        }
         shuffle(glob_players);
         document
-            .querySelector("input#donate_customer")
+            .querySelector("input#donate_customer" + sl)
             .setAttribute("placeholder", glob_players[0]);
     }
 }
