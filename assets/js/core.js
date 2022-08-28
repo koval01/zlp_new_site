@@ -39,7 +39,7 @@ var backend_host = "https://backend.zalupa.world";
 var work_domain_v = "zalupa.online";
 
 if (!development_hosts.includes(window.location.hostname)) {
-    backend_host = domain_back;
+    backend_host = `https://${domain_back}`;
     re_token = re_token
 }
 
