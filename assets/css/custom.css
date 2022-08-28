@@ -261,7 +261,7 @@ body.modal-open {
 
 @media (min-width: 280px) {
   .modal-content {
-    max-width: 95% !important;
+    width: 100% !important;
   }
 }
 @media (min-width: 760px) {

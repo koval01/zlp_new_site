@@ -1454,18 +1454,12 @@ function call_sucess_pay_modal(payment_id = 0, only_ok = false) {
     }
 }
 
-function success_pay(data = "", load_init = false) {
-    let parsed = "";
-    try {
-        parsed = parseInt(data.match(/^(success_pay_i)+([\d]+)$/)[2])
-    } catch (_) {
-    }
-    if (
-        (load_init && /^(success_pay_i)+[\d]+$/.test(linkHash()))
-        ||
-        (data.length && data === "success_pay_i_ok")
-    ) {
-        call_sucess_pay_modal(parsed, data === "success_pay_i_ok")
+function success_pay() {
+    let url = new URL(window.location.href).searchParams;
+    let payment_id = url.get("pg_order_id");
+
+    if (payment_id) {
+        call_sucess_pay_modal(payment_id);
     }
 }
 
@@ -1482,16 +1476,10 @@ document.addEventListener("DOMContentLoaded", function () {
     game_server_updater();
     init_donate();
     finish_load();
-    success_pay(linkHash(), true);
+    success_pay();
 
     let elem = document.getElementById("dark-perm-set-bv");
     elem.parentNode.removeChild(elem);
-
-    addEventListener('hashchange', (event) => {
-    });
-    onhashchange = (event) => {
-        success_pay(getHash(event.newURL))
-    };
 
     window.onload = function () {
         const preloader = document.querySelector(".page-loading");
