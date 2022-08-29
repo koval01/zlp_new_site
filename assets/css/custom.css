@@ -5,6 +5,7 @@ html {
   --notify-theme-bg:rgba(23, 27, 37, 0.7);
   --notify-theme-shadow:rgba(0, 0, 0, 0.35);
   --modal-shadow:rgba(255, 255, 255, 0.75);
+  --si-card-bg:rgb(255, 255, 255);
 }
 
 .dark-mode {
@@ -181,24 +182,20 @@ iframe {
   .vova-bg-landing {
     position: absolute;
     height: 100vh;
-    background-image: url(../images/vova-background.webp);
+    background-image: url(../images/vova-delovoy.webp);
     background-repeat: no-repeat;
     background-size: contain;
-    background-position-y: -20px;
-    background-position-x: 15%;
     z-index: 0;
     filter: brightness(0.95);
   }
   .vova-bg-landing-mask {
     position: absolute;
     height: 100vh;
-    background-image: url("../images/vova-background.webp");
+    background-image: url(../images/vova-delovoy.webp);
     background-repeat: no-repeat;
     background-size: contain;
-    background-position-y: -20px;
-    background-position-x: 15%;
     z-index: 0;
-    filter: drop-shadow(0 0 25px #392568);
+    filter: drop-shadow(0 0 25px #291d4c);
   }
 }
 .display-1 {
@@ -309,6 +306,14 @@ body.modal-open {
 
 #discord-embed iframe {
   box-shadow: 0 0 64px 8px rgba(87, 101, 242, 0.5411764706);
+}
+
+#telegram_block {
+  background: var(--si-body-bg) !important;
+}
+
+iframe[id*=telegram-post] {
+  filter: drop-shadow(2px 4px 6px black);
 }
 
 .hero-bg-st {

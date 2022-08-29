@@ -646,7 +646,7 @@ function comments_init() {
                     array_.innerHTML +
                     `
                 <div class="swiper-slide h-auto px-2">
-                    <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
+                    <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0 bg-gradient-primary-translucent">
                         <span class="btn btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5 zlp-comment-icon">
                           <i class="bx bxs-quote-left"></i>
                           Залупный комментарий
@@ -1340,6 +1340,11 @@ function links_set_(selector_, fisrt_el_mrg = false) {
                 class="btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2">
                     <i class="bx bxl-${links_lt[i].name}"></i>
             </a>`;
+
+        if (links_lt[i].name === "telegram") {
+            document.getElementById("zlp-tg-link").setAttribute(
+                "href", links_lt[i].link)
+        }
     }
 }
 

@@ -119,16 +119,20 @@
             </div>
         </div>
     </section>
-    <section id="telegram_block" class="position-relative bg-dark py-5">
+    <section id="telegram_block" class="position-relative py-5">
         <div class="container">
-            <h2 class="h3 text-light text-center mb-4 mb-lg-5">Последние новости</h2>
+            <h2 class="h1 text-center mb-4 mb-lg-5">Последние новости</h2>
+            <p class="fs-lg text-muted text-center mb-4 mb-lg-5">
+                Следите за нашим проектом в <a id="zlp-tg-link" target="_blank">Telegram</a>,
+                чтобы всегда быть в курсе всех событий
+            </p>
             <div class="telegram_frames row row-cols-1 g-4 mt-2 mt-lg-4 row-cols-md-2"></div>
             <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
         </div>
     </section>
-    <section id="video_block" class="bg-secondary py-5">
+    <section id="video_block" class="py-5">
         <div class="container py-2 py-md-4 py-lg-5">
-            <h3 class="h1 text-center mb-lg-4">Наглядно о сервере</h3>
+            <h3 class="h3 text-center mb-lg-4">Наглядно о сервере</h3>
             <p class="fs-lg text-muted text-center mb-4 mb-lg-5"> Предлагаем тебе просмотреть видео ниже, чтобы лучше
                 понять о чем наш сервер, какова его философия, кто там живет. </p>
             <div class="row py-xl-3" style="padding: 12px">
@@ -172,16 +176,16 @@
             </div>
         </div>
     </section>
-    <section id="comments_block" class="bg-secondary py-5">
+    <section id="comments_block" class="py-5">
         <div class="container py-2 py-md-4 py-lg-5">
             <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-5">Комментарии игроков</h2>
             <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;">
                 <button type="button" id="prev_comment"
-                        class="btn btn-prev btn-icon btn-sm position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
+                        class="btn btn-prev btn-icon btn-sm bg-faded-primary position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
                     <i class="bx bx-chevron-left"></i>
                 </button>
                 <button type="button" id="next_comment"
-                        class="btn btn-next btn-icon btn-sm position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
+                        class="btn btn-next btn-icon btn-sm bg-faded-primary position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
                     <i class="bx bx-chevron-right"></i>
                 </button>
                 <div class="swiper swiper-nav-onhover pt-1 mx-md-2" id="comment_swipe_container">
@@ -391,12 +395,12 @@
             </div>
         </div>
     </section>
-    <section id="discord_block" class="discord-block-back-st bg-dark py-5 mt-5">
+    <section id="discord_block" class="discord-block-back-st py-5 mt-5">
         <div class="container py-2 py-md-4 py-lg-5">
             <div class="row py-xl-3">
                 <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4">
-                    <h2 class="h1 text-light text-center text-sm-start pb-4 mb-0 mb-lg-3">Discord-Залупа 🤫</h2>
-                    <h2 class="h5 text-light text-lg-start mb-4 mb-lg-5"> Пизди с такими же дебилами как и ты -
+                    <h2 class="h1 text-center text-sm-start pb-4 mb-0 mb-lg-3">Discord-Залупа 🤫</h2>
+                    <h2 class="h5 text-lg-start mb-4 mb-lg-5"> Пизди с такими же дебилами как и ты -
                         безлимитно, хоть целый день, правда.</h2>
                 </div>
                 <div class="col-xl-6 col-lg-7 order-lg-1">
@@ -409,16 +413,16 @@
         <p class="error_text_cst"></p>
     </div>
 </main>
-<footer class="footer dark-mode bg-dark pt-5 pb-4 pb-lg-5" style="display: none">
+<footer class="footer pt-5 pb-4 pb-lg-5" style="display: none">
     <div class="container text-center pt-lg-3">
         <div class="navbar-brand justify-content-center text-dark mb-2 mb-lg-4">
             <img src="assets/images/logo.png" class="me-2" width="190" alt="Zalupa.Online">
         </div>
         <div id="links-block-footer-v" class="d-flex justify-content-center pt-4 mt-lg-3"></div>
         <p class="nav d-block fs-sm text-center pt-5 mt-lg-4 mb-0">
-            <span class="text-light opacity-80" id="footer-text-blc"></span>
+            <span class="opacity-80" id="footer-text-blc"></span>
             <br/>
-            <span id="re-badge-text" class="text-light opacity-40"></span>
+            <span id="re-badge-text" class="opacity-40"></span>
         </p>
     </div>
 </footer>
