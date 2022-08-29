@@ -1182,7 +1182,7 @@ function payment_action_bt() {
 
 function donate_check_services_cart() {
     const services_cookie = Object.keys(get_cookie_cart());
-    const donate_services_array = services_origin;
+    const services_origin = donate_services_array;
     let services = [];
 
     for (let i = 0; i < services_origin.length; i++) {
