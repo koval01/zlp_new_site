@@ -52,6 +52,10 @@ html {
   mix-blend-mode: difference !important;
 }
 
+.scroll-bottom-landing {
+  margin: auto;
+}
+
 @media (max-width: 1200px) {
   .payment-sucess-vova {
     margin: auto;
@@ -75,10 +79,6 @@ iframe {
   display: flex;
   width: 100vw;
   height: 100vh;
-}
-
-.scroll-bottom-landing {
-  padding-bottom: 0 !important;
 }
 
 .swipe_el_name {
@@ -480,9 +480,14 @@ iframe[id*=telegram-post] {
 }
 
 .btn-scroll-top.show {
-  border: 2px solid;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5411764706);
-  transition: all 0.4s;
+  border: 2px solid #6366f1;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.85);
+  transition: all 0.5s;
+}
+.btn-scroll-top.show > span {
+  color: var(--si-body-color);
 }
 
 .cst-icon-svg {
