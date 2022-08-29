@@ -9,7 +9,7 @@
     "name": "CREXLIGHT",
     "head": "https://cravatar.eu/helmhead/CREXLIGHT/190.png",
     "desc": "Единственный админ, который что-то делает",
-    "badge": "♂️boy♂️"
+    "badge": ""
   },
   {
     "name": "MinDzoM",
@@ -177,6 +177,12 @@
     "name": "i5b",
     "head": "assets/images/players/i5b.png",
     "desc": "24/7 на Анархии, 5000 часов в Minecraft",
+    "badge": ""
+  },
+  {
+    "name": "v0kky",
+    "head": "assets/images/players/v0kky.png",
+    "desc": "Рабовладелец",
     "badge": ""
   }
 ]

@@ -657,7 +657,7 @@ function comments_init() {
                         <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
                             <div>
                                 <h6 class="fw-semibold lh-base mb-0">${comment[i].name}</h6>
-                                <span class="fs-sm text-muted">${comment[i].sign}</span>
+                                <span class="frame_badge_adaptive">${comment[i].sign}</span>
                             </div>
                         </figcaption>
                     </figure>
@@ -716,7 +716,7 @@ function build_players_swiper() {
                 let ult_template = "";
                 if (player[i].badge) {
                     ult_template =
-                        `<h6 class="fs-lg fw-semibold pt-1 mb-2 player_badge">
+                        `<h6 class="fs-lg fw-semibold pt-1 mb-2 frame_badge_adaptive">
                             ${player[i].badge.toUpperCase()}
                         </h6>`
                 }

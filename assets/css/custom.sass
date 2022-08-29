@@ -41,6 +41,10 @@ html
 #success-pay-text-js
   margin: auto
 
+#swipe-down-landing-n
+  &:after
+    mix-blend-mode: difference !important
+
 @media (max-width: 1200px)
   .payment-sucess-vova
     margin: auto
@@ -100,6 +104,7 @@ iframe
 
 .dark-mode .background_media_overlay_tag
   filter: brightness(0.8)
+  -webkit-filter: brightness(0.8)
 
 .vova-bg-mobile
   display: none
@@ -132,6 +137,7 @@ iframe
   background-position: right 25% bottom 28px
   z-index: 0
   filter: brightness(0.95)
+  -webkit-filter: brightness(0.95)
 
 .vova-bg-l-mobile-mask
   position: absolute
@@ -142,6 +148,7 @@ iframe
   background-position: right 25% bottom 28px
   z-index: 0
   filter: drop-shadow(0 0 25px #392568)
+  -webkit-filter: drop-shadow(0 0 25px #392568)
 
 @media (min-width: 992px)
   .mt-lg-4-first
@@ -165,6 +172,7 @@ iframe
     background-size: contain
     z-index: 0
     filter: brightness(0.95)
+    -webkit-filter: brightness(0.95)
 
   .vova-bg-landing-mask
     position: absolute
@@ -174,6 +182,7 @@ iframe
     background-size: contain
     z-index: 0
     filter: drop-shadow(0 0 25px #291d4c)
+    -webkit-filter: drop-shadow(0 0 25px #291d4c)
 
 .display-1
   font-size: calc(48px + 6 * ((100vw - 320px) / 680))
@@ -252,19 +261,20 @@ body.modal-open
     .foregroundImg
       cursor: pointer
       position: relative
-      left: 50px
+      left: 50%
       z-index: 2
       pointer-events: none
 
     .backgroundImg
       position: absolute
       top: 2px
-      left: 50px
+      left: 50%
       transform: scale(1)
       transition: all .5s ease
       z-index: 1
       opacity: 1
       filter: blur(24px) brightness(1.4)
+      -webkit-filter: blur(24px) brightness(1.4)
 
 .col:hover .backgroundImg
   transform: scale(2)
@@ -277,6 +287,7 @@ body.modal-open
 
 iframe[id*='telegram-post']
   filter: drop-shadow(2px 4px 6px black)
+  -webkit-filter: drop-shadow(2px 4px 6px black)
 
 .hero-bg-st
   background: linear-gradient(315deg, rgba(126, 68, 221, 0.06), rgba(126, 68, 221, 0.35), rgba(126, 68, 221, 0.06))
@@ -287,15 +298,16 @@ iframe[id*='telegram-post']
   height: 100%
   width: 100%
 
-.player_badge
+.frame_badge_adaptive
   font-size: 0.9rem !important
   background: var(--white-theme-front-set) !important
   color: var(--white-theme-black-set)
   text-align: center
   justify-content: center
-  padding: 0.2em !important
-  border-radius: 0.14em
+  padding: 0.3em !important
+  border-radius: 0.15em
   display: inline
+  font-weight: 600
 
 .donate-button
   display: block
@@ -372,10 +384,12 @@ iframe[id*='telegram-post']
 
 .hover-blur-rl
   filter: blur(8px)
+  -webkit-filter: blur(8px)
   transition: all 0.6s
 
   &:hover
     filter: blur(0)
+    -webkit-filter: blur(0)
 
 .donate-cancel-cart
   color: var(--si-body-color)
@@ -412,6 +426,7 @@ iframe[id*='telegram-post']
 .cst-icon-svg
   height: 1.5em
   filter: invert(1)
+  -webkit-filter: invert(1)
   margin: 5px
 
 .zlp-comment-icon
