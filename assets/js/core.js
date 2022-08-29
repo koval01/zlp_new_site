@@ -388,6 +388,8 @@ function append_services() {
             sl.innerHTML =
                 '<span class="text-center">Не удалось получить список товаров.</span>';
         } else {
+            donate_check_services_cart();
+
             for (let i = 0; i < services.length; i++) {
                 let click_data = {
                     name: services[i].name,
@@ -465,33 +467,33 @@ function append_services() {
                     </div>
                 `;
             }
-        }
 
-        setTimeout(function () {
-            const elem = document.getElementById("donate_block_load");
-            const butt = document.getElementById("donate-button-container")
-            const ids = [
-                "donate_items_list", "donate-title-desc",
-                "donate-test-mode-enb", "donate-cart-container"
-            ];
+            setTimeout(function () {
+                const elem = document.getElementById("donate_block_load");
+                const butt = document.getElementById("donate-button-container")
+                const ids = [
+                    "donate_items_list", "donate-title-desc",
+                    "donate-test-mode-enb", "donate-cart-container"
+                ];
 
-            try {
-                elem.parentNode.removeChild(elem);
-            } catch (_) {
-            }
-
-            if (coins_sell_mode) {
-                butt.style.display = ""
-            }
-
-            for (let i = 0; i < ids.length; i++) {
                 try {
-                    document.getElementById(ids[i]).style.display = ""
-                } catch (e) {
-                    console.log(`Donate block loader error. Details: ${e}`)
+                    elem.parentNode.removeChild(elem);
+                } catch (_) {
                 }
-            }
-        }, 100);
+
+                if (coins_sell_mode) {
+                    butt.style.display = ""
+                }
+
+                for (let i = 0; i < ids.length; i++) {
+                    try {
+                        document.getElementById(ids[i]).style.display = ""
+                    } catch (e) {
+                        console.log(`Donate block loader error. Details: ${e}`)
+                    }
+                }
+            }, 100);
+        }
     });
 }
 
@@ -1180,22 +1182,21 @@ function payment_action_bt() {
 
 function donate_check_services_cart() {
     const services_cookie = Object.keys(get_cookie_cart());
-    get_donate_services(function (services_origin) {
-        let services = [];
+    const donate_services_array = services_origin;
+    let services = [];
 
-        for (let i = 0; i < services_origin.length; i++) {
-            services.push(services_origin[i].id);
-        }
+    for (let i = 0; i < services_origin.length; i++) {
+        services.push(services_origin[i].id);
+    }
 
-        for (let i = 0; i < services_cookie.length; i++) {
-            if (!services.includes(parseInt(services_cookie[i]))) {
-                let cart = JSON.parse(Cookies.get(cart_cookie));
-                delete cart[parseInt(services_cookie[i])];
-                Cookies.set(cart_cookie, JSON.stringify(cart));
-                console.log(`Remove ${services_cookie[i]} from cart`);
-            }
+    for (let i = 0; i < services_cookie.length; i++) {
+        if (!services.includes(parseInt(services_cookie[i]))) {
+            let cart = JSON.parse(Cookies.get(cart_cookie));
+            delete cart[parseInt(services_cookie[i])];
+            Cookies.set(cart_cookie, JSON.stringify(cart));
+            console.log(`Remove ${services_cookie[i]} from cart`);
         }
-    });
+    }
 }
 
 function init_donate() {
@@ -1207,7 +1208,6 @@ function init_donate() {
     }
 
     donate_cart_button(els);
-    donate_check_services_cart();
     donate_enable_coupon(true);
 }
 
@@ -1389,6 +1389,7 @@ function call_sucess_pay_modal(payment_id = 0) {
     const cart_dom = document.getElementById("donate-cart-list-success");
     const succ_text = document.getElementById("success-pay-text-js");
     const cont_ok = document.getElementById("only-ok-payment");
+    const title = document.querySelector(".modal-title");
 
     const build_payment = function (payment) {
         if (payment.status) {
@@ -1400,14 +1401,6 @@ function call_sucess_pay_modal(payment_id = 0) {
                 payment.email = "Ну указано"
             }
             cart_dom.innerHTML = `
-                <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div>
-                        <h6 class="my-0 text-start">
-                            Номер чека
-                        </h6>
-                    </div>
-                    <span>${payment.id}</span>
-                </li>
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
                         <h6 class="my-0 text-start">
@@ -1456,7 +1449,8 @@ function call_sucess_pay_modal(payment_id = 0) {
 
     check_payment(function (payment) {
         if (payment) {
-            enable_modal(payment)
+            enable_modal(payment);
+            title.innerText = `Чек #${payment.id}`
         } else {
             notify("Ошибка, чек не найден или EasyDonate вернул недействительный ответ")
         }
