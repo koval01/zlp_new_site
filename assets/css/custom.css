@@ -178,7 +178,6 @@ iframe {
   }
   .background_media_overlay_tag {
     height: 100vh;
-    height: 100vh;
   }
   .video-container-yt {
     width: 45vw;
@@ -216,7 +215,7 @@ iframe {
   display: block;
   background: var(--si-body-bg);
   color: var(--si-body-color);
-  border: 2px;
+  border-width: 2px;
   border-style: solid;
   font-size: 18px;
   padding: 6px;
