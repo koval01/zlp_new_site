@@ -338,7 +338,7 @@ iframe[id*=telegram-post] {
 }
 
 .hero-bg-st {
-  background: linear-gradient(315deg, rgba(126, 68, 221, 0.06), rgba(126, 68, 221, 0.35), rgba(126, 68, 221, 0.06));
+  background: linear-gradient(315deg, rgba(126, 68, 221, 0.25), rgba(126, 68, 221, 0.55), rgba(126, 68, 221, 0.25));
   background-size: 100% 600%;
   -webkit-animation: HerokuGradientBack 8s ease infinite;
   -moz-animation: HerokuGradientBack 8s ease infinite;
