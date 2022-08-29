@@ -441,11 +441,14 @@ iframe[id*='telegram-post']
   border: 2px solid #6366f1
   backdrop-filter: blur(8px)
   -webkit-backdrop-filter: blur(8px)
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.85)
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4)
   transition: all .5s
 
   > span
     color: var(--si-body-color)
+
+  &:hover
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.85)
 
 .cst-icon-svg
   height: 1.5em
