@@ -1489,6 +1489,6 @@ document.addEventListener("DOMContentLoaded", function () {
         preloader.classList.remove("active");
         setTimeout(function () {
             preloader.remove();
-        }, 600);
+        }, 1000);
     }
 });
