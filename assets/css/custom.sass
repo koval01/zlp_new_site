@@ -229,6 +229,7 @@ body.modal-open
   padding-right: 12px
   padding-bottom: 24px
   transition: all 0.4s
+  -webkit-backdrop-filter: blur(12px)
 
 .modal-content
   background-color: var(--back-modal-st)
@@ -261,20 +262,25 @@ body.modal-open
     .foregroundImg
       cursor: pointer
       position: relative
-      left: 50%
       z-index: 2
       pointer-events: none
 
     .backgroundImg
       position: absolute
       top: 2px
-      left: 50%
       transform: scale(1)
       transition: all .5s ease
       z-index: 1
       opacity: 1
       filter: blur(24px) brightness(1.4)
       -webkit-filter: blur(24px) brightness(1.4)
+
+@media screen and (-webkit-min-device-pixel-ratio: 0)
+  .foregroundImg
+    left: 50%
+
+  .backgroundImg
+    left: 50%
 
 .col:hover .backgroundImg
   transform: scale(2)
