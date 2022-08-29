@@ -48,6 +48,10 @@ html {
   margin: auto;
 }
 
+#swipe-down-landing-n {
+  color: #fff;
+  text-shadow: 0 0 16px black;
+}
 #swipe-down-landing-n:after {
   mix-blend-mode: difference !important;
 }
