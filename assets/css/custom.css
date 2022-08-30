@@ -194,7 +194,7 @@ iframe {
   .vova-bg-landing {
     position: absolute;
     height: 100vh;
-    background-image: url(../images/vova-delovoy.webp);
+    background-image: url(../images/vova-background.webp);
     background-repeat: no-repeat;
     background-size: contain;
     z-index: 0;
@@ -204,7 +204,7 @@ iframe {
   .vova-bg-landing-mask {
     position: absolute;
     height: 100vh;
-    background-image: url(../images/vova-delovoy.webp);
+    background-image: url(../images/vova-background.webp);
     background-repeat: no-repeat;
     background-size: contain;
     z-index: 0;
