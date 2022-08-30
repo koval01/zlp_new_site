@@ -13,8 +13,6 @@ html
 
   --si-card-bg: rgb(238,238,238)
 
-  --bg-color-set-z: rgb(244, 240, 255)
-
 .dark-mode
   --back-modal-st: rgba(41, 41, 41, 0.85)
 
@@ -27,8 +25,6 @@ html
   --notify-theme-shadow: rgba(255, 255, 255, 0.2)
 
   --modal-shadow: rgba(100, 102, 241, 0.65)
-
-  --bg-color-set-z: rgb(11, 15, 25)
 
   .bg-light:not(.badge), .card.card-hover.bg-light
     background-color: rgba(11, 15, 25, 0.6) !important
@@ -221,9 +217,6 @@ input
     -webkit-appearance: none
     margin: 0
 
-body
-  background: var(--bg-color-set-z)
-
 body.modal-open
   overflow: hidden
 
@@ -309,7 +302,10 @@ body.modal-open
   box-shadow: 0 0 64px 8px #5765f28a
 
 #telegram_block
-  background: var(--bg-color-set-z) !important
+  background: var(--si-body-bg) !important
+
+#zlp-tg-link
+  font-weight: 700 !important
 
 iframe[id*='telegram-post']
   filter: drop-shadow(2px 4px 6px black)
@@ -445,17 +441,20 @@ iframe[id*='telegram-post']
   border-top: 1px solid rgba(255, 255, 255, 0.4)
 
 .btn-scroll-top.show
-  border: 2px solid #6366f1
+  border: 0
+  background: rgba(0, 0, 0, 0.25)
   backdrop-filter: blur(8px)
   -webkit-backdrop-filter: blur(8px)
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4)
-  transition: all .5s
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5)
+  transition: all .7s
 
   > span
     color: var(--si-body-color)
 
   &:hover
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.85)
+    background: rgba(0, 0, 0, 0.25)
+    border: 2px solid rgba(99, 102, 241, 0.5)
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.95)
 
 .cst-icon-svg
   height: 1.5em

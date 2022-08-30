@@ -503,6 +503,7 @@ function redirect_(url) {
 
 function modal_close_() {
     document.body.classList.remove("modal-open");
+    document.getElementById("scroll_butt_container").style.display = "";
     let modal = document.getElementById("donate_item_modal");
     modal.style.opacity = 0;
     setTimeout(function () {
@@ -512,6 +513,7 @@ function modal_close_() {
 
 function modal_open_() {
     document.body.classList.add("modal-open");
+    document.getElementById("scroll_butt_container").style.display = "none";
     let modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
     setTimeout(function () {

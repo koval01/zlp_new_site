@@ -6,7 +6,6 @@ html {
   --notify-theme-shadow: rgba(0, 0, 0, 0.35);
   --modal-shadow: rgba(255, 255, 255, 0.75);
   --si-card-bg: rgb(238,238,238);
-  --bg-color-set-z: rgb(244, 240, 255);
 }
 
 .dark-mode {
@@ -16,7 +15,6 @@ html {
   --notify-theme-bg: rgba(23, 27, 37, 0.6);
   --notify-theme-shadow: rgba(255, 255, 255, 0.2);
   --modal-shadow: rgba(100, 102, 241, 0.65);
-  --bg-color-set-z: rgb(11, 15, 25);
 }
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
   background-color: rgba(11, 15, 25, 0.6) !important;
@@ -234,10 +232,6 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
   margin: 0;
 }
 
-body {
-  background: var(--bg-color-set-z);
-}
-
 body.modal-open {
   overflow: hidden;
 }
@@ -335,7 +329,11 @@ body.modal-open {
 }
 
 #telegram_block {
-  background: var(--bg-color-set-z) !important;
+  background: var(--si-body-bg) !important;
+}
+
+#zlp-tg-link {
+  font-weight: 700 !important;
 }
 
 iframe[id*=telegram-post] {
@@ -490,17 +488,20 @@ iframe[id*=telegram-post] {
 }
 
 .btn-scroll-top.show {
-  border: 2px solid #6366f1;
+  border: 0;
+  background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
-  transition: all 0.5s;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+  transition: all 0.7s;
 }
 .btn-scroll-top.show > span {
   color: var(--si-body-color);
 }
 .btn-scroll-top.show:hover {
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.85);
+  background: rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.95);
 }
 
 .cst-icon-svg {
