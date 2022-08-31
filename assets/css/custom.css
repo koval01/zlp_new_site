@@ -443,6 +443,7 @@ iframe[id*=telegram-post] {
 #donate-title-desc {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
+  font-size: 0.9em !important;
 }
 
 .theme-styled-text-st {
