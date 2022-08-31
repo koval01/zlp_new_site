@@ -1321,6 +1321,18 @@ function donate_coins_pay() {
 
 function donate_modal_call(nickname_update= true) {
     const sum = document.getElementById("donate_sum");
+    const selectors_payment = [
+        document.getElementById("donate_sum"),
+        document.getElementById("donate_customer_c"),
+        document.getElementById("donate_email_c"),
+        document.getElementById("coupon-input-c"),
+    ];
+
+    for (let i = 0; i < selectors_payment.length; i++) {
+        selectors_payment[i].addEventListener("input", function (_) {
+            donate_reset_payment_state()
+        })
+    };
 
     switch_modal_containers("service_coins");
     modal_open_();
