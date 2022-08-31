@@ -367,6 +367,11 @@ iframe[id*=telegram-post] {
   background: linear-gradient(90deg, #6366f1 0, #4a2b92 50%, #231143 100%);
 }
 
+.token-description-dnt {
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
 .player_badge {
   padding: 0.1em 0.2em 0.2em 0.2em !important;
 }

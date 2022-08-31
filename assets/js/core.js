@@ -399,6 +399,29 @@ function append_services() {
                     type: services[i].type,
                     service_id: services[i].id
                 };
+                let _name = "";
+                let _desc = "";
+                let padding_desc = "p-3";
+                let desc_template = `
+                    <p class="mb-0">
+                        ${services[i].price} 
+                        ${getNoun(
+                            services[i].price,
+                            "рубль",
+                            "рубля",
+                            "рублей"
+                        )} 
+                        = 
+                        ${services[i].number} 
+                        ${getNoun(
+                            services[i].number,
+                            "единица",
+                            "единицы",
+                            "единиц"
+                        )}
+                    </p>
+                    <p class="fs-sm mb-0">${services[i].description}</p>
+                `;
 
                 if (i && size_classes.length >= i) {
                     sl.classList.add(size_classes[i - 1]);
@@ -408,7 +431,16 @@ function append_services() {
                     click_data
                 )})"`
 
-                if (coins_sell_mode) {
+                if (!coins_sell_mode) {
+                    _name = services[i].name
+                } else {
+                    _name = "1 рубль = 1 токен";
+                    padding_desc = "p-0";
+                    desc_template = `
+                        <p class="mb-0 token-description-dnt">
+                            Деньги не возвращаем. Даже не пробуй жаловаться v0kky.
+                        </p>`;
+
                     click_template = ""
                 }
 
@@ -423,13 +455,13 @@ function append_services() {
                                 <div class="imageContainer">
                                     <img src="${services[i].image}"
                                      class="rounded-3 foregroundImg" alt="${
-                        services[i].name
-                    }" 
+                                            services[i].name
+                                        }" 
                                      style="display: block; margin: auto; width: 100px" loading="lazy">
                                     <img src="${services[i].image}"
                                      class="rounded-3 backgroundImg" alt="${
-                        services[i].name
-                    }" 
+                                            services[i].name
+                                        }" 
                                      style="display: block; margin: auto; width: 100px" loading="lazy">
                                  </div>
                             </div>
@@ -438,30 +470,9 @@ function append_services() {
                                  style="margin: auto">
                             </div>
                           </div>
-                          <div class="card-body text-center p-3">
-                                <h3 class="fs-lg fw-semibold pt-1 mb-2">${
-                        services[i].name
-                    }</h3>
-                                <p class="mb-0">
-                                    ${services[i].price} 
-                                    ${getNoun(
-                        services[i].price,
-                        "рубль",
-                        "рубля",
-                        "рублей"
-                    )} 
-                                    = 
-                                    ${services[i].number} 
-                                    ${getNoun(
-                        services[i].number,
-                        "единица",
-                        "единицы",
-                        "единиц"
-                    )}
-                                </p>
-                                <p class="fs-sm mb-0">${
-                        services[i].description
-                    }</p>
+                          <div class="card-body text-center ${padding_desc}">
+                                <h3 class="fs-lg fw-semibold pt-1 mb-2">${_name}</h3>
+                                ${desc_template}
                           </div>
                         </div>
                     </div>
