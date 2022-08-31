@@ -1,92 +1,98 @@
 [
   {
     "name": "Blackflexxy",
-    "head": "https://cravatar.eu/helmhead/Blackflexxy/190.png",
+    "head": "https://cravatar.eu/helmhead/Blackflexxy/256.png",
     "desc": "Подельник Илона Туска",
     "badge": "ultimate"
   },
   {
     "name": "CREXLIGHT",
-    "head": "https://cravatar.eu/helmhead/CREXLIGHT/190.png",
+    "head": "https://cravatar.eu/helmhead/CREXLIGHT/256.png",
     "desc": "Единственный админ, который что-то делает",
     "badge": ""
   },
   {
     "name": "MinDzoM",
-    "head": "https://cravatar.eu/helmhead/MinDzoM/190.png",
+    "head": "https://cravatar.eu/helmhead/MinDzoM/256.png",
     "desc": "Немного агент, немного пиздабол",
     "badge": ""
   },
   {
     "name": "D3st0ny",
-    "head": "https://cravatar.eu/helmhead/D3st0ny/190.png",
+    "head": "https://cravatar.eu/helmhead/D3st0ny/256.png",
     "desc": "Просто админ которого уволили, это все, что мы о нем знаем",
     "badge": ""
   },
   {
     "name": "KovalYRS",
-    "head": "https://cravatar.eu/helmhead/KovalYRS/190.png",
+    "head": "https://cravatar.eu/helmhead/KovalYRS/256.png",
     "desc": "Веб-разработчик",
     "badge": ""
   },
   {
     "name": "JelleyFish",
-    "head": "https://cravatar.eu/helmhead/JelleyFish/190.png",
+    "head": "https://cravatar.eu/helmhead/JelleyFish/256.png",
     "desc": "Нуб с кристаллами",
     "badge": ""
   },
   {
     "name": "lomaka",
-    "head": "https://cravatar.eu/helmhead/lomaka/190.png",
+    "head": "https://cravatar.eu/helmhead/lomaka/256.png",
     "desc": "Стример, что тут ещё говорить",
     "badge": ""
   },
   {
     "name": "sadwaiter",
-    "head": "https://cravatar.eu/helmhead/sadwaiter/190.png",
+    "head": "https://cravatar.eu/helmhead/sadwaiter/256.png",
     "desc": "Авторитет для Илона Туска",
     "badge": ""
   },
   {
     "name": "0vva",
-    "head": "https://cravatar.eu/helmhead/0vva/190.png",
+    "head": "https://cravatar.eu/helmhead/0vva/256.png",
     "desc": "Краш Илона Туска",
     "badge": ""
   },
   {
     "name": "teen_wave_",
-    "head": "https://cravatar.eu/helmhead/teen_wave_/190.png",
+    "head": "https://cravatar.eu/helmhead/teen_wave_/256.png",
     "desc": "Поддержка проекта, служит связью со своим начальством",
     "badge": ""
   },
   {
     "name": "vani5677",
-    "head": "https://cravatar.eu/helmhead/vani5677/190.png",
+    "head": "https://cravatar.eu/helmhead/vani5677/256.png",
     "desc": "Он, и правда, казался слишком юным для своих лет",
     "badge": ""
   },
   {
     "name": "Nopeka",
-    "head": "https://cravatar.eu/helmhead/Nopeka/190.png",
+    "head": "https://cravatar.eu/helmhead/Nopeka/256.png",
     "desc": "Мега-кодер на Java",
     "badge": ""
   },
   {
     "name": "exxtazyyy_ez",
-    "head": "https://cravatar.eu/helmhead/exxtazyyy_ez/190.png",
+    "head": "https://cravatar.eu/helmhead/exxtazyyy_ez/256.png",
     "desc": "Юморист, душа компании",
     "badge": ""
   },
   {
     "name": "hauzmaster",
-    "head": "https://cravatar.eu/helmhead/hauzmaster/190.png",
+    "head": "https://cravatar.eu/helmhead/hauzmaster/256.png",
     "desc": "Все дюпы стоят за ним",
     "badge": ""
   },
   {
     "name": "N3P1X69",
-    "head": "https://cravatar.eu/helmhead/N3P1X69/190.png",
+    "head": "https://cravatar.eu/helmhead/N3P1X69/256.png",
     "desc": "Был билдером на общении",
+    "badge": ""
+  },
+  {
+    "name": "DarkNetFox",
+    "head": "https://cravatar.eu/helmhead/DarkNetFox/256.png",
+    "desc": "Чел с наибольшим количеством смертей",
     "badge": ""
   },
   {
