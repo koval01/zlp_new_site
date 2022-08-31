@@ -8,7 +8,7 @@
   {
     "name": "CREXLIGHT",
     "head": "https://cravatar.eu/helmhead/CREXLIGHT/256.png",
-    "desc": "Единственный админ, который что-то делает",
+    "desc": "Любит дудеть в рог",
     "badge": ""
   },
   {
@@ -92,7 +92,37 @@
   {
     "name": "DarkNetFox",
     "head": "https://cravatar.eu/helmhead/DarkNetFox/256.png",
-    "desc": "Чел с наибольшим количеством смертей",
+    "desc": "Суицидник",
+    "badge": ""
+  },
+  {
+    "name": "i5b",
+    "head": "https://cravatar.eu/helmhead/i5b/256.png",
+    "desc": "24/7 на Анархии, 5000 часов в Minecraft",
+    "badge": ""
+  },
+  {
+    "name": "v0kky",
+    "head": "https://cravatar.eu/helmhead/v0kky/256.png",
+    "desc": "Рабовладелец",
+    "badge": ""
+  },
+  {
+    "name": "rsimson",
+    "head": "https://cravatar.eu/helmhead/rsimson/256.png",
+    "desc": "Главный шизик сервера",
+    "badge": ""
+  },
+  {
+    "name": "DjyZott",
+    "head": "https://cravatar.eu/helmhead/DjyZott/256.png",
+    "desc": "Хуйлан на сервере анархии который никому не нужен",
+    "badge": ""
+  },
+  {
+    "name": "SaiG4",
+    "head": "https://cravatar.eu/helmhead/SaiG4/256.png",
+    "desc": "Создатель клана STIK",
     "badge": ""
   },
   {
@@ -138,18 +168,6 @@
     "badge": ""
   },
   {
-    "name": "SaiG4",
-    "head": "assets/images/players/SaiG4.png",
-    "desc": "Создатель клана STIK",
-    "badge": ""
-  },
-  {
-    "name": "rsimson",
-    "head": "assets/images/players/rsimson.png",
-    "desc": "Главный шизик сервера",
-    "badge": ""
-  },
-  {
     "name": "dangl1",
     "head": "assets/images/players/dangl1.png",
     "desc": "Местный репер",
@@ -162,12 +180,6 @@
     "badge": ""
   },
   {
-    "name": "DjyZott",
-    "head": "assets/images/players/DjyZott.png",
-    "desc": "Хуйлан на сервере анархии который никому не нужен",
-    "badge": ""
-  },
-  {
     "name": "TaidaKN",
     "head": "assets/images/players/TaidaKN.png",
     "desc": "НН-чик с сервера общения",
@@ -177,18 +189,6 @@
     "name": "EXPlaned",
     "head": "assets/images/players/EXPlaned.png",
     "desc": "Создатель клана SWAT",
-    "badge": ""
-  },
-  {
-    "name": "i5b",
-    "head": "assets/images/players/i5b.png",
-    "desc": "24/7 на Анархии, 5000 часов в Minecraft",
-    "badge": ""
-  },
-  {
-    "name": "v0kky",
-    "head": "assets/images/players/v0kky.png",
-    "desc": "Рабовладелец",
     "badge": ""
   }
 ]

@@ -720,7 +720,7 @@ function build_players_swiper() {
                 let ult_template = "";
                 if (player[i].badge) {
                     ult_template =
-                        `<h6 class="fs-lg fw-semibold pt-1 mb-2 frame_badge_adaptive">
+                        `<h6 class="fs-lg fw-semibold pt-1 mb-2 frame_badge_adaptive player_badge">
                             ${player[i].badge.toUpperCase()}
                         </h6>`
                 }
