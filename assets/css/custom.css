@@ -56,10 +56,6 @@ html {
   mix-blend-mode: difference !important;
 }
 
-.scroll-bottom-landing {
-  margin: auto;
-}
-
 @media (max-width: 1200px) {
   .payment-sucess-vova {
     margin: auto;
