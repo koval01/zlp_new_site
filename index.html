@@ -170,13 +170,13 @@
             <p class="pb-2 pb-lg-4 pb-xl-5 mb-3"> Здесь будет небольшая история о том, как сервер начинал свою работу.
                 Также, какие игроки повлияли на вектор его развития, как это было. </p>
             <h2 class="h3 text-lg-start mb-4 mb-lg-5">Известные игроки</h2>
-            <div class="swiper mb-5" id="players_swipe_container">
+            <div class="swiper mb-2" id="players_swipe_container">
                 <div class="swiper-wrapper" id="players-swiper-array"></div>
                 <div class="swiper-pagination position-relative pt-2 mt-4"></div>
             </div>
         </div>
     </section>
-    <section id="comments_block" class="py-5">
+    <section id="comments_block" >
         <div class="container py-2 py-md-2 py-lg-3">
             <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-5">Комментарии игроков</h2>
             <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;" id="comments_zlp_buttons">
@@ -198,7 +198,9 @@
     <section id="instruction_block" class="py-4">
         <div class="container py-2 py-md-4 py-lg-5">
             <h3 class="h1 text-center mb-lg-4">Инструкция для начала игры</h3>
-            <p class="fs-lg text-muted text-center mb-4 mb-lg-5"></p>
+            <p class="fs-lg text-muted text-center mb-4 mb-lg-5">
+                Установка клиента игры
+            </p>
             <div class="row py-xl-3 g-2" style="padding: 12px">
                 <div class="position-relative overflow-hidden rounded-3 col-lg-6 order-lg-2 mb-4 p-4">
                     <div class="top-0 zindex-5 d-flex align-items-center justify-content-center">
@@ -206,7 +208,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 order-lg-2 mb-4 p-4" style="padding: 1.2em">
-                    <div class="col" style="margin: auto">
+                    <div class="col noselect-allow" style="margin: auto">
                         <div class="d-flex align-items-center">
                             <div class="display-6 text-primary">1</div>
                             <p class="ps-3 mb-0">
@@ -222,7 +224,6 @@
                             <p class="ps-3 mb-0">
                                 Установите
                                 Fabric 1.19.2
-
                             </p>
                         </div>
                         <div class="d-flex align-items-center">
@@ -233,29 +234,54 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 order-lg-2">
-                    <p class="noselect-allow">
-                        В блоке со ссылками вы можете скачать необходимые для игры моды
-                        (<span class="text-primary">FabricAPI</span>,
-                        <span class="text-primary">PlasmoVoice</span> и <span class="text-primary">EmoteCraft(Скоро)</span>).
-                        Если вы используете систему Windows,
-                        то перейдите в файловый менеджер, в адресной строке укажите
-                        <code>%appdata%</code>, вы попадете в папку, где будет <code>.minecraft</code>,
-                        перейдите в нее, далее если нет папки <code>mods</code>, то создайте ее.
-                        В директорию <code>mods</code> загрузите моды.
-                    </p>
+            </div>
+            <p class="fs-lg text-muted text-center mb-4 mb-lg-5">
+                Установка необходимых модификаций
+            </p>
+            <div class="row py-xl-3 g-2" style="padding: 12px">
+                <div class="col-lg-6 order-lg-2 mb-4 p-4">
+                    <div class="col noselect-allow" style="margin: auto">
+                        <div class="d-flex align-items-center">
+                            <div class="display-6 text-primary">1</div>
+                            <p class="ps-3 mb-0">
+                                Откройте установщик Fabric и установите версию 1.19.2
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="display-6 text-primary">2</div>
+                            <p class="ps-3 mb-0">
+                                Нажмите комбинацию <code>Win+R</code> и в появившейся строке введите
+                                <code>%appdata%</code>
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="display-6 text-primary">3</div>
+                            <p class="ps-3 mb-0">
+                                Перейдите в папку <code>.minecraft</code> и перенесите в нее обе папки из сборки
+                                (<span class="text-primary">emotes и mods</span>)
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="display-6 text-primary">4</div>
+                            <p class="ps-3 mb-0">
+                                В лаунчере выберите версию Fabric - 1.19.2. Готово!
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-6 order-lg-2 mb-4 justify-content-center text-center">
-                    <a href="assets/files/mods.zip" class="btn btn-primary shadow-primary mt-3 m-1" download="">
-                        Скачать готовую сборку модов v0.9</a>
+                    <a href="assets/files/mods.zip"
+                       class="btn btn-primary shadow-primary mt-3 m-1" download="">
+                        Скачать готовую сборку модов v1</a>
                     <a href="https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.11.0/fabric-installer-0.11.0.exe"
-                       class="btn btn-primary shadow-primary mt-3" download="">Fabric установщик для лицензии</a>
+                       class="btn btn-primary shadow-primary mt-3 m-1" download="">
+                        Fabric установщик для лицензии</a>
                 </div>
             </div>
         </div>
     </section>
     <section id="donate_block" class="container my-5 mb-5">
-        <div class="d-md-flex align-items-center justify-content-between text-center text-md-start pt-md-1 pt-lg-3">
+        <div class="align-items-center justify-content-between text-center pt-md-1 pb-lg-3 donate-header-container">
             <h2 class="h1 mb-4 mb-md-0 me-md-3">Донат</h2>
             <p class="pb-2 pb-lg-4 pb-xl-5 mb-3" id="donate-title-desc" style="display: none">
                 Ты можешь поддержать наш проект финансово, это поможет нам продолжать работу над ним.

@@ -361,6 +361,12 @@ iframe[id*=telegram-post] {
   font-weight: 600 !important;
 }
 
+.donate-header-container {
+  padding: 0.8em;
+  border-radius: 0.4rem;
+  background: linear-gradient(90deg, #6366f1 0, #4a2b92 50%, #231143 100%);
+}
+
 .player_badge {
   padding: 0.1em 0.2em 0.2em 0.2em !important;
 }
