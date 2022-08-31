@@ -1413,6 +1413,8 @@ function call_sucess_pay_modal(payment_id = 0) {
             if (!payment.email.length) {
                 payment.email = "Ну указано"
             }
+            payment.enrolled = parseFloat(payment.enrolled).toFixed(2);
+
             cart_dom.innerHTML = `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
