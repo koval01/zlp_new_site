@@ -81,7 +81,7 @@ iframe {
   background: #000;
   width: 100vw;
   height: 100vh;
-  transition: all 0.6s;
+  transition: margin-top 0.6s;
 }
 .is-dev-site-splash a {
   color: rgba(255, 255, 255, 0.75);
@@ -94,6 +94,7 @@ iframe {
   top: 30%;
   text-align: center;
   width: 100%;
+  transition: all 0.8s !important;
 }
 .is-dev-site-splash > div > span {
   display: block;

@@ -8,7 +8,7 @@ function is_development_splash() {
 
 function close_dev_splash() {
     document.body.classList.remove("modal-open");
-    container_dev_splash.style.opacity = "0"
+    container_dev_splash.style.marginTop = "-100vh"
     setTimeout(function () {
         container_dev_splash.style.display = "none"
     }, 600)
