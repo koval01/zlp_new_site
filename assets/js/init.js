@@ -1,9 +1,21 @@
 const development_hosts = ["zalupa.world", "localhost"];
+const container_dev_splash = document.querySelector(".is-dev-site-splash");
+
+function is_development_splash() {
+    document.body.classList.add("modal-open");
+    container_dev_splash.style.display = ""
+}
+
+function close_dev_splash() {
+    document.body.classList.remove("modal-open");
+    container_dev_splash.style.display = "none"
+}
 
 if (!development_hosts.includes(window.location.hostname)) {
     backend_host = `https://${domain_back}`
 } else {
-    re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_"
+    re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
+    is_development_splash()
 }
 
 let script_re = document.createElement('script');

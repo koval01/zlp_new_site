@@ -1421,7 +1421,7 @@ function discord_init() {
 function init_landing() {
     if (development_hosts.includes(window.location.hostname) && lock_of) {
         document.getElementById("landing_description_gb").innerText =
-            "Этот сайт - development-версия!";
+            "Этот сайт - preview-версия!";
         document.getElementById("donate-test-mode-enb").innerText =
             "Этот блок работает в демонстративном режиме и не является функциональным.";
     }

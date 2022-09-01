@@ -76,6 +76,36 @@ html
 iframe
   border-radius: 0.5em !important
 
+.is-dev-site-splash
+  position: fixed
+  z-index: 9999
+  background: #000
+  width: 100vw
+  height: 100vh
+
+  a
+    color: rgba(255, 255, 255, 0.75)
+
+    &:hover
+      color: #fff
+
+  > div
+    position: absolute
+    top: 30%
+    text-align: center
+    width: 100%
+
+    > span
+      display: block
+      margin: auto
+      max-width: 650px
+      padding-left: 3em
+      padding-right: 3em
+
+    > button
+      margin-top: 3em
+      width: 250px !important
+
 .fake-block-sett-bg
   display: flex
   width: 100vw
