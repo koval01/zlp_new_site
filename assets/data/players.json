@@ -190,5 +190,11 @@
     "head": "assets/images/players/EXPlaned.png",
     "desc": "Создатель клана SWAT",
     "badge": ""
+  },
+  {
+    "name": "Varleims",
+    "head": "assets/images/players/Varleims.png",
+    "desc": "Голос как у Хесуса",
+    "badge": ""
   }
 ]
