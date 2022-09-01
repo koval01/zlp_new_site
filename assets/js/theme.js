@@ -50,28 +50,7 @@
         })(),
         (function (b, c, d) {
             for (var a = 0; a < b.length; a++) c.call(void 0, a, b[a]);
-        })(document.querySelectorAll(".swiper"), function (d, b) {
-            (c = null != b.dataset.swiperOptions ? JSON.parse(b.dataset.swiperOptions) : c).pager &&
-            (a = {
-                pagination: {
-                    el: ".pagination .list-unstyled",
-                    clickable: !0,
-                    bulletActiveClass: "active",
-                    bulletClass: "page-item",
-                    renderBullet: function (a, b) {
-                        return '<li class="' + b + '"><a href="#" class="page-link btn-icon btn-sm">' + (a + 1) + "</a></li>";
-                    },
-                },
-            });
-            var c,
-                a = _objectSpread(_objectSpread({}, c), a),
-                a = new Swiper(b, a);
-            c.tabs &&
-            a.on("activeIndexChange", function (a) {
-                var b = document.querySelector(a.slides[a.activeIndex].dataset.swiperTab);
-                document.querySelector(a.slides[a.previousIndex].dataset.swiperTab).classList.remove("active"), b.classList.add("active");
-            });
-        }),
+        })(document.querySelectorAll(".swiper"), function (d, b) {}),
         window.addEventListener(
             "load",
             function () {

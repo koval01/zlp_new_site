@@ -1,6 +1,5 @@
 "use strict";
 
-const development_hosts = ["zalupa.world", "localhost"];
 const site_domains = {
     "prod": domain_site,
     "dev": development_hosts[0],
@@ -38,13 +37,6 @@ var checked_coupon = "";
 var failed_coupon = "";
 var backend_host = "https://backend.zalupa.world";
 var work_domain_v = "zalupa.online";
-
-if (!development_hosts.includes(window.location.hostname)) {
-    backend_host = `https://${domain_back}`;
-    re_token = re_token
-} else {
-    re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_"
-}
 
 function init_host_() {
     const keys = Object.keys(site_domains);
@@ -1556,9 +1548,7 @@ function success_pay() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Load core...")
-
+const init_core = function () {
     init_host_();
     init_landing();
     build_players_swiper();
@@ -1581,4 +1571,6 @@ document.addEventListener("DOMContentLoaded", function () {
             preloader.remove();
         }, 1000 * 2);
     }
-});
+};
+
+init_core()
