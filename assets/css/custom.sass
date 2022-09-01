@@ -1,36 +1,44 @@
 html
   --back-modal-st: rgba(255, 255, 255, 0.85)
-
   --white-theme-black-set: rgb(255, 255, 255)
-
   --white-theme-front-set: rgb(0, 0, 0)
-
   --notify-theme-bg: rgba(23, 27, 37, 0.7)
-
   --notify-theme-shadow: rgba(0, 0, 0, 0.35)
-
   --modal-shadow: rgba(255, 255, 255, 0.75)
-
   --si-card-bg: rgb(238,238,238)
+  --si-body-bg: #f7f7f8
+  --si-gray-600: #53535f
 
 .dark-mode
   --back-modal-st: rgba(41, 41, 41, 0.85)
-
   --white-theme-black-set: rgb(0, 0, 0)
-
   --white-theme-front-set: rgb(255, 255, 255)
-
   --notify-theme-bg: rgba(23, 27, 37, 0.6)
-
   --notify-theme-shadow: rgba(255, 255, 255, 0.2)
-
-  --modal-shadow: rgba(100, 102, 241, 0.65)
+  --modal-shadow: rgba(145, 71, 255, 0.4)
+  --si-body-bg: #0e0e10
 
   .bg-light:not(.badge), .card.card-hover.bg-light
     background-color: rgba(11, 15, 25, 0.6) !important
     backdrop-filter: blur(16px)
     -webkit-backdrop-filter: blur(16px)
     border-bottom: 1px solid rgba(255, 255, 255, 0.24)
+
+.btn-primary
+  --si-btn-bg: #9147ff
+  --si-btn-border-color: #9147ff
+  --si-btn-active-bg: #772ce8
+  --si-btn-active-border-color: #772ce8
+  --si-btn-hover-bg: #772ce8
+  --si-btn-hover-border-color: #772ce8
+  --si-btn-disabled-bg: #772ce8
+  --si-btn-disabled-border-color: #772ce8
+
+.form-switch
+  background: var(--si-btn-bg) !important
+
+.bg-gradient-primary-translucent
+  background: linear-gradient(180deg,#0000, rgba(119, 44, 232, 0.55) 120%) !important
 
 @media (min-width: 1400px)
   .video-container-yt
@@ -253,10 +261,46 @@ iframe
   border-radius: 5px
   outline: 0
 
+.swiper-pagination-bullet-active
+  background-color: #772ce8
+
+
 input
   &::-webkit-inner-spin-button, &::-webkit-outer-spin-button
     -webkit-appearance: none
     margin: 0
+
+input.form-control
+  border: 2px solid #e5e5e5 !important
+  background: #e5e5e5 !important
+
+  &:focus
+    border: 2px solid #a970ff !important
+
+  &:active
+    border: 2px solid #a970ff !important
+
+.dark-mode input.form-control
+  border: 2px solid #464649 !important
+  background: #464649 !important
+
+input#theme-mode
+  background-color: #9147ff !important
+
+.text-primary
+  color: #bf94ff !important
+
+a
+  color: #bf94ff
+
+  &:hover
+    color: #925dec
+
+  &:focus
+    color: #925dec
+
+  &:active
+    color: #925dec
 
 body.modal-open
   overflow: hidden
@@ -297,9 +341,6 @@ body.modal-open
 @media (min-width: 760px)
   .modal-content
     max-width: 600px !important
-
-.form-control:focus
-  border: 1px solid #6366f1 !important
 
 .parent-image-shadow
   margin: 40px auto
@@ -360,7 +401,7 @@ iframe[id*='telegram-post']
     text-decoration-style: solid
 
 .hero-bg-st
-  background: linear-gradient(315deg, rgba(126, 68, 221, 0.25), rgba(126, 68, 221, 0.55), rgba(126, 68, 221, 0.25))
+  background: linear-gradient(315deg, rgba(145, 71, 255, 0.05), rgba(145, 71, 255, 0.25), rgba(145, 71, 255, 0.05))
   background-size: 100% 600%
   -webkit-animation: HerokuGradientBack 8s ease infinite
   -moz-animation: HerokuGradientBack 8s ease infinite
@@ -382,7 +423,7 @@ iframe[id*='telegram-post']
 .donate-header-container
   padding: .8em
   border-radius: .4rem
-  background: linear-gradient(90deg,#6366f1 0,#4a2b92 50%,#231143 100%)
+  background: linear-gradient(90deg,#9147ff 0,#411d76 50%,#180731 100%)
 
 .token-description-dnt
   font-weight: 600
@@ -506,7 +547,8 @@ iframe[id*='telegram-post']
   background: rgba(0, 0, 0, 0.25)
   backdrop-filter: blur(8px)
   -webkit-backdrop-filter: blur(8px)
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5)
+  color: var(--si-body-color)
+  box-shadow: 0 0 20px rgba(146, 93, 236, 0.4)
   transition: all .7s
 
   > span
@@ -514,8 +556,8 @@ iframe[id*='telegram-post']
 
   &:hover
     background: rgba(0, 0, 0, 0.25)
-    border: 2px solid rgba(99, 102, 241, 0.5)
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.95)
+    border: 2px solid #925dec
+    box-shadow: 0 0 20px rgba(146, 93, 236, 0.75)
 
 .cst-icon-svg
   height: 1.5em
