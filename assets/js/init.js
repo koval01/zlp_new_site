@@ -8,7 +8,10 @@ function is_development_splash() {
 
 function close_dev_splash() {
     document.body.classList.remove("modal-open");
-    container_dev_splash.style.display = "none"
+    container_dev_splash.style.opacity = "0"
+    setTimeout(function () {
+        container_dev_splash.style.display = "none"
+    }, 600)
 }
 
 if (!development_hosts.includes(window.location.hostname)) {
