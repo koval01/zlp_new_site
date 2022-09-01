@@ -37,6 +37,10 @@ html {
   --si-btn-disabled-border-color: #772ce8;
 }
 
+.btn {
+  --si-carousel-nav-btn-hover-bg: #772ce8;
+}
+
 .form-switch {
   background: var(--si-btn-bg) !important;
 }
@@ -100,7 +104,7 @@ iframe {
 .is-dev-site-splash {
   position: fixed;
   z-index: 9999;
-  background: #000;
+  background: #0e0e10;
   width: 100vw;
   height: 100vh;
   transition: margin-top 0.6s;
@@ -132,7 +136,7 @@ iframe {
 
 @media (prefers-color-scheme: light) {
   .is-dev-site-splash {
-    background: #fff;
+    background: #f7f7f8;
   }
   a {
     color: rgba(0, 0, 0, 0.75) !important;

@@ -9,10 +9,10 @@ const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
         ? (root.classList.add("dark-mode"),
             (global_theme_ = "dark"),
             document.querySelector(
-                'meta[name="theme-color"]').setAttribute("content", "#0b0f19")
+                'meta[name="theme-color"]').setAttribute("content", "#0e0e10")
         )
         : (root.classList.remove("dark-mode"),
             (global_theme_ = "light"),
             document.querySelector(
-                'meta[name="theme-color"]').setAttribute("content", "#ffffff")
+                'meta[name="theme-color"]').setAttribute("content", "#f7f7f8")
         );
