@@ -90,11 +90,11 @@ iframe {
   color: #fff;
 }
 .is-dev-site-splash > div {
-  position: absolute;
+  position: relative;
   top: 30%;
   text-align: center;
-  width: 100%;
-  transition: all 0.8s !important;
+  transition: all 0.8s;
+  margin: auto;
 }
 .is-dev-site-splash > div > span {
   display: block;
