@@ -1420,11 +1420,31 @@ function call_sucess_pay_modal(payment_id = 0) {
         if (payment.status) {
             succ_text.innerText =
                 "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
-            cont_ok.style.display = ""
+            cont_ok.style.display = "";
 
-            if (!payment.email.length) {
+            let system_template = `
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0 text-start">
+                            Система
+                        </h6>
+                    </div>
+                    <span>${payment.payment_system}</span>
+                </li>
+            `
+
+            if (!payment.email.length || payment.email.match("undefined")) {
                 payment.email = "Ну указано"
-            }
+            };
+            if (!payment.payment_system || payment.payment_system.match("undefined")) {
+                system_template = ""
+            };
+            if (!payment.created_at || !payment.created_at.length) {
+                payment.created_at = "Неизвестно"
+            } else {
+                const parsed_time = new Date(payment.created_at);
+                payment.created_at = `${parsed_time.toLocaleDateString()} ${parsed_time.toLocaleTimeString()}`
+            };
             payment.enrolled = parseFloat(payment.enrolled).toFixed(2);
 
             cart_dom.innerHTML = `
@@ -1444,16 +1464,17 @@ function call_sucess_pay_modal(payment_id = 0) {
                     </div>
                     <span>${payment.email}</span>
                 </li>
+                ${system_template}
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
                         <h6 class="my-0 text-start">
-                            Система
+                            Время
                         </h6>
                     </div>
-                    <span>${payment.payment_system}</span>
+                    <span>${payment.created_at}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
-                    <span>Сумма</span>
+                    <span>Сумма зачисления</span>
                     <strong class="text-primary">${payment.enrolled} ${getNoun(
                     payment.enrolled,
                     "рубль",
