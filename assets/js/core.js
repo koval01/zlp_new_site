@@ -42,6 +42,8 @@ var work_domain_v = "zalupa.online";
 if (!development_hosts.includes(window.location.hostname)) {
     backend_host = `https://${domain_back}`;
     re_token = re_token
+} else {
+    re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_"
 }
 
 function init_host_() {
