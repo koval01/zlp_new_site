@@ -107,6 +107,17 @@ iframe {
   width: 250px !important;
 }
 
+@media (prefers-color-scheme: light) {
+  .is-dev-site-splash {
+    background: #fff;
+  }
+  a {
+    color: rgba(0, 0, 0, 0.75) !important;
+  }
+  a:hover {
+    color: #000 !important;
+  }
+}
 .fake-block-sett-bg {
   display: flex;
   width: 100vw;
