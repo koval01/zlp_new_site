@@ -1520,6 +1520,8 @@ function call_sucess_pay_modal(payment_id = 0) {
         } else {
             succ_text.innerText =
                 "Чек неоплачен, Шеф недоволен.";
+            document.querySelector("img.payment-sucess-vova").setAttribute(
+                "src", "assets/images/vova-fail.webp")
         }
     }
 
