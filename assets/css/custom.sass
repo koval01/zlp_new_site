@@ -57,7 +57,7 @@ html
   height: 50.625vw
   margin-left: 5vw
   margin-right: 5vw
-  border-radius: 0 !important
+  border-radius: 0.15rem !important
   box-shadow: 0 0 16px #0003
 
 .payment-sucess-vova
@@ -102,12 +102,6 @@ iframe
   height: 100vh
   transition: margin-top .6s
 
-  a
-    color: rgba(255, 255, 255, 0.75)
-
-    &:hover
-      color: #fff
-
   > div
     position: relative
     top: 30%
@@ -129,12 +123,6 @@ iframe
 @media (prefers-color-scheme: light)
   .is-dev-site-splash
     background: #f7f7f8
-
-  a
-    color: rgba(0, 0, 0, 0.75) !important
-
-    &:hover
-      color: #000
 
 .fake-block-sett-bg
   display: flex
@@ -302,9 +290,6 @@ input.form-control
 
 input#theme-mode
   background-color: #9147ff !important
-
-.swiper-slide.figure
-  background: var(--second-bg-theme)
 
 .text-primary
   color: #bf94ff !important
@@ -603,3 +588,4 @@ iframe[id*='telegram-post']
     box-shadow: 0 0 16px #0003 !important
     width: 92%
     margin: auto
+    background: var(--second-bg-theme)
