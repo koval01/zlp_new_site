@@ -675,13 +675,13 @@ function comments_init() {
                     array_.innerHTML +
                     `
                     <div class="swiper-slide h-auto px-2">
-                        <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0 bg-gradient-primary-translucent">
+                        <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
                             <span class="btn btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5 zlp-comment-icon">
                               <i class="bx bxs-quote-left"></i>
                               Залупный комментарий
                             </span>
                             <blockquote id="comment_block_${i}" class="card-body mt-2 mb-2" 
-                                        style="transition: .8s all">
+                                        style="transition: .8s height">
                                 <p id="comment_text_${i}" class="fs-md mb-0" style="font-family: sans-serif">
                                         &#171;${comment[i].text}&#187;</p>
                                 <span id="comment_show_${i}" onclick="comment_show_action(${i})" 
@@ -702,7 +702,7 @@ function comments_init() {
                 const comment_show = document.getElementById(`comment_show_${i}`);
 
                 comment_show.style.fontWeight = "400";
-                comment_text.style.transition = "all 0.8s cubic-bezier(1, -0.3, 0, 1.21) 0s";
+                comment_text.style.transition = "height 0.8s cubic-bezier(1, -0.3, 0, 1.21) 0s";
                 comment_text.setAttribute("fullShowComment", "0");
                 const correction_height = 12;
 

@@ -8,6 +8,7 @@ html {
   --si-card-bg: rgb(238,238,238);
   --si-body-bg: #f7f7f8;
   --si-gray-600: #53535f;
+  --second-bg-theme: #e6e6ea;
 }
 
 .dark-mode {
@@ -18,6 +19,7 @@ html {
   --notify-theme-shadow: rgba(255, 255, 255, 0.2);
   --modal-shadow: rgba(145, 71, 255, 0.4);
   --si-body-bg: #0e0e10;
+  --second-bg-theme: #26262c;
 }
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
   background-color: rgba(11, 15, 25, 0.6) !important;
@@ -38,7 +40,11 @@ html {
 }
 
 .btn {
-  --si-carousel-nav-btn-hover-bg: #772ce8;
+  --si-carousel-nav-btn-hover-bg: rgb(119, 44, 232);
+}
+
+.bg-faded-primary {
+  background-color: rgba(119, 44, 232, 0.12) !important;
 }
 
 .form-switch {
@@ -59,6 +65,8 @@ html {
   height: 50.625vw;
   margin-left: 5vw;
   margin-right: 5vw;
+  border-radius: 0 !important;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
 }
 
 .payment-sucess-vova {
@@ -139,10 +147,10 @@ iframe {
     background: #f7f7f8;
   }
   a {
-    color: rgba(0, 0, 0, 0.75) !important;
+    color: rgba(0, 0, 0, 0.75);
   }
   a:hover {
-    color: #000 !important;
+    color: #000;
   }
 }
 .fake-block-sett-bg {
@@ -330,7 +338,15 @@ input#theme-mode {
   background-color: #9147ff !important;
 }
 
+.swiper-slide.figure {
+  background: var(--second-bg-theme);
+}
+
 .text-primary {
+  color: #bf94ff !important;
+}
+
+code {
   color: #bf94ff !important;
 }
 
@@ -353,6 +369,7 @@ body.modal-open {
 
 .btn {
   border: 0;
+  color: var(--si-btn-color);
 }
 
 .cart-desc-td {
@@ -461,7 +478,7 @@ iframe[id*=telegram-post] {
 }
 
 .hero-bg-st {
-  background: linear-gradient(315deg, rgba(145, 71, 255, 0.05), rgba(145, 71, 255, 0.25), rgba(145, 71, 255, 0.05));
+  background: linear-gradient(315deg, rgba(145, 71, 255, 0.05), rgba(145, 71, 255, 0.2), rgba(145, 71, 255, 0.05));
   background-size: 100% 600%;
   -webkit-animation: HerokuGradientBack 8s ease infinite;
   -moz-animation: HerokuGradientBack 8s ease infinite;
@@ -485,7 +502,8 @@ iframe[id*=telegram-post] {
 .donate-header-container {
   padding: 0.8em;
   border-radius: 0.4rem;
-  background: linear-gradient(90deg, #9147ff 0, #411d76 50%, #180731 100%);
+  background: var(--second-bg-theme);
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
 }
 
 .token-description-dnt {
@@ -627,12 +645,12 @@ iframe[id*=telegram-post] {
   background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  color: var(--si-body-color);
+  color: var(--si-btn-scroll-top-color);
   box-shadow: 0 0 20px rgba(146, 93, 236, 0.4);
   transition: all 0.7s;
 }
 .btn-scroll-top.show > span {
-  color: var(--si-body-color);
+  color: var(--si-body-bg);
 }
 .btn-scroll-top.show:hover {
   background: rgba(0, 0, 0, 0.25);
@@ -659,7 +677,7 @@ iframe[id*=telegram-post] {
 }
 
 #comment_swipe_array > div > figure {
-  box-shadow: 0 0 20px black !important;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2) !important;
   width: 92%;
   margin: auto;
 }
