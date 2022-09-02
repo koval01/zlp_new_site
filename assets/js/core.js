@@ -1413,7 +1413,7 @@ function discord_init() {
     container.innerHTML =
         `<iframe 
             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-            src="${src}" width="100%" height="300px" 
+            src="${src}" width="100%" height="300px" id="discord-iframe" 
             allowTransparency="true" frameBorder="0" loading="lazy" 
         ></iframe>`;
 }

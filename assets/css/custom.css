@@ -634,7 +634,7 @@ iframe[id*=telegram-post] {
   transition: all 0.7s;
 }
 .btn-scroll-top.show > span {
-  color: var(--si-body-bg);
+  color: var(--si-body-color);
 }
 .btn-scroll-top.show:hover {
   background: rgba(0, 0, 0, 0.25);
