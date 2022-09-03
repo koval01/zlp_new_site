@@ -35,7 +35,6 @@ var swiper_comments;
 var payment_url_global;
 var checked_coupon = "";
 var failed_coupon = "";
-var backend_host = "https://backend.zalupa.world";
 var work_domain_v = "zalupa.online";
 
 function init_host_() {
@@ -1343,7 +1342,7 @@ function payment_action_bt() {
             "Давай, плати. Шеф ждёт...";
         cont_ok.style.display = "";
         document.querySelector("img.payment-sucess-vova").setAttribute(
-            "src", "assets/images/vova-gay.webp")
+            "src", "assets/images/vova-gaydomain_back.webp")
     }
 
     const flush_inputs_donate = function () {
