@@ -1331,6 +1331,39 @@ function generate_payment_link(sum= 0) {
 
 function payment_action_bt() {
     window.open(payment_url_global, "_blank");
+
+    const cart_dom = document.getElementById("donate-cart-list-success");
+    const succ_text = document.getElementById("success-pay-text-js");
+    const cont_ok = document.getElementById("only-ok-payment");
+    const title = document.querySelector(".modal-title");
+
+    const build_modal_wind = function () {
+        title.innerText = "";
+        succ_text.innerText =
+            "Давай, плати. Шеф ждёт...";
+        cont_ok.style.display = "";
+        document.querySelector("img.payment-sucess-vova").setAttribute(
+            "src", "assets/images/vova-gay.webp")
+    }
+
+    const flush_inputs_donate = function () {
+        const inputs = [
+            "donate_sum", "donate_customer_c", "donate_email_c", "coupon-input-c"
+        ];
+        for (let i = 0; i < inputs.length; i++) {
+            document.getElementById(inputs[i]).value = ""
+        }
+    }
+
+    const enable_modal = function () {
+        switch_modal_containers("success");
+        modal_open_();
+        build_modal_wind();
+        donate_reset_payment_state();
+        flush_inputs_donate()
+    }
+
+    enable_modal();
 }
 
 function donate_check_services_cart() {
