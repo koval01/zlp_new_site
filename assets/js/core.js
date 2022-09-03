@@ -840,7 +840,7 @@ function build_players_swiper() {
             loop: true,
             observer: true,
             observeParents: true,
-            preventClicks: true,
+            preventClicks: false,
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true
