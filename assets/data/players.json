@@ -163,7 +163,7 @@
   },
   {
     "name": "_AppleTony_",
-    "head": "assets/images/players/AppleTony.png",
+    "head": "assets/images/players/_AppleTony_.png",
     "desc": "Главный админ проекта",
     "badge": ""
   },
@@ -195,6 +195,12 @@
     "name": "Varleims",
     "head": "assets/images/players/Varleims.png",
     "desc": "Голос как у Хесуса",
+    "badge": ""
+  },
+  {
+    "name": "IIoska",
+    "head": "assets/images/players/IIoska.png",
+    "desc": "Создатель клана Yakuza",
     "badge": ""
   }
 ]
