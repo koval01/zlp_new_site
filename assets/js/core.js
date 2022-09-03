@@ -1292,14 +1292,14 @@ function generate_payment_link(sum= 0) {
     }
 
     if (!email.length) {
-        email = null;
+        email = "";
     } else if (!validateEmail(email)) {
         notify("Ошибка, адрес почты недействительный");
         return;
     }
 
     if (!coupon) {
-        coupon = null;
+        coupon = "";
     }
 
     if (coins_sell_mode) {
