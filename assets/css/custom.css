@@ -662,9 +662,123 @@ iframe[id*=telegram-post] {
 
 #comment_swipe_array > div > figure {
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.2) !important;
-  width: 92%;
+  width: 95%;
   margin: auto;
   background: var(--second-bg-theme);
+}
+
+.emoji {
+  font-style: normal;
+}
+.emoji > b {
+  font-weight: normal;
+}
+
+s .emoji > b {
+  font-weight: normal;
+}
+
+a:hover :has(.emoji) {
+  text-decoration: inherit;
+}
+a:hover .emoji {
+  text-decoration: inherit;
+}
+a:hover .emoji > b {
+  text-decoration: inherit;
+}
+
+.emoji_default .emoji {
+  background: none !important;
+}
+
+.emoji {
+  width: 1.25em;
+  vertical-align: top;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  background: no-repeat -1000px -1000px;
+  background-size: 1em;
+  text-indent: -10em;
+  padding: 3px 3px 3px 2px;
+  margin: -3px -2px;
+}
+.emoji:before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-position: 2px 50%;
+  background-position-y: calc(50% + 1px);
+}
+.emoji > b {
+  letter-spacing: 12em;
+  pointer-events: none;
+}
+
+.news-figure {
+  margin: auto;
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: 0 0 16px #000 !important;
+  width: 95%;
+}
+
+.background-news {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #222;
+  border-radius: 0.5em;
+  height: 100%;
+}
+.background-news > .background-news-overlay {
+  position: relative;
+  backdrop-filter: blur(3px);
+  border-radius: 0.5em;
+  margin-top: -0.5em;
+  background: rgba(0, 0, 0, 0.2);
+  height: 100%;
+}
+
+.news-text-container {
+  padding-top: 2rem;
+  padding-bottom: 6rem;
+  padding-left: 2rem;
+}
+.news-text-container > .news-text {
+  text-shadow: 0 0 16px #000;
+}
+.news-text-container > .news-bottom-container {
+  position: absolute;
+  bottom: 1rem;
+  display: block;
+  width: 100%;
+  padding-right: 3rem;
+}
+.news-text-container > .news-bottom-container > a {
+  float: right;
+}
+
+@media (max-width: 600px) {
+  .news-text-container > .news-text {
+    padding-bottom: 3rem;
+  }
+  .news-text-container > .news-bottom-container > a {
+    float: unset;
+    display: flex;
+    margin-top: 1rem;
+    margin-right: 1rem;
+  }
+}
+#telegram_block_load {
+  margin-top: 1em !important;
 }
 
 /*# sourceMappingURL=custom.css.map */

@@ -76,6 +76,41 @@ function shuffle(array) {
     return array;
 }
 
+function getImageLightness(imageSrc,callback) {
+    var img = document.createElement("img");
+    img.src = imageSrc;
+    img.crossOrigin = "Anonymous";
+    img.style.display = "none";
+    document.body.appendChild(img);
+
+    var colorSum = 0;
+
+    img.onload = function() {
+        var canvas = document.createElement("canvas");
+        canvas.width = this.width;
+        canvas.height = this.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this,0,0);
+
+        var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+        var data = imageData.data;
+        var r,g,b,avg;
+
+        for(var x = 0, len = data.length; x < len; x+=4) {
+            r = data[x];
+            g = data[x+1];
+            b = data[x+2];
+
+            avg = Math.floor((r+g+b)/3);
+            colorSum += avg;
+        }
+
+        var brightness = Math.floor(colorSum / (this.width*this.height));
+        callback(brightness);
+    }
+}
+
 function validateEmail(email) {
     return String(email)
         .toLowerCase()
@@ -191,41 +226,109 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
     return five;
 }
 
-function get_last_tg_post_id(callback, source) {
+function get_news_(callback, source, limit= 6) {
     request_call(
         function (r) {
             if (r.success) {
-                return callback(r.last_post);
+                return callback(r.messages);
             }
         },
-        `${backend_host}/channel?choice=${source}`,
+        `${backend_host}/channel_parse?choice=${source}&limit=${limit}`,
         "GET",
         true
     );
 }
 
-function append_posts() {
-    for (let i = 0; i < channels; i++) {
-        get_last_tg_post_id(function (identifer) {
-            let sl = document.querySelector(".telegram_frames");
-            let script = document.createElement("script");
-            script.src = "https://telegram.org/js/telegram-widget.js?19";
-            script.setAttribute("async", "");
-            script.setAttribute("data-telegram-post", identifer);
-            script.setAttribute("data-width", "100%");
-            script.setAttribute("data-userpic", "true");
-            script.setAttribute("data-dark", "1");
-            sl.appendChild(script);
-            setTimeout(function () {
-                let sl = document.getElementById("telegram_block_load");
+function append_posts_news() {
+    let array_ = document.getElementById("news_swipe_array");
 
-                try {
-                    sl.parentNode.removeChild(sl);
-                } catch (_) {
-                }
-            }, 100);
-        }, i);
-    }
+    const create_swiper = function () {
+        swiper_comments = new Swiper("#news_swipe_container", {
+            spaceBetween: 12,
+            loop: true,
+            observer: true,
+            observeParents: true,
+            autoplay: {
+                delay: 1000 * 10
+            },
+            pagination: {
+                el: "#news_swiper_pagination",
+                clickable: true
+            },
+            navigation: {
+                prevEl: "#prev_news",
+                nextEl: "#next_news"
+            }
+        });
+    };
+
+    get_news_(function (posts) {
+        posts = posts.reverse();
+        for (let i = 0; i < posts.length; i++) {
+            const text = posts[i].text;
+            const text_array = text.split('<br>');
+            const datetime = new Date(posts[i].datetime_utc);
+            if (!posts[i].cover) {
+                posts[i].cover = "assets/images/spawn.webp";
+            }
+            array_.innerHTML = array_.innerHTML + `
+                <div class="swiper-slide h-auto px-2">
+                    <figure class="card h-100 position-relative border-0 shadow-sm news-figure" id="news_figure_${i}">
+                        <div class="background-news" id="background-news-${i}">
+                            <div class="background-news-overlay" id="news-overlay-${i}">
+                            <blockquote class="card-body mt-2 mb-2 news-text-container">
+                                <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family: sans-serif">
+                                        ${text_array[0]}</p>
+                                <div class="news-bottom-container">
+                                    <span class="frame_badge_adaptive dark-mode">
+                                        ${datetime.toLocaleDateString()} 
+                                        ${datetime.toLocaleTimeString(
+                                            "ru-RU", { hour: '2-digit', minute: '2-digit' })}
+                                    </span>
+                                    <a class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3"
+                                       href="${posts[i].link}" target="_blank">
+                                            Подробнее</a>
+                                </div>
+                            </blockquote>
+                            </div> 
+                        </div>
+                    </figure>
+                </div>
+            `;
+            const selector_bg = document.getElementById(`background-news-${i}`);
+            const selector_text = document.getElementById(`news_text_${i}`);
+            selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
+            selector_text.classList.add("text-light");
+            const text_len = selector_text.innerText.length;
+            const text_split = selector_text.innerText.split(" ");
+            const font_size = ((text_len - -8) * .4) / 100;
+            selector_text.style.fontSize = `calc(${
+                parseFloat(1.8-font_size)
+            }vw + ${
+                parseFloat(1.8-font_size)
+            }vh + ${
+                parseFloat(1.6-font_size)
+            }vmin)`;
+            getImageLightness(posts[i].cover,function(brightness){
+                const style_ = `#000000${(((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 8).toString(16)}`;
+                document.getElementById(`news-overlay-${i}`).style.background = style_
+            })
+        }
+        const loading_done = function() {setTimeout(function () {
+            const sl = document.getElementById("telegram_block_load");
+            const container_news = document.getElementById("news_zlp_buttons");
+
+            try {
+                sl.parentNode.removeChild(sl);
+                container_news.style.display = ""
+            } catch (_) {
+            }
+        }, 150)}
+        if (posts) {
+            create_swiper();
+            loading_done();
+        }
+    }, 1)
 }
 
 function get_game_server_data(callback) {
@@ -1399,11 +1502,6 @@ function links_set_(selector_, fisrt_el_mrg = false) {
                 class="btn btn-icon btn-secondary btn-${links_lt[i].name} mx-2">
                     <i class="bx bxl-${links_lt[i].name}"></i>
             </a>`;
-
-        if (links_lt[i].name === "telegram") {
-            document.getElementById("zlp-tg-link").setAttribute(
-                "href", links_lt[i].link)
-        }
     }
 }
 
@@ -1554,7 +1652,7 @@ const init_core = function () {
     init_host_();
     init_landing();
     build_players_swiper();
-    append_posts();
+    append_posts_news();
     comments_init();
     append_services();
     update_cart_count();

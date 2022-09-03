@@ -135,13 +135,22 @@
         </div>
     </section>
     <section id="telegram_block" class="position-relative py-5">
-        <div class="container">
-            <h2 class="h1 text-center mb-4 mb-lg-5">Последние новости</h2>
-            <p class="fs-lg text-muted text-center mb-4 mb-lg-5">
-                Следите за нашим проектом в <a id="zlp-tg-link" target="_blank">Telegram</a>,
-                чтобы всегда быть в курсе всех событий
-            </p>
-            <div class="telegram_frames row row-cols-1 g-4 mt-2 mt-lg-4 row-cols-md-2"></div>
+        <div class="container py-2 py-md-2 py-lg-3">
+            <h2 class="h1 text-center mb-0">Последние новости</h2>
+            <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;display: none" id="news_zlp_buttons">
+                <button type="button" id="prev_news"
+                        class="btn btn-prev btn-icon btn-sm bg-faded-primary position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
+                    <i class="bx bx-chevron-left"></i>
+                </button>
+                <button type="button" id="next_news"
+                        class="btn btn-next btn-icon btn-sm bg-faded-primary position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
+                    <i class="bx bx-chevron-right"></i>
+                </button>
+                <div class="swiper swiper-nav-onhover pt-1 mx-md-2" id="news_swipe_container">
+                    <div class="swiper-wrapper pt-4 pb-3" id="news_swipe_array"></div>
+                    <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4" id="news_swiper_pagination"></div>
+                </div>
+            </div>
             <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
         </div>
     </section>
@@ -297,8 +306,8 @@
     </section>
     <section id="donate_block" class="container my-5 mb-5">
         <div class="align-items-center justify-content-between text-center pt-md-1 pb-lg-3 donate-header-container">
-            <h2 class="h2 mb-4 mb-md-0 me-md-3">Донат</h2>
-            <p class="pb-2 pb-lg-4 pb-xl-5 mb-3" id="donate-title-desc" style="display: none">
+            <h2 class="h2 mb-sm-1 mb-md-3 me-md-3 p-sm-1 p-md-2 p-lg-2 pb-1">Донат</h2>
+            <p class="pb-2 pb-lg-4 pb-xl-5 mb-3 pb-3" id="donate-title-desc" style="display: none">
                 Ты можешь поддержать проект финансово, это поможет нам продолжать работу над ним.
                 В качестве вознаграждения ты получишь игровые токены, которые сможешь обменять
                 на внутриигровые бонусы.
