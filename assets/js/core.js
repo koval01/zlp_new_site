@@ -1342,7 +1342,7 @@ function payment_action_bt() {
             "Давай, плати. Шеф ждёт...";
         cont_ok.style.display = "";
         document.querySelector("img.payment-sucess-vova").setAttribute(
-            "src", "assets/images/vova-gaydomain_back.webp")
+            "src", "assets/images/vova-gay.webp")
     }
 
     const flush_inputs_donate = function () {
