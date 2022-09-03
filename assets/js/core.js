@@ -248,6 +248,7 @@ function append_posts_news() {
             loop: true,
             observer: true,
             observeParents: true,
+            preventClicks: false,
             autoplay: {
                 delay: 1000 * 10
             },
@@ -754,6 +755,7 @@ function comments_init() {
             loop: true,
             observer: true,
             observeParents: true,
+            preventClicks: false,
             autoplay: {
                 delay: 6000
             },
@@ -838,6 +840,7 @@ function build_players_swiper() {
             loop: true,
             observer: true,
             observeParents: true,
+            preventClicks: true,
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true
