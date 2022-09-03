@@ -1612,7 +1612,6 @@ function call_sucess_pay_modal(payment_id = 0) {
                 const parsed_time = new Date(payment.created_at);
                 payment.created_at = `${parsed_time.toLocaleDateString()} ${parsed_time.toLocaleTimeString()}`
             };
-            payment.enrolled = parseFloat(payment.enrolled).toFixed(2);
 
             cart_dom.innerHTML = `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -1640,15 +1639,6 @@ function call_sucess_pay_modal(payment_id = 0) {
                     </div>
                     <span>${payment.created_at}</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Сумма зачисления</span>
-                    <strong class="text-primary">${payment.enrolled} ${getNoun(
-                    payment.enrolled,
-                    "рубль",
-                    "рубля",
-                    "рублей"
-                )}</strong>
-                    </li>
             `
         } else {
             succ_text.innerText =
