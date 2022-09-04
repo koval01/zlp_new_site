@@ -202,5 +202,11 @@
     "head": "assets/images/players/IIoska.png",
     "desc": "Создатель клана Yakuza",
     "badge": ""
+  },
+  {
+    "name": "lucky367",
+    "head": "assets/images/players/lucky367.png",
+    "desc": "Главный плеер общения",
+    "badge": ""
   }
 ]

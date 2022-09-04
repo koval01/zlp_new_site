@@ -248,6 +248,7 @@ function append_posts_news() {
             observer: true,
             observeParents: true,
             preventClicks: false,
+            preventClicksPropagation: false,
             autoplay: {
                 delay: 1000 * 10
             },
