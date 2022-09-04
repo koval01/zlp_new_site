@@ -75,28 +75,28 @@ function shuffle(array) {
     return array;
 }
 
-function getImageLightness(imageSrc,callback) {
-    var img = document.createElement("img");
+function getImageLightness(imageSrc, callback) {
+    let img = document.createElement("img");
     img.src = imageSrc;
     img.crossOrigin = "Anonymous";
     img.style.display = "none";
     document.body.appendChild(img);
 
-    var colorSum = 0;
+    let colorSum = 0;
 
     img.onload = function() {
-        var canvas = document.createElement("canvas");
+        let canvas = document.createElement("canvas");
         canvas.width = this.width;
         canvas.height = this.height;
 
-        var ctx = canvas.getContext("2d");
+        let ctx = canvas.getContext("2d");
         ctx.drawImage(this,0,0);
 
-        var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-        var data = imageData.data;
-        var r,g,b,avg;
+        let imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+        let data = imageData.data;
+        let r,g,b,avg;
 
-        for(var x = 0, len = data.length; x < len; x+=4) {
+        for(let x = 0, len = data.length; x < len; x+=4) {
             r = data[x];
             g = data[x+1];
             b = data[x+2];
@@ -105,7 +105,7 @@ function getImageLightness(imageSrc,callback) {
             colorSum += avg;
         }
 
-        var brightness = Math.floor(colorSum / (this.width*this.height));
+        let brightness = Math.floor(colorSum / (this.width*this.height));
         callback(brightness);
     }
 }
@@ -312,7 +312,9 @@ function append_posts_news() {
                 parseFloat(1.6-font_size)
             }vmin)`;
             getImageLightness(posts[i].cover,function(brightness){
-                const style_ = `#000000${(((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 8).toString(16)}`;
+                const style_ = `#000000${
+                    (((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 8).toString(16).slice(0, 2)
+                }`;
                 document.getElementById(`news-overlay-${i}`).style.background = style_
             })
         }
