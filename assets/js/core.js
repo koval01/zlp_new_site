@@ -225,7 +225,7 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
     return five;
 }
 
-function get_news_(callback, source, limit= 6) {
+function get_news_(callback, source, limit= 5) {
     request_call(
         function (r) {
             if (r.success) {
@@ -242,7 +242,7 @@ function append_posts_news() {
     let array_ = document.getElementById("news_swipe_array");
 
     const create_swiper = function () {
-        swiper_comments = new Swiper("#news_swipe_container", {
+        new Swiper("#news_swipe_container", {
             spaceBetween: 12,
             loop: true,
             observer: true,
@@ -281,11 +281,6 @@ function append_posts_news() {
                                 <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family: sans-serif">
                                         ${text_array[0]}</p>
                                 <div class="news-bottom-container">
-                                    <span class="frame_badge_adaptive dark-mode">
-                                        ${datetime.toLocaleDateString()} 
-                                        ${datetime.toLocaleTimeString(
-                                            "ru-RU", { hour: '2-digit', minute: '2-digit' })}
-                                    </span>
                                     <a class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3"
                                        href="${posts[i].link}" target="_blank">
                                             Подробнее</a>
@@ -294,6 +289,12 @@ function append_posts_news() {
                             </div> 
                         </div>
                     </figure>
+                    <span class="news-date-text">
+                        ${datetime.toLocaleDateString()} 
+                        ${datetime.toLocaleTimeString(
+                            "ru-RU", { hour: '2-digit', minute: '2-digit' }
+                        )}
+                    </span>
                 </div>
             `;
             const selector_bg = document.getElementById(`background-news-${i}`);
@@ -470,7 +471,8 @@ function check_payment(callback, payment_id) {
                     "POST",
                     true, {
                         payment_id: payment_id,
-                        token: token_update
+                        token: token_update,
+                        tokens_send: coins_sell_mode
                     }
                 );
             });
@@ -533,7 +535,11 @@ function append_services() {
                 if (!coins_sell_mode) {
                     _name = services[i].name
                 } else {
-                    _name = "1 рубль = 1 токен";
+                    _name = `${services[i].price} ${getNoun(
+                        services[i].price, "рубль", "рубля", "рублей"
+                    )} = ${services[i].number} ${getNoun(
+                        services[i].number, "токен", "токена", "токенов"
+                    )}`;
                     padding_desc = "p-0";
                     desc_template = `
                         <p class="mb-0 token-description-dnt">
@@ -1585,7 +1591,7 @@ function call_sucess_pay_modal(payment_id = 0) {
     const title = document.querySelector(".modal-title");
 
     const build_payment = function (payment) {
-        if (payment.status) {
+        if (payment.status && (payment_id == parseInt(payment.id))) {
             succ_text.innerText =
                 "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
             cont_ok.style.display = "";
@@ -1601,6 +1607,35 @@ function call_sucess_pay_modal(payment_id = 0) {
                 </li>
             `
 
+            let sum_template = `
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Сумма зачисления</span>
+                    <strong class="text-primary">${payment.enrolled} ${getNoun(
+                payment.enrolled,
+                "рубль",
+                "рубля",
+                "рублей"
+            )}</strong>
+                </li>
+            `
+
+            if (coins_sell_mode) {
+                sum_template = `
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Сумма</span>
+                        <strong class="text-primary">${payment.enrolled} ${getNoun(
+                    payment.enrolled,
+                    "токен",
+                    "токена",
+                    "токенов"
+                )}</strong>
+                    </li>
+                `
+            }
+
+            if (!payment.enrolled || payment.enrolled < 1) {
+                sum_template = ""
+            }
             if (!payment.email.length || payment.email.match("undefined")) {
                 payment.email = "Ну указано"
             };
@@ -1612,7 +1647,7 @@ function call_sucess_pay_modal(payment_id = 0) {
             } else {
                 const parsed_time = new Date(payment.created_at);
                 payment.created_at = `${parsed_time.toLocaleDateString()} ${parsed_time.toLocaleTimeString()}`
-            };
+            }
 
             cart_dom.innerHTML = `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -1640,6 +1675,7 @@ function call_sucess_pay_modal(payment_id = 0) {
                     </div>
                     <span>${payment.created_at}</span>
                 </li>
+                ${sum_template}
             `
         } else {
             succ_text.innerText =
@@ -1691,11 +1727,15 @@ const init_core = function () {
     elem.parentNode.removeChild(elem);
 
     window.onload = function () {
-        const preloader = document.querySelector(".page-loading");
-        preloader.classList.remove("active");
+        let preloader = document.querySelector(".page-loading");
+        let wait = 500;
+        let move_wait = 100;
+        setTimeout(function () {
+            preloader.classList.remove("active");
+        }, wait);
         setTimeout(function () {
             preloader.remove();
-        }, 1000 * 2);
+        }, wait + move_wait);
     }
 };
 
