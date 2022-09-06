@@ -338,16 +338,10 @@ code {
 }
 
 a {
-  color: #bf94ff;
-}
-a:hover {
-  color: #925dec;
-}
-a:focus {
-  color: #925dec;
-}
-a:active {
-  color: #925dec;
+  --si-link-color: #bf94ff;
+  --si-btn-hover-bg: #925dec;
+  --si-heading-link-color: #bf94ff;
+  --si-heading-link-hover-color: #925dec;
 }
 
 body.modal-open {
