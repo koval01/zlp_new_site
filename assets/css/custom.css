@@ -737,7 +737,7 @@ a:hover .emoji > b {
 }
 .background-news > .background-news-overlay {
   position: relative;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(calc(0.25vh + 0.25vw));
   border-radius: 0.5em;
   margin-top: -0.5em;
   background: rgba(0, 0, 0, 0.2);
