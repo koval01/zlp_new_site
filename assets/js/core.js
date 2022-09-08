@@ -1346,6 +1346,7 @@ function payment_action_bt() {
     const title = document.querySelector(".modal-title");
 
     const build_modal_wind = function () {
+        cart_dom.innerHTML = "";
         title.innerText = "";
         succ_text.innerText =
             "Давай, плати. Шеф ждёт...";
