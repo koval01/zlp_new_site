@@ -28,6 +28,15 @@ html {
   border-bottom: 1px solid rgba(255, 255, 255, 0.24);
 }
 
+.header-logo {
+  width: 8rem;
+  height: 2.4rem;
+  background-image: url(../images/logo.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
 .btn-primary {
   --si-btn-bg: #9147ff;
   --si-btn-border-color: #9147ff;
