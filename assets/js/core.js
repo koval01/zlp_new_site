@@ -225,12 +225,12 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
     return five;
 }
 
-function get_news_(callback, source, limit= 5) {
+function get_news_(callback, source) {
     request_call(
         function (r) {
             return callback(r.messages)
         },
-        `${backend_host}/channel_parse?choice=${source}&limit=${limit}`,
+        `${backend_host}/channel_parse?choice=${source}`,
         "GET",
         true
     );
