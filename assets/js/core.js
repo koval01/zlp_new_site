@@ -228,9 +228,7 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
 function get_news_(callback, source, limit= 5) {
     request_call(
         function (r) {
-            if (r.success) {
-                return callback(r.messages);
-            }
+            return callback(r.messages)
         },
         `${backend_host}/channel_parse?choice=${source}&limit=${limit}`,
         "GET",
@@ -350,9 +348,7 @@ function get_game_server_data(callback) {
 
     request_call(
         function (r) {
-            if (r.success) {
-                callback(r.body);
-            }
+            callback(r.body)
         },
         `${backend_host}/server`,
         "GET",
@@ -384,9 +380,7 @@ function get_donate_services(callback) {
             .then(function (token_update) {
                 request_call(
                     function (r) {
-                        if (r.success) {
-                            callback(r.services);
-                        }
+                        callback(r.services)
                     },
                     `${backend_host}/donate/services`,
                     "POST",
@@ -407,11 +401,7 @@ function create_payment(callback, customer, products, email = "", coupon = "") {
             .then(function (token_update) {
                 request_call(
                     function (r) {
-                        if (r.success) {
-                            callback(r.payment);
-                        } else {
-                            callback(null);
-                        }
+                        callback(r.payment)
                     },
                     `${backend_host}/donate/payment/create`,
                     "POST",
@@ -437,11 +427,7 @@ function check_coupon(callback, coupon) {
             .then(function (token_update) {
                 request_call(
                     function (r) {
-                        if (r.success) {
-                            callback(r.coupon);
-                        } else {
-                            callback(null);
-                        }
+                        callback(r.coupon)
                     },
                     `${backend_host}/donate/coupon`,
                     "POST",
@@ -463,11 +449,7 @@ function check_payment(callback, payment_id) {
             .then(function (token_update) {
                 request_call(
                     function (r) {
-                        if (r.success) {
-                            callback(r.payment);
-                        } else {
-                            callback(null);
-                        }
+                        callback(r.payment);
                     },
                     `${backend_host}/donate/payment_get`,
                     "POST",
