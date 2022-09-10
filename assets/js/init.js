@@ -84,6 +84,11 @@ function get_last_sha(callback) {
     );
 }
 
+function check_load() {
+    let load = document.querySelector(".page-loading.active")
+    if (load) { location.reload() }
+}
+
 function is_development_splash() {
     document.body.classList.add("modal-open");
     container_dev_splash.style.display = ""
@@ -111,7 +116,7 @@ get_last_sha(function (sha) {
         const scripts = ["theme", "core"];
         for (let i = 0; i < scripts.length; i++) {
             let script = document.createElement('script');
-            script.src = `assets/js/${scripts[i]}.min.js?${sha.slice(0, 6)}`;
+            script.src = `assets/js/${scripts[i]}.min.js?${sha.slice(6)}`;
             document.body.appendChild(script);
         }
     }
@@ -119,3 +124,5 @@ get_last_sha(function (sha) {
 
 script_re.src = `https://www.google.com/recaptcha/api.js?render=${re_token}`;
 document.body.appendChild(script_re)
+
+setTimeout(check_load, 10000)
