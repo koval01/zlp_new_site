@@ -31,7 +31,7 @@ html {
 .header-logo {
   width: 8rem;
   height: 2.4rem;
-  background-image: url(../images/logo.png);
+  background-image: url(../images/logo.webp);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
