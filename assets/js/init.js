@@ -18,7 +18,7 @@ function notify(text) {
         scroll_top.style.marginBottom = `calc(${
             document.getElementById("error_box_cst_id").offsetHeight
         }px)`;
-        error_box.style.marginBottom = 0;
+        error_box.style.marginBottom = "0";
     };
 
     if (notify_hidden) {
@@ -73,17 +73,6 @@ function request_call(callback, url, method, json = false, json_body = null) {
     request.send(json_body_local);
 }
 
-function get_last_sha(callback) {
-    request_call(
-        function (r) {
-            return callback(r.sha)
-        },
-        `https://api.github.com/repos/${rep_data.author}/${rep_data.rep_name}/commits/${rep_data.branch}`,
-        "GET",
-        true
-    );
-}
-
 function check_load() {
     let load = document.querySelector(".page-loading.active")
     if (load) { location.reload() }
@@ -111,16 +100,11 @@ if (!development_hosts.includes(window.location.hostname)) {
 }
 
 let script_re = document.createElement('script');
-get_last_sha(function (sha) {
-    script_re.onload = function () {
-        const scripts = ["theme", "core"];
-        for (let i = 0; i < scripts.length; i++) {
-            let script = document.createElement('script');
-            script.src = `assets/js/${scripts[i]}.min.js?${sha.slice(6)}`;
-            document.body.appendChild(script);
-        }
-    }
-})
+var script_core = document.createElement('script');
+script_re.onload = function () {
+    script_core.src = "assets/js/core.min.js";
+    document.body.appendChild(script_core);
+}
 
 script_re.src = `https://www.google.com/recaptcha/api.js?render=${re_token}`;
 document.body.appendChild(script_re)

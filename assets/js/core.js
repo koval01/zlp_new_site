@@ -1652,4 +1652,6 @@ const init_core = function () {
     }
 };
 
-init_core()
+script_core.onload = function () {
+    init_core()
+}
