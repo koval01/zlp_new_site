@@ -107,6 +107,8 @@ function getImageLightness(imageSrc, callback) {
 
         let brightness = Math.floor(colorSum / (this.width*this.height));
         callback(brightness);
+
+        img.remove()
     }
 }
 
