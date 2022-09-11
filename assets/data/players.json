@@ -92,8 +92,8 @@
   {
     "name": "DarkNetFox",
     "head": "https://cravatar.eu/helmhead/DarkNetFox/256.png",
-    "desc": "Суицидник",
-    "badge": ""
+    "desc": "Известен своим хобби",
+    "badge": "Суицидник"
   },
   {
     "name": "i5b",
@@ -126,13 +126,19 @@
     "badge": ""
   },
   {
+    "name": "Parijanin",
+    "head": "https://cravatar.eu/helmhead/Parijanin/256.png",
+    "desc": "По просьбе R3fraction",
+    "badge": "ЛОХ"
+  },
+  {
     "name": "2p0y",
     "head": "assets/images/players/2p0y.png",
     "desc": "Мега-кодер на JS",
     "badge": ""
   },
   {
-    "name": "Masha2008",
+    "name": "masha2008",
     "head": "assets/images/players/Masha2008.png",
     "desc": "Фанатка границ мира",
     "badge": ""
