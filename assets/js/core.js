@@ -37,6 +37,30 @@ var checked_coupon = "";
 var failed_coupon = "";
 var work_domain_v = "zalupa.online";
 
+function theme_switcher() {
+    let selector_second, selector_theme;
+
+    if (null !== (selector_theme = document.querySelector('[data-bs-toggle="mode"]')) &&
+    (selector_second = selector_theme.querySelector(".form-check-input"))) {
+        if ("dark" === mode) {
+            root.classList.add("dark-mode");
+            selector_second.checked = true
+        } else {
+            root.classList.remove("dark-mode");
+            selector_second.checked = false;
+            selector_theme.addEventListener("click", function (_) {
+                if (selector_second.checked) {
+                    root.classList.add("dark-mode");
+                    window.localStorage.setItem("mode", "dark")
+                } else {
+                    root.classList.remove("dark-mode");
+                    window.localStorage.setItem("mode", "light")
+                }
+            })
+        }
+    }
+}
+
 function init_host_() {
     const keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
@@ -1634,6 +1658,7 @@ const init_core = function () {
     game_server_updater();
     init_donate();
     finish_load();
+    theme_switcher();
     success_pay();
 
     let elem = document.getElementById("dark-perm-set-bv");
