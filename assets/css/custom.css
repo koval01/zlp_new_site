@@ -273,10 +273,12 @@ iframe {
 }
 
 .male-emoji {
-  font-family: monospace;
-  position: relative;
-  top: 3px;
-  margin: 0;
+  margin-left: -10px !important;
+  margin-right: -12px !important;
+}
+
+.dark-mode .male-emoji {
+  filter: invert(1);
 }
 
 @media (min-width: 992px) {

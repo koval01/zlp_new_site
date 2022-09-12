@@ -292,7 +292,11 @@ function monitoring_game_server_update() {
             "server_online_status"
         ).innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${
             data.online
-        }</span> <i class="male-emoji">♂</i>${getNoun(data.online)}<i class="male-emoji">♂</i>`;
+        }</span>
+        <i class="emoji male-emoji" style="margin-left: -.35rem!important;background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
+        ${getNoun(data.online)}
+        <i class="emoji male-emoji" style="background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
+        `;
     });
 }
 
