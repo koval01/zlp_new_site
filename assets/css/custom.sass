@@ -34,6 +34,21 @@ html
   background-size: contain
   background-position: center
 
+.landing-head-text
+  background-image: url(../images/logo.webp)
+  background-position: center
+  background-size: contain
+  background-repeat: no-repeat
+  color: #0000 !important
+  height: 100%
+  width: 100%
+  display: flex
+  margin: auto
+  filter: drop-shadow(0 1px 2px black)
+
+#landing_description_gb
+  text-shadow: 0 0 5px black
+
 a:hover
   color: #772ce8
   text-decoration: none
@@ -224,6 +239,12 @@ iframe
   filter: drop-shadow(0 0 25px #392568)
   -webkit-filter: drop-shadow(0 0 25px #392568)
 
+.male-emoji
+  font-family: monospace
+  position: relative
+  top: 3px
+  margin: 0
+
 @media (min-width: 992px)
   .mt-lg-4-first
     height: calc(100vh - 16px)
@@ -258,6 +279,9 @@ iframe
     z-index: 0
     filter: drop-shadow(0 0 35px #291d4c)
     -webkit-filter: drop-shadow(0 0 35px #291d4c)
+
+  .landing-head-text
+    background-position: -9px
 
 .display-1
   font-size: calc(48px + 6 * ((100vw - 320px) / 680))
@@ -561,13 +585,13 @@ iframe[id*='telegram-post']
   border-top: 1px solid rgba(255, 255, 255, 0.4)
 
 .btn-scroll-top.show
-  border: 0
   background: rgba(0, 0, 0, 0.25)
   backdrop-filter: blur(8px)
   -webkit-backdrop-filter: blur(8px)
   color: var(--si-btn-scroll-top-color)
-  box-shadow: 0 0 20px rgba(146, 93, 236, 0.4)
   transition: all .7s
+  border: 0 #0000
+  box-shadow: 0 0 20px rgba(144, 71, 255, 0.3)
 
   > span
     color: var(--si-body-color)
@@ -575,7 +599,7 @@ iframe[id*='telegram-post']
   &:hover
     background: rgba(0, 0, 0, 0.25)
     border: 2px solid #925dec
-    box-shadow: 0 0 20px rgba(146, 93, 236, 0.75)
+    box-shadow: 0 0 20px rgba(146, 93, 236, 0.8)
 
 .cst-icon-svg
   height: 1.5em

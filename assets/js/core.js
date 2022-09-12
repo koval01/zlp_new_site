@@ -292,7 +292,7 @@ function monitoring_game_server_update() {
             "server_online_status"
         ).innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${
             data.online
-        }</span> ${getNoun(data.online)}`;
+        }</span> <i class="male-emoji">♂</i>${getNoun(data.online)}<i class="male-emoji">♂</i>`;
     });
 }
 
@@ -1489,7 +1489,7 @@ function init_landing() {
 function finish_load() {
     document.querySelector("main").setAttribute("style", "");
     document.querySelector("footer").setAttribute("style", "");
-    let heart = "&#10084;&#65039;";
+    let heart = "<i class=\"emoji\" style=\"background-image:url('assets/images/emoji/red-heart.png')\"><b>🤫</b></i>";
     document.getElementById(
         "footer-text-blc"
     ).innerHTML = `Made with ${heart} by KovalYRS for Zalupa.Online`;

@@ -9,7 +9,7 @@
     "name": "CREXLIGHT",
     "head": "https://cravatar.eu/helmhead/CREXLIGHT/256.png",
     "desc": "Любит дудеть в рог",
-    "badge": ""
+    "badge": "boy next door"
   },
   {
     "name": "MinDzoM",
@@ -128,8 +128,14 @@
   {
     "name": "Parijanin",
     "head": "https://cravatar.eu/helmhead/Parijanin/256.png",
-    "desc": "По просьбе R3fraction",
-    "badge": "ЛОХ"
+    "desc": "Главная списка на сервере (От Эльдара)",
+    "badge": ""
+  },
+  {
+    "name": "_AppleTony_",
+    "head": "https://cravatar.eu/helmhead/_AppleTony_/256.png",
+    "desc": "Главный админ проекта",
+    "badge": ""
   },
   {
     "name": "2p0y",
@@ -168,12 +174,6 @@
     "badge": ""
   },
   {
-    "name": "_AppleTony_",
-    "head": "assets/images/players/_AppleTony_.png",
-    "desc": "Главный админ проекта",
-    "badge": ""
-  },
-  {
     "name": "dangl1",
     "head": "assets/images/players/dangl1.png",
     "desc": "Местный репер",
@@ -183,7 +183,7 @@
     "name": "Sunflower",
     "head": "assets/images/players/Sunflower.png",
     "desc": "Очередная женщина сервера",
-    "badge": ""
+    "badge": "Yakuza"
   },
   {
     "name": "TaidaKN",
@@ -201,18 +201,24 @@
     "name": "Varleims",
     "head": "assets/images/players/Varleims.png",
     "desc": "Голос как у Хесуса",
-    "badge": ""
+    "badge": "Yakuza"
   },
   {
     "name": "IIoska",
     "head": "assets/images/players/IIoska.png",
     "desc": "Создатель клана Yakuza",
-    "badge": ""
+    "badge": "Yakuza"
   },
   {
     "name": "lucky367",
     "head": "assets/images/players/lucky367.png",
     "desc": "Главный плеер общения",
     "badge": ""
+  },
+  {
+    "name": "bagdantixi",
+    "head": "assets/images/players/bagdantixi.png",
+    "desc": "Очень крутой школьник",
+    "badge": "Yakuza"
   }
 ]

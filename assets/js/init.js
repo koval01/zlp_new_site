@@ -73,11 +73,6 @@ function request_call(callback, url, method, json = false, json_body = null) {
     request.send(json_body_local);
 }
 
-function check_load() {
-    let load = document.querySelector(".page-loading.active")
-    if (load) { location.reload() }
-}
-
 function is_development_splash() {
     document.body.classList.add("modal-open");
     container_dev_splash.style.display = ""
@@ -108,5 +103,3 @@ script_re.onload = function () {
 
 script_re.src = `https://www.google.com/recaptcha/api.js?render=${re_token}`;
 document.body.appendChild(script_re)
-
-setTimeout(check_load, 10000)
