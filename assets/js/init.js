@@ -90,7 +90,10 @@ if (!development_hosts.includes(window.location.hostname)) {
     backend_host = `https://${domain_back}`
 } else {
     re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
-    backend_host = "http://127.0.0.1:8000";
+    if (window.location.hostname === "localhost") {
+        backend_host = "http://127.0.0.1:8000"
+    }
+    backend_host = "https://backend.zalupa.world";
     is_development_splash()
 }
 
