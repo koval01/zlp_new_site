@@ -288,15 +288,17 @@ function get_game_server_data(callback) {
 
 function monitoring_game_server_update() {
     get_game_server_data(function (data) {
-        document.getElementById(
-            "server_online_status"
-        ).innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${
-            data.online
-        }</span>
-        <i class="emoji male-emoji" style="margin-left: -.35rem!important;background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
-        ${getNoun(data.online)}
-        <i class="emoji male-emoji" style="background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
-        `;
+        if (data.online) {
+            document.getElementById(
+                "server_online_status"
+            ).innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${
+                data.online
+            }</span>
+            <i class="emoji male-emoji" style="margin-left: -.35rem!important;background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
+            ${getNoun(data.online)}
+            <i class="emoji male-emoji" style="background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
+            `;
+        }
     });
 }
 
@@ -1615,7 +1617,7 @@ function call_sucess_pay_modal(payment_id = 0) {
     }
 
     check_payment(function (payment) {
-        if (payment) {
+        if (typeof payment.status !== 'undefined') {
             enable_modal(payment);
             title.innerText = `Чек #${payment.id}`
         } else {
