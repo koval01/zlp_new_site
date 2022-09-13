@@ -209,7 +209,7 @@ function append_posts_news() {
                                 <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family: sans-serif">
                                         ${text_array[0]}</p>
                                 <div class="news-bottom-container">
-                                    <a class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3"
+                                    <a class="btn btn-primary shadow-primary btn-lg news-button-view"
                                        href="${posts[i].link}" target="_blank">
                                             Подробнее</a>
                                 </div>
