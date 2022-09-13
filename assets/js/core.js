@@ -390,7 +390,7 @@ function check_payment(callback, payment_id) {
                     `${backend_host}/donate/payment_get`,
                     "POST",
                     true, {
-                        payment_id: payment_id,
+                        payment_id: parseInt(payment_id),
                         token: token_update,
                         tokens_send: coins_sell_mode
                     }
