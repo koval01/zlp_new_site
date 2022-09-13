@@ -361,7 +361,9 @@ function check_coupon(callback, coupon) {
             .then(function (token_update) {
                 request_call(
                     function (r) {
-                        callback(r.coupon)
+                        if (r.coupon) {
+                            callback(r.coupon)
+                        }
                     },
                     `${backend_host}/donate/coupon`,
                     "POST",
@@ -1089,9 +1091,11 @@ function coupon_check(coins=false) {
     }
 
     const check_coupon_coins = function (products) {
-        for (let i = 0; i < products.length; i++) {
-            if (products[i].id === donate_services_array[0].id) {
-                return true
+        if (products) {
+            for (let i = 0; i < products.length; i++) {
+                if (products[i].id === donate_services_array[0].id) {
+                    return true
+                }
             }
         }
         return false
