@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html {
   --back-modal-st: rgba(255, 255, 255, 0.85);
   --white-theme-black-set: rgb(255, 255, 255);
@@ -172,6 +173,26 @@ iframe {
     background: #f7f7f8;
   }
 }
+.loading-dots:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+  animation: ellipsis steps(4, end) 900ms infinite;
+  content: "…";
+  width: 0;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 25px;
+  }
+}
+@-webkit-keyframes ellipsis {
+  to {
+    width: 20px;
+  }
+}
 .fake-block-sett-bg {
   display: flex;
   width: 100vw;
@@ -281,6 +302,12 @@ iframe {
   filter: invert(1);
 }
 
+@media (max-width: 992px) {
+  .loading-dots {
+    text-align: left;
+    margin-left: 10%;
+  }
+}
 @media (min-width: 992px) {
   .mt-lg-4-first {
     height: calc(100vh - 16px);
