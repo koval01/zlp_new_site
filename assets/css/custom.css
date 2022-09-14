@@ -4,7 +4,7 @@ html {
   --white-theme-black-set: rgb(255, 255, 255);
   --white-theme-front-set: rgb(0, 0, 0);
   --notify-theme-bg: rgba(23, 27, 37, 0.7);
-  --notify-theme-shadow: rgba(0, 0, 0, 0.35);
+  --notify-theme-shadow: rgba(0, 0, 0, 0.6);
   --modal-shadow: rgba(255, 255, 255, 0.75);
   --si-card-bg: rgb(238,238,238);
   --si-body-bg: #f7f7f8;
@@ -17,8 +17,8 @@ html {
   --white-theme-black-set: rgb(0, 0, 0);
   --white-theme-front-set: rgb(255, 255, 255);
   --notify-theme-bg: rgba(23, 27, 37, 0.6);
-  --notify-theme-shadow: rgba(255, 255, 255, 0.2);
-  --modal-shadow: rgba(145, 71, 255, 0.4);
+  --notify-theme-shadow: rgba(144, 72, 255, 0.5);
+  --modal-shadow: rgba(144, 72, 255, 0.5);
   --si-body-bg: #0e0e10;
   --second-bg-theme: #26262c;
 }
