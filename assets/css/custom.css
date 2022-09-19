@@ -351,6 +351,9 @@ iframe {
   .landing-head-text {
     background-position: -9px;
   }
+  .news-text-container {
+    padding-bottom: 6rem;
+  }
 }
 .display-1 {
   font-size: calc(48px + 6 * (100vw - 320px) / 680);
@@ -821,7 +824,6 @@ a:hover .emoji > b {
 
 .news-text-container {
   padding-top: 2rem;
-  padding-bottom: 6rem;
   padding-left: 2rem;
 }
 .news-text-container > .news-text {
@@ -840,7 +842,7 @@ a:hover .emoji > b {
 
 @media (max-width: 600px) {
   .news-text-container > .news-text {
-    padding-bottom: 3rem;
+    padding-bottom: 0.8rem;
   }
   .news-text-container > .news-bottom-container > a {
     float: unset;
