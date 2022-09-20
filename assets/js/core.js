@@ -686,6 +686,7 @@ function comments_init() {
             observer: true,
             observeParents: true,
             preventClicks: false,
+            preventClicksPropagation: false,
             autoplay: {
                 delay: 6000
             },
@@ -809,11 +810,11 @@ function build_players_swiper() {
                 array_.innerHTML =
                     array_.innerHTML +
                     `
-                <div class="swiper-slide">
+                <div class="swiper-slide text-center">
                     <span class="d-block py-3">
                         <img src="${player[i].head}" class="d-block mx-auto" width="154"
                            alt="${player[i].name}" loading="lazy"
-                        <div class="card-body text-center p-3">
+                        <div class="card-body p-3">
                             <h3 class="fs-lg fw-semibold pt-1 mb-2">${player[i].name}</h3>
                             ${ult_template}
                             <p class="fs-sm mb-0">${player[i].desc}</p>

@@ -904,7 +904,7 @@ a:hover .emoji > b {
 
 .swiper-shadow-overlay {
   position: absolute;
-  width: 7vw;
+  width: 5.5vw;
   height: 100%;
   z-index: 1000;
   pointer-events: none;
