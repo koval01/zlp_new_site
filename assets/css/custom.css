@@ -10,6 +10,7 @@ html {
   --si-body-bg: #f7f7f8;
   --si-gray-600: #53535f;
   --second-bg-theme: #e6e6ea;
+  --shadow-size-swiper: 12vw;
 }
 
 .dark-mode {
@@ -246,6 +247,9 @@ iframe {
 }
 
 @media (max-width: 725px) {
+  .swiper-shadow-overlay {
+    --shadow-size-swiper: 9vw;
+  }
   .vova-right-back {
     opacity: 0;
     display: none;
@@ -841,6 +845,9 @@ a:hover .emoji > b {
 }
 
 @media (max-width: 600px) {
+  .swiper-shadow-overlay {
+    --shadow-size-swiper: 7vw;
+  }
   .news-text-container > .news-text {
     padding-bottom: 0.8rem;
   }
@@ -859,6 +866,31 @@ a:hover .emoji > b {
 
 #telegram_block_load {
   margin-top: 1em !important;
+}
+
+.dark-mode .swiper-shadow-overlay {
+  --shadow-color-swiper: 14, 14, 16;
+}
+
+.swiper-right-shadow {
+  --shadow-position-swiper: to left;
+  right: 0;
+}
+
+.swiper-left-shadow {
+  --shadow-position-swiper: to right;
+  left: 0;
+}
+
+.swiper-shadow-overlay {
+  position: absolute;
+  width: var(--shadow-size-swiper);
+  height: 100%;
+  z-index: 1000;
+  pointer-events: none;
+  --shadow-color-swiper: 255, 255, 255;
+  transition: width 800ms;
+  background: linear-gradient(var(--shadow-position-swiper), rgb(var(--shadow-color-swiper)) 10%, rgba(0, 0, 0, 0) 90%);
 }
 
 /*# sourceMappingURL=custom.css.map */
