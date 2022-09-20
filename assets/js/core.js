@@ -205,15 +205,17 @@ function append_posts_news() {
                     <figure class="card h-100 position-relative border-0 shadow-sm news-figure" id="news_figure_${i}">
                         <div class="background-news" id="background-news-${i}">
                             <div class="background-news-overlay" id="news-overlay-${i}">
-                            <blockquote class="card-body mt-2 mb-2 news-text-container">
-                                <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family: sans-serif">
-                                        ${text_array[0]}</p>
-                                <div class="news-bottom-container">
-                                    <a class="btn btn-primary shadow-primary btn-lg news-button-view"
-                                       href="${posts[i].link}" target="_blank">
-                                            Подробнее</a>
+                                <div class="background-news-overlay-dark-mode">
+                                    <blockquote class="card-body mt-2 mb-2 news-text-container">
+                                        <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family: sans-serif">
+                                                ${text_array[0]}</p>
+                                        <div class="news-bottom-container">
+                                            <a class="btn btn-primary shadow-primary btn-lg news-button-view"
+                                               href="${posts[i].link}" target="_blank">
+                                                    Подробнее</a>
+                                        </div>
+                                    </blockquote>
                                 </div>
-                            </blockquote>
                             </div> 
                         </div>
                     </figure>
@@ -241,7 +243,7 @@ function append_posts_news() {
             }vmin)`;
             getImageLightness(posts[i].cover,function(brightness){
                 const style_ = `#000000${
-                    (((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 8).toString(16).slice(0, 2)
+                    (((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 16).toString(16).slice(0, 2)
                 }`;
                 document.getElementById(`news-overlay-${i}`).style.background = style_
             })

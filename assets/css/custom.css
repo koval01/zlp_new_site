@@ -10,7 +10,6 @@ html {
   --si-body-bg: #f7f7f8;
   --si-gray-600: #53535f;
   --second-bg-theme: #e6e6ea;
-  --shadow-size-swiper: 12vw;
 }
 
 .dark-mode {
@@ -77,7 +76,11 @@ a:hover {
 }
 
 .bg-faded-primary {
-  background-color: rgba(119, 44, 232, 0.12) !important;
+  background-color: rgba(17, 17, 17, 0.17) !important;
+}
+
+.dark-mode .bg-faded-primary {
+  background-color: rgba(92, 92, 92, 0.13) !important;
 }
 
 .form-switch {
@@ -246,15 +249,14 @@ iframe {
   display: none;
 }
 
-@media (max-width: 725px) {
-  .swiper-shadow-overlay {
-    --shadow-size-swiper: 9vw;
-  }
-  .vova-right-back {
-    opacity: 0;
+@media (max-width: 850px) {
+  .players-pagination {
     display: none;
   }
-  .players-pagination {
+}
+@media (max-width: 725px) {
+  .vova-right-back {
+    opacity: 0;
     display: none;
   }
 }
@@ -801,12 +803,18 @@ a:hover .emoji > b {
   pointer-events: none;
 }
 
+.dark-mode .news-figure {
+  --shadow-news-block: rgba(119, 44, 232, .6);
+}
+
 .news-figure {
+  --shadow-news-block: rgba(119, 44, 232, 0);
   margin: auto;
   padding: 0 !important;
   margin-bottom: 0 !important;
-  box-shadow: 0 0 16px #000 !important;
-  width: 95%;
+  box-shadow: 0 0 25px var(--shadow-news-block) !important;
+  transition: box-shadow 1s;
+  width: 90%;
 }
 
 .background-news {
@@ -844,10 +852,18 @@ a:hover .emoji > b {
   float: right;
 }
 
+.background-news-overlay-dark-mode {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 1.4s;
+  height: 100%;
+  border-radius: 0.5em;
+}
+
+.dark-mode .background-news-overlay-dark-mode {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
 @media (max-width: 600px) {
-  .swiper-shadow-overlay {
-    --shadow-size-swiper: 7vw;
-  }
   .news-text-container > .news-text {
     padding-bottom: 0.8rem;
   }
@@ -882,14 +898,18 @@ a:hover .emoji > b {
   left: 0;
 }
 
+.swiper-shadow-blocks {
+  bottom: 1rem;
+}
+
 .swiper-shadow-overlay {
   position: absolute;
-  width: var(--shadow-size-swiper);
+  width: 7vw;
   height: 100%;
   z-index: 1000;
   pointer-events: none;
-  --shadow-color-swiper: 255, 255, 255;
-  transition: width 800ms;
+  --shadow-color-swiper: 255, 255, 255, 1;
+  transition: width 0.6s;
   background: linear-gradient(var(--shadow-position-swiper), rgb(var(--shadow-color-swiper)) 10%, rgba(0, 0, 0, 0) 90%);
 }
 
