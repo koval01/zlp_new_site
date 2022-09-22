@@ -822,7 +822,7 @@ a:hover .emoji > b {
   background-repeat: no-repeat;
   background-position: center;
   background-color: #222;
-  border-radius: 0.5em;
+  border-radius: 0.25em;
   height: 100%;
 }
 .background-news > .background-news-overlay {

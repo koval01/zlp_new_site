@@ -206,7 +206,7 @@ function append_posts_news() {
                         <div class="background-news" id="background-news-${i}">
                             <div class="background-news-overlay" id="news-overlay-${i}">
                                 <div class="background-news-overlay-dark-mode">
-                                    <blockquote class="card-body mt-2 mb-2 news-text-container">
+                                    <blockquote class="card-body mt-2 mb-3 news-text-container">
                                         <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family: sans-serif">
                                                 ${text_array[0]}</p>
                                         <div class="news-bottom-container">
