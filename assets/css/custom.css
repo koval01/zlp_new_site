@@ -828,10 +828,20 @@ a:hover .emoji > b {
 .background-news > .background-news-overlay {
   position: relative;
   backdrop-filter: blur(calc(0.25vh + 0.25vw));
-  border-radius: 0.5em;
+  border-radius: 0.25em;
   margin-top: -0.5em;
   background: rgba(0, 0, 0, 0.2);
   height: 100%;
+}
+.background-news > .background-news-overlay > .background-news-overlay-dark-mode {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 1.4s;
+  height: 100%;
+  border-radius: 0.25em;
+}
+
+.dark-mode .background-news-overlay-dark-mode {
+  background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
 .news-text-container {
@@ -850,17 +860,6 @@ a:hover .emoji > b {
 }
 .news-text-container > .news-bottom-container > a {
   float: right;
-}
-
-.background-news-overlay-dark-mode {
-  background-color: rgba(0, 0, 0, 0);
-  transition: background-color 1.4s;
-  height: 100%;
-  border-radius: 0.5em;
-}
-
-.dark-mode .background-news-overlay-dark-mode {
-  background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
 @media (max-width: 600px) {
