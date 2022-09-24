@@ -328,8 +328,8 @@ function init_events_list() {
     let switch_button_ = document.getElementById("events-c-button");
     let row_class = [
         "row-cols-md-2",
-        "row-cols-lg-3",
-        "row-cols-xl-4"
+        "row-cols-lg-2",
+        "row-cols-xl-3"
     ];
 
     get_events_(function(data) {
