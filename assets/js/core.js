@@ -1608,7 +1608,7 @@ function finish_load() {
     let heart = "<i class=\"emoji\" style=\"background-image:url('assets/images/emoji/red-heart.png');font-size: 0.95rem\"><b>🤫</b></i>";
     document.getElementById(
         "footer-text-blc"
-    ).innerHTML = `Создал KovalYRS с ${heart}, специально для ZALUPA ONLINE`;
+    ).innerHTML = `Создал KovalYRS с ${heart}, специально для ZALUPA.ONLINE`;
     if (grecaptcha) {
         document.getElementById("re-badge-text").innerText =
             "This site uses Google ReCaptcha technology"
@@ -1764,6 +1764,7 @@ const init_core = function () {
         let move_wait = 100;
         setTimeout(function () {
             preloader.classList.remove("active");
+            document.body.style.overflowY = "";
         }, wait);
         setTimeout(function () {
             preloader.remove();

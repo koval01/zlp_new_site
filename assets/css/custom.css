@@ -1063,4 +1063,30 @@ a:hover .emoji > b {
   left: 1rem;
 }
 
+.stone-logo-subtext {
+  width: 100%;
+  background-image: url(../images/stone-logo-subtext.webp);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(2px 4px var(--stone-logo-shadow-size) rgba(var(--stone-log-shadow-color)));
+}
+.stone-logo-subtext.footer-logo {
+  height: 100px;
+  --stone-logo-shadow-size: 16px;
+  --stone-log-shadow-color: 144, 72, 255, .95;
+}
+.stone-logo-subtext.loading-splash-logo {
+  height: 24vh;
+  margin-top: -4rem;
+  --stone-logo-shadow-size: 36px;
+  --stone-log-shadow-color: 144, 72, 255, .95;
+}
+@media (prefers-color-scheme: dark) {
+  .stone-logo-subtext.loading-splash-logo {
+    --stone-logo-shadow-size: 18px;
+    --stone-log-shadow-color: 144, 72, 255, .75;
+  }
+}
+
 /*# sourceMappingURL=custom.css.map */
