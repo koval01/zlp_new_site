@@ -132,9 +132,20 @@
             </div>
         </div>
     </section>
-    <section id="telegram_block" class="position-relative py-5">
-        <div class="container py-2 py-md-2 py-lg-3">
-            <h2 class="h3 text-center mb-0">Последние новости</h2>
+    <section id="events_block" class="position-relative py-5">
+        <div class="event-switch-buttons">
+            <div class="underline-button">
+                <button class="underline-button-item" id="news-c-button" disabled onclick="switch_events_pages('news')">
+                    Новости
+                </button>
+            </div>
+            <div class="underline-button">
+                <button class="underline-button-item" id="events-c-button" disabled onclick="switch_events_pages('events')">
+                    Ивенты
+                </button>
+            </div>
+        </div>
+        <div class="container py-2 py-md-3 py-lg-4 events-c-container" id="news-c-container">
             <div class="position-relative px-sm-5 mx-auto" style="display: none" id="news_zlp_buttons">
                 <button type="button" id="prev_news"
                         class="btn btn-prev btn-icon btn-sm bg-faded-primary position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
@@ -153,6 +164,11 @@
                 </div>
             </div>
             <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+        </div>
+        <div class="container py-2 py-md-3 py-lg-4 events-c-container" id="events-c-container" style="display: none; top: -2rem">
+            <div class="row row-cols-1 g-4 mt-2 mt-lg-4" id="events-row-container">
+            </div>
+            <div id="events_block_load" class="page-spinner d-flex" style="margin: auto"></div>
         </div>
     </section>
     <section id="video_block" class="py-5">
@@ -227,7 +243,7 @@
             </div>
         </div>
     </section>
-    <section id="instruction_block" class="py-4">
+    <section id="instruction_block" class="py-4 bg-secondary">
         <div class="container py-2 py-md-4 py-lg-5">
             <h3 class="h1 text-center mb-lg-4">Инструкция для начала игры</h3>
             <p class="fs-lg text-muted text-center mb-4 mb-lg-5">
@@ -285,14 +301,14 @@
                         <div class="d-flex align-items-center">
                             <div class="display-6 text-primary">2</div>
                             <p class="ps-3 mb-0">
-                                Нажмите комбинацию <code>Win+R</code> и в появившейся строке введите
-                                <code>%appdata%</code>
+                                Нажмите комбинацию <span class="text-primary">Win+R</span> и в появившейся строке введите
+                                <span class="text-primary">%appdata%</span>
                             </p>
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="display-6 text-primary">3</div>
                             <p class="ps-3 mb-0">
-                                Перейдите в папку <code>.minecraft</code> и перенесите в нее обе папки из сборки
+                                Перейдите в папку <span class="text-primary">.minecraft</span> и перенесите в нее обе папки из сборки
                                 (<span class="text-primary">emotes и mods</span>)
                             </p>
                         </div>

@@ -1,5 +1,6 @@
 const development_hosts = ["zalupa.world", "localhost"];
 const container_dev_splash = document.querySelector(".is-dev-site-splash");
+const test_local = false;
 
 function notify(text) {
     const error_box = document.querySelector(".error_box_cst");
@@ -90,10 +91,12 @@ if (!development_hosts.includes(window.location.hostname)) {
     backend_host = `https://${domain_back}`
 } else {
     re_token = "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
-    if (window.location.hostname === "localhost") {
+    if (window.location.hostname === "localhost" && test_local) {
         backend_host = "http://127.0.0.1:8000"
     } else {
-        backend_host = "https://backend.zalupa.world";
+        backend_host = "https://backend.zalupa.world"
+    }
+    if (window.location.hostname !== "localhost") {
         is_development_splash()
     }
 }

@@ -20,7 +20,7 @@
   {
     "name": "D3st0ny",
     "head": "https://cravatar.eu/helmhead/D3st0ny/256.png",
-    "desc": "Просто админ которого уволили, это все, что мы о нем знаем",
+    "desc": "Просто админ которого уволили",
     "badge": ""
   },
   {
@@ -56,13 +56,13 @@
   {
     "name": "teen_wave_",
     "head": "https://cravatar.eu/helmhead/teen_wave_/256.png",
-    "desc": "Поддержка проекта, служит связью со своим начальством",
+    "desc": "Поддержка проекта",
     "badge": ""
   },
   {
     "name": "vani5677",
     "head": "https://cravatar.eu/helmhead/vani5677/256.png",
-    "desc": "Он, и правда, казался слишком юным для своих лет",
+    "desc": "Юный дурак",
     "badge": ""
   },
   {
@@ -92,13 +92,13 @@
   {
     "name": "DarkNetFox",
     "head": "https://cravatar.eu/helmhead/DarkNetFox/256.png",
-    "desc": "Известен своим хобби",
-    "badge": "Суицидник"
+    "desc": "Известен своим хобби - умирать",
+    "badge": ""
   },
   {
     "name": "i5b",
     "head": "https://cravatar.eu/helmhead/i5b/256.png",
-    "desc": "24/7 на Анархии, 5000 часов в Minecraft",
+    "desc": "24/7 на Анархии",
     "badge": ""
   },
   {
@@ -116,7 +116,7 @@
   {
     "name": "DjyZott",
     "head": "https://cravatar.eu/helmhead/DjyZott/256.png",
-    "desc": "Хуйлан на сервере анархии который никому не нужен",
+    "desc": "Хуйлан c Анархии",
     "badge": ""
   },
   {
@@ -128,14 +128,14 @@
   {
     "name": "Parijanin",
     "head": "https://cravatar.eu/helmhead/Parijanin/256.png",
-    "desc": "Главная списка на сервере (От Эльдара)",
+    "desc": "Главная списка на сервере",
     "badge": ""
   },
   {
     "name": "_AppleTony_",
     "head": "https://cravatar.eu/helmhead/_AppleTony_/256.png",
     "desc": "Главный админ проекта",
-    "badge": ""
+    "badge": "Насяльника"
   },
   {
     "name": "2p0y",
@@ -152,7 +152,7 @@
   {
     "name": "Elon_Tusk",
     "head": "assets/images/players/Elon_Tusk.png",
-    "desc": "Очень любит девушек и ЧСВ-шник",
+    "desc": "Очень любит девушек",
     "badge": ""
   },
   {
@@ -183,7 +183,7 @@
     "name": "Sunflower",
     "head": "assets/images/players/Sunflower.png",
     "desc": "Очередная женщина сервера",
-    "badge": "Yakuza"
+    "badge": ""
   },
   {
     "name": "TaidaKN",
@@ -201,13 +201,13 @@
     "name": "Varleims",
     "head": "assets/images/players/Varleims.png",
     "desc": "Голос как у Хесуса",
-    "badge": "Yakuza"
+    "badge": ""
   },
   {
     "name": "IIoska",
     "head": "assets/images/players/IIoska.png",
     "desc": "Создатель клана Yakuza",
-    "badge": "Yakuza"
+    "badge": ""
   },
   {
     "name": "lucky367",
@@ -219,6 +219,6 @@
     "name": "bagdantixi",
     "head": "assets/images/players/bagdantixi.png",
     "desc": "Очень крутой школьник",
-    "badge": "Yakuza"
+    "badge": ""
   }
 ]

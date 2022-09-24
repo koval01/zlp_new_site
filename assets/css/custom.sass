@@ -1,3 +1,7 @@
+@font-face
+  font-family: MinecraftFont
+  src: url(../fonts/minecraft-font.ttf)
+
 html
   --back-modal-st: rgba(255, 255, 255, 0.85)
   --white-theme-black-set: rgb(255, 255, 255)
@@ -9,6 +13,21 @@ html
   --si-body-bg: #f7f7f8
   --si-gray-600: #53535f
   --second-bg-theme: #e6e6ea
+  --contr-color-var: #000
+
+input:-webkit-autofill
+  transition: background-color 99999s ease-in-out 0s
+  -webkit-text-fill-color: var(--contr-color-var) !important
+
+  &:hover, &:focus, &:active
+    transition: background-color 99999s ease-in-out 0s
+    -webkit-text-fill-color: var(--contr-color-var) !important
+
+\::-moz-selection
+  background: rgba(144, 72, 255, .5)
+
+\::selection
+  background: rgba(144, 72, 255, .5)
 
 .dark-mode
   --back-modal-st: rgba(41, 41, 41, 0.85)
@@ -19,6 +38,7 @@ html
   --modal-shadow: rgba(144, 72, 255, 0.5)
   --si-body-bg: #0e0e10
   --second-bg-theme: #26262c
+  --contr-color-var: #fff
 
   .bg-light:not(.badge), .card.card-hover.bg-light
     background-color: rgba(11, 15, 25, 0.6) !important
@@ -49,6 +69,20 @@ html
 .dark-mode #landing_description_gb
   text-shadow: 0 0 5px black
 
+.dark-mode .btn-dark
+  --si-btn-active-bg: #fff
+  --si-btn-active-color: #33354d !important
+  --si-btn-bg: #fff
+  --si-btn-color: #33354d !important
+  --si-btn-hover-bg: #dedede
+  --si-btn-hover-color: #33354d !important
+
+.btn-dark
+  --si-btn-active-bg: #000
+  --si-btn-active-border-color: #000
+  --si-btn-hover-bg: #9047ff
+  --si-btn-hover-border-color: #9047ff
+
 a:hover
   color: #772ce8
   text-decoration: none
@@ -67,13 +101,21 @@ a:hover
   --si-carousel-nav-btn-hover-bg: rgb(119, 44, 232)
 
 .bg-faded-primary
-  background-color: rgb(17 17 17 / 17%) !important
+  background-color: rgb(17 17 17 / 7%) !important
+  box-shadow: 0 0 4px
+
+  &:focus
+    box-shadow: 0 0 4px
 
 .dark-mode .bg-faded-primary
   background-color: rgb(92 92 92 / 13%) !important
 
 .form-switch
   background: var(--si-btn-bg) !important
+
+.bg-dark
+  background: #0e0e10 !important
+  color: #fff
 
 .bg-gradient-primary-translucent
   background: linear-gradient(180deg,#0000, rgba(119, 44, 232, 0.55) 120%) !important
@@ -366,10 +408,10 @@ input#theme-mode
   background-color: #9147ff !important
 
 .text-primary
-  color: #bf94ff !important
+  color: #a76eff !important
 
 code
-  color: #bf94ff !important
+  color: #a76eff !important
 
 a
   --si-link-color: #bf94ff
@@ -459,7 +501,7 @@ body.modal-open
 #discord-embed iframe
   box-shadow: 0 0 64px 8px #5765f28a
 
-#telegram_block
+#events_block
   background: var(--si-body-bg) !important
 
 #zlp-tg-link
@@ -499,8 +541,10 @@ iframe[id*='telegram-post']
 .donate-header-container
   padding: .8em
   border-radius: .4rem
-  background: var(--second-bg-theme)
   box-shadow: 0 0 16px #0003
+
+.dark-mode .donate-header-container
+  box-shadow: none
 
 .token-description-dnt
   font-weight: 600
@@ -710,7 +754,7 @@ a:hover
     pointer-events: none
 
 .dark-mode .news-figure
-  --shadow-news-block: rgba(119, 44, 232, .6)
+  --shadow-news-block: rgba(255, 255, 255, 0)
 
 .news-figure
   --shadow-news-block: rgba(119, 44, 232, 0)
@@ -807,3 +851,94 @@ a:hover
   transition: width .6s
 
   background: linear-gradient(var(--shadow-position-swiper), rgb(var(--shadow-color-swiper)) 10%, rgba(0, 0, 0, 0) 90%)
+
+.dark-mode .object-block-col
+  --color-event-object: #fff
+  --shadow-event-object-color: rgba(255, 255, 255, .5)
+
+.object-block-col
+  --color-event-object: #000
+  --shadow-event-object-color: rgb(0, 0, 0)
+
+.object-block-col
+  position: relative
+  bottom: 0
+  height: 100%
+  min-height: 80px
+  border-radius: 0
+  padding: 1rem
+  transition: bottom 1s, box-shadow 1.6s
+  color: var(--color-event-object) !important
+
+  &:hover
+    bottom: .8rem
+    box-shadow: 0 0 26px var(--shadow-event-object-color)
+
+.event-switch-buttons
+  margin: auto
+  justify-content: center
+  text-align: center
+  display: flex
+
+.events-c-container
+  transition: top 600ms
+  position: relative
+
+.underline-button
+  position: relative
+  cursor: pointer
+  font-size: 2rem
+  font-weight: 400
+  line-height: 100%
+  color: var(--contr-color-var)
+  text-transform: uppercase
+
+  > .underline-button-item
+    background: rgba(0, 0, 0, 0)
+    border: 0
+    padding-left: 1rem
+    padding-right: 1rem
+
+    &:enabled
+      color: var(--contr-color-var)
+
+    &:disabled
+      color: var(--contr-color-var)
+      filter: invert(.6)
+
+    &:not(:hover)::after
+      -webkit-transform: scalex(0)
+      transform: scalex(0)
+
+    &:enabled::after
+      content: ""
+      position: absolute
+      width: 100%
+      height: 2px
+      left: 0
+      bottom: -3px
+      background: var(--contr-color-var)
+      transition: -webkit-transform .5s
+      transition: transform .5s,-webkit-transform .5s
+
+#first-global-container
+  position: relative
+  transition: top 800ms
+  background: var(--si-body-bg) !important
+
+#second-global-container
+  display: block
+  position: absolute
+  top: 3rem
+  margin-bottom: 1.5rem
+
+.button-scroll-swiper-mc
+  text-align: center
+  top: 0.35rem
+  position: absolute
+
+  &.swiper-left-mc
+    left: 0.75rem
+
+  &.swiper-right-mc
+    left: 1rem

@@ -35,6 +35,8 @@ var swiper_comments;
 var payment_url_global;
 var checked_coupon = "";
 var failed_coupon = "";
+var events_page_state = "news";
+var donate_displayed = false;
 var work_domain_v = "zalupa.online";
 
 function init_host_() {
@@ -153,6 +155,17 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
     }
 
     return five;
+}
+
+function get_events_(callback) {
+    request_call(
+        function (r) {
+            return callback(r.events)
+        },
+        `${backend_host}/events`,
+        "GET",
+        true
+    );
 }
 
 function get_news_(callback, source) {
@@ -306,7 +319,63 @@ function monitoring_game_server_update() {
 
 function game_server_updater() {
     monitoring_game_server_update();
-    setInterval(monitoring_game_server_update, 5000);
+    setInterval(monitoring_game_server_update, 2000);
+}
+
+function init_events_list() {
+    let row_container = document.getElementById("events-row-container");
+    let loader_ = document.getElementById("events_block_load");
+    let switch_button_ = document.getElementById("events-c-button");
+    let row_class = [
+        "row-cols-md-2",
+        "row-cols-lg-3",
+        "row-cols-xl-4"
+    ];
+
+    get_events_(function(data) {
+        if (data && data.length) {
+            events_block_load.remove();
+
+            data.sort(function(a, b) {
+                var keyA = new Date(a.date_start),
+                    keyB = new Date(b.date_start);
+                if (keyA < keyB) return -1;
+                if (keyA > keyB) return 1;
+                return 0;
+            })
+
+            for (let i = 0; i < data.length; i++) {
+                switch_button_.removeAttribute("disabled");
+                if (3 > i > 0) {
+                    row_container.classList.add(row_class[i])
+                }
+                let st_date = new Date(data[i].date_start);
+                let end_date = new Date(data[i].date_end);
+                let time_in_moscow = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}))
+                let badge = "";
+                if (st_date > time_in_moscow) {
+                    badge = "Скоро"
+                } else if (time_in_moscow > end_date) {
+                    badge = "Завершено"
+                }
+                let template_ = `
+                    <div class="col">
+                        <div class="object-block-col">
+                            <h1>${data[i].title}</h1>
+                            <h4 class="text-primary" style="margin-top: -1.2rem">${badge}</h4>
+                            <h6 style="margin-top: -1rem">С <span class="text-primary">
+                                ${st_date.toLocaleDateString("ru-RU")} ${("0" + st_date.getHours()).slice(-2)}:${("0" + st_date.getMinutes()).slice(-2)}
+                                </span> по <span class="text-primary">
+                                ${st_date.toLocaleDateString("ru-RU")} ${("0" + end_date.getHours()).slice(-2)}:${("0" + end_date.getMinutes()).slice(-2)}
+                                </span></h6>
+                            <p>${data[i].text}</p>
+                        </div>
+                    </div>
+                `;
+                row_container.innerHTML = row_container.innerHTML + template_
+            }
+        }
+    })
 }
 
 function get_donate_services(callback) {
@@ -537,6 +606,40 @@ function append_services() {
     });
 }
 
+function switch_events_pages(button_name) {
+    let news_page = document.getElementById("news-c-container");
+    let events_page = document.getElementById("events-c-container");
+
+    let news_button = document.getElementById("news-c-button");
+    let events_button = document.getElementById("events-c-button");
+
+    if (button_name !== events_page_state) {
+        if (button_name === "events") {
+            news_page.style.display = "none";
+            events_page.style.display = "block";
+
+            news_button.removeAttribute("disabled");
+            events_button.setAttribute("disabled", "");
+
+            events_page.style.top = "0";
+            news_page.style.top = "-2rem";
+
+            events_page_state = "events"
+        } else if (button_name === "news") {
+            news_page.style.display = "block";
+            events_page.style.display = "none";
+            
+            news_button.setAttribute("disabled", "");
+            events_button.removeAttribute("disabled");
+
+            events_page.style.top = "-2rem";
+            news_page.style.top = "0";
+
+            events_page_state = "news"
+        }
+    }
+}
+
 function redirect_(url) {
     return window.location.replace(url);
 }
@@ -718,7 +821,7 @@ function comments_init() {
                             </span>
                             <blockquote id="comment_block_${i}" class="card-body mt-2 mb-2" 
                                         style="transition: .8s height">
-                                <p id="comment_text_${i}" class="fs-md mb-0" style="font-family: sans-serif">
+                                <p id="comment_text_${i}" class="fs-md mb-0">
                                         &#171;${comment[i].text}&#187;</p>
                                 <span id="comment_show_${i}" onclick="comment_show_action(${i})" 
                                       class="pt-1 comment-show-button">
@@ -1154,7 +1257,7 @@ function coupon_check(coins=false) {
                     `<li class="list-group-item d-flex justify-content-between bg-light">
                         <div class="text-primary">
                             <h6 class="my-0 text-start">Купон</h6>
-                            <small class="text-start font-monospace" style="float: left">${code}</small>
+                            <small class="text-start" style="float: left">${code}</small>
                         </div>
                         <span class="text-muted text-end" style="width: 30%">
                             ${r.discount}%</span>
@@ -1382,7 +1485,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
             `<li class="list-group-item d-flex justify-content-between bg-light">
                 <div class="text-primary">
                     <h6 class="my-0 text-start">Купон</h6>
-                    <small class="text-start font-monospace" style="float: left">${coupon}</small>
+                    <small class="text-start" style="float: left">${coupon}</small>
                 </div>
             </li>`;
     };
@@ -1502,10 +1605,10 @@ function init_landing() {
 function finish_load() {
     document.querySelector("main").setAttribute("style", "");
     document.querySelector("footer").setAttribute("style", "");
-    let heart = "<i class=\"emoji\" style=\"background-image:url('assets/images/emoji/red-heart.png')\"><b>🤫</b></i>";
+    let heart = "<i class=\"emoji\" style=\"background-image:url('assets/images/emoji/red-heart.png');font-size: 0.95rem\"><b>🤫</b></i>";
     document.getElementById(
         "footer-text-blc"
-    ).innerHTML = `Made with ${heart} by KovalYRS for Zalupa.Online`;
+    ).innerHTML = `Создал KovalYRS с ${heart}, специально для ZALUPA ONLINE`;
     if (grecaptcha) {
         document.getElementById("re-badge-text").innerText =
             "This site uses Google ReCaptcha technology"
@@ -1648,6 +1751,7 @@ const init_core = function () {
     update_cart_count();
     game_server_updater();
     init_donate();
+    init_events_list();
     finish_load();
     success_pay();
 
