@@ -407,7 +407,7 @@ function init_events_list() {
             events_block_load.remove();
 
             data.sort(function(a, b) {
-                var keyA = new Date(a.date_start),
+                let keyA = new Date(a.date_start),
                     keyB = new Date(b.date_start);
                 if (keyA < keyB) return -1;
                 if (keyA > keyB) return 1;
