@@ -1,5 +1,3 @@
-"use strict";
-
 const development_hosts = ["zalupa.world", "localhost"];
 const container_dev_splash = document.querySelector(".is-dev-site-splash");
 const test_local = false;
