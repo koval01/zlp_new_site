@@ -61,6 +61,18 @@ function getHash(link) {
     }, {}))[0]
 }
 
+function re_check(callback) {
+    grecaptcha.ready(function () {
+        grecaptcha
+            .execute(re_token, {
+                action: "submit"
+            })
+            .then(function (token_update) {
+                callback(token_update)
+            })
+    })
+}
+
 function shuffle(array) {
     let currentIndex = array.length,
         randomIndex;
@@ -157,67 +169,64 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
     return five;
 }
 
+function get_crypto_(callback, source) {
+    re_check(function (token_update) {
+        request_call(
+            function (r) {
+                callback(r.token)
+            },
+            `${backend_host}/crypto`,
+            "POST",
+            true, {
+                token: token_update
+            }
+        )
+    })
+}
+
 function get_events_(callback) {
-    grecaptcha.ready(function () {
-        grecaptcha
-            .execute(re_token, {
-                action: "submit"
-            })
-            .then(function (token_update) {
-                request_call(
-                    function (r) {
-                        callback(r.events)
-                    },
-                    `${backend_host}/events`,
-                    "POST",
-                    true, {
-                        token: token_update
-                    }
-                )
-            })
+    re_check(function (token_update) {
+        request_call(
+            function (r) {
+                callback(r.events)
+            },
+            `${backend_host}/events`,
+            "POST",
+            true, {
+                token: token_update
+            }
+        )
     })
 }
 
 function get_yt_video_(callback, video_id) {
-    grecaptcha.ready(function () {
-        grecaptcha
-            .execute(re_token, {
-                action: "submit"
-            })
-            .then(function (token_update) {
-                request_call(
-                    function (r) {
-                        callback(r.body)
-                    },
-                    `${backend_host}/youtube_get`,
-                    "POST",
-                    true, {
-                        token: token_update,
-                        video_id: video_id
-                    }
-                )
-            })
+    re_check(function (token_update) {
+        request_call(
+            function (r) {
+                callback(r.body)
+            },
+            `${backend_host}/youtube_get`,
+            "POST",
+            true, {
+                token: token_update,
+                video_id: video_id
+            }
+        )
     })
 }
 
 function get_news_(callback, source) {
-    grecaptcha.ready(function () {
-        grecaptcha
-            .execute(re_token, {
-                action: "submit"
-            })
-            .then(function (token_update) {
-                request_call(
-                    function (r) {
-                        callback(r.messages)
-                    },
-                    `${backend_host}/channel_parse?choice=${source}`,
-                    "POST",
-                    true, {
-                        token: token_update
-                    }
-                )
-            })
+    re_check(function (token_update) {
+        request_call(
+            function (r) {
+                callback(r.messages)
+            },
+            `${backend_host}/channel_parse?choice=${source}`,
+            "POST",
+            true, {
+                token: token_update
+            }
+        )
     })
 }
 
@@ -449,96 +458,72 @@ function init_events_list() {
 }
 
 function get_donate_services(callback) {
-    grecaptcha.ready(function () {
-        grecaptcha
-            .execute(re_token, {
-                action: "submit"
-            })
-            .then(function (token_update) {
-                request_call(
-                    function (r) {
-                        callback(r.services)
-                    },
-                    `${backend_host}/donate/services`,
-                    "POST",
-                    true, {
-                        token: token_update
-                    }
-                )
-            })
+    re_check(function (token_update) {
+        request_call(
+            function (r) {
+                callback(r.services)
+            },
+            `${backend_host}/donate/services`,
+            "POST",
+            true, {
+                token: token_update
+            }
+        )
     })
 }
 
 function create_payment(callback, customer, products, email = "", coupon = "") {
-    grecaptcha.ready(function () {
-        grecaptcha
-            .execute(re_token, {
-                action: "submit"
-            })
-            .then(function (token_update) {
-                request_call(
-                    function (r) {
-                        callback(r.payment)
-                    },
-                    `${backend_host}/donate/payment/create`,
-                    "POST",
-                    true, {
-                        customer: customer,
-                        products: products,
-                        email: email,
-                        coupon: coupon,
-                        token: token_update,
-                        success_url: `https://${work_domain_v}`
-                    }
-                )
-            })
+    re_check(function (token_update) {
+        request_call(
+            function (r) {
+                callback(r.payment)
+            },
+            `${backend_host}/donate/payment/create`,
+            "POST",
+            true, {
+                customer: customer,
+                products: products,
+                email: email,
+                coupon: coupon,
+                token: token_update,
+                success_url: `https://${work_domain_v}`
+            }
+        )
     })
 }
 
 function check_coupon(callback, coupon) {
-    grecaptcha.ready(function () {
-        grecaptcha
-            .execute(re_token, {
-                action: "submit"
-            })
-            .then(function (token_update) {
-                request_call(
-                    function (r) {
-                        if (r.coupon) {
-                            callback(r.coupon)
-                        }
-                    },
-                    `${backend_host}/donate/coupon`,
-                    "POST",
-                    true, {
-                        code: coupon,
-                        token: token_update
-                    }
-                )
-            })
+    re_check(function (token_update) {
+        request_call(
+            function (r) {
+                if (r.coupon) {
+                    callback(r.coupon)
+                }
+            },
+            `${backend_host}/donate/coupon`,
+            "POST",
+            true, {
+                code: coupon,
+                token: token_update
+            }
+        )
     })
 }
 
 function check_payment(callback, payment_id) {
-    grecaptcha.ready(function () {
-        grecaptcha
-            .execute(re_token, {
-                action: "submit"
-            })
-            .then(function (token_update) {
-                request_call(
-                    function (r) {
-                        callback(r.payment);
-                    },
-                    `${backend_host}/donate/payment_get`,
-                    "POST",
-                    true, {
-                        payment_id: parseInt(payment_id),
-                        token: token_update,
-                        tokens_send: coins_sell_mode
-                    }
-                )
-            })
+    re_check(function (token_update) {
+        request_call(
+            function (r) {
+                callback(r.payment);
+            },
+            `${backend_host}/donate/payment_get`,
+            "POST",
+            true, {
+                payment_id: parseInt(payment_id),
+                token: token_update,
+                tokens_send: coins_sell_mode
+            }
+        )
     })
 }
 
