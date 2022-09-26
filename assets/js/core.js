@@ -35,6 +35,7 @@ var swiper_comments;
 var payment_url_global;
 var checked_coupon = "";
 var failed_coupon = "";
+var crypto_token = "";
 var events_page_state = "news";
 var donate_displayed = false;
 var work_domain_v = "zalupa.online";
@@ -375,8 +376,10 @@ function get_game_server_data(callback) {
             callback(r.body)
         },
         `${backend_host}/server`,
-        "GET",
-        true
+        "POST",
+        true, {
+            crypto_token: crypto_token
+        }
     )
 }
 
@@ -423,13 +426,18 @@ function init_events_list() {
                 return 0;
             })
 
+            let time_correction = function(date) {
+                let userTimezoneOffset = -date.getTimezoneOffset() * 60000
+                return new Date(date.getTime() - userTimezoneOffset)
+            }
+
             for (let i = 0; i < data.length; i++) {
                 switch_button_.removeAttribute("disabled");
                 if (3 > i > 0) {
                     row_container.classList.add(row_class[i])
                 }
-                let st_date = new Date(data[i].date_start);
-                let end_date = new Date(data[i].date_end);
+                let st_date = time_correction(new Date(data[i].date_start));
+                let end_date = time_correction(new Date(data[i].date_end));
                 let time_in_moscow = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"}))
                 let badge = "";
                 if (st_date > time_in_moscow) {
@@ -1633,6 +1641,12 @@ function links_set_(selector_, fisrt_el_mrg = false) {
     }
 }
 
+function init_crypto() {
+    get_crypto_(function (token_) {
+        crypto_token = token_
+    })
+}
+
 function init_landing() {
     if (development_hosts.includes(window.location.hostname) && lock_of) {
         document.getElementById("landing_description_gb").innerText =
@@ -1798,6 +1812,7 @@ function donate_container_hash() {
 
 const init_core = function () {
     init_host_();
+    init_crypto();
     init_landing();
     donate_container_hash();
     build_players_swiper();
