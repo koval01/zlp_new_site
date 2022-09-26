@@ -226,5 +226,11 @@
     "head": "assets/images/players/bagdantixi.png",
     "desc": "Очень крутой школьник",
     "badge": ""
+  },
+  {
+    "name": "Rikumashi",
+    "head": "assets/images/players/Rikumashi.png",
+    "desc": "100 рублей час",
+    "badge": ""
   }
 ]
