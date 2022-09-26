@@ -40,7 +40,7 @@ var donate_displayed = false;
 var work_domain_v = "zalupa.online";
 
 function init_host_() {
-    const keys = Object.keys(site_domains);
+    let keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
         if (site_domains[keys[i]] === window.location.hostname) {
             work_domain_v = site_domains[keys[i]]
@@ -222,9 +222,7 @@ function get_news_(callback, source) {
 }
 
 function append_posts_news() {
-    let array_ = document.getElementById("news_swipe_array");
-
-    const create_swiper = function () {
+    let create_swiper = function () {
         new Swiper("#news_swipe_container", {
             spaceBetween: 12,
             loop: true,
@@ -244,14 +242,18 @@ function append_posts_news() {
                 nextEl: "#next_news"
             }
         });
-    };
+    }
+
+    let add_news_in_array = function (posts, source) {
+
+    }
 
     get_news_(function (posts) {
         posts = posts.reverse();
         for (let i = 0; i < posts.length; i++) {
-            const text = posts[i].text;
-            const text_array = text.split('<br>');
-            const datetime = new Date(posts[i].datetime_utc);
+            let text = posts[i].text;
+            let text_array = text.split('<br>');
+            let datetime = new Date(posts[i].datetime_utc);
             if (!posts[i].cover) {
                 posts[i].cover = "assets/images/spawn.webp";
             }
@@ -282,13 +284,13 @@ function append_posts_news() {
                     </span>
                 </div>
             `;
-            const selector_bg = document.getElementById(`background-news-${i}`);
-            const selector_text = document.getElementById(`news_text_${i}`);
+            let selector_bg = document.getElementById(`background-news-${i}`);
+            let selector_text = document.getElementById(`news_text_${i}`);
             selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
             selector_text.classList.add("text-light");
-            const text_len = selector_text.innerText.length;
-            const text_split = selector_text.innerText.split(" ");
-            const font_size = ((text_len - -8) * .4) / 100;
+            let text_len = selector_text.innerText.length;
+            let text_split = selector_text.innerText.split(" ");
+            let font_size = ((text_len - -8) * .4) / 100;
             selector_text.style.fontSize = `calc(${
                 parseFloat(1.8-font_size)
             }vw + ${
@@ -297,15 +299,15 @@ function append_posts_news() {
                 parseFloat(1.6-font_size)
             }vmin)`;
             getImageLightness(posts[i].cover,function(brightness){
-                const style_ = `#000000${
+                let style_ = `#000000${
                     (((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 16).toString(16).slice(0, 2)
                 }`;
                 document.getElementById(`news-overlay-${i}`).style.background = style_
             })
         }
-        const loading_done = function() {setTimeout(function () {
-            const sl = document.getElementById("telegram_block_load");
-            const container_news = document.getElementById("news_zlp_buttons");
+        let loading_done = function() {setTimeout(function () {
+            let sl = document.getElementById("telegram_block_load");
+            let container_news = document.getElementById("news_zlp_buttons");
 
             try {
                 sl.parentNode.removeChild(sl);
@@ -321,7 +323,7 @@ function append_posts_news() {
 }
 
 function get_game_server_data(callback) {
-    const _data_error = function (ok = false) {
+    let _data_error = function (ok = false) {
         let string_ = "";
 
         if (ok) {
@@ -517,7 +519,7 @@ function check_payment(callback, payment_id) {
 function append_services() {
     get_donate_services(function (services) {
         donate_services_array = services;
-        const size_classes = ["row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"];
+        let size_classes = ["row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"];
         let sl = document.getElementById("donate_items_list");
 
         if (!services.length) {
@@ -620,9 +622,9 @@ function append_services() {
             }
 
             setTimeout(function () {
-                const elem = document.getElementById("donate_block_load");
-                const butt = document.getElementById("donate-button-container")
-                const ids = [
+                let elem = document.getElementById("donate_block_load");
+                let butt = document.getElementById("donate-button-container")
+                let ids = [
                     "donate_items_list", "donate-title-desc",
                     "donate-test-mode-enb", "donate-cart-container"
                 ];
@@ -713,16 +715,16 @@ function modal_open_() {
 }
 
 function switch_modal_containers(mode = "service") {
-    const span = document.getElementsByClassName("close_b")[0];
-    const info = document.getElementById("modal-info-container-c");
-    const service = document.getElementById("modal-donate-container-c");
-    const service_coins = document.getElementById("modal-donate-finish-container-b");
-    const success = document.getElementById("modal-donate-success-container");
-    const finish_donate = document.getElementById(
+    let span = document.getElementsByClassName("close_b")[0];
+    let info = document.getElementById("modal-info-container-c");
+    let service = document.getElementById("modal-donate-container-c");
+    let service_coins = document.getElementById("modal-donate-finish-container-b");
+    let success = document.getElementById("modal-donate-success-container");
+    let finish_donate = document.getElementById(
         "modal-donate-finish-container-c"
     );
-    const title = document.querySelector(".modal-title");
-    const _array = [
+    let title = document.querySelector(".modal-title");
+    let _array = [
         {
             name: "service",
             selector: service,
@@ -803,8 +805,8 @@ function group_already_in_cart(user_cart) {
 }
 
 function comment_show_action(id, close= false) {
-    const comment_text = document.getElementById(`comment_text_${id}`);
-    const comment_show = document.getElementById(`comment_show_${id}`);
+    let comment_text = document.getElementById(`comment_text_${id}`);
+    let comment_show = document.getElementById(`comment_show_${id}`);
 
     swiper_comments.on('slideChange', function () {
         comment_show_action(id, true)
@@ -824,7 +826,7 @@ function comment_show_action(id, close= false) {
 function comments_init() {
     let array_ = document.getElementById("comment_swipe_array");
 
-    const create_swiper = function () {
+    let create_swiper = function () {
         swiper_comments = new Swiper("#comment_swipe_container", {
             spaceBetween: 12,
             loop: true,
@@ -879,13 +881,13 @@ function comments_init() {
                     </div>
                 `;
 
-                const comment_text = document.getElementById(`comment_text_${i}`);
-                const comment_show = document.getElementById(`comment_show_${i}`);
+                let comment_text = document.getElementById(`comment_text_${i}`);
+                let comment_show = document.getElementById(`comment_show_${i}`);
 
                 comment_show.style.fontWeight = "400";
                 comment_text.style.transition = "height 0.8s cubic-bezier(1, -0.3, 0, 1.21) 0s";
                 comment_text.setAttribute("fullShowComment", "0");
-                const correction_height = 12;
+                let correction_height = 12;
 
                 if (comment_text.clientHeight > (100 + correction_height)) {
                     comment_text.style.height = "100px";
@@ -906,7 +908,7 @@ function comments_init() {
 function build_players_swiper() {
     let array_ = document.getElementById("players-swiper-array");
 
-    const create_swiper = function () {
+    let create_swiper = function () {
         new Swiper("#players_swipe_container", {
             slidesPerView: 2,
             spaceBetween: 24,
@@ -979,7 +981,7 @@ function build_players_swiper() {
 
 function donate_element_click(product_data) {
     switch_modal_containers("service");
-    const exclude_types = ["group"];
+    let exclude_types = ["group"];
     let desc = document.getElementById("donate_item_select_text");
     let text_template =
         `Товар <span class="text-primary fw-semibold">${product_data.name}</span>,
@@ -997,7 +999,7 @@ function donate_element_click(product_data) {
     let items_count_donate = document.getElementById("items_count_donate");
     let count_hint = document.getElementById("donate_count_text_hint");
     let add_to_cart = document.getElementById("donate_button_add_to_cart");
-    const cookie_cart = get_cookie_cart();
+    let cookie_cart = get_cookie_cart();
     let switch_ = false;
 
     let _update_count = function () {
@@ -1011,7 +1013,7 @@ function donate_element_click(product_data) {
 
     _update_count();
 
-    const product_in_cart = cookie_cart.hasOwnProperty(
+    let product_in_cart = cookie_cart.hasOwnProperty(
         product_data.service_id.toString()
     );
 
@@ -1049,12 +1051,12 @@ function donate_element_click(product_data) {
     items_count_donate.style.display = count_state;
     count_hint.style.display = count_state;
 
-    const only_dig = function () {
+    let only_dig = function () {
         let value = items_count_donate.value;
         items_count_donate.value = value.replace(/\D+/g, "");
     };
 
-    const _calculate_price = function () {
+    let _calculate_price = function () {
         only_dig();
 
         if (!exclude_types.includes(product_data.type)) {
@@ -1119,7 +1121,7 @@ function donate_reset_payment_state(repeat = false) {
         sl = "";
         vl = "";
     }
-    const button = document.getElementById("payment-button-donate" + sl);
+    let button = document.getElementById("payment-button-donate" + sl);
     button.setAttribute("onClick", `generate_payment_link(${vl})`);
     button.removeAttribute("disabled");
     button.innerText = repeat ? "Повторить" : "Дальше";
@@ -1130,7 +1132,7 @@ function donate_cart(product, count, remove = false) {
     let cart_parsed = get_cookie_cart();
     let product_count_in_cart = 0;
     let max_item_count = 15000;
-    const local_prm = '<span style="color: #a4a6ff">';
+    let local_prm = '<span style="color: #a4a6ff">';
 
     try {
         let p = cart_parsed[product];
@@ -1156,8 +1158,8 @@ function donate_cart(product, count, remove = false) {
         Cookies.set(cart_cookie, JSON.stringify({}));
     }
 
-    const els_ = JSON.parse(Cookies.get(cart_cookie));
-    const product_data = donate_get_service_by_id(product);
+    let els_ = JSON.parse(Cookies.get(cart_cookie));
+    let product_data = donate_get_service_by_id(product);
 
     if (remove) {
         delete els_[product];
@@ -1188,7 +1190,7 @@ function donate_cart(product, count, remove = false) {
 }
 
 function donate_cart_button(els = {}) {
-    const selector_ = document.querySelectorAll(".donate-cart-button-cn");
+    let selector_ = document.querySelectorAll(".donate-cart-button-cn");
 
     if (coins_sell_mode) {
         return;
@@ -1225,8 +1227,8 @@ function coupon_check(coins=false) {
     let selector_c = "";
     if (coins_sell_mode) { selector_c = "-c" }
 
-    const input = document.getElementById("coupon-input"+selector_c);
-    const button = document.getElementById("coupon-button"+selector_c);
+    let input = document.getElementById("coupon-input"+selector_c);
+    let button = document.getElementById("coupon-button"+selector_c);
     let code = "";
 
     try {
@@ -1234,13 +1236,13 @@ function coupon_check(coins=false) {
     } catch (_) {
     }
 
-    const coupon_notfd = function () {
+    let coupon_notfd = function () {
         notify(
             `Купон <span class="text-primary fw-semibold">${failed_coupon}</span> не найден`
         )
     }
 
-    const check_coupon_coins = function (products) {
+    let check_coupon_coins = function (products) {
         if (products) {
             for (let i = 0; i < products.length; i++) {
                 if (products[i].id === donate_services_array[0].id) {
@@ -1268,7 +1270,7 @@ function coupon_check(coins=false) {
         return;
     }
 
-    const input_lock = function (lock = false) {
+    let input_lock = function (lock = false) {
         if (lock) {
             input.setAttribute("disabled", "");
             button.setAttribute("disabled", "");
@@ -1283,7 +1285,7 @@ function coupon_check(coins=false) {
     input_lock(true);
     check_coupon(function (r) {
         if (r) {
-            const call = function () {
+            let call = function () {
                 checked_coupon = code;
                 notify(
                     `Купон <span class="text-primary fw-semibold">${code}</span> действительный`
@@ -1317,8 +1319,8 @@ function coupon_check(coins=false) {
 }
 
 function donate_enable_coupon(enabled = true) {
-    const input = document.getElementById("coupon-input");
-    const button = document.getElementById("coupon-button");
+    let input = document.getElementById("coupon-input");
+    let button = document.getElementById("coupon-button");
 
     if (enabled) {
         input.setAttribute("placeholder", "BRFF");
@@ -1335,12 +1337,12 @@ function donate_enable_coupon(enabled = true) {
 function generate_payment_link(sum= 0) {
     let selector_c = "";
     if (coins_sell_mode) { selector_c = "_c" }
-    const button = document.getElementById("payment-button-donate" + selector_c);
-    const customer = document.getElementById("donate_customer" + selector_c).value.trim();
+    let button = document.getElementById("payment-button-donate" + selector_c);
+    let customer = document.getElementById("donate_customer" + selector_c).value.trim();
     let email = document.getElementById("donate_email" + selector_c).value.trim();
     let coupon = "";
-    const max_sum = 15000;
-    const local_prm = '<span style="color: #a4a6ff">';
+    let max_sum = 15000;
+    let local_prm = '<span style="color: #a4a6ff">';
 
     try {
         coupon = checked_coupon.trim()
@@ -1410,12 +1412,12 @@ function generate_payment_link(sum= 0) {
 function payment_action_bt() {
     window.open(payment_url_global, "_blank");
 
-    const cart_dom = document.getElementById("donate-cart-list-success");
-    const succ_text = document.getElementById("success-pay-text-js");
-    const cont_ok = document.getElementById("only-ok-payment");
-    const title = document.querySelector(".modal-title");
+    let cart_dom = document.getElementById("donate-cart-list-success");
+    let succ_text = document.getElementById("success-pay-text-js");
+    let cont_ok = document.getElementById("only-ok-payment");
+    let title = document.querySelector(".modal-title");
 
-    const build_modal_wind = function () {
+    let build_modal_wind = function () {
         cart_dom.innerHTML = "";
         title.innerText = "";
         succ_text.innerText =
@@ -1425,8 +1427,8 @@ function payment_action_bt() {
             "src", "assets/images/vova-gay.webp")
     }
 
-    const flush_inputs_donate = function () {
-        const inputs = [
+    let flush_inputs_donate = function () {
+        let inputs = [
             "donate_sum", "donate_customer_c", "donate_email_c", "coupon-input-c"
         ];
         for (let i = 0; i < inputs.length; i++) {
@@ -1434,7 +1436,7 @@ function payment_action_bt() {
         }
     }
 
-    const enable_modal = function () {
+    let enable_modal = function () {
         switch_modal_containers("success");
         modal_open_();
         build_modal_wind();
@@ -1446,8 +1448,8 @@ function payment_action_bt() {
 }
 
 function donate_check_services_cart() {
-    const services_cookie = Object.keys(get_cookie_cart());
-    const services_origin = donate_services_array;
+    let services_cookie = Object.keys(get_cookie_cart());
+    let services_origin = donate_services_array;
     let services = [];
 
     for (let i = 0; i < services_origin.length; i++) {
@@ -1477,10 +1479,10 @@ function init_donate() {
 }
 
 function donate_cart_call(coupon = null, nickname_update = true) {
-    const cart = get_cookie_cart();
-    const cart_keys = Object.keys(cart);
-    const cart_dom = document.getElementById("donate-cart-list");
-    const selectors_payment = [
+    let cart = get_cookie_cart();
+    let cart_keys = Object.keys(cart);
+    let cart_dom = document.getElementById("donate-cart-list");
+    let selectors_payment = [
         document.getElementById("donate_customer"),
         document.getElementById("donate_email"),
         document.getElementById("coupon-input")
@@ -1521,7 +1523,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
         `;
     }
 
-    const coupon_container = function () {
+    let coupon_container = function () {
         cart_dom.innerHTML =
             cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between bg-light">
@@ -1532,7 +1534,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
             </li>`;
     };
 
-    const sum_container = function () {
+    let sum_container = function () {
         cart_dom.innerHTML =
             cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between">
@@ -1561,7 +1563,7 @@ function donate_cart_call(coupon = null, nickname_update = true) {
 }
 
 function donate_coins_pay() {
-    const button = document.getElementById("payment-button-donate_c");
+    let button = document.getElementById("payment-button-donate_c");
     let sum = document.getElementById("donate_sum");
 
     if (!/^[\d]+$/.test(sum.value)) {
@@ -1572,8 +1574,8 @@ function donate_coins_pay() {
 }
 
 function donate_modal_call(nickname_update= true) {
-    const sum = document.getElementById("donate_sum");
-    const selectors_payment = [
+    let sum = document.getElementById("donate_sum");
+    let selectors_payment = [
         document.getElementById("donate_sum"),
         document.getElementById("donate_customer_c"),
         document.getElementById("donate_email_c"),
@@ -1646,12 +1648,12 @@ function finish_load() {
 }
 
 function call_sucess_pay_modal(payment_id = 0) {
-    const cart_dom = document.getElementById("donate-cart-list-success");
-    const succ_text = document.getElementById("success-pay-text-js");
-    const cont_ok = document.getElementById("only-ok-payment");
-    const title = document.querySelector(".modal-title");
+    let cart_dom = document.getElementById("donate-cart-list-success");
+    let succ_text = document.getElementById("success-pay-text-js");
+    let cont_ok = document.getElementById("only-ok-payment");
+    let title = document.querySelector(".modal-title");
 
-    const build_payment = function (payment) {
+    let build_payment = function (payment) {
         if (payment.status && (payment_id == parseInt(payment.id))) {
             succ_text.innerText =
                 "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
@@ -1706,7 +1708,7 @@ function call_sucess_pay_modal(payment_id = 0) {
             if (!payment.created_at || !payment.created_at.length) {
                 payment.created_at = "Неизвестно"
             } else {
-                const parsed_time = new Date(payment.created_at);
+                let parsed_time = new Date(payment.created_at);
                 payment.created_at = `${parsed_time.toLocaleDateString()} ${parsed_time.toLocaleTimeString()}`
             }
 
@@ -1746,7 +1748,7 @@ function call_sucess_pay_modal(payment_id = 0) {
         }
     }
 
-    const enable_modal = function (payment) {
+    let enable_modal = function (payment) {
         build_payment(payment);
         switch_modal_containers("success");
         modal_open_()
