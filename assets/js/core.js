@@ -371,16 +371,18 @@ function get_game_server_data(callback) {
         document.getElementById("error_get_server_status").innerText = string_;
     };
 
-    request_call(
-        function (r) {
-            callback(r.body)
-        },
-        `${backend_host}/server`,
-        "POST",
-        true, {
-            crypto_token: crypto_token
-        }
-    )
+    if (crypto_token) {
+        request_call(
+            function (r) {
+                callback(r.body)
+            },
+            `${backend_host}/server`,
+            "POST",
+            true, {
+                crypto_token: crypto_token
+            }
+        )
+    }
 }
 
 function monitoring_game_server_update() {
