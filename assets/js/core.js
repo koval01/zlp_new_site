@@ -245,11 +245,9 @@ function append_posts_news() {
     }
 
     let add_news_in_array = function (posts, source) {
-
-    }
-
-    get_news_(function (posts) {
+        let array_ = document.getElementById("news_swipe_array");
         posts = posts.reverse();
+
         for (let i = 0; i < posts.length; i++) {
             let text = posts[i].text;
             let text_array = text.split('<br>');
@@ -279,8 +277,8 @@ function append_posts_news() {
                     <span class="news-date-text">
                         ${datetime.toLocaleDateString()} 
                         ${datetime.toLocaleTimeString(
-                            "ru-RU", { hour: '2-digit', minute: '2-digit' }
-                        )}
+                "ru-RU", { hour: '2-digit', minute: '2-digit' }
+            )}
                     </span>
                 </div>
             `;
@@ -319,7 +317,35 @@ function append_posts_news() {
             create_swiper();
             loading_done();
         }
-    }, 1)
+    }
+
+    let posts_source = 1; // zalupaonline
+    get_news_(function (posts) { add_news_in_array(posts, posts_source) }, posts_source)
+}
+
+function donate_switch_container(display) {
+    let container = document.querySelector(".donate-global-container");
+
+    let update_zIndex = function (variable) {
+        setTimeout(function () {
+            container.style.zIndex = variable
+        }, 850)
+    }
+
+    if (!donate_displayed || display) {
+        document.body.style.overflowY = "hidden";
+        window.scrollTo(0, 0);
+        container.style.minHeight = "";
+        update_zIndex("");
+
+        donate_displayed = true
+    } else {
+        container.style.minHeight = "0";
+        container.style.zIndex = "-1";
+        document.body.style.overflowY = "";
+
+        donate_displayed = false
+    }
 }
 
 function get_game_server_data(callback) {
@@ -1773,9 +1799,22 @@ function success_pay() {
     }
 }
 
+function donate_container_hash() {
+    let updater = function () {
+        if (linkHash() == "donate") {
+            donate_displayed = true;
+            donate_switch_container(display=true)
+        }
+    }
+
+    updater();
+    window.onhashchange = updater
+}
+
 const init_core = function () {
     init_host_();
     init_landing();
+    donate_container_hash();
     build_players_swiper();
     append_posts_news();
     comments_init();
@@ -1796,7 +1835,10 @@ const init_core = function () {
         let move_wait = 100;
         setTimeout(function () {
             preloader.classList.remove("active");
-            document.body.style.overflowY = "";
+            if (!donate_displayed) {
+                document.body.style.overflowY = ""
+            }
+            window.scrollTo(0, 0)
         }, wait);
         setTimeout(function () {
             preloader.remove();

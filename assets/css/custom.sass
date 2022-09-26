@@ -100,6 +100,12 @@ a:hover
 .btn
   --si-carousel-nav-btn-hover-bg: rgb(119, 44, 232)
 
+.bg-secondary
+  background: #fff !important
+
+.dark-mode .bg-secondary
+  background: #18181b !important
+
 .bg-faded-primary
   background-color: rgb(17 17 17 / 7%) !important
   box-shadow: unset
@@ -425,6 +431,7 @@ body.modal-open
 .btn
   border: 0
   color: var(--si-btn-color)
+  transition: background-color 400ms
 
 .cart-desc-td
   display: block
@@ -972,5 +979,27 @@ a:hover
 
 #head-container
   position: relative !important
+  background: var(--si-body-bg) !important
   transition: right 1s
   right: 0
+
+.main-global-container
+  position: relative
+
+.donate-global-container
+  position: relative
+  min-height: 100vh
+  transition: all 1s
+
+.donate-container-exit-button
+  font-size: 4rem
+  width: 4rem
+  color: var(--contr-color-var)
+  filter: invert(.4)
+  text-align: center
+  margin: auto
+  display: block
+  transition: filter 400ms
+
+  &:hover
+    filter: unset !important
