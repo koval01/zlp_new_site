@@ -138,6 +138,12 @@
     "badge": "Насяльника"
   },
   {
+    "name": "Marin1337",
+    "head": "https://cravatar.eu/helmhead/Marin1337/256.png",
+    "desc": "Дядя Марин",
+    "badge": "Ивент-мэйкер"
+  },
+  {
     "name": "2p0y",
     "head": "assets/images/players/2p0y.png",
     "desc": "Мега-кодер на JS",

@@ -158,25 +158,67 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
 }
 
 function get_events_(callback) {
-    request_call(
-        function (r) {
-            return callback(r.events)
-        },
-        `${backend_host}/events`,
-        "GET",
-        true
-    );
+    grecaptcha.ready(function () {
+        grecaptcha
+            .execute(re_token, {
+                action: "submit"
+            })
+            .then(function (token_update) {
+                request_call(
+                    function (r) {
+                        callback(r.events)
+                    },
+                    `${backend_host}/events`,
+                    "POST",
+                    true, {
+                        token: token_update
+                    }
+                )
+            })
+    })
+}
+
+function get_yt_video_(callback, video_id) {
+    grecaptcha.ready(function () {
+        grecaptcha
+            .execute(re_token, {
+                action: "submit"
+            })
+            .then(function (token_update) {
+                request_call(
+                    function (r) {
+                        callback(r.body)
+                    },
+                    `${backend_host}/youtube_get`,
+                    "POST",
+                    true, {
+                        token: token_update,
+                        video_id: video_id
+                    }
+                )
+            })
+    })
 }
 
 function get_news_(callback, source) {
-    request_call(
-        function (r) {
-            return callback(r.messages)
-        },
-        `${backend_host}/channel_parse?choice=${source}`,
-        "GET",
-        true
-    );
+    grecaptcha.ready(function () {
+        grecaptcha
+            .execute(re_token, {
+                action: "submit"
+            })
+            .then(function (token_update) {
+                request_call(
+                    function (r) {
+                        callback(r.messages)
+                    },
+                    `${backend_host}/channel_parse?choice=${source}`,
+                    "POST",
+                    true, {
+                        token: token_update
+                    }
+                )
+            })
+    })
 }
 
 function append_posts_news() {
@@ -298,7 +340,7 @@ function get_game_server_data(callback) {
         `${backend_host}/server`,
         "GET",
         true
-    );
+    )
 }
 
 function monitoring_game_server_update() {
@@ -394,9 +436,9 @@ function get_donate_services(callback) {
                     true, {
                         token: token_update
                     }
-                );
-            });
-    });
+                )
+            })
+    })
 }
 
 function create_payment(callback, customer, products, email = "", coupon = "") {
@@ -420,9 +462,9 @@ function create_payment(callback, customer, products, email = "", coupon = "") {
                         token: token_update,
                         success_url: `https://${work_domain_v}`
                     }
-                );
-            });
-    });
+                )
+            })
+    })
 }
 
 function check_coupon(callback, coupon) {
@@ -444,9 +486,9 @@ function check_coupon(callback, coupon) {
                         code: coupon,
                         token: token_update
                     }
-                );
-            });
-    });
+                )
+            })
+    })
 }
 
 function check_payment(callback, payment_id) {
@@ -467,9 +509,9 @@ function check_payment(callback, payment_id) {
                         token: token_update,
                         tokens_send: coins_sell_mode
                     }
-                );
-            });
-    });
+                )
+            })
+    })
 }
 
 function append_services() {
@@ -858,7 +900,7 @@ function comments_init() {
         "assets/data/comments.json",
         "GET",
         true
-    );
+    )
 }
 
 function build_players_swiper() {
@@ -932,7 +974,7 @@ function build_players_swiper() {
         "assets/data/players.json",
         "GET",
         true
-    );
+    )
 }
 
 function donate_element_click(product_data) {
@@ -1578,17 +1620,6 @@ function links_set_(selector_, fisrt_el_mrg = false) {
     }
 }
 
-function discord_init() {
-    let src = "https://discordapp.com/widget?id=259124796971941890&theme=dark";
-    let container = document.getElementById("discord-embed");
-    container.innerHTML =
-        `<iframe 
-            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-            src="${src}" width="100%" height="300px" id="discord-iframe" 
-            allowTransparency="true" frameBorder="0" loading="lazy" 
-        ></iframe>`;
-}
-
 function init_landing() {
     if (development_hosts.includes(window.location.hostname) && lock_of) {
         document.getElementById("landing_description_gb").innerText =
@@ -1598,8 +1629,7 @@ function init_landing() {
     }
 
     links_set_("landing-links-tp", true);
-    links_set_("links-block-footer-v");
-    discord_init();
+    links_set_("links-block-footer-v")
 }
 
 function finish_load() {

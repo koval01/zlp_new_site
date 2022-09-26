@@ -12,7 +12,7 @@ html
   --si-card-bg: rgb(238,238,238)
   --si-body-bg: #f7f7f8
   --si-gray-600: #53535f
-  --second-bg-theme: #e6e6ea
+  --second-bg-theme: #fefefe
   --contr-color-var: #000
 
 input:-webkit-autofill
@@ -37,7 +37,7 @@ input:-webkit-autofill
   --notify-theme-shadow: rgba(144, 72, 255, 0.5)
   --modal-shadow: rgba(144, 72, 255, 0.5)
   --si-body-bg: #0e0e10
-  --second-bg-theme: #26262c
+  --second-bg-theme: #18181b
   --contr-color-var: #fff
 
   .bg-light:not(.badge), .card.card-hover.bg-light
@@ -102,10 +102,10 @@ a:hover
 
 .bg-faded-primary
   background-color: rgb(17 17 17 / 7%) !important
-  box-shadow: 0 0 4px
+  box-shadow: unset
 
   &:focus
-    box-shadow: 0 0 4px
+    box-shadow: unset
 
 .dark-mode .bg-faded-primary
   background-color: rgb(92 92 92 / 13%) !important
@@ -670,7 +670,7 @@ iframe[id*='telegram-post']
   color: var(--si-btn-scroll-top-color)
   transition: all .7s
   border: 0 #0000
-  box-shadow: 0 0 20px rgba(144, 71, 255, 0.3)
+  box-shadow: unset
 
   > span
     color: var(--si-body-color)
@@ -770,13 +770,13 @@ a:hover
   background-repeat: no-repeat
   background-position: center
   background-color: #222
-  border-radius: 0.25em
+  border-radius: 0
   height: 100%
 
   > .background-news-overlay
     position: relative
     backdrop-filter: blur(calc(0.25vh + 0.25vw))
-    border-radius: 0.25em
+    border-radius: 0
     margin-top: -0.5em
     background: rgb(0, 0, 0, 0.2)
     height: 100%
@@ -785,7 +785,7 @@ a:hover
       background-color: rgba(0, 0, 0, 0)
       transition: background-color 1.4s
       height: 100%
-      border-radius: 0.25em
+      border-radius: 0
 
 .dark-mode .background-news-overlay-dark-mode
   background-color: rgba(0, 0, 0, .3) !important
@@ -854,13 +854,16 @@ a:hover
 
 .dark-mode .object-block-col
   --color-event-object: #fff
-  --shadow-event-object-color: rgba(255, 255, 255, .5)
+  --bg-event-object: rgb(23, 23, 23)
+  --shadow-event-object-color: rgb(167, 109, 255, .2)
 
 .object-block-col
   --color-event-object: #000
-  --shadow-event-object-color: rgb(0, 0, 0)
+  --bg-event-object: rgb(250 248 255)
+  --shadow-event-object-color: rgba(0, 0, 0, .4)
 
 .object-block-col
+  background: var(--bg-event-object) !important
   position: relative
   bottom: 0
   height: 100%
@@ -966,3 +969,8 @@ a:hover
   background-size: contain
   background-repeat: no-repeat
   filter: drop-shadow(2px 4px var(--stone-logo-shadow-size) rgba(var(--stone-log-shadow-color)))
+
+#head-container
+  position: relative !important
+  transition: right 1s
+  right: 0

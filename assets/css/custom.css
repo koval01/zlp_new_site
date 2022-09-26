@@ -13,7 +13,7 @@ html {
   --si-card-bg: rgb(238,238,238);
   --si-body-bg: #f7f7f8;
   --si-gray-600: #53535f;
-  --second-bg-theme: #e6e6ea;
+  --second-bg-theme: #fefefe;
   --contr-color-var: #000;
 }
 
@@ -42,7 +42,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   --notify-theme-shadow: rgba(144, 72, 255, 0.5);
   --modal-shadow: rgba(144, 72, 255, 0.5);
   --si-body-bg: #0e0e10;
-  --second-bg-theme: #26262c;
+  --second-bg-theme: #18181b;
   --contr-color-var: #fff;
 }
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
@@ -116,10 +116,10 @@ a:hover {
 
 .bg-faded-primary {
   background-color: rgba(17, 17, 17, 0.07) !important;
-  box-shadow: 0 0 4px;
+  box-shadow: unset;
 }
 .bg-faded-primary:focus {
-  box-shadow: 0 0 4px;
+  box-shadow: unset;
 }
 
 .dark-mode .bg-faded-primary {
@@ -763,7 +763,7 @@ iframe[id*=telegram-post] {
   color: var(--si-btn-scroll-top-color);
   transition: all 0.7s;
   border: 0 rgba(0, 0, 0, 0);
-  box-shadow: 0 0 20px rgba(144, 71, 255, 0.3);
+  box-shadow: unset;
 }
 .btn-scroll-top.show > span {
   color: var(--si-body-color);
@@ -873,13 +873,13 @@ a:hover .emoji > b {
   background-repeat: no-repeat;
   background-position: center;
   background-color: #222;
-  border-radius: 0.25em;
+  border-radius: 0;
   height: 100%;
 }
 .background-news > .background-news-overlay {
   position: relative;
   backdrop-filter: blur(calc(0.25vh + 0.25vw));
-  border-radius: 0.25em;
+  border-radius: 0;
   margin-top: -0.5em;
   background: rgba(0, 0, 0, 0.2);
   height: 100%;
@@ -888,7 +888,7 @@ a:hover .emoji > b {
   background-color: rgba(0, 0, 0, 0);
   transition: background-color 1.4s;
   height: 100%;
-  border-radius: 0.25em;
+  border-radius: 0;
 }
 
 .dark-mode .background-news-overlay-dark-mode {
@@ -965,15 +965,18 @@ a:hover .emoji > b {
 
 .dark-mode .object-block-col {
   --color-event-object: #fff;
-  --shadow-event-object-color: rgba(255, 255, 255, .5);
+  --bg-event-object: rgb(23, 23, 23);
+  --shadow-event-object-color: rgb(167, 109, 255, .2);
 }
 
 .object-block-col {
   --color-event-object: #000;
-  --shadow-event-object-color: rgb(0, 0, 0);
+  --bg-event-object: rgb(250 248 255);
+  --shadow-event-object-color: rgba(0, 0, 0, .4);
 }
 
 .object-block-col {
+  background: var(--bg-event-object) !important;
   position: relative;
   bottom: 0;
   height: 100%;
@@ -1087,6 +1090,12 @@ a:hover .emoji > b {
     --stone-logo-shadow-size: 18px;
     --stone-log-shadow-color: 144, 72, 255, .75;
   }
+}
+
+#head-container {
+  position: relative !important;
+  transition: right 1s;
+  right: 0;
 }
 
 /*# sourceMappingURL=custom.css.map */
