@@ -334,7 +334,7 @@ function donate_switch_container(display) {
 
     if (!donate_displayed || display) {
         document.body.style.overflowY = "hidden";
-        window.scrollTo(0, 0);
+        window.scrollTo({top: 0, behavior: "smooth"});
         container.style.minHeight = "";
         update_zIndex("");
 
@@ -1838,7 +1838,7 @@ const init_core = function () {
             if (!donate_displayed) {
                 document.body.style.overflowY = ""
             }
-            window.scrollTo(0, 0)
+            window.scrollTo({top: 0})
         }, wait);
         setTimeout(function () {
             preloader.remove();

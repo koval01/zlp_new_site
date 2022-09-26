@@ -99,6 +99,7 @@ a:hover
 
 .btn
   --si-carousel-nav-btn-hover-bg: rgb(119, 44, 232)
+  --si-carousel-nav-btn-hover-box-shadow: 0 .4rem 1.125rem -.5rem rgba(119, 44, 232, 0.95)
 
 .bg-secondary
   background: #fff !important
@@ -985,6 +986,10 @@ a:hover
 
 .main-global-container
   position: relative
+
+@media (max-height: 740px)
+  .donate-global-container
+    overflow-y: auto !important
 
 .donate-global-container
   position: relative
