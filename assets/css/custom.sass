@@ -468,10 +468,14 @@ body.modal-open
   .modal-content
     max-width: 600px !important
 
+.container-item-donate-n
+  display: block
+  margin: auto
+  width: 150px
+
 .parent-image-shadow
   margin: 40px auto
   width: min-content
-  display: grid
   gap: 50px
   transition: all .5s ease
   grid-template-columns: 1fr 1fr 1fr
@@ -490,20 +494,13 @@ body.modal-open
       position: absolute
       top: 2px
       transform: scale(1)
-      transition: all .5s ease
+      transition: all .45s cubic-bezier(0.25, 0.46, 0.45, 0.94)
       z-index: 1
       opacity: 1
-      filter: blur(24px) brightness(1.4)
-      -webkit-filter: blur(24px) brightness(1.4)
+      filter: blur(24px) brightness(.9)
+      -webkit-filter: blur(24px) brightness(.9)
 
-@media screen and (-webkit-min-device-pixel-ratio: 0)
-  .foregroundImg
-    left: 50%
-
-  .backgroundImg
-    left: 50%
-
-.col:hover .backgroundImg
+.container-item-donate-n:hover .backgroundImg
   transform: scale(2)
 
 #discord-embed iframe

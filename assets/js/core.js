@@ -620,7 +620,7 @@ function append_services() {
                     `
                     <div class="col" id="donate_item_${services[i].id}">
                         <div class="card border-0 bg-transparent" ${click_template}>
-                          <div class="position-relative">
+                          <div class="position-relative container-item-donate-n">
                             <div class="parent-image-shadow donate_item_hover" 
                                 id="donate_item_hover_${services[i].id}">
                                 <div class="imageContainer">
@@ -1688,6 +1688,8 @@ function call_sucess_pay_modal(payment_id = 0) {
     let succ_text = document.getElementById("success-pay-text-js");
     let cont_ok = document.getElementById("only-ok-payment");
     let title = document.querySelector(".modal-title");
+
+    donate_switch_container(display=true);
 
     let build_payment = function (payment) {
         if (payment.status && (payment_id == parseInt(payment.id))) {
