@@ -374,7 +374,10 @@ function get_game_server_data(callback) {
     if (crypto_token) {
         request_call(
             function (r) {
-                callback(r.body)
+                if (r.success) {
+                    callback(r.body)
+                }
+                init_crypto()
             },
             `${backend_host}/server`,
             "POST",
