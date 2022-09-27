@@ -174,7 +174,11 @@ function get_crypto_(callback, source) {
     re_check(function (token_update) {
         request_call(
             function (r) {
-                callback(r.token)
+                if (r.success) {
+                    callback(r.token)
+                } else {
+                    callback("")
+                }
             },
             `${backend_host}/crypto`,
             "POST",
@@ -407,7 +411,7 @@ function monitoring_game_server_update() {
 
 function game_server_updater() {
     monitoring_game_server_update();
-    setInterval(monitoring_game_server_update, 2000);
+    setInterval(monitoring_game_server_update, 6000);
 }
 
 function init_events_list() {
@@ -1648,6 +1652,7 @@ function links_set_(selector_, fisrt_el_mrg = false) {
 }
 
 function init_crypto() {
+    crypto_token = "";
     get_crypto_(function (token_) {
         crypto_token = token_
     })
