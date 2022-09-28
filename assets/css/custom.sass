@@ -111,6 +111,18 @@ a:hover
 .dark-mode .bg-secondary
   background: #18181b !important
 
+.bg-secondary-adaptive
+  background: unset !important
+  transition: background-color 1s
+
+@media (max-width: 750px)
+  .bg-secondary-adaptive
+    background: #fff !important
+    transition: background-color 700ms
+
+  .dark-mode .bg-secondary-adaptive
+    background: #18181b !important
+
 .bg-faded-primary
   background-color: rgb(17 17 17 / 7%) !important
   box-shadow: unset
@@ -141,7 +153,7 @@ a:hover
   margin-left: 5vw
   margin-right: 5vw
   border-radius: 0.5rem !important
-  box-shadow: 0 0 16px #0003
+  filter: drop-shadow(0 0 16px #0003)
 
 .payment-sucess-vova
   height: 40vh
@@ -559,8 +571,22 @@ iframe[id*='telegram-post']
   font-weight: 600
   font-size: 0.85em
 
+.player_badge_container
+  display: inline-flex
+
 .player_badge
-    padding: .1em .3em .2em .3em !important
+  height: 2rem
+  width: 2rem
+  margin-left: .2rem
+  margin-right: .2rem
+  background-size: cover
+  border-radius: 0.55rem
+  background-color: transparent
+  padding: .1em .3em .2em .3em !important
+  transition: background-color 800ms
+
+.dark-mode .player_badge
+  background-color: #fff !important
 
 .donate-button
   display: block
@@ -841,11 +867,11 @@ a:hover
 
 .swiper-right-shadow
   --shadow-position-swiper: to left
-  right: 0
+  right: -3px
 
 .swiper-left-shadow
   --shadow-position-swiper: to right
-  left: 0
+  left: -1px
 
 .swiper-shadow-blocks
   bottom: 1rem
@@ -1013,3 +1039,11 @@ a:hover
 .yt_video_setter
   width: 100%
   display: inline-flex
+
+.container-second-round
+  border-radius: .6rem
+  filter: drop-shadow(0 0 16px #00000033)
+  transition: filter 1s
+
+.dark-mode .container-second-round
+  filter: unset !important

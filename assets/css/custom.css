@@ -128,6 +128,20 @@ a:hover {
   background: #18181b !important;
 }
 
+.bg-secondary-adaptive {
+  background: unset !important;
+  transition: background-color 1s;
+}
+
+@media (max-width: 750px) {
+  .bg-secondary-adaptive {
+    background: #fff !important;
+    transition: background-color 700ms;
+  }
+  .dark-mode .bg-secondary-adaptive {
+    background: #18181b !important;
+  }
+}
 .bg-faded-primary {
   background-color: rgba(17, 17, 17, 0.07) !important;
   box-shadow: unset;
@@ -164,7 +178,7 @@ a:hover {
   margin-left: 5vw;
   margin-right: 5vw;
   border-radius: 0.5rem !important;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+  filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));
 }
 
 .payment-sucess-vova {
@@ -639,8 +653,24 @@ iframe[id*=telegram-post] {
   font-size: 0.85em;
 }
 
+.player_badge_container {
+  display: inline-flex;
+}
+
 .player_badge {
+  height: 2rem;
+  width: 2rem;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  background-size: cover;
+  border-radius: 0.55rem;
+  background-color: transparent;
   padding: 0.1em 0.3em 0.2em 0.3em !important;
+  transition: background-color 800ms;
+}
+
+.dark-mode .player_badge {
+  background-color: #fff !important;
 }
 
 .donate-button {
@@ -952,12 +982,12 @@ a:hover .emoji > b {
 
 .swiper-right-shadow {
   --shadow-position-swiper: to left;
-  right: 0;
+  right: -3px;
 }
 
 .swiper-left-shadow {
   --shadow-position-swiper: to right;
-  left: 0;
+  left: -1px;
 }
 
 .swiper-shadow-blocks {
@@ -1143,6 +1173,16 @@ a:hover .emoji > b {
 .yt_video_setter {
   width: 100%;
   display: inline-flex;
+}
+
+.container-second-round {
+  border-radius: 0.6rem;
+  filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));
+  transition: filter 1s;
+}
+
+.dark-mode .container-second-round {
+  filter: unset !important;
 }
 
 /*# sourceMappingURL=custom.css.map */

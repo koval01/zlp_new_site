@@ -93,6 +93,29 @@ function shuffle(array) {
     return array;
 }
 
+function alternateSort(list) {
+    let minIndex = 0;
+    let minVal = 0;
+
+    for (let i = 0; i < list.length; i++) {
+        minIndex = i;
+        minVal = list[i];
+
+        for (let j = i+1; j < list.length; j++) {
+            if (list[j] < minVal) {
+                minVal = list[j];
+                minIndex = j;
+            }
+        }
+
+        if (minVal < list[i]) {
+            let temp = list[i];
+            list[i] = list[minIndex];
+            list[minIndex] = temp;
+        }
+    }
+}
+
 function getImageLightness(imageSrc, callback) {
     let img = document.createElement("img");
     img.src = imageSrc;
@@ -918,7 +941,7 @@ function comments_init() {
             preventClicks: false,
             preventClicksPropagation: false,
             autoplay: {
-                delay: 6000
+                delay: 8000
             },
             pagination: {
                 el: ".swiper-pagination",
@@ -928,57 +951,80 @@ function comments_init() {
                 prevEl: "#prev_comment",
                 nextEl: "#next_comment"
             }
-        });
-    };
+        })
+    }
+
+    let players_get = function(callback) {
+        request_call(
+            function (r) {
+                callback(r)
+            },
+            "assets/data/players.json",
+            "GET",
+            true
+        )
+    }
+
+    let search_player = function (players, name) {
+        for (let i = 0; i < players.length; i++) {
+            if (players[i].name === name) {
+                return players[i]
+            }
+        }
+    }
 
     request_call(
         function (r) {
             let comment = r;
             shuffle(comment);
 
-            for (let i = 0; i < comment.length; i++) {
-                array_.innerHTML =
-                    array_.innerHTML +
-                    `
-                    <div class="swiper-slide h-auto px-2">
-                        <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
-                            <span class="btn btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5 zlp-comment-icon">
-                              <i class="bx bxs-quote-left"></i>
-                              Залупный комментарий
-                            </span>
-                            <blockquote id="comment_block_${i}" class="card-body mt-2 mb-2" 
-                                        style="transition: .8s height">
-                                <p id="comment_text_${i}" class="fs-md mb-0">
-                                        &#171;${comment[i].text}&#187;</p>
-                                <span id="comment_show_${i}" onclick="comment_show_action(${i})" 
-                                      class="pt-1 comment-show-button">
-                                        Раскрыть</span>
-                            </blockquote>
-                            <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
-                                <div>
-                                    <h6 class="fw-semibold lh-base mb-0">${comment[i].name}</h6>
-                                    <span class="frame_badge_adaptive">${comment[i].sign}</span>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </div>
-                `;
+            players_get(function (players) {
+                for (let i = 0; i < comment.length; i++) {
+                    let player = search_player(players, comment[i].name);
 
-                let comment_text = document.getElementById(`comment_text_${i}`);
-                let comment_show = document.getElementById(`comment_show_${i}`);
+                    array_.innerHTML =
+                        array_.innerHTML +
+                        `
+                        <div class="swiper-slide h-auto px-2">
+                            <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
+                                <span class="btn btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5 zlp-comment-icon">
+                                  <i class="bx bxs-quote-left"></i>
+                                  Залупный комментарий
+                                </span>
+                                <blockquote id="comment_block_${i}" class="card-body mt-2 mb-2" 
+                                            style="transition: .8s height">
+                                    <p id="comment_text_${i}" class="fs-md mb-0">
+                                            &#171;${comment[i].text}&#187;</p>
+                                    <span id="comment_show_${i}" onclick="comment_show_action(${i})" 
+                                          class="pt-1 comment-show-button">
+                                            Раскрыть</span>
+                                </blockquote>
+                                <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
+                                    <div>
+                                        <h6 class="fw-semibold lh-base mb-0">${comment[i].name}</h6>
+                                        ${player ? `<span class="frame_badge_adaptive">${player.desc}</span>` : ""}
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    `;
 
-                comment_show.style.fontWeight = "400";
-                comment_text.style.transition = "height 0.8s cubic-bezier(1, -0.3, 0, 1.21) 0s";
-                comment_text.setAttribute("fullShowComment", "0");
-                let correction_height = 12;
+                    let comment_text = document.getElementById(`comment_text_${i}`);
+                    let comment_show = document.getElementById(`comment_show_${i}`);
 
-                if (comment_text.clientHeight > (100 + correction_height)) {
-                    comment_text.style.height = "100px";
-                    comment_text.style.overflow = "hidden";
-                } else {
-                    comment_show.style.display = "none"
+                    comment_show.style.fontWeight = "400";
+                    comment_text.style.transition = "height 0.8s cubic-bezier(1, -0.3, 0, 1.21) 0s";
+                    comment_text.setAttribute("fullShowComment", "0");
+                    let correction_height = 12;
+
+                    if (comment_text.clientHeight > (100 + correction_height)) {
+                        comment_text.style.height = "100px";
+                        comment_text.style.overflow = "hidden";
+                    } else {
+                        comment_show.style.display = "none"
+                    }
                 }
-            }
+            });
 
             create_swiper();
         },
@@ -993,10 +1039,10 @@ function build_players_swiper() {
 
     let create_swiper = function () {
         new Swiper("#players_swipe_container", {
-            slidesPerView: 2,
+            slidesPerView: 1,
             spaceBetween: 24,
             autoplay: {
-                delay: 3000
+                delay: 2000
             },
             loop: true,
             observer: true,
@@ -1007,17 +1053,17 @@ function build_players_swiper() {
                 clickable: true
             },
             breakpoints: {
-                500: {
+                570: {
+                    slidesPerView: 2
+                },
+                840: {
                     slidesPerView: 3
                 },
-                650: {
+                1100: {
                     slidesPerView: 4
                 },
-                900: {
+                1600: {
                     slidesPerView: 5
-                },
-                1100: {
-                    slidesPerView: 6
                 }
             }
         });
@@ -1030,13 +1076,38 @@ function build_players_swiper() {
 
             for (let i = 0; i < player.length; i++) {
                 let ult_template = "";
-                if (player[i].badge) {
-                    ult_template =
-                        `<h6 class="fs-lg fw-semibold pt-1 mb-2 frame_badge_adaptive player_badge">
-                            ${player[i].badge.toUpperCase()}
-                        </h6>`
+                let badges_paste = {
+                    "admin": {
+                        "title": "Админ",
+                        "item": "Diamond"
+                    },
+                    "dev": {
+                        "title": "Разработчик",
+                        "item": "Redstone"
+                    },
+                    "old": {
+                        "title": "Олд",
+                        "item": "Eye_of_Ender"
+                    }
+                }
+                function get_badges() {
+                    let result = "";
+                    for (let s = 0; s < player[i].badges.length; s++) {
+                        let badge_local = player[i].badges[s];
+                        if (badge_local && badge_local.length) {
+                            alternateSort(badge_local);
+                            result = result + `
+                                <div class="player_badge" style="
+                                    background-image: url(./assets/images/items/${badges_paste[badge_local].item}.webp)
+                                    ">
+                                </div>
+                            `
+                        }
+                    }
+                    return result
                 }
                 glob_players.push(player[i].name);
+                let player_badges_ = get_badges();
                 array_.innerHTML =
                     array_.innerHTML +
                     `
@@ -1046,7 +1117,9 @@ function build_players_swiper() {
                            alt="${player[i].name}" loading="lazy"
                         <div class="card-body p-3">
                             <h3 class="fs-lg fw-semibold pt-1 mb-2">${player[i].name}</h3>
-                            ${ult_template}
+                            <div class="player_badge_container" style="${!player_badges_.length ? 'display:none' : ''}">
+                                ${player_badges_}
+                            </div>
                             <p class="fs-sm mb-0">${player[i].desc}</p>
                         </div>
                     </span>
