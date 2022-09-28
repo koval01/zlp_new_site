@@ -38,6 +38,9 @@ var failed_coupon = "";
 var crypto_token = "";
 var events_page_state = "news";
 var donate_displayed = false;
+var freeze_crypto = false;
+var freeze_monitoring = false;
+var game_server_updater_setter;
 var work_domain_v = "zalupa.online";
 
 function init_host_() {
@@ -204,20 +207,24 @@ function get_events_(callback) {
     })
 }
 
-function get_yt_video_(callback, video_id) {
-    re_check(function (token_update) {
-        request_call(
-            function (r) {
-                callback(r.body)
-            },
-            `${backend_host}/youtube_get`,
-            "POST",
-            true, {
-                token: token_update,
-                video_id: video_id
-            }
-        )
-    })
+function get_yt_video_(callback, video_id, skip=false) {
+    if (!skip) {
+        re_check(function (token_update) {
+            request_call(
+                function (r) {
+                    callback(r.body)
+                },
+                `${backend_host}/youtube_get`,
+                "POST",
+                true, {
+                    token: token_update,
+                    video_id: video_id
+                }
+            )
+        })
+    } else {
+        callback(null)
+    }
 }
 
 function get_news_(callback, source) {
@@ -312,7 +319,7 @@ function append_posts_news() {
             }vmin)`;
             getImageLightness(posts[i].cover,function(brightness){
                 let style_ = `#000000${
-                    (((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 16).toString(16).slice(0, 2)
+                    (((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 64).toString(16).slice(0, 2)
                 }`;
                 document.getElementById(`news-overlay-${i}`).style.background = style_
             })
@@ -374,14 +381,16 @@ function get_game_server_data(callback) {
 
         document.getElementById("error_get_server_status").innerText = string_;
     };
-
     if (crypto_token) {
         request_call(
             function (r) {
+                setTimeout(function () {
+                    freeze_monitoring = false
+                }, 800);
                 if (r.success) {
                     callback(r.body)
                 } else {
-                    init_crypto()
+                    crypto_token = ""
                 }
             },
             `${backend_host}/server`,
@@ -390,27 +399,38 @@ function get_game_server_data(callback) {
                 crypto_token: crypto_token
             }
         )
+    } else {
+        init_crypto();
+        freeze_monitoring = false
     }
 }
 
 function monitoring_game_server_update() {
-    get_game_server_data(function (data) {
-        if (data.online) {
-            let selector = document.getElementById("server_online_status");
-            selector.classList.remove("loading-dots");
-            selector.innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${
-                data.online
-            }</span>
+    if (!freeze_monitoring) {
+        freeze_monitoring = true;
+
+        get_game_server_data(function (data) {
+            if (data.online) {
+                if (typeof game_server_updater_setter !== 'undefined') {
+                    clearInterval(game_server_updater_setter)
+                }
+                let selector = document.getElementById("server_online_status");
+                selector.classList.remove("loading-dots");
+                selector.innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${
+                    data.online
+                }</span>
             <i class="emoji male-emoji" style="margin-left: -.35rem!important;background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
             ${getNoun(data.online)}
             <i class="emoji male-emoji" style="background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
-            `;
-        }
-    });
+            `
+            }
+        })
+    }
 }
 
 function game_server_updater() {
     monitoring_game_server_update();
+    game_server_updater_setter = setInterval(monitoring_game_server_update, 300);
     setInterval(monitoring_game_server_update, 6000);
 }
 
@@ -701,7 +721,7 @@ function switch_events_pages(button_name) {
         } else if (button_name === "news") {
             news_page.style.display = "block";
             events_page.style.display = "none";
-            
+
             news_button.setAttribute("disabled", "");
             events_button.removeAttribute("disabled");
 
@@ -715,6 +735,40 @@ function switch_events_pages(button_name) {
 
 function redirect_(url) {
     return window.location.replace(url);
+}
+
+function yt_video_setter(skip=false) {
+    let set_video = function (el, video_id, params) {
+        let video = get_yt_video_(function (data) {
+            if (data && data.video.x720.url && !skip) {
+                el.innerHTML = `
+                    <video class="video-container-yt" ${params.autoplay != null ? 'autoplay=""' : ""} ${params.muted != null ? 'muted=""' : ""} ${params.loop != null ? 'loop=""' : ""} ${params.controls != null ? 'controls=""' : ""} style="object-fit: contain">
+                        <source src="${data.video.x720.url}" type="video/mp4">
+                    </video>
+                `
+            } else {
+                el.innerHTML = `
+                    <iframe src="https://www.youtube.com/embed/${video_id}" title="YouTube video player"
+                        frameborder="0" class="video-container-yt"
+                        allow="accelerometer; ${params.autoplay != null ? 'autoplay' : ""}; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen="" loading="lazy"></iframe>
+                `
+            }
+        }, video_id, skip)
+    }
+
+    for(let el of Array.from(document.getElementsByClassName("yt_video_setter"))) {
+        let video_id = el.getAttribute("video_id");
+
+        if (video_id && video_id.length && video_id.length < 20) {
+            set_video(el, video_id, params={
+                autoplay: el.getAttribute("autoplay"),
+                muted: el.getAttribute("muted"),
+                loop: el.getAttribute("loop"),
+                controls: el.getAttribute("controls")
+            })
+        }
+    }
 }
 
 function modal_close_() {
@@ -1652,10 +1706,14 @@ function links_set_(selector_, fisrt_el_mrg = false) {
 }
 
 function init_crypto() {
-    crypto_token = "";
-    get_crypto_(function (token_) {
-        crypto_token = token_
-    })
+    if (!freeze_crypto) {
+        freeze_crypto = true;
+        crypto_token = "";
+        get_crypto_(function (token_) {
+            crypto_token = token_;
+            freeze_crypto = false
+        })
+    }
 }
 
 function init_landing() {
@@ -1838,6 +1896,7 @@ const init_core = function () {
     init_events_list();
     finish_load();
     success_pay();
+    yt_video_setter(skip=true);
 
     let elem = document.getElementById("dark-perm-set-bv");
     elem.parentNode.removeChild(elem);

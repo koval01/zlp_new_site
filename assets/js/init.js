@@ -57,6 +57,7 @@ function request_call(callback, url, method, json = false, json_body = null) {
 
     request.onerror = function (error) {
         console.log(`Error make request! Details: ${error}`);
+        callback(null)
     };
 
     request.onreadystatechange = () => {

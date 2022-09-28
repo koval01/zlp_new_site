@@ -15,6 +15,11 @@ html {
   --si-gray-600: #53535f;
   --second-bg-theme: #fefefe;
   --contr-color-var: #000;
+  --si-primary: rgb(144, 72, 255) !important;
+}
+
+footer {
+  padding-top: 8rem;
 }
 
 input:-webkit-autofill {
@@ -158,7 +163,7 @@ a:hover {
   height: 50.625vw;
   margin-left: 5vw;
   margin-right: 5vw;
-  border-radius: 0.15rem !important;
+  border-radius: 0.5rem !important;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -880,12 +885,12 @@ a:hover .emoji > b {
   background-repeat: no-repeat;
   background-position: center;
   background-color: #222;
-  border-radius: 0.35rem;
+  border-radius: 0.6rem;
   height: 100%;
 }
 .background-news > .background-news-overlay {
   position: relative;
-  border-radius: 0.35rem;
+  border-radius: 0.6rem;
   background: rgba(0, 0, 0, 0.4);
   height: 100%;
   overflow: hidden;
@@ -894,12 +899,12 @@ a:hover .emoji > b {
   background-color: rgba(0, 0, 0, 0);
   transition: background-color 1.4s;
   height: 100%;
-  border-radius: 0.35rem;
+  border-radius: 0.6rem;
   overflow: hidden;
 }
 
 .dark-mode .background-news-overlay-dark-mode {
-  background-color: rgba(0, 0, 0, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
 .news-text-container {
@@ -978,7 +983,7 @@ a:hover .emoji > b {
 
 .object-block-col {
   --color-event-object: #000;
-  --bg-event-object: rgb(250 248 255);
+  --bg-event-object: rgb(250 250 250);
   --shadow-event-object-color: rgba(0, 0, 0, .4);
 }
 
@@ -988,7 +993,7 @@ a:hover .emoji > b {
   bottom: 0;
   height: 100%;
   min-height: 80px;
-  border-radius: 0;
+  border-radius: 0.7rem;
   padding: 1rem;
   transition: bottom 1s, box-shadow 1.6s;
   color: var(--color-event-object) !important;
@@ -1133,6 +1138,11 @@ a:hover .emoji > b {
 }
 .donate-container-exit-button:hover {
   filter: unset !important;
+}
+
+.yt_video_setter {
+  width: 100%;
+  display: inline-flex;
 }
 
 /*# sourceMappingURL=custom.css.map */
