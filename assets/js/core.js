@@ -1053,13 +1053,13 @@ function build_players_swiper() {
                 clickable: true
             },
             breakpoints: {
-                570: {
+                600: {
                     slidesPerView: 2
                 },
-                840: {
+                920: {
                     slidesPerView: 3
                 },
-                1100: {
+                1200: {
                     slidesPerView: 4
                 },
                 1600: {
@@ -1077,17 +1077,33 @@ function build_players_swiper() {
             for (let i = 0; i < player.length; i++) {
                 let ult_template = "";
                 let badges_paste = {
-                    "admin": {
-                        "title": "Админ",
-                        "item": "Diamond"
+                    admin: {
+                        title: "Админ",
+                        item: "Diamond"
                     },
-                    "dev": {
-                        "title": "Разработчик",
-                        "item": "Redstone"
+                    moderator: {
+                        title: "Модератор",
+                        item: "Ender_Pearl"
                     },
-                    "old": {
-                        "title": "Олд",
-                        "item": "Eye_of_Ender"
+                    dev: {
+                        title: "Разработчик",
+                        item: "Redstone"
+                    },
+                    old: {
+                        title: "Олд",
+                        item: "Eye_of_Ender"
+                    },
+                    girl: {
+                        title: "Девушка",
+                        item: "Pink_Tulip"
+                    },
+                    streamer: {
+                        title: "Стример",
+                        item: "Magma_Cream"
+                    },
+                    conflict: {
+                        title: "Конфликтный",
+                        item: "Netherite_Sword"
                     }
                 }
                 function get_badges() {
@@ -1098,8 +1114,8 @@ function build_players_swiper() {
                             alternateSort(badge_local);
                             result = result + `
                                 <div class="player_badge" style="
-                                    background-image: url(./assets/images/items/${badges_paste[badge_local].item}.webp)
-                                    ">
+                                    background-image: url(./assets/images/items/${badges_paste[badge_local].item}.webp)"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" aria-label="${badges_paste[badge_local].title}">
                                 </div>
                             `
                         }
