@@ -1820,7 +1820,7 @@ function init_landing() {
 function finish_load() {
     document.querySelector("main").setAttribute("style", "");
     document.querySelector("footer").setAttribute("style", "");
-    let heart = "<i class=\"emoji\" style=\"background-image:url('assets/images/emoji/red-heart.png');font-size: 0.95rem\"><b>🤫</b></i>";
+    let heart = "<i class=\"emoji\" style=\"background-image:url('assets/images/emoji/red-heart.png');font-size: 0.95rem\"><b>❤️</b></i>";
     document.getElementById(
         "footer-text-blc"
     ).innerHTML = `Создал KovalYRS с ${heart}, специально для ZALUPA.ONLINE`;
