@@ -76,16 +76,20 @@ function request_call(callback, url, method, json = false, json_body = null) {
 }
 
 function is_development_splash() {
-    document.body.classList.add("modal-open");
-    container_dev_splash.style.display = ""
+    let mode = Cookies.get("dev_splash");
+    if (!mode && mode !== "closed") {
+        document.body.classList.add("modal-open");
+        container_dev_splash.style.display = "";
+    }
 }
 
 function close_dev_splash() {
     document.body.classList.remove("modal-open");
-    container_dev_splash.style.marginTop = "-100vh"
+    container_dev_splash.style.marginTop = "-100vh";
     setTimeout(function () {
         container_dev_splash.style.display = "none"
-    }, 600)
+    }, 600);
+    Cookies.set("dev_splash", "closed");
 }
 
 if (!development_hosts.includes(window.location.hostname)) {
