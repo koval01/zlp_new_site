@@ -1096,7 +1096,7 @@ function build_players_swiper() {
                     let result = "";
                     for (let s = 0; s < player[i].badges.length; s++) {
                         let badge_local = player[i].badges[s];
-                        if (badge_local && badge_local.length) {
+                        if (badge_local && badge_local.length && badge_local !== "verified") {
                             alternateSort(badge_local);
                             result = result + `
                                 <div class="player_badge" 
@@ -1120,7 +1120,10 @@ function build_players_swiper() {
                         <img src="${player[i].head}" class="d-block mx-auto" width="154"
                            alt="${player[i].name}" loading="lazy"
                         <div class="card-body p-3">
-                            <h3 class="fs-lg fw-semibold pt-1 mb-2">${player[i].name}</h3>
+                            <h3 class="fs-lg fw-semibold pt-1 mb-2">
+                                ${player[i].name}
+                                ${player[i].badges.includes("verified") ? '<i class="verified-icon"> ✔</i>' : ""}
+                            </h3>
                             <div class="player_badge_container" style="${!player_badges_.length ? 'display:none' : ''}">
                                 ${player_badges_}
                             </div>
