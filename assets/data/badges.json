@@ -1,0 +1,30 @@
+{
+  "admin": {
+    "title": "Админ",
+    "item": "Diamond"
+  },
+  "moderator": {
+    "title": "Модератор",
+    "item": "Ender_Pearl"
+  },
+  "dev": {
+    "title": "Разработчик",
+    "item": "Redstone"
+  },
+  "old": {
+    "title": "Олд",
+    "item": "Eye_of_Ender"
+  },
+  "girl": {
+    "title": "Девушка",
+    "item": "Pink_Tulip"
+  },
+  "streamer": {
+    "title": "Стример",
+    "item": "Magma_Cream"
+  },
+  "conflict": {
+    "title": "Конфликтный",
+    "item": "Iron_Sword"
+  }
+}

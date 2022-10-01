@@ -36,6 +36,7 @@ var payment_url_global;
 var checked_coupon = "";
 var failed_coupon = "";
 var crypto_token = "";
+var tooltip_instance;
 var events_page_state = "news";
 var donate_displayed = false;
 var freeze_crypto = false;
@@ -1069,6 +1070,20 @@ function build_players_swiper() {
         });
     };
 
+    let badges_get = function(callback) {
+        request_call(
+            function (r) {
+                callback(r)
+            },
+            "assets/data/badges.json",
+            "GET",
+            true
+        )
+    }
+
+    let badges_paste;
+    badges_get(function (badges) { badges_paste = badges });
+
     request_call(
         function (r) {
             let player = r;
@@ -1076,54 +1091,27 @@ function build_players_swiper() {
 
             for (let i = 0; i < player.length; i++) {
                 let ult_template = "";
-                let badges_paste = {
-                    admin: {
-                        title: "Админ",
-                        item: "Diamond"
-                    },
-                    moderator: {
-                        title: "Модератор",
-                        item: "Ender_Pearl"
-                    },
-                    dev: {
-                        title: "Разработчик",
-                        item: "Redstone"
-                    },
-                    old: {
-                        title: "Олд",
-                        item: "Eye_of_Ender"
-                    },
-                    girl: {
-                        title: "Девушка",
-                        item: "Pink_Tulip"
-                    },
-                    streamer: {
-                        title: "Стример",
-                        item: "Magma_Cream"
-                    },
-                    conflict: {
-                        title: "Конфликтный",
-                        item: "Netherite_Sword"
-                    }
-                }
-                function get_badges() {
+
+                function getBadges() {
                     let result = "";
                     for (let s = 0; s < player[i].badges.length; s++) {
                         let badge_local = player[i].badges[s];
                         if (badge_local && badge_local.length) {
                             alternateSort(badge_local);
                             result = result + `
-                                <div class="player_badge" style="
-                                    background-image: url(./assets/images/items/${badges_paste[badge_local].item}.webp)"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" aria-label="${badges_paste[badge_local].title}">
+                                <div class="player_badge" 
+                                    style="background-image: url(./assets/images/items/${badges_paste[badge_local].item}.webp)"
+                                    data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                    title="${badges_paste[badge_local].title}">
                                 </div>
-                            `
+                            `;
                         }
                     }
                     return result
                 }
+
                 glob_players.push(player[i].name);
-                let player_badges_ = get_badges();
+                let player_badges_ = getBadges();
                 array_.innerHTML =
                     array_.innerHTML +
                     `
@@ -1970,6 +1958,21 @@ function donate_container_hash() {
     window.onhashchange = updater
 }
 
+function init_tooltip() {
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        tooltip_instance = new bootstrap.Tooltip(tooltipTriggerEl, {
+            customClass: "zalupa-tooltip"
+        });
+    });
+
+    if (tooltip_instance) {
+        setInterval(function () {
+            tooltip_instance.update();
+        }, 1000)
+    }
+}
+
 const init_core = function () {
     init_host_();
     init_crypto();
@@ -2003,6 +2006,9 @@ const init_core = function () {
         }, wait);
         setTimeout(function () {
             preloader.remove();
+
+            // after tasks
+            init_tooltip();
         }, wait + move_wait);
     }
 };

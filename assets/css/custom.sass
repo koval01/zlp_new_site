@@ -113,12 +113,10 @@ a:hover
 
 .bg-secondary-adaptive
   background: unset !important
-  transition: background-color 1s
 
-@media (max-width: 750px)
+@media (max-width: 780px)
   .bg-secondary-adaptive
     background: #fff !important
-    transition: background-color 700ms
 
   .dark-mode .bg-secondary-adaptive
     background: #18181b !important
@@ -150,10 +148,9 @@ a:hover
 .video-container-yt
   width: 90vw
   height: 50.625vw
-  margin-left: 5vw
-  margin-right: 5vw
+  margin: 5vw
   border-radius: 0.5rem !important
-  filter: drop-shadow(0 0 16px #0003)
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, .65))
 
 .payment-sucess-vova
   height: 40vh
@@ -575,20 +572,29 @@ iframe[id*='telegram-post']
   display: inline-flex
 
 .player_badge
-  height: 2rem
-  width: 2rem
+  height: 2.4rem
+  width: 2.4rem
   margin-left: .2rem
   margin-right: .2rem
   background-size: 1.9rem 1.9rem
   background-repeat: no-repeat
   background-position: center
   border-radius: 0.55rem
-  background-color: transparent
+  background-color: #fefefe
   padding: 1.15rem !important
-  transition: background-color 800ms
+  transition: background-color 400ms
+  box-shadow: 0 0 18px rgba(0, 0, 0, .4)
 
 .dark-mode .player_badge
-  background-color: #fff !important
+  background-color: #18181b !important
+
+.zalupa-tooltip
+  $bs-tooltip-bg: #fefefe !important
+  $tooltip-color: #000
+  //filter: drop-shadow(0 0 18px rgba(0, 0, 0, .4))
+
+.dark-mode .zalupa-tooltip
+  filter: invert(1)
 
 .donate-button
   display: block
@@ -674,7 +680,7 @@ iframe[id*='telegram-post']
     -webkit-filter: blur(0)
 
 .donate-cancel-cart
-  color: var(--si-body-color)
+  color: var(si-body-color)
   font-weight: 700
   font-size: 3.5em
 
@@ -1041,6 +1047,9 @@ a:hover
 .yt_video_setter
   width: 100%
   display: inline-flex
+
+.shadow-primary
+  box-shadow: 0 0.5rem 1.125rem -0.5rem rgb(143 71 255) !important
 
 .container-second-round
   border-radius: .6rem
