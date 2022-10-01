@@ -3,13 +3,13 @@
     "name": "Blackflexxy",
     "head": "https://cravatar.eu/helmhead/Blackflexxy/256.png",
     "desc": "Подельник Илона Туска",
-    "badges": ["old"]
+    "badges": ["old", "legend"]
   },
   {
     "name": "CREXLIGHT",
     "head": "https://cravatar.eu/helmhead/CREXLIGHT/256.png",
     "desc": "Любит дудеть в рог",
-    "badges": ["admin", "old", "developer"]
+    "badges": ["admin", "old", "developer", "legend"]
   },
   {
     "name": "MinDzoM",
@@ -21,7 +21,7 @@
     "name": "D3st0ny",
     "head": "https://cravatar.eu/helmhead/D3st0ny/256.png",
     "desc": "Просто админ которого уволили",
-    "badges": ["old"]
+    "badges": ["old", "legend"]
   },
   {
     "name": "KovalYRS",
@@ -57,7 +57,7 @@
     "name": "teen_wave_",
     "head": "https://cravatar.eu/helmhead/teen_wave_/256.png",
     "desc": "Поддержка проекта",
-    "badges": ["admin", "old"]
+    "badges": ["admin", "old", "legend"]
   },
   {
     "name": "vani5677",
@@ -105,7 +105,7 @@
     "name": "v0kky",
     "head": "https://cravatar.eu/helmhead/v0kky/256.png",
     "desc": "Рабовладелец",
-    "badges": ["admin", "old"]
+    "badges": ["admin", "old", "legend"]
   },
   {
     "name": "rsimson",
@@ -135,7 +135,7 @@
     "name": "_AppleTony_",
     "head": "https://cravatar.eu/helmhead/_AppleTony_/256.png",
     "desc": "Главный админ проекта",
-    "badges": ["admin", "developer", "old"]
+    "badges": ["admin", "developer", "old", "legend"]
   },
   {
     "name": "Marin1337",
@@ -147,7 +147,7 @@
     "name": "moqko",
     "head": "https://cravatar.eu/helmhead/moqko/256.png",
     "desc": "Вова Братишкин",
-    "badges": ["admin", "streamer", "old"]
+    "badges": ["admin", "streamer", "old", "legend"]
   },
   {
     "name": "2p0y",
@@ -159,13 +159,13 @@
     "name": "masha2008",
     "head": "assets/images/players/Masha2008.png",
     "desc": "Фанатка границ мира",
-    "badges": ["girl", "old", "traveler"]
+    "badges": ["girl", "old", "traveler", "legend"]
   },
   {
     "name": "Elon_Tusk",
     "head": "assets/images/players/Elon_Tusk.png",
     "desc": "Очень любит девушек",
-    "badges": ["old", "traveler"]
+    "badges": ["old", "traveler", "legend"]
   },
   {
     "name": "d1xx1",
@@ -207,7 +207,7 @@
     "name": "EXPlaned",
     "head": "assets/images/players/EXPlaned.png",
     "desc": "Создатель клана SWAT",
-    "badges": []
+    "badges": ["old", "legend"]
   },
   {
     "name": "Varleims",
