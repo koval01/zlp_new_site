@@ -99,7 +99,7 @@
     "name": "i5b",
     "head": "https://cravatar.eu/helmhead/i5b/256.png",
     "desc": "24/7 на Анархии",
-    "badges": ["old"]
+    "badges": ["old", "rich"]
   },
   {
     "name": "v0kky",
@@ -117,7 +117,7 @@
     "name": "DjyZott",
     "head": "https://cravatar.eu/helmhead/DjyZott/256.png",
     "desc": "Хуйлан c Анархии",
-    "badges": []
+    "badges": ["rich"]
   },
   {
     "name": "SaiG4",
@@ -219,7 +219,7 @@
     "name": "IIoska",
     "head": "assets/images/players/IIoska.png",
     "desc": "Создатель клана Yakuza",
-    "badges": ["traveler"]
+    "badges": ["traveler", "rich"]
   },
   {
     "name": "lucky367",

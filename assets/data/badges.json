@@ -26,5 +26,9 @@
   "conflict": {
     "title": "Конфликтный",
     "item": "Iron_Sword"
+  },
+  "rich": {
+    "title": "Богатый",
+    "item": "Golden_Pickaxe"
   }
 }
