@@ -15,7 +15,7 @@
     "name": "MinDzoM",
     "head": "https://cravatar.eu/helmhead/MinDzoM/256.png",
     "desc": "Немного агент, немного пиздабол",
-    "badges": []
+    "badges": ["old"]
   },
   {
     "name": "D3st0ny",
@@ -81,7 +81,7 @@
     "name": "hauzmaster",
     "head": "https://cravatar.eu/helmhead/hauzmaster/256.png",
     "desc": "Все дюпы стоят за ним",
-    "badges": []
+    "badges": ["rich"]
   },
   {
     "name": "N3P1X69",
@@ -148,6 +148,12 @@
     "head": "https://cravatar.eu/helmhead/moqko/256.png",
     "desc": "Вова Братишкин",
     "badges": ["admin", "streamer", "old", "legend"]
+  },
+  {
+    "name": "Qusarc",
+    "head": "https://cravatar.eu/helmhead/Qusarc/256.png",
+    "desc": "Любовник Туска",
+    "badges": ["old"]
   },
   {
     "name": "2p0y",
@@ -238,5 +244,17 @@
     "head": "assets/images/players/Rikumashi.png",
     "desc": "100 рублей час",
     "badges": ["girl"]
+  },
+  {
+    "name": "Frey228007",
+    "head": "assets/images/players/Frey228007.png",
+    "desc": "Скучает по СССР",
+    "badges": ["old"]
+  },
+  {
+    "name": "ytka86",
+    "head": "assets/images/players/nick.png",
+    "desc": "Очень активная вумэн",
+    "badges": ["girl", "old"]
   }
 ]
