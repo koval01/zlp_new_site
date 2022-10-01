@@ -9,7 +9,7 @@
     "name": "CREXLIGHT",
     "head": "https://cravatar.eu/helmhead/CREXLIGHT/256.png",
     "desc": "Любит дудеть в рог",
-    "badges": ["admin", "old", "dev"]
+    "badges": ["admin", "old", "developer"]
   },
   {
     "name": "MinDzoM",
@@ -27,7 +27,7 @@
     "name": "KovalYRS",
     "head": "https://cravatar.eu/helmhead/KovalYRS/256.png",
     "desc": "Веб-разработчик",
-    "badges": ["admin", "dev", "old"]
+    "badges": ["admin", "developer", "old"]
   },
   {
     "name": "JelleyFish",
@@ -105,7 +105,7 @@
     "name": "v0kky",
     "head": "https://cravatar.eu/helmhead/v0kky/256.png",
     "desc": "Рабовладелец",
-    "badges": ["admin", "old", "moderator"]
+    "badges": ["admin", "old"]
   },
   {
     "name": "rsimson",
@@ -135,19 +135,19 @@
     "name": "_AppleTony_",
     "head": "https://cravatar.eu/helmhead/_AppleTony_/256.png",
     "desc": "Главный админ проекта",
-    "badges": ["admin", "dev", "old"]
+    "badges": ["admin", "developer", "old"]
   },
   {
     "name": "Marin1337",
     "head": "https://cravatar.eu/helmhead/Marin1337/256.png",
     "desc": "Дядя Марин",
-    "badges": ["admin", "moderator"]
+    "badges": ["admin"]
   },
   {
     "name": "moqko",
     "head": "https://cravatar.eu/helmhead/moqko/256.png",
     "desc": "Вова Братишкин",
-    "badges": ["admin", "dev", "streamer", "old"]
+    "badges": ["admin", "streamer", "old"]
   },
   {
     "name": "2p0y",
@@ -159,13 +159,13 @@
     "name": "masha2008",
     "head": "assets/images/players/Masha2008.png",
     "desc": "Фанатка границ мира",
-    "badges": ["girl", "old"]
+    "badges": ["girl", "old", "traveler"]
   },
   {
     "name": "Elon_Tusk",
     "head": "assets/images/players/Elon_Tusk.png",
     "desc": "Очень любит девушек",
-    "badges": ["old"]
+    "badges": ["old", "traveler"]
   },
   {
     "name": "d1xx1",
@@ -177,7 +177,7 @@
     "name": "R3fraction",
     "head": "assets/images/players/R3fraction.png",
     "desc": "Лучшая вертушка на сервере",
-    "badges": ["conflict"]
+    "badges": ["conflict", "traveler"]
   },
   {
     "name": "Rmpl-FFF",
@@ -213,13 +213,13 @@
     "name": "Varleims",
     "head": "assets/images/players/Varleims.png",
     "desc": "Голос как у Хесуса",
-    "badges": []
+    "badges": ["traveler"]
   },
   {
     "name": "IIoska",
     "head": "assets/images/players/IIoska.png",
     "desc": "Создатель клана Yakuza",
-    "badges": []
+    "badges": ["traveler"]
   },
   {
     "name": "lucky367",

@@ -1,19 +1,19 @@
 {
   "admin": {
     "title": "Админ",
-    "item": "Diamond"
+    "item": "Eye_of_Ender"
   },
-  "moderator": {
-    "title": "Модератор",
+  "traveler": {
+    "title": "Путешественник",
     "item": "Ender_Pearl"
   },
-  "dev": {
+  "developer": {
     "title": "Разработчик",
     "item": "Redstone"
   },
   "old": {
     "title": "Олд",
-    "item": "Eye_of_Ender"
+    "item": "Diamond"
   },
   "girl": {
     "title": "Девушка",
