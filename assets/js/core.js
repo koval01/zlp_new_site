@@ -2821,8 +2821,7 @@ function initTooltip() {
                                 <div class="tooltip" role="tooltip">
                                     <div class="tooltip-inner"></div>
                                 </div>
-                            `,
-                            delay: { show: 0, hide: 0 }
+                            `
                         });
         });
 
