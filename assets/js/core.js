@@ -808,7 +808,7 @@ function check_coupon(callback,
 }
 
 function checkPayment(callback,
-                       payment_id) {
+                      payment_id) {
     re_check(function (token_update) {
         requestCall(
             function (r) {
@@ -2120,7 +2120,7 @@ function donate_enable_coupon(enabled =
 }
 
 function generatePaymentLink(sum =
-                                   0) {
+                                 0) {
     let selector_c = "";
     if (coins_sell_mode) {
         selector_c = "_c"
@@ -2335,7 +2335,7 @@ function initDonate() {
 }
 
 function donateCartCall(coupon = null,
-                          nickname_update = true) {
+                        nickname_update = true) {
     let cart = get_cookie_cart();
     let cart_keys = Object.keys(cart);
     let cart_dom = document
@@ -2499,7 +2499,7 @@ function donateModalCall(
 }
 
 function linksSet(selector_,
-                    fisrt_el_mrg = false) {
+                  fisrt_el_mrg = false) {
     let sl = document.getElementById(
         selector_);
     let mrg =
@@ -2578,27 +2578,34 @@ function observerSystemTheme() {
         .querySelector(
             '[data-bs-toggle="mode"]'
         ).querySelector(
-        ".form-check-input"
-    );
+            ".form-check-input"
+        );
 
     let updateTheme = (mode) => {
         if (mode === "dark") {
-            root.classList.add("dark-mode");
-            theme_switch.checked = true;
+            root.classList.add(
+                "dark-mode");
+            theme_switch.checked =
+                true;
         } else {
-            root.classList.remove("dark-mode");
-            theme_switch.checked = false;
+            root.classList.remove(
+                "dark-mode");
+            theme_switch.checked =
+                false;
         }
     }
 
-    for (let i = 0; i < mode_list.length; i++) {
-        let observer = window.matchMedia(
-            `(prefers-color-scheme: ${mode_list[i]})`
-        );
+    for (let i = 0; i < mode_list
+        .length; i++) {
+        let observer = window
+            .matchMedia(
+                `(prefers-color-scheme: ${mode_list[i]})`
+            );
         observer.addEventListener(
             "change",
-                e => e.matches &&
-                    updateTheme(mode_list[i])
+            e => e.matches &&
+                updateTheme(mode_list[
+                    i])
         );
     }
 }
@@ -2686,7 +2693,8 @@ function callSucessPayModal(
                     .payment_system
                     .match("undefined")
             ) {
-                system_template = "";
+                system_template =
+                    "";
             };
             if (!payment
                 .created_at || !
