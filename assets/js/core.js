@@ -2846,7 +2846,7 @@ const initCore = function () {
             .querySelector(
                 ".page-loading"
             );
-        let wait = 500;
+        let wait = 800;
         let move_wait = 100;
         setTimeout(function () {
             preloader
