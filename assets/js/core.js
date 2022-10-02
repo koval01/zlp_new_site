@@ -1620,7 +1620,11 @@ function buildPlayersSwiper() {
                         <div class="card-body p-3">
                             <h3 class="fs-lg fw-semibold pt-1 mb-2">
                                 ${player[i].name}
-                                ${player[i].badges.includes("verified") ? '<i class="verified-icon"> ✔</i>' : ""}
+                                ${player[i].badges.includes("verified") ? `
+                                    <i class="verified-icon"
+                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="Подтвержденный"> ✔</i>
+                                ` : ""}
                             </h3>
                             <div class="player_badge_container" style="${!player_badges_.length ? 'display:none' : ''}">
                                 ${player_badges_}
