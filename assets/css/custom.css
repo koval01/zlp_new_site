@@ -1211,7 +1211,7 @@ a:hover .emoji > b {
   filter: unset !important;
 }
 
-.yt_video_setter {
+.ytVideoSetter {
   width: 100%;
   display: inline-flex;
 }
