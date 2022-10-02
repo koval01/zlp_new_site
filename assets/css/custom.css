@@ -4,6 +4,7 @@
   src: url(../fonts/minecraft-font.ttf);
 }
 html {
+  --theme-default-color: #000;
   --back-modal-st: rgba(255, 255, 255, 0.85);
   --white-theme-black-set: rgb(255, 255, 255);
   --white-theme-front-set: rgb(0, 0, 0);
@@ -40,11 +41,12 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
 }
 
 .dark-mode {
+  --theme-default-color: #fff;
   --back-modal-st: rgba(41, 41, 41, 0.85);
   --white-theme-black-set: rgb(0, 0, 0);
   --white-theme-front-set: rgb(255, 255, 255);
   --notify-theme-bg: rgba(23, 27, 37, 0.6);
-  --notify-theme-shadow: rgba(144, 72, 255, 0.5);
+  --notify-theme-shadow: rgba(144, 72, 255, 0.25);
   --modal-shadow: rgba(144, 72, 255, 0.5);
   --si-body-bg: #0e0e10;
   --second-bg-theme: #18181b;
@@ -121,6 +123,10 @@ a:hover {
 .btn {
   --si-carousel-nav-btn-hover-bg: rgb(119, 44, 232);
   --si-carousel-nav-btn-hover-box-shadow: 0 .4rem 1.125rem -.5rem rgba(119, 44, 232, 0.95);
+}
+
+.btn-shadow-hide:active, .btn-shadow-hide :focus :target {
+  box-shadow: unset !important;
 }
 
 .bg-secondary {
@@ -693,8 +699,19 @@ iframe[id*=telegram-post] {
   background-color: #18181b !important;
 }
 
-.dark-mode .zalupa-tooltip {
-  filter: invert(1);
+.tooltip-inner {
+  background-color: #fefefe;
+  border-radius: var(--si-tooltip-border-radius, 0);
+  color: var(--theme-default-color);
+  max-width: var(--si-tooltip-max-width);
+  padding: var(--si-tooltip-padding-y) var(--si-tooltip-padding-x);
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .tooltip-inner {
+  background: #18181b;
+  box-shadow: unset !important;
 }
 
 .donate-button {
@@ -818,7 +835,7 @@ iframe[id*=telegram-post] {
   height: auto;
   transition: margin-bottom 0.2s;
   z-index: 9999;
-  box-shadow: 0 -5px 50px 0 var(--notify-theme-shadow);
+  box-shadow: 0 -5px 10vh 0 var(--notify-theme-shadow);
   border-top: 1px solid rgba(255, 255, 255, 0.4);
 }
 
