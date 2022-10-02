@@ -73,6 +73,13 @@ input:-webkit-autofill
 .dark-mode #landing_description_gb
   text-shadow: 0 0 5px black
 
+.btn-dark
+  --si-btn-active-bg: #000
+  --si-btn-active-border-color: #000
+  --si-btn-hover-bg: #9047ff
+  --si-btn-hover-border-color: #9047ff
+  transition: all .5s !important
+
 .dark-mode .btn-dark
   --si-btn-active-bg: #fff
   --si-btn-active-color: #33354d !important
@@ -81,11 +88,8 @@ input:-webkit-autofill
   --si-btn-hover-bg: #dedede
   --si-btn-hover-color: #33354d !important
 
-.btn-dark
-  --si-btn-active-bg: #000
-  --si-btn-active-border-color: #000
-  --si-btn-hover-bg: #9047ff
-  --si-btn-hover-border-color: #9047ff
+  &:hover
+    box-shadow: 0 .3rem 1.15rem -0.15rem rgb(102, 11, 243) !important
 
 a:hover
   color: #772ce8

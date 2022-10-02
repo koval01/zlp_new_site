@@ -36,10 +36,10 @@ var events_page_state = "news";
 var donate_displayed = false;
 var freeze_crypto = false;
 var freeze_monitoring = false;
-var game_server_updater_setter;
+var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 
-function init_host_() {
+function initHost() {
     let keys = Object.keys(
         site_domains);
     for (let i = 0; i < keys
@@ -232,9 +232,9 @@ function getNoun(number, one = "игрок",
     return five;
 }
 
-function get_crypto_(callback, source) {
+function getCrypto(callback, source) {
     re_check(function (token_update) {
-        request_call(
+        requestCall(
             function (r) {
                 if (r
                     .success
@@ -258,7 +258,7 @@ function get_crypto_(callback, source) {
 
 function get_events_(callback) {
     re_check(function (token_update) {
-        request_call(
+        requestCall(
             function (r) {
                 callback(r
                     .events
@@ -277,7 +277,7 @@ function get_yt_video_(callback,
     if (!skip) {
         re_check(function (
             token_update) {
-            request_call(
+            requestCall(
                 function (
                     r) {
                     callback
@@ -300,7 +300,7 @@ function get_yt_video_(callback,
 
 function get_news_(callback, source) {
     re_check(function (token_update) {
-        request_call(
+        requestCall(
             function (r) {
                 callback(r
                     .messages
@@ -314,8 +314,8 @@ function get_news_(callback, source) {
     })
 }
 
-function append_posts_news() {
-    let create_swiper = function () {
+function appendPostsNews() {
+    let createSwiper = function () {
         new Swiper(
             "#news_swipe_container", {
                 spaceBetween: 12,
@@ -467,7 +467,7 @@ function append_posts_news() {
                     }, 150)
             }
         if (posts) {
-            create_swiper();
+            createSwiper();
             loading_done();
         }
     }
@@ -480,7 +480,7 @@ function append_posts_news() {
     }, posts_source)
 }
 
-function donate_switch_container(
+function donateSwitchContainer(
     display) {
     let container = document
         .querySelector(
@@ -535,7 +535,7 @@ function get_game_server_data(
             string_;
     };
     if (crypto_token) {
-        request_call(
+        requestCall(
             function (r) {
                 setTimeout(
                     function () {
@@ -556,7 +556,7 @@ function get_game_server_data(
             }
         )
     } else {
-        init_crypto();
+        initCrypto();
         freeze_monitoring = false
     }
 }
@@ -568,12 +568,12 @@ function monitoring_game_server_update() {
         get_game_server_data(function (
             data) {
             if (data.online) {
-                if (typeof game_server_updater_setter !==
+                if (typeof gameServerUpdater_setter !==
                     'undefined'
                 ) {
                     clearInterval
                     (
-                        game_server_updater_setter
+                        gameServerUpdater_setter
                     )
                 }
                 let selector =
@@ -599,9 +599,9 @@ function monitoring_game_server_update() {
     }
 }
 
-function game_server_updater() {
+function gameServerUpdater() {
     monitoring_game_server_update();
-    game_server_updater_setter =
+    gameServerUpdater_setter =
         setInterval(
             monitoring_game_server_update,
             300);
@@ -610,7 +610,7 @@ function game_server_updater() {
         6000);
 }
 
-function init_events_list() {
+function initEventsList() {
     let row_container = document
         .getElementById(
             "events-row-container");
@@ -747,7 +747,7 @@ function init_events_list() {
 
 function get_donate_services(callback) {
     re_check(function (token_update) {
-        request_call(
+        requestCall(
             function (r) {
                 callback(r
                     .services
@@ -765,7 +765,7 @@ function create_payment(callback,
                         customer, products, email = "",
                         coupon = "") {
     re_check(function (token_update) {
-        request_call(
+        requestCall(
             function (r) {
                 callback(r
                     .payment
@@ -787,7 +787,7 @@ function create_payment(callback,
 function check_coupon(callback,
                       coupon) {
     re_check(function (token_update) {
-        request_call(
+        requestCall(
             function (r) {
                 if (r
                     .coupon
@@ -807,10 +807,10 @@ function check_coupon(callback,
     })
 }
 
-function check_payment(callback,
+function checkPayment(callback,
                        payment_id) {
     re_check(function (token_update) {
-        request_call(
+        requestCall(
             function (r) {
                 callback(r
                     .payment
@@ -828,7 +828,7 @@ function check_payment(callback,
     })
 }
 
-function append_services() {
+function appendServices() {
     get_donate_services(function (
         services) {
         donate_services_array =
@@ -1047,7 +1047,7 @@ function append_services() {
     });
 }
 
-function switch_events_pages(
+function switchEventsPages(
     button_name) {
     let news_page = document
         .getElementById(
@@ -1107,7 +1107,7 @@ function redirect_(url) {
     return window.location.replace(url);
 }
 
-function yt_video_setter(skip = false) {
+function ytVideoSetter(skip = false) {
     let set_video = function (el,
                               video_id, params) {
         let video = get_yt_video_(
@@ -1134,7 +1134,7 @@ function yt_video_setter(skip = false) {
 
     for (let el of Array.from(document
         .getElementsByClassName(
-            "yt_video_setter"))) {
+            "ytVideoSetter"))) {
         let video_id = el.getAttribute(
             "video_id");
 
@@ -1281,7 +1281,7 @@ function get_cookie_cart() {
     return cookie_cart;
 }
 
-function update_cart_count() {
+function updateCartCount() {
     document.getElementById(
         "count_cart_items_dn")
         .innerText = countProperties(
@@ -1289,7 +1289,7 @@ function update_cart_count() {
     );
 }
 
-function group_already_in_cart(
+function groupAlreadyInCart(
     user_cart) {
     let cart = Object.keys(user_cart);
 
@@ -1345,12 +1345,12 @@ function comment_show_action(id, close =
     }
 }
 
-function comments_init() {
+function initComments() {
     let array_ = document
         .getElementById(
             "comment_swipe_array");
 
-    let create_swiper = function () {
+    let createSwiper = function () {
         swiper_comments =
             new Swiper(
                 "#comment_swipe_container", {
@@ -1374,9 +1374,9 @@ function comments_init() {
                 })
     }
 
-    let players_get = function (
+    let playersGet = function (
         callback) {
-        request_call(
+        requestCall(
             function (r) {
                 callback(r)
             },
@@ -1385,7 +1385,7 @@ function comments_init() {
         )
     }
 
-    let search_player = function (
+    let searchPlayer = function (
         players, name) {
         for (let i = 0; i < players
             .length; i++) {
@@ -1396,12 +1396,12 @@ function comments_init() {
         }
     }
 
-    request_call(
+    requestCall(
         function (r) {
             let comment = r;
             shuffle(comment);
 
-            players_get(function (
+            playersGet(function (
                 players) {
                 for (let i =
                     0; i <
@@ -1409,7 +1409,7 @@ function comments_init() {
                          .length; i++
                 ) {
                     let player =
-                        search_player(
+                        searchPlayer(
                             players,
                             comment[
                                 i
@@ -1496,19 +1496,19 @@ function comments_init() {
                 }
             });
 
-            create_swiper();
+            createSwiper();
         },
         "assets/data/comments.json",
         "GET", true
     )
 }
 
-function build_players_swiper() {
+function buildPlayersSwiper() {
     let array_ = document
         .getElementById(
             "players-swiper-array");
 
-    let create_swiper = function () {
+    let createSwiper = function () {
         new Swiper(
             "#players_swipe_container", {
                 slidesPerView: 1,
@@ -1543,7 +1543,7 @@ function build_players_swiper() {
 
     let badges_get = function (
         callback) {
-        request_call(
+        requestCall(
             function (r) {
                 callback(r)
             },
@@ -1557,7 +1557,7 @@ function build_players_swiper() {
         badges_paste = badges
     });
 
-    request_call(
+    requestCall(
         function (r) {
             let player = r;
             shuffle(player);
@@ -1632,7 +1632,7 @@ function build_players_swiper() {
             `;
             }
 
-            create_swiper();
+            createSwiper();
         },
         "assets/data/players.json",
         "GET", true
@@ -1693,7 +1693,7 @@ function donate_element_click(
                 product_data.type) ||
             product_data.type ===
             "group") &&
-        group_already_in_cart(
+        groupAlreadyInCart(
             cookie_cart)
     ) {
         switch_modal_containers("info");
@@ -1815,7 +1815,7 @@ function donate_get_service_by_id(id) {
     return null;
 }
 
-function donate_reset_payment_state(
+function donateResetPaymentState(
     repeat = false) {
     let sl = "_c";
     let vl = document.getElementById(
@@ -1829,7 +1829,7 @@ function donate_reset_payment_state(
             "payment-button-donate" + sl
         );
     button.setAttribute("onClick",
-        `generate_payment_link(${vl})`
+        `generatePaymentLink(${vl})`
     );
     button.removeAttribute("disabled");
     button.innerText = repeat ?
@@ -1910,9 +1910,9 @@ function donate_cart(product, count,
     Cookies.set(cart_cookie, JSON
         .stringify(els_));
     modal_close_();
-    init_donate();
-    update_cart_count();
-    donate_reset_payment_state();
+    initDonate();
+    updateCartCount();
+    donateResetPaymentState();
 }
 
 function donate_cart_button(els = {}) {
@@ -1952,13 +1952,13 @@ function donate_cart_button(els = {}) {
     }
 }
 
-function donate_flush_cart() {
+function donateFlushCart() {
     Cookies.remove(cart_cookie);
     donate_cart_button({});
     notify("Корзина очищена");
 }
 
-function coupon_check(coins = false) {
+function couponCheck(coins = false) {
     let selector_c = "";
     if (coins_sell_mode) {
         selector_c = "-c"
@@ -2054,7 +2054,7 @@ function coupon_check(coins = false) {
                 coins_sell_mode
             ) {
                 call();
-                donate_cart_call
+                donateCartCall
                 (code,
                     false)
             } else if (
@@ -2103,7 +2103,7 @@ function donate_enable_coupon(enabled =
         input.setAttribute(
             "placeholder", "BRFF");
         button.setAttribute("onClick",
-            "coupon_check()");
+            "couponCheck()");
         input.removeAttribute(
             "disabled");
         button.removeAttribute(
@@ -2119,7 +2119,7 @@ function donate_enable_coupon(enabled =
     }
 }
 
-function generate_payment_link(sum =
+function generatePaymentLink(sum =
                                    0) {
     let selector_c = "";
     if (coins_sell_mode) {
@@ -2221,7 +2221,7 @@ function generate_payment_link(sum =
                 notify(
                     "Ошибка, не удалось сформировать чек для оплаты"
                 );
-                donate_reset_payment_state
+                donateResetPaymentState
                 (true);
             }
         }, customer, products,
@@ -2280,7 +2280,7 @@ function payment_action_bt() {
             "success");
         modal_open_();
         build_modal_wind();
-        donate_reset_payment_state
+        donateResetPaymentState
         ();
         flush_inputs_donate()
     }
@@ -2322,7 +2322,7 @@ function donate_check_services_cart() {
     }
 }
 
-function init_donate() {
+function initDonate() {
     let els = {};
 
     try {
@@ -2334,7 +2334,7 @@ function init_donate() {
     donate_enable_coupon(true);
 }
 
-function donate_cart_call(coupon = null,
+function donateCartCall(coupon = null,
                           nickname_update = true) {
     let cart = get_cookie_cart();
     let cart_keys = Object.keys(cart);
@@ -2360,7 +2360,7 @@ function donate_cart_call(coupon = null,
         selectors_payment[i]
             .addEventListener("input",
                 function (_) {
-                    donate_reset_payment_state
+                    donateResetPaymentState
                     ();
                 });
     }
@@ -2435,7 +2435,7 @@ function donate_cart_call(coupon = null,
     }
 }
 
-function donate_coins_pay() {
+function donateCoinsPay() {
     let button = document
         .getElementById(
             "payment-button-donate_c");
@@ -2449,11 +2449,11 @@ function donate_coins_pay() {
     }
 
     button.setAttribute("onClick",
-        `generate_payment_link(${sum})`
+        `generatePaymentLink(${sum})`
     )
 }
 
-function donate_modal_call(
+function donateModalCall(
     nickname_update = true) {
     let sum = document.getElementById(
         "donate_sum");
@@ -2473,7 +2473,7 @@ function donate_modal_call(
         selectors_payment[i]
             .addEventListener("input",
                 function (_) {
-                    donate_reset_payment_state
+                    donateResetPaymentState
                     ()
                 })
     };
@@ -2494,11 +2494,11 @@ function donate_modal_call(
 
     sum.addEventListener("input",
         function (_) {
-            donate_coins_pay()
+            donateCoinsPay()
         });
 }
 
-function links_set_(selector_,
+function linksSet(selector_,
                     fisrt_el_mrg = false) {
     let sl = document.getElementById(
         selector_);
@@ -2521,11 +2521,11 @@ function links_set_(selector_,
     }
 }
 
-function init_crypto() {
+function initCrypto() {
     if (!freeze_crypto) {
         freeze_crypto = true;
         crypto_token = "";
-        get_crypto_(function (token_) {
+        getCrypto(function (token_) {
             crypto_token =
                 token_;
             freeze_crypto =
@@ -2534,7 +2534,7 @@ function init_crypto() {
     }
 }
 
-function init_landing() {
+function initLanding() {
     if (development_hosts.includes(
             window.location.hostname) &&
         lock_of) {
@@ -2548,12 +2548,12 @@ function init_landing() {
             "Этот блок работает в демонстративном режиме и не является функциональным.";
     }
 
-    links_set_("landing-links-tp",
+    linksSet("landing-links-tp",
         true);
-    links_set_("links-block-footer-v")
+    linksSet("links-block-footer-v")
 }
 
-function finish_load() {
+function finishLoad() {
     document.querySelector("main")
         .setAttribute("style", "");
     document.querySelector("footer")
@@ -2572,7 +2572,38 @@ function finish_load() {
     }
 }
 
-function call_sucess_pay_modal(
+function observerSystemTheme() {
+    let mode_list = ["dark", "light"];
+    let theme_switch = document
+        .querySelector(
+            '[data-bs-toggle="mode"]'
+        ).querySelector(
+        ".form-check-input"
+    );
+
+    let updateTheme = (mode) => {
+        if (mode === "dark") {
+            root.classList.add("dark-mode");
+            theme_switch.checked = true;
+        } else {
+            root.classList.remove("dark-mode");
+            theme_switch.checked = false;
+        }
+    }
+
+    for (let i = 0; i < mode_list.length; i++) {
+        let observer = window.matchMedia(
+            `(prefers-color-scheme: ${mode_list[i]})`
+        );
+        observer.addEventListener(
+            "change",
+                e => e.matches &&
+                    updateTheme(mode_list[i])
+        );
+    }
+}
+
+function callSucessPayModal(
     payment_id = 0) {
     let cart_dom = document
         .getElementById(
@@ -2586,10 +2617,10 @@ function call_sucess_pay_modal(
     let title = document.querySelector(
         ".modal-title");
 
-    donate_switch_container(display =
+    donateSwitchContainer(display =
         true);
 
-    let build_payment = function (
+    let buildPayment = function (
         payment) {
         if (payment.status && (
             payment_id ==
@@ -2714,13 +2745,13 @@ function call_sucess_pay_modal(
 
     let enable_modal = function (
         payment) {
-        build_payment(payment);
+        buildPayment(payment);
         switch_modal_containers(
             "success");
         modal_open_();
     }
 
-    check_payment(function (payment) {
+    checkPayment(function (payment) {
         if (typeof payment
                 .status !==
             'undefined') {
@@ -2736,24 +2767,24 @@ function call_sucess_pay_modal(
     }, payment_id);
 }
 
-function success_pay() {
+function successPay() {
     let url = new URL(window.location
         .href).searchParams;
     let payment_id = url.get(
         "pg_order_id");
 
     if (payment_id) {
-        call_sucess_pay_modal(
+        callSucessPayModal(
             payment_id);
     }
 }
 
-function donate_container_hash() {
+function donateContainerHash() {
     let updater = function () {
         if (linkHash() ==
             "donate") {
             donate_displayed = true;
-            donate_switch_container(
+            donateSwitchContainer(
                 display = true);
         }
     }
@@ -2762,7 +2793,7 @@ function donate_container_hash() {
     window.onhashchange = updater;
 }
 
-function init_tooltip() {
+function initTooltip() {
     let tooltipTriggerList = [].slice
         .call(document.querySelectorAll(
             '[data-bs-toggle="tooltip"]'
@@ -2786,22 +2817,23 @@ function init_tooltip() {
     }
 }
 
-const init_core = function () {
-    init_host_();
-    init_crypto();
-    init_landing();
-    donate_container_hash();
-    build_players_swiper();
-    append_posts_news();
-    comments_init();
-    append_services();
-    update_cart_count();
-    game_server_updater();
-    init_donate();
-    init_events_list();
-    finish_load();
-    success_pay();
-    yt_video_setter(skip = true);
+const initCore = function () {
+    initHost();
+    initCrypto();
+    initLanding();
+    observerSystemTheme();
+    donateContainerHash();
+    buildPlayersSwiper();
+    appendPostsNews();
+    initComments();
+    appendServices();
+    updateCartCount();
+    gameServerUpdater();
+    initDonate();
+    initEventsList();
+    finishLoad();
+    successPay();
+    ytVideoSetter(skip = true);
 
     let elem = document
         .getElementById(
@@ -2841,7 +2873,7 @@ const init_core = function () {
                 .remove();
 
             // after tasks
-            init_tooltip
+            initTooltip
             ();
         }, wait +
             move_wait);
@@ -2849,5 +2881,5 @@ const init_core = function () {
 }
 
 script_core.onload = function () {
-    init_core();
+    initCore();
 }

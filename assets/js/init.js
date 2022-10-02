@@ -48,7 +48,7 @@ function notify(text) {
         notify_hide, 2500);
 }
 
-function request_call(callback, url,
+function requestCall(callback, url,
                       method, json = false, json_body =
                           null) {
     let request = new XMLHttpRequest();
@@ -118,7 +118,7 @@ function is_development_splash() {
     }
 }
 
-function close_dev_splash() {
+function closeDevSplash() {
     document.body.classList.remove(
         "modal-open");
     container_dev_splash.style
