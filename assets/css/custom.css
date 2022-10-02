@@ -88,7 +88,6 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   --si-btn-active-border-color: #000;
   --si-btn-hover-bg: #9047ff;
   --si-btn-hover-border-color: #9047ff;
-  transition: all 0.5s !important;
 }
 
 .dark-mode .btn-dark {
@@ -512,7 +511,7 @@ body.modal-open {
 .btn {
   border: 0;
   color: var(--si-btn-color);
-  transition: background-color 400ms;
+  transition: all 0.6s !important;
 }
 
 .cart-desc-td {
@@ -828,7 +827,7 @@ iframe[id*=telegram-post] {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: var(--si-btn-scroll-top-color);
-  transition: all 0.7s;
+  transition: all 0.7s !important;
   border: 0 rgba(0, 0, 0, 0);
   box-shadow: unset;
 }
