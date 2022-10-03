@@ -201,7 +201,7 @@
     "name": "Sunflower",
     "head": "assets/images/players/Sunflower.png",
     "desc": "Очередная женщина сервера",
-    "badges": ["girl"]
+    "badges": ["girl", "clan-Yakuza"]
   },
   {
     "name": "TaidaKN",
@@ -219,13 +219,13 @@
     "name": "Varleims",
     "head": "assets/images/players/Varleims.png",
     "desc": "Голос как у Хесуса",
-    "badges": ["traveler"]
+    "badges": ["traveler", "clan-Yakuza"]
   },
   {
     "name": "IIoska",
     "head": "assets/images/players/IIoska.png",
     "desc": "Создатель клана Yakuza",
-    "badges": ["traveler", "rich"]
+    "badges": ["traveler", "rich", "clan-Yakuza"]
   },
   {
     "name": "lucky367",
@@ -237,7 +237,7 @@
     "name": "bagdantixi",
     "head": "assets/images/players/bagdantixi.png",
     "desc": "Очень крутой школьник",
-    "badges": ["conflict"]
+    "badges": ["conflict", "clan-Yakuza"]
   },
   {
     "name": "Rikumashi",
@@ -256,5 +256,11 @@
     "head": "assets/images/players/ytenok86.png",
     "desc": "Очень активная вумэн",
     "badges": ["girl", "old"]
+  },
+  {
+    "name": "adamoovv",
+    "head": "assets/images/players/adamoovv.png",
+    "desc": "Главный клоун",
+    "badges": ["old", "legend"]
   }
 ]

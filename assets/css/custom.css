@@ -676,6 +676,21 @@ iframe[id*=telegram-post] {
   margin-left: 3px;
 }
 
+.player_head_container {
+  width: 155px;
+  margin: auto;
+}
+.player_head_container > .player_clan_badge {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  background-image: url(../images/clan.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.6));
+}
+
 .player_badge_container {
   display: inline-flex;
 }
