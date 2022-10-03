@@ -34,5 +34,17 @@
   "legend": {
     "title": "Легенда",
     "item": "baby-symbol"
+  },
+  "boy": {
+    "title": "Boy next door",
+    "item": "glass-of-milk"
+  },
+  "adamoovv": {
+    "title": "Адамов",
+    "item": "clown-face"
+  },
+  "king": {
+    "title": "Насяльника",
+    "item": "king"
   }
 }

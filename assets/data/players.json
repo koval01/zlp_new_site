@@ -9,7 +9,7 @@
     "name": "CREXLIGHT",
     "head": "https://cravatar.eu/helmhead/CREXLIGHT/256.png",
     "desc": "Любит дудеть в рог",
-    "badges": ["admin", "old", "developer", "legend"]
+    "badges": ["admin", "old", "developer", "legend", "boy"]
   },
   {
     "name": "MinDzoM",
@@ -105,7 +105,7 @@
     "name": "v0kky",
     "head": "https://cravatar.eu/helmhead/v0kky/256.png",
     "desc": "Рабовладелец",
-    "badges": ["admin", "old", "legend"]
+    "badges": ["admin", "old", "legend", "boy"]
   },
   {
     "name": "rsimson",
@@ -135,7 +135,7 @@
     "name": "_AppleTony_",
     "head": "https://cravatar.eu/helmhead/_AppleTony_/256.png",
     "desc": "Главный админ проекта",
-    "badges": ["admin", "developer", "old", "legend"]
+    "badges": ["admin", "developer", "old", "legend", "king"]
   },
   {
     "name": "Marin1337",
@@ -171,7 +171,7 @@
     "name": "Elon_Tusk",
     "head": "assets/images/players/Elon_Tusk.png",
     "desc": "Очень любит девушек",
-    "badges": ["old", "traveler", "legend"]
+    "badges": ["old", "traveler", "legend", "boy"]
   },
   {
     "name": "d1xx1",
@@ -219,7 +219,7 @@
     "name": "Varleims",
     "head": "assets/images/players/Varleims.png",
     "desc": "Голос как у Хесуса",
-    "badges": ["traveler", "clan-Yakuza"]
+    "badges": ["traveler", "clan-Yakuza", "boy"]
   },
   {
     "name": "IIoska",
@@ -261,6 +261,6 @@
     "name": "adamoovv",
     "head": "assets/images/players/adamoovv.png",
     "desc": "Главный клоун",
-    "badges": ["old", "legend"]
+    "badges": ["old", "legend", "boy", "adamoovv"]
   }
 ]
