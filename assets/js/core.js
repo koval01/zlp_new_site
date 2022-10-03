@@ -796,7 +796,7 @@ function ytVideoSetter(skip = false) {
             function (data) {
                 if (data && data.video.x720.url && !skip) {
                     el.innerHTML = `
-                    <video class="video-container-yt" ${
+                    <video class="video-container" ${
                         params.autoplay != null ? 'autoplay=""' : ""
                     } ${params.muted != null ? 'muted=""' : ""} ${
                         params.loop != null ? 'loop=""' : ""
@@ -1158,7 +1158,7 @@ function buildPlayersSwiper() {
                                     result +
                                     `
                                     <div class="player_badge" 
-                                        style="background-image: url(./assets/images/items/${badges_paste[badge_local].item}.webp)"
+                                        style="background-image: url(./assets/images/emoji/${badges_paste[badge_local].item}.png)"
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                         title="${badges_paste[badge_local].title}">
                                     </div>

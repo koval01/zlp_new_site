@@ -1,38 +1,38 @@
 {
   "admin": {
     "title": "Админ",
-    "item": "Eye_of_Ender"
+    "item": "admin"
   },
   "traveler": {
     "title": "Путешественник",
-    "item": "Ender_Pearl"
+    "item": "camping"
   },
   "developer": {
     "title": "Разработчик",
-    "item": "Redstone"
+    "item": "sloth"
   },
   "old": {
     "title": "Олд",
-    "item": "Diamond"
+    "item": "old-man"
   },
   "girl": {
     "title": "Девушка",
-    "item": "Pink_Tulip"
+    "item": "tulip"
   },
   "streamer": {
     "title": "Стример",
-    "item": "Magma_Cream"
+    "item": "studio-microphone"
   },
   "conflict": {
     "title": "Конфликтный",
-    "item": "Iron_Sword"
+    "item": "orangutan"
   },
   "rich": {
     "title": "Богатый",
-    "item": "Golden_Pickaxe"
+    "item": "money-bag"
   },
   "legend": {
     "title": "Легенда",
-    "item": "Nether_Star"
+    "item": "baby-symbol"
   }
 }

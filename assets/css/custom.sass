@@ -151,8 +151,18 @@ a:hover
   background: linear-gradient(180deg,#0000, rgba(119, 44, 232, 0.55) 120%) !important
 
 @media (min-width: 1400px)
+  .video-container
+    height: 320px !important
+
   .video-container-yt
     height: 320px !important
+
+.video-container
+  width: 90%
+  height: 50.625%
+  margin: 5vw
+  border-radius: 0.5rem !important
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, .65))
 
 .video-container-yt
   width: 90vw
@@ -354,6 +364,11 @@ iframe
 
   .background_media_overlay_tag
     height: 100vh
+
+  .video-container
+    width: 90%
+    height: 50.625% !important
+    margin: 2vw
 
   .video-container-yt
     width: 45vw
@@ -600,7 +615,7 @@ iframe[id*='telegram-post']
     position: absolute
     width: 3rem
     height: 3rem
-    background-image: url(../images/clan.png)
+    background-image: url(../images/emoji/rainbow-flag.png)
     background-position: center
     background-repeat: no-repeat
     background-size: cover
@@ -1095,6 +1110,9 @@ a:hover
 .ytVideoSetter
   width: 100%
   display: inline-flex
+
+.VideoSetter
+  display: flex
 
 .shadow-primary
   box-shadow: 0 0.5rem 1.125rem -0.5rem rgb(143 71 255) !important
