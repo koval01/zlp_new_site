@@ -40,6 +40,11 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   background: rgba(144, 72, 255, 0.5);
 }
 
+.bg-light:not(.badge), .card.card-hover.bg-light {
+  background: rgba(255, 255, 255, 0.57) !important;
+  backdrop-filter: blur(16px);
+}
+
 .dark-mode {
   --theme-default-color: #fff;
   --back-modal-st: rgba(41, 41, 41, 0.85);
@@ -53,7 +58,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   --contr-color-var: #fff;
 }
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
-  background-color: rgba(11, 15, 25, 0.6) !important;
+  background-color: rgba(23, 20, 28, 0.55) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.24);
@@ -1260,6 +1265,18 @@ a:hover .emoji > b {
   box-shadow: 0 0.5rem 1.125rem -0.5rem rgb(143, 71, 255) !important;
 }
 
+.flicker {
+  animation: flicker 3s linear infinite;
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 1;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+  }
+}
 .container-second-round {
   border-radius: 0.6rem;
   filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));

@@ -40,6 +40,7 @@ var tooltip_instance;
 var events_page_state = "news";
 var donate_displayed = false;
 var freeze_crypto = false;
+var debug_lock_init = false;
 var freeze_monitoring = false;
 var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
@@ -2127,24 +2128,26 @@ const initCore = function () {
     elem.parentNode.removeChild(elem);
 
     window.onload = function () {
-        let preloader = document.querySelector(".page-loading");
-        let wait = 800;
-        let move_wait = 100;
-        setTimeout(function () {
-            preloader.classList.remove("active");
-            if (!donate_displayed) {
-                document.body.style.overflowY = "";
-            }
-            window.scrollTo({
-                top: 0,
-            });
-        }, wait);
-        setTimeout(function () {
-            preloader.remove();
+        if (!debug_lock_init) {
+            let preloader = document.querySelector(".page-loading");
+            let wait = 1000;
+            let move_wait = 100;
+            setTimeout(function () {
+                preloader.classList.remove("active");
+                if (!donate_displayed) {
+                    document.body.style.overflowY = "";
+                }
+                window.scrollTo({
+                    top: 0,
+                });
+            }, wait);
+            setTimeout(function () {
+                preloader.remove();
 
-            // after tasks
-            initTooltip();
-        }, wait + move_wait);
+                // after tasks
+                initTooltip();
+            }, wait + move_wait);
+        }
     };
 };
 
