@@ -129,7 +129,7 @@
     "name": "Parijanin",
     "head": "https://cravatar.eu/helmhead/Parijanin/256.png",
     "desc": "Главная списка на сервере",
-    "badges": ["conflict"]
+    "badges": ["conflict", "old", "legend"]
   },
   {
     "name": "_AppleTony_",
