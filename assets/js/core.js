@@ -1190,10 +1190,10 @@ function buildPlayersSwiper() {
                                     data-bs-toggle="tooltip" data-bs-placement="top"
                                     title="${player_clan}"
                                 ></div>` : ""}
-                                <img src="${
-                            player[i].head
-                        }" class="d-block mx-auto" width="155"
-                                    alt="${player[i].name}" loading="lazy" />
+                                <div 
+                                    class="player-head d-block mx-auto" 
+                                    style="background-image: url(${player[i].head})"
+                                ></div>
                             </div>
                             <div class="card-body p-3">
                                 <h3 class="fs-lg fw-semibold pt-1 mb-2">
