@@ -1552,95 +1552,92 @@ function buildPlayersSwiper() {
         )
     }
 
-    let badges_paste;
-    badges_get(function (badges) {
-        badges_paste = badges
-    });
+    badges_get(function (badges_paste) {
+        requestCall(
+            function (r) {
+                let player = r;
+                shuffle(player);
 
-    requestCall(
-        function (r) {
-            let player = r;
-            shuffle(player);
+                for (let i = 0; i <
+                player.length; i++
+                ) {
+                    let ult_template =
+                        "";
 
-            for (let i = 0; i <
-            player.length; i++
-            ) {
-                let ult_template =
-                    "";
-
-                function getBadges() {
-                    let result = "";
-                    for (let s =
-                        0; s <
-                         player[i]
-                             .badges
-                             .length; s++
-                    ) {
-                        let badge_local =
-                            player[
-                                i]
-                                .badges[
-                                s];
-                        if (badge_local &&
-                            badge_local
-                                .length &&
-                            badge_local !==
-                            "verified"
+                    function getBadges() {
+                        let result = "";
+                        for (let s =
+                            0; s <
+                             player[i]
+                                 .badges
+                                 .length; s++
                         ) {
-                            alternateSort
-                            (
+                            let badge_local =
+                                player[
+                                    i]
+                                    .badges[
+                                    s];
+                            if (badge_local &&
                                 badge_local
-                            );
-                            result =
-                                result + `
-                                <div class="player_badge" 
-                                    style="background-image: url(./assets/images/items/${badges_paste[badge_local].item}.webp)"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom" 
-                                    title="${badges_paste[badge_local].title}">
-                                </div>
-                            `;
+                                    .length &&
+                                badge_local !==
+                                "verified"
+                            ) {
+                                alternateSort
+                                (
+                                    badge_local
+                                );
+                                result =
+                                    result + `
+                                    <div class="player_badge" 
+                                        style="background-image: url(./assets/images/items/${badges_paste[badge_local].item}.webp)"
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                        title="${badges_paste[badge_local].title}">
+                                    </div>
+                                `;
+                            }
                         }
+                        return result
                     }
-                    return result
+
+                    glob_players.push(
+                        player[i]
+                            .name);
+                    let player_badges_ =
+                        getBadges();
+                    array_.innerHTML =
+                        array_
+                            .innerHTML +
+                        `
+                    <div class="swiper-slide text-center">
+                        <span class="d-block py-3">
+                            <img src="${player[i].head}" class="d-block mx-auto" width="154"
+                               alt="${player[i].name}" loading="lazy"
+                            <div class="card-body p-3">
+                                <h3 class="fs-lg fw-semibold pt-1 mb-2">
+                                    ${player[i].name}
+                                    ${player[i].badges.includes("verified") ? `
+                                        <i class="verified-icon"
+                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Подтвержденный"> ✔</i>
+                                    ` : ""}
+                                </h3>
+                                <div class="player_badge_container" style="${!player_badges_.length ? 'display:none' : ''}">
+                                    ${player_badges_}
+                                </div>
+                                <p class="fs-sm mb-0">${player[i].desc}</p>
+                            </div>
+                        </span>
+                    </div>
+                `;
                 }
 
-                glob_players.push(
-                    player[i]
-                        .name);
-                let player_badges_ =
-                    getBadges();
-                array_.innerHTML =
-                    array_
-                        .innerHTML +
-                    `
-                <div class="swiper-slide text-center">
-                    <span class="d-block py-3">
-                        <img src="${player[i].head}" class="d-block mx-auto" width="154"
-                           alt="${player[i].name}" loading="lazy"
-                        <div class="card-body p-3">
-                            <h3 class="fs-lg fw-semibold pt-1 mb-2">
-                                ${player[i].name}
-                                ${player[i].badges.includes("verified") ? `
-                                    <i class="verified-icon"
-                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                    title="Подтвержденный"> ✔</i>
-                                ` : ""}
-                            </h3>
-                            <div class="player_badge_container" style="${!player_badges_.length ? 'display:none' : ''}">
-                                ${player_badges_}
-                            </div>
-                            <p class="fs-sm mb-0">${player[i].desc}</p>
-                        </div>
-                    </span>
-                </div>
-            `;
-            }
-
-            createSwiper();
-        },
-        "assets/data/players.json",
-        "GET", true
-    )
+                createSwiper();
+            },
+            "assets/data/players.json",
+            "GET", true
+        );
+    });
 }
 
 function donate_element_click(

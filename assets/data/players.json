@@ -39,7 +39,7 @@
     "name": "lomaka",
     "head": "https://cravatar.eu/helmhead/lomaka/256.png",
     "desc": "Стример, что тут ещё говорить",
-    "badges": ["streamer", "admin", "old", "verified"]
+    "badges": ["streamer", "admin", "old"]
   },
   {
     "name": "sadwaiter",
@@ -57,7 +57,7 @@
     "name": "teen_wave_",
     "head": "https://cravatar.eu/helmhead/teen_wave_/256.png",
     "desc": "Поддержка проекта",
-    "badges": ["admin", "old", "legend", "verified"]
+    "badges": ["admin", "old", "legend"]
   },
   {
     "name": "vani5677",
@@ -135,7 +135,7 @@
     "name": "_AppleTony_",
     "head": "https://cravatar.eu/helmhead/_AppleTony_/256.png",
     "desc": "Главный админ проекта",
-    "badges": ["admin", "developer", "old", "legend", "verified"]
+    "badges": ["admin", "developer", "old", "legend"]
   },
   {
     "name": "Marin1337",
@@ -147,7 +147,7 @@
     "name": "moqko",
     "head": "https://cravatar.eu/helmhead/moqko/256.png",
     "desc": "Вова Братишкин",
-    "badges": ["admin", "streamer", "old", "legend", "verified"]
+    "badges": ["admin", "streamer", "old", "legend"]
   },
   {
     "name": "Qusarc",
