@@ -117,7 +117,7 @@
     "name": "DjyZott",
     "head": "https://cravatar.eu/helmhead/DjyZott/256.png",
     "desc": "Хуйлан c Анархии",
-    "badges": ["rich"]
+    "badges": ["old", "rich", "clan-Alliance"]
   },
   {
     "name": "SaiG4",
@@ -231,7 +231,7 @@
     "name": "lucky367",
     "head": "assets/images/players/lucky367.png",
     "desc": "Главный плеер Общения",
-    "badges": []
+    "badges": ["old", "clan-Alliance"]
   },
   {
     "name": "bagdantixi",

@@ -1145,6 +1145,7 @@ function buildPlayersSwiper() {
 
                     function getBadges() {
                         let result = "";
+                        player[i].badges.sort();
                         for (let s = 0; s < player[i].badges.length; s++) {
                             let badge_local = player[i].badges[s];
                             if (
@@ -1153,7 +1154,6 @@ function buildPlayersSwiper() {
                                 badge_local !== "verified" &&
                                 !badge_local.includes("clan-")
                             ) {
-                                alternateSort(badge_local);
                                 result =
                                     result +
                                     `
