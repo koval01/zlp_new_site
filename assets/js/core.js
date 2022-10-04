@@ -528,7 +528,7 @@ function initEventsList() {
                     "0" + st_date.getHours()
                 ).slice(-2)}:${("0" + st_date.getMinutes()).slice(-2)}
                                 </span> по <span class="text-primary">
-                                ${st_date.toLocaleDateString("ru-RU")} ${(
+                                ${end_date.toLocaleDateString("ru-RU")} ${(
                     "0" + end_date.getHours()
                 ).slice(-2)}:${("0" + end_date.getMinutes()).slice(-2)}
                                 </span></h6>
