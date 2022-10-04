@@ -1265,7 +1265,7 @@ a:hover .emoji > b {
   box-shadow: 0 0.5rem 1.125rem -0.5rem rgb(143, 71, 255) !important;
 }
 
-.flicker {
+.dark-mode .flicker {
   animation: flicker 3s linear infinite;
 }
 
