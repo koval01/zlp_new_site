@@ -189,7 +189,7 @@
     "name": "Rmpl-FFF",
     "head": "assets/images/players/Rmpl-FFF.png",
     "desc": "Билдер на сервере общения",
-    "badges": []
+    "badges": ["old"]
   },
   {
     "name": "dangl1",
