@@ -156,6 +156,24 @@
     "badges": ["old"]
   },
   {
+    "name": "R3fraction",
+    "head": "https://cravatar.eu/helmhead/R3fraction/256.png",
+    "desc": "Лучшая вертушка на сервере",
+    "badges": ["conflict", "traveler"]
+  },
+  {
+    "name": "TaidaKN",
+    "head": "https://cravatar.eu/helmhead/TaidaKN/256.png",
+    "desc": "НН-чик с сервера общения",
+    "badges": []
+  },
+  {
+    "name": "lucky367",
+    "head": "https://cravatar.eu/helmhead/lucky367/256.png",
+    "desc": "Главный плеер Общения",
+    "badges": ["old", "clan-Alliance"]
+  },
+  {
     "name": "2p0y",
     "head": "assets/images/players/2p0y.png",
     "desc": "Мега-кодер на JS",
@@ -180,12 +198,6 @@
     "badges": ["girl"]
   },
   {
-    "name": "R3fraction",
-    "head": "assets/images/players/R3fraction.png",
-    "desc": "Лучшая вертушка на сервере",
-    "badges": ["conflict", "traveler"]
-  },
-  {
     "name": "Rmpl-FFF",
     "head": "assets/images/players/Rmpl-FFF.png",
     "desc": "Билдер на сервере общения",
@@ -204,12 +216,6 @@
     "badges": ["girl", "clan-Yakuza"]
   },
   {
-    "name": "TaidaKN",
-    "head": "assets/images/players/TaidaKN.png",
-    "desc": "НН-чик с сервера общения",
-    "badges": []
-  },
-  {
     "name": "EXPlaned",
     "head": "assets/images/players/EXPlaned.png",
     "desc": "Создатель клана SWAT",
@@ -226,12 +232,6 @@
     "head": "assets/images/players/IIoska.png",
     "desc": "Создатель клана Yakuza",
     "badges": ["traveler", "rich", "clan-Yakuza"]
-  },
-  {
-    "name": "lucky367",
-    "head": "assets/images/players/lucky367.png",
-    "desc": "Главный плеер Общения",
-    "badges": ["old", "clan-Alliance"]
   },
   {
     "name": "bagdantixi",
