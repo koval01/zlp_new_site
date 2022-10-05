@@ -46,5 +46,9 @@
   "king": {
     "title": "Насяльника",
     "item": "king"
+  },
+  "helping": {
+    "title": "Помощь администрации",
+    "item": "handshake"
   }
 }
