@@ -976,16 +976,18 @@ a:hover
   background: var(--bg-event-object) !important
   position: relative
   bottom: 0
+  left: 0
   height: 100%
   min-height: 80px
-  border-radius: .7rem
+  border-radius: 0 !important
   padding: 1rem
-  transition: bottom 1s, box-shadow 1.6s
+  transition: all 1s
   color: var(--color-event-object) !important
 
   &:hover
-    bottom: .8rem
-    box-shadow: 0 0 26px var(--shadow-event-object-color)
+    bottom: .4rem
+    left: .4rem
+    box-shadow: -6px 6px 0 #9047ff
 
 .event-switch-buttons
   margin: auto
