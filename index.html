@@ -17,11 +17,11 @@
     <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#6366f1">
     <link rel="shortcut icon" href="assets/favicon/favicon.ico">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.2/css/boxicons.min.css"
-          integrity="sha512-AGmpdsTqvAh2GvTWzVhhJ9VqQb1eAXwOM7uiWtv0DzcnGaGWy98K51z2cK5OG3gp4NB1HbMaD7p0MeO9kE7E3w=="
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
+          integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.css"
-          integrity="sha512-T3xwtELy3dqQUajk2sl4V6x/VnT+WbXgAKIu/Go7L6oDDWf4A5dJbG49vKn0am3dTNh/KHAbU2+4Ih2vVioxSg=="
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.3/swiper-bundle.min.css"
+          integrity="sha512-uuenj2ro+QKfF5Ig2BYOy3s3BhYPODotv/9V8Ue1MHrrwsiYKY01WzNMNk45i0jRUMXZxEuGpUzyPahsKOMKTg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" media="screen" href="assets/css/theme.min.css">
     <link rel="stylesheet" media="screen" href="assets/css/custom.min.css">
@@ -109,7 +109,8 @@
                     <embed src="assets/images/shopping-cart.svg" class="cst-icon-svg">
                     Корзина ( <span id="count_cart_items_dn">0</span>)
                 </button>
-                <button class="btn btn-icon btn-secondary btn-shadow-hide mx-2 donate-cart-button-cn" onclick="donateFlushCart()">
+                <button class="btn btn-icon btn-secondary btn-shadow-hide mx-2 donate-cart-button-cn"
+                        onclick="donateFlushCart()">
                     <span class="donate-cancel-cart">&times;</span>
                 </button>
             </div>
@@ -140,7 +141,8 @@
                                     </div>
                                 </div>
                                 <br/>
-                                <button id="donate_button_add_to_cart" class="w-100 btn btn-primary btn-lg btn-shadow-hide"
+                                <button id="donate_button_add_to_cart"
+                                        class="w-100 btn btn-primary btn-lg btn-shadow-hide"
                                         type="button">
                                     Добавить
                                 </button>
@@ -190,7 +192,8 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="coupon-input-c"
                                                    placeholder="BRFF">
-                                            <button class="btn btn-dark btn-shadow-hide" id="coupon-button-c" type="button"
+                                            <button class="btn btn-dark btn-shadow-hide" id="coupon-button-c"
+                                                    type="button"
                                                     onclick="couponCheck(true)">Проверить
                                             </button>
                                         </div>
@@ -223,7 +226,8 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="coupon-input" placeholder="BRFF"
                                                    disabled>
-                                            <button class="btn btn-dark btn-shadow-hide" id="coupon-button" type="button" disabled>
+                                            <button class="btn btn-dark btn-shadow-hide" id="coupon-button"
+                                                    type="button" disabled>
                                                 Проверить
                                             </button>
                                         </div>
@@ -237,7 +241,8 @@
                         </div>
                     </div>
                     <div class="modal-footer flex-column border-top-0">
-                        <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b btn-shadow-hide">Закрыть</button>
+                        <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b btn-shadow-hide">Закрыть
+                        </button>
                     </div>
                 </div>
             </div>
@@ -362,7 +367,8 @@
                         <div class="top-0 zindex-5 d-flex align-items-center justify-content-center">
                             <div class="VideoSetter">
                                 <video class="video-container" controls>
-                                    <source src="https://raw.githubusercontent.com/koval01/zlp_new_site/media/video_main.mp4" type="video/mp4">
+                                    <source src="https://raw.githubusercontent.com/koval01/zlp_new_site/media/video_main.mp4"
+                                            type="video/mp4">
                                 </video>
                             </div>
                         </div>
@@ -422,7 +428,8 @@
                         <div class="top-0 zindex-5 d-flex align-items-center justify-content-center">
                             <div class="VideoSetter">
                                 <video class="video-container" controls>
-                                    <source src="https://raw.githubusercontent.com/koval01/zlp_new_site/media/video_ad.mp4" type="video/mp4">
+                                    <source src="https://raw.githubusercontent.com/koval01/zlp_new_site/media/video_ad.mp4"
+                                            type="video/mp4">
                                 </video>
                             </div>
                         </div>
@@ -529,14 +536,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
         integrity="sha512-wT7uPE7tOP6w4o28u1DN775jYjHQApdBnib5Pho4RB0Pgd9y7eSkAV1BTqQydupYDB9GBhTcQQzyNMPMV3cAew=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.bundle.min.js"
-        integrity="sha512-1TK4hjCY5+E9H3r5+05bEGbKGyK506WaDPfPe1s/ihwRjr6OtL43zJLzOFQ+/zciONEd+sp7LwrfOCnyukPSsg=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"
+        integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.polyfills.min.js"
         integrity="sha512-LZ6YBzwuQvIG41twjliX3HUVeAd+ErnJ0UsqRnkI4firX2l71jxbKJoax/hu7XY2tiyLl0YA2kcnz/XEW+9O3g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.js"
-        integrity="sha512-V1mUBtsuFY9SNr+ptlCQAlPkhsH0RGLcazvOCFt415od2Bf9/YkdjXxZCdhrP/TVYsPeAWuHa+KYLbjNbeEnWg=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.3/swiper-bundle.min.js"
+        integrity="sha512-4MIWP9ui3MVR0iuCnJ9l6b9DWrCspboU0BbX5DNXoSJ4ZQXjrY7+sPJEehrR0rAx88jVUT9f9Hoa7fawwB3jHg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/2.0.4/jarallax.min.js"
+        integrity="sha512-nvmYAfRcRhffFD47Bz2In79HI86Zw84cCPXs675EjUYqgLAkirq2N38LXI6U5r6UZ+vz2zqBWxRQaScpjPwF5A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="assets/js/theme.min.js"></script>
 <script src="assets/js/init.min.js"></script>
