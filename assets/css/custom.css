@@ -479,7 +479,7 @@ iframe {
 }
 
 .donate-item-butt-bottom {
-  margin-top: 0.3rem;
+  margin-top: 0.7rem;
   padding: 0.4rem;
   font-size: 0.8rem;
 }
@@ -606,7 +606,7 @@ body.modal-open {
 .parent-image-shadow .imageContainer .backgroundImg {
   position: absolute;
   top: 2px;
-  transform: scale(1);
+  transform: scale(0.75);
   transition: all 0.8s cubic-bezier(0.32, 0.4, 0.45, 0.94);
   z-index: 1;
   opacity: 1;
@@ -615,7 +615,7 @@ body.modal-open {
 }
 
 .container-item-donate-n:hover .backgroundImg {
-  transform: scale(1.6);
+  transform: scale(1.15);
 }
 
 #discord-embed iframe {
@@ -680,7 +680,6 @@ iframe[id*=telegram-post] {
   font-size: 0.85em;
   margin: auto;
   width: 85%;
-  height: 80px;
 }
 
 .verified-icon {
@@ -1215,13 +1214,13 @@ a:hover .emoji > b {
   bottom: 0;
   height: 24vh;
   margin-top: -4rem;
-  --stone-logo-shadow-size: 36px;
+  --stone-logo-shadow-size: 42px;
   --stone-log-shadow-color: 144, 72, 255, .95;
 }
 @media (prefers-color-scheme: dark) {
   .stone-logo-subtext.loading-splash-logo {
-    --stone-logo-shadow-size: 18px;
-    --stone-log-shadow-color: 144, 72, 255, .75;
+    --stone-logo-shadow-size: 64px;
+    --stone-log-shadow-color: 144, 72, 255, .4;
   }
 }
 

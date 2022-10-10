@@ -1002,11 +1002,11 @@ function appendServices() {
                         desc_template
                             = `
                         <p class="mb-0 token-description-dnt">
-                            Игровая валюта, которую можно сделать как в игре, так и получить за поддержку проекта.
+                            Игровая валюта, которую можно получить как в игре, так и за поддержку проекта.
                         </p>`;
                         button_title
                             =
-                            "Хочу токены";
+                            "Приобрести токены";
 
                         click_template
                             =
@@ -1037,7 +1037,7 @@ function appendServices() {
                         </p>`;
                         button_title
                             =
-                            "Хочу пропуск";
+                            "Приобрести пропуск";
 
                         click_template
                             =
