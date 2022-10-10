@@ -7,19 +7,23 @@ const site_domains = {
 };
 const cart_cookie = "cart_box";
 const channels = 2;
-const links_lt = [{
-    name: "twitch",
-    link: "https://www.twitch.tv/bratishkinoff",
-}, {
-    name: "youtube",
-    link: "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ",
-}, {
-    name: "telegram",
-    link: "https://t.me/zalupaonline",
-}, {
-    name: "discord",
-    link: "https://discord.gg/qEqbVbMeEx",
-}, ];
+const links_lt = [
+    {
+        name: "twitch",
+        link: "https://www.twitch.tv/bratishkinoff",
+    },
+    {
+        name: "youtube",
+        link: "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ",
+    },
+    {
+        name: "telegram",
+        link: "https://t.me/zalupaonline",
+    },
+    {
+        name: "discord",
+        link: "https://discord.gg/qEqbVbMeEx",
+    }, ];
 const lock_of = true;
 const coins_sell_mode = true;
 var donate_services_array = [];
@@ -42,50 +46,61 @@ var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
 var current_c_item = 0;
 
-function initHost() {
+function initHost()
+{
     let keys = Object.keys(
         site_domains);
     for (let i = 0; i < keys
-        .length; i++) {
+        .length; i++)
+    {
         if (site_domains[keys[i]] ===
-            window.location.hostname) {
+            window.location.hostname)
+        {
             work_domain_v =
                 site_domains[keys[i]];
         }
     }
 }
 
-function linkHash() {
+function linkHash()
+{
     return window.location.hash
         .substring(1);
 }
 
-function getHash(link) {
+function getHash(link)
+{
     let hash = window.location.hash
         .substr(1);
     return Object.keys(
         hash.split("&")
             .reduce(
-                function(result,
-                         item) {
+                function (result,
+                          item)
+                {
                     let parts = item
                         .split("=");
                     result[parts[0]] =
                         parts[1];
                     return result;
-                }, {})
+                },
+                {})
     )[0];
 }
 
-function re_check(callback) {
-    grecaptcha.ready(function() {
+function re_check(callback)
+{
+    grecaptcha.ready(function ()
+    {
         grecaptcha
-            .execute(re_token, {
-                action: "submit",
-            })
-            .then(function(
+            .execute(re_token,
+                {
+                    action: "submit",
+                })
+            .then(function (
                 token_update
-            ) {
+            )
+            {
                 callback(
                     token_update
                 );
@@ -93,11 +108,13 @@ function re_check(callback) {
     });
 }
 
-function shuffle(array) {
+function shuffle(array)
+{
     let currentIndex = array.length,
         randomIndex;
 
-    while (currentIndex !== 0) {
+    while (currentIndex !== 0)
+    {
         randomIndex = Math.floor(Math
             .random() * currentIndex
         );
@@ -111,24 +128,29 @@ function shuffle(array) {
     return array;
 }
 
-function alternateSort(list) {
+function alternateSort(list)
+{
     let minIndex = 0;
     let minVal = 0;
 
     for (let i = 0; i < list
-        .length; i++) {
+        .length; i++)
+    {
         minIndex = i;
         minVal = list[i];
 
         for (let j = i + 1; j < list
-            .length; j++) {
-            if (list[j] < minVal) {
+            .length; j++)
+        {
+            if (list[j] < minVal)
+            {
                 minVal = list[j];
                 minIndex = j;
             }
         }
 
-        if (minVal < list[i]) {
+        if (minVal < list[i])
+        {
             let temp = list[i];
             list[i] = list[minIndex];
             list[minIndex] = temp;
@@ -137,7 +159,8 @@ function alternateSort(list) {
 }
 
 function getImageLightness(imageSrc,
-                           callback) {
+                           callback)
+{
     let img = document.createElement(
         "img");
     img.src = imageSrc;
@@ -147,7 +170,8 @@ function getImageLightness(imageSrc,
 
     let colorSum = 0;
 
-    img.onload = function() {
+    img.onload = function ()
+    {
         let canvas = document
             .createElement(
                 "canvas");
@@ -168,7 +192,8 @@ function getImageLightness(imageSrc,
 
         for (let x = 0, len = data
             .length; x <
-             len; x += 4) {
+             len; x += 4)
+        {
             r = data[x];
             g = data[x + 1];
             b = data[x + 2];
@@ -188,7 +213,8 @@ function getImageLightness(imageSrc,
     };
 }
 
-function validateEmail(email) {
+function validateEmail(email)
+{
     return String(email)
         .toLowerCase()
         .match(
@@ -197,11 +223,13 @@ function validateEmail(email) {
 }
 
 function url_builder_(base_url,
-                      submit_data_) {
+                      submit_data_)
+{
     let url = new URL(base_url);
 
     for (let i = 0; i < submit_data_
-        .length; i++) {
+        .length; i++)
+    {
         url.searchParams.set(
             submit_data_[i].name,
             submit_data_[i].value);
@@ -210,46 +238,57 @@ function url_builder_(base_url,
     return url.href;
 }
 
-function countProperties(obj) {
+function countProperties(obj)
+{
     return Object.keys(obj)
         .length;
 }
 
 function getNoun(number, one = "игрок",
                  two = "игрока", five = "игроков"
-) {
+)
+{
     let n = Math.abs(number);
     n %= 100;
 
-    if (n >= 5 && n <= 20) {
+    if (n >= 5 && n <= 20)
+    {
         return five;
     }
 
     n %= 10;
 
-    if (n === 1) {
+    if (n === 1)
+    {
         return one;
     }
 
-    if (n >= 2 && n <= 4) {
+    if (n >= 2 && n <= 4)
+    {
         return two;
     }
 
     return five;
 }
 
-function getCrypto(callback, source) {
-    re_check(function(token_update) {
+function getCrypto(callback, source)
+{
+    re_check(function (token_update)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 if (r
                     .success
-                ) {
+                )
+                {
                     callback
                     (r
                         .token
                     );
-                } else {
+                }
+                else
+                {
                     callback
                     (
                         ""
@@ -257,23 +296,28 @@ function getCrypto(callback, source) {
                 }
             },
             `${backend_host}/crypto`,
-            "POST", true, {
+            "POST", true,
+            {
                 token: token_update,
             }
         );
     });
 }
 
-function get_events_(callback) {
-    re_check(function(token_update) {
+function get_events_(callback)
+{
+    re_check(function (token_update)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 callback(r
                     .events
                 );
             },
             `${backend_host}/events`,
-            "POST", true, {
+            "POST", true,
+            {
                 token: token_update,
             }
         );
@@ -281,13 +325,17 @@ function get_events_(callback) {
 }
 
 function get_yt_video_(callback,
-                       video_id, skip = false) {
-    if (!skip) {
-        re_check(function(
-            token_update) {
+                       video_id, skip = false)
+{
+    if (!skip)
+    {
+        re_check(function (
+            token_update)
+        {
             requestCall(
-                function(
-                    r) {
+                function (
+                    r)
+                {
                     callback
                     (r
                         .body
@@ -295,67 +343,82 @@ function get_yt_video_(callback,
                 },
                 `${backend_host}/youtube_get`,
                 "POST",
-                true, {
+                true,
+                {
                     token: token_update,
                     video_id: video_id,
                 }
             );
         });
-    } else {
+    }
+    else
+    {
         callback(null);
     }
 }
 
-function get_news_(callback, source) {
-    re_check(function(token_update) {
+function get_news_(callback, source)
+{
+    re_check(function (token_update)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 callback(r
                     .messages
                 );
             },
             `${backend_host}/channel_parse?choice=${source}`,
-            "POST", true, {
+            "POST", true,
+            {
                 token: token_update,
             }
         );
     });
 }
 
-function appendPostsNews() {
-    let createSwiper = function() {
+function appendPostsNews()
+{
+    let createSwiper = function ()
+    {
         new Swiper(
-            "#news_swipe_container", {
+            "#news_swipe_container",
+            {
                 spaceBetween: 12,
                 loop: true,
                 observer: true,
                 observeParents: true,
                 preventClicks: false,
                 preventClicksPropagation: false,
-                autoplay: {
-                    delay: 1000 *
-                        10,
-                },
-                pagination: {
-                    el: "#news_swiper_pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    prevEl: "#prev_news",
-                    nextEl: "#next_news",
-                },
+                autoplay:
+                    {
+                        delay: 1000 *
+                            10,
+                    },
+                pagination:
+                    {
+                        el: "#news_swiper_pagination",
+                        clickable: true,
+                    },
+                navigation:
+                    {
+                        prevEl: "#prev_news",
+                        nextEl: "#next_news",
+                    },
             });
     };
 
-    let add_news_in_array = function(
-        posts, source) {
+    let add_news_in_array = function (
+        posts, source)
+    {
         let array_ = document
             .getElementById(
                 "news_swipe_array");
         posts = posts.reverse();
 
         for (let i = 0; i < posts
-            .length; i++) {
+            .length; i++)
+        {
             let text = posts[i]
                 .text;
             let text_array = text
@@ -363,7 +426,8 @@ function appendPostsNews() {
             let datetime = new Date(
                 posts[i]
                     .datetime_utc);
-            if (!posts[i].cover) {
+            if (!posts[i].cover)
+            {
                 posts[i].cover =
                     "assets/images/spawn.webp";
             }
@@ -432,9 +496,10 @@ function appendPostsNews() {
             )}vmin)`;
             getImageLightness(posts[
                     i].cover,
-                function(
+                function (
                     brightness
-                ) {
+                )
+                {
                     let style_ = `#000000${(
                         ((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 64
                     )
@@ -450,9 +515,11 @@ function appendPostsNews() {
                 });
         }
         let loading_done =
-            function() {
+            function ()
+            {
                 setTimeout(
-                    function() {
+                    function ()
+                    {
                         let sl =
                             document
                                 .getElementById(
@@ -464,7 +531,8 @@ function appendPostsNews() {
                                     "news_zlp_buttons"
                                 );
 
-                        try {
+                        try
+                        {
                             sl.parentNode
                                 .removeChild(
                                     sl
@@ -473,12 +541,15 @@ function appendPostsNews() {
                                 .style
                                 .display =
                                 "";
-                        } catch (
+                        }
+                        catch (
                             _
-                            ) {}
+                            )
+                        {}
                     }, 150);
             };
-        if (posts) {
+        if (posts)
+        {
             createSwiper();
             loading_done();
         }
@@ -486,39 +557,47 @@ function appendPostsNews() {
 
     let posts_source =
         1; // zalupaonline
-    get_news_(function(posts) {
+    get_news_(function (posts)
+    {
         add_news_in_array(posts,
             posts_source);
     }, posts_source);
 }
 
 function donateSwitchContainer(
-    display) {
+    display)
+{
     let container = document
         .querySelector(
             ".donate-global-container");
 
-    let update_zIndex = function(
-        variable) {
-        setTimeout(function() {
+    let update_zIndex = function (
+        variable)
+    {
+        setTimeout(function ()
+        {
             container.style
                 .zIndex =
                 variable;
         }, 850);
     };
 
-    if (!donate_displayed || display) {
+    if (!donate_displayed || display)
+    {
         document.body.style.overflowY =
             "hidden";
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
+        window.scrollTo(
+            {
+                top: 0,
+                behavior: "smooth",
+            });
         container.style.minHeight = "";
         update_zIndex("");
 
         donate_displayed = true;
-    } else {
+    }
+    else
+    {
         container.style.minHeight = "0";
         container.style.zIndex = "-1";
         document.body.style.overflowY =
@@ -529,14 +608,19 @@ function donateSwitchContainer(
 }
 
 function get_game_server_data(
-    callback) {
-    let _data_error = function(ok =
-                                   false) {
+    callback)
+{
+    let _data_error = function (ok =
+                                    false)
+    {
         let string_ = "";
 
-        if (ok) {
+        if (ok)
+        {
             string_ = "";
-        } else {
+        }
+        else
+        {
             string_ =
                 "Не удается обновить информацию о сервере...";
         }
@@ -547,44 +631,58 @@ function get_game_server_data(
             .innerText =
             string_;
     };
-    if (crypto_token) {
+    if (crypto_token)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 setTimeout(
-                    function() {
+                    function ()
+                    {
                         freeze_monitoring
                             =
                             false;
                     }, 800);
-                if (r.success) {
+                if (r.success)
+                {
                     callback(r
                         .body);
-                } else {
+                }
+                else
+                {
                     crypto_token =
                         "";
                 }
             },
             `${backend_host}/server`,
-            "POST", true, {
+            "POST", true,
+            {
                 crypto_token: crypto_token,
             }
         );
-    } else {
+    }
+    else
+    {
         initCrypto();
         freeze_monitoring = false;
     }
 }
 
-function monitoring_game_server_update() {
-    if (!freeze_monitoring) {
+function monitoring_game_server_update()
+{
+    if (!freeze_monitoring)
+    {
         freeze_monitoring = true;
 
-        get_game_server_data(function(
-            data) {
-            if (data.online) {
+        get_game_server_data(function (
+            data)
+        {
+            if (data.online)
+            {
                 if (typeof gameServerUpdater_setter !==
                     "undefined"
-                ) {
+                )
+                {
                     clearInterval
                     (
                         gameServerUpdater_setter
@@ -613,7 +711,8 @@ function monitoring_game_server_update() {
     }
 }
 
-function gameServerUpdater() {
+function gameServerUpdater()
+{
     monitoring_game_server_update();
     gameServerUpdater_setter =
         setInterval(
@@ -624,7 +723,8 @@ function gameServerUpdater() {
         6000);
 }
 
-function initEventsList() {
+function initEventsList()
+{
     let row_container = document
         .getElementById(
             "events-row-container");
@@ -636,14 +736,17 @@ function initEventsList() {
             "events-c-button");
     let row_class = ["row-cols-md-2", "row-cols-lg-2", "row-cols-xl-3"];
 
-    get_events_(function(data) {
+    get_events_(function (data)
+    {
         if (data && data
-            .length) {
+            .length)
+        {
             events_block_load
                 .remove();
 
-            data.sort(function(
-                a, b) {
+            data.sort(function (
+                a, b)
+            {
                 let keyA =
                         new Date(
                             a
@@ -667,8 +770,9 @@ function initEventsList() {
             });
 
             let time_correction =
-                function(
-                    date) {
+                function (
+                    date)
+                {
                     let userTimezoneOffset = -
                             date
                                 .getTimezoneOffset() *
@@ -682,12 +786,14 @@ function initEventsList() {
 
             for (let i = 0; i <
             data.length; i++
-            ) {
+            )
+            {
                 switch_button_
                     .removeAttribute(
                         "disabled"
                     );
-                if (3 > i > 0) {
+                if (3 > i > 0)
+                {
                     row_container
                         .classList
                         .add(
@@ -716,19 +822,23 @@ function initEventsList() {
                     new Date(
                         new Date()
                             .toLocaleString(
-                                "en-US", {
+                                "en-US",
+                                {
                                     timeZone: "Europe/Moscow",
                                 })
                     );
                 let badge = "";
                 if (st_date >
                     time_in_moscow
-                ) {
+                )
+                {
                     badge =
                         "Скоро";
-                } else if (
+                }
+                else if (
                     time_in_moscow >
-                    end_date) {
+                    end_date)
+                {
                     badge =
                         "Завершено";
                 }
@@ -760,16 +870,20 @@ function initEventsList() {
     });
 }
 
-function get_donate_services(callback) {
-    re_check(function(token_update) {
+function get_donate_services(callback)
+{
+    re_check(function (token_update)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 callback(r
                     .services
                 );
             },
             `${backend_host}/donate/services`,
-            "POST", true, {
+            "POST", true,
+            {
                 token: token_update,
             }
         );
@@ -778,16 +892,20 @@ function get_donate_services(callback) {
 
 function create_payment(callback,
                         customer, products, server_id,
-                        email = "", coupon = "") {
-    re_check(function(token_update) {
+                        email = "", coupon = "")
+{
+    re_check(function (token_update)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 callback(r
                     .payment
                 );
             },
             `${backend_host}/donate/payment/create`,
-            "POST", true, {
+            "POST", true,
+            {
                 customer: customer,
                 products: products,
                 email: email,
@@ -801,13 +919,17 @@ function create_payment(callback,
 }
 
 function check_coupon(callback,
-                      coupon) {
-    re_check(function(token_update) {
+                      coupon)
+{
+    re_check(function (token_update)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 if (r
                     .coupon
-                ) {
+                )
+                {
                     callback
                     (r
                         .coupon
@@ -815,7 +937,8 @@ function check_coupon(callback,
                 }
             },
             `${backend_host}/donate/coupon`,
-            "POST", true, {
+            "POST", true,
+            {
                 code: coupon,
                 token: token_update,
             }
@@ -824,16 +947,20 @@ function check_coupon(callback,
 }
 
 function checkPayment(callback,
-                      payment_id) {
-    re_check(function(token_update) {
+                      payment_id)
+{
+    re_check(function (token_update)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 callback(r
                     .payment
                 );
             },
             `${backend_host}/donate/payment_get`,
-            "POST", true, {
+            "POST", true,
+            {
                 payment_id: parseInt(
                     payment_id
                 ),
@@ -844,9 +971,11 @@ function checkPayment(callback,
     });
 }
 
-function appendServices() {
-    get_donate_services(function(
-        services) {
+function appendServices()
+{
+    get_donate_services(function (
+        services)
+    {
         donate_services_array =
             services;
         let size_classes = [
@@ -858,7 +987,8 @@ function appendServices() {
             );
 
         let get_product_type = (
-            name, type) => {
+            name, type) =>
+        {
             name = name
                 .toLowerCase();
             type = type
@@ -869,28 +999,35 @@ function appendServices() {
                     ) &&
                 type ===
                 "currency"
-            ) {
+            )
+            {
                 return 1;
-            } else if (name
+            }
+            else if (name
                     .includes(
                         "проходка"
                     ) &&
                 type ===
-                "other") {
+                "other")
+            {
                 return 2;
             }
         }
 
-        if (!services.length) {
+        if (!services.length)
+        {
             sl.innerHTML =
                 '<span class="text-center">Не удалось получить список товаров.</span>';
-        } else {
+        }
+        else
+        {
             donate_check_services_cart
             ();
 
             for (let i = 0; i <
             services
-                .length; i++) {
+                .length; i++)
+            {
                 let click_data = {
                     name: services[
                         i
@@ -955,7 +1092,8 @@ function appendServices() {
                 if (i &&
                     size_classes
                         .length >= i
-                ) {
+                )
+                {
                     sl.classList
                         .add(
                             size_classes[
@@ -971,12 +1109,15 @@ function appendServices() {
 
                 if (!
                     coins_sell_mode
-                ) {
+                )
+                {
                     _name =
                         services[
                             i]
                             .name;
-                } else {
+                }
+                else
+                {
                     let
                         button_title;
                     if (services[
@@ -984,7 +1125,8 @@ function appendServices() {
                             .name
                             .toLowerCase() ===
                         "токены"
-                    ) {
+                    )
+                    {
                         _name = `${services[i].price} ${getNoun(
                             services[i].price,
                             "рубль",
@@ -1011,14 +1153,16 @@ function appendServices() {
                         click_template
                             =
                             "";
-                    } else if (
+                    }
+                    else if (
                         services[
                             i]
                             .name
                             .toLowerCase()
                             .includes(
                                 "проходка"
-                            )) {
+                            ))
+                    {
                         _name = `
                         <span class="text-primary">${services[i].name}</span>,
                         ${services[i].price} ${getNoun(
@@ -1085,7 +1229,8 @@ function appendServices() {
             }
 
             setTimeout(
-                function() {
+                function ()
+                {
                     let elem =
                         document
                             .getElementById(
@@ -1095,22 +1240,27 @@ function appendServices() {
                         "donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container",
                     ];
 
-                    try {
+                    try
+                    {
                         elem.parentNode
                             .removeChild(
                                 elem
                             );
-                    } catch (
+                    }
+                    catch (
                         _
-                        ) {}
+                        )
+                    {}
 
 
                     for (let i =
                         0; i <
                          ids
                              .length; i++
-                    ) {
-                        try {
+                    )
+                    {
+                        try
+                        {
                             document
                                 .getElementById(
                                     ids[
@@ -1120,9 +1270,11 @@ function appendServices() {
                                 .style
                                 .display =
                                 "";
-                        } catch (
+                        }
+                        catch (
                             e
-                            ) {
+                            )
+                        {
                             console
                                 .log(
                                     `Donate block loader error. Details: ${e}`
@@ -1135,7 +1287,8 @@ function appendServices() {
 }
 
 function switchEventsPages(
-    button_name) {
+    button_name)
+{
     let news_page = document
         .getElementById(
             "news-c-container");
@@ -1151,8 +1304,10 @@ function switchEventsPages(
             "events-c-button");
 
     if (button_name !==
-        events_page_state) {
-        if (button_name === "events") {
+        events_page_state)
+    {
+        if (button_name === "events")
+        {
             news_page.style.display =
                 "none";
             events_page.style.display =
@@ -1169,8 +1324,10 @@ function switchEventsPages(
 
             events_page_state =
                 "events";
-        } else if (button_name ===
-            "news") {
+        }
+        else if (button_name ===
+            "news")
+        {
             news_page.style.display =
                 "block";
             events_page.style.display =
@@ -1191,19 +1348,24 @@ function switchEventsPages(
     }
 }
 
-function redirect_(url) {
+function redirect_(url)
+{
     return window.location.replace(url);
 }
 
-function ytVideoSetter(skip = false) {
-    let set_video = function(el,
-                             video_id, params) {
+function ytVideoSetter(skip = false)
+{
+    let set_video = function (el,
+                              video_id, params)
+    {
         let video = get_yt_video_(
-            function(data) {
+            function (data)
+            {
                 if (data && data
                     .video.x720
                     .url && !
-                    skip) {
+                    skip)
+                {
                     el.innerHTML = `
                     <video class="video-container" ${
                         params.autoplay != null ? 'autoplay=""' : ""
@@ -1215,7 +1377,9 @@ function ytVideoSetter(skip = false) {
                         <source src="${data.video.x720.url}" type="video/mp4">
                     </video>
                 `;
-                } else {
+                }
+                else
+                {
                     el.innerHTML = `
                     <iframe src="https://www.youtube.com/embed/${video_id}" title="YouTube video player"
                         frameborder="0" class="video-container-yt"
@@ -1231,13 +1395,15 @@ function ytVideoSetter(skip = false) {
 
     for (let el of Array.from(document
         .getElementsByClassName(
-            "ytVideoSetter"))) {
+            "ytVideoSetter")))
+    {
         let video_id = el.getAttribute(
             "video_id");
 
         if (video_id && video_id
                 .length && video_id.length <
-            20) {
+            20)
+        {
             set_video(
                 el, video_id, (
                     params = {
@@ -1263,7 +1429,8 @@ function ytVideoSetter(skip = false) {
     }
 }
 
-function modal_close_() {
+function modal_close_()
+{
     document.body.classList.remove(
         "modal-open");
     document.getElementById(
@@ -1272,13 +1439,15 @@ function modal_close_() {
     let modal = document.getElementById(
         "donate_item_modal");
     modal.style.opacity = 0;
-    setTimeout(function() {
+    setTimeout(function ()
+    {
         modal.style.display =
             "none";
     }, 350);
 }
 
-function modal_open_() {
+function modal_open_()
+{
     document.body.classList.add(
         "modal-open");
     document.getElementById(
@@ -1287,20 +1456,24 @@ function modal_open_() {
     let modal = document.getElementById(
         "donate_item_modal");
     modal.style.display = "block";
-    setTimeout(function() {
+    setTimeout(function ()
+    {
         modal.style.opacity = 1;
     }, 50);
 
-    window.onclick = function(event) {
+    window.onclick = function (event)
+    {
         if (event.target ===
-            modal) {
+            modal)
+        {
             modal_close_();
         }
     };
 }
 
 function switch_modal_containers(mode =
-                                     "service") {
+                                     "service")
+{
     let span = document
         .getElementsByClassName(
             "close_b")[0];
@@ -1323,33 +1496,40 @@ function switch_modal_containers(mode =
         );
     let title = document.querySelector(
         ".modal-title");
-    let _array = [{
-        name: "service",
-        selector: service,
-        title: "Товар",
-    }, {
-        name: "service_coins",
-        selector: service_coins,
-        title: "Оплата пожертвования",
-    }, {
-        name: "info",
-        selector: info,
-        title: "Сообщение",
-    }, {
-        name: "success",
-        selector: success,
-        title: "Чек",
-    }, {
-        name: "donate_finish",
-        selector: finish_donate,
-        title: "Корзина",
-    }, ];
+    let _array = [
+        {
+            name: "service",
+            selector: service,
+            title: "Товар",
+        },
+        {
+            name: "service_coins",
+            selector: service_coins,
+            title: "Оплата пожертвования",
+        },
+        {
+            name: "info",
+            selector: info,
+            title: "Сообщение",
+        },
+        {
+            name: "success",
+            selector: success,
+            title: "Чек",
+        },
+        {
+            name: "donate_finish",
+            selector: finish_donate,
+            title: "Корзина",
+        }, ];
 
     for (let i = 0; i < _array
-        .length; i++) {
+        .length; i++)
+    {
         let _mode = "none";
 
-        if (mode === _array[i].name) {
+        if (mode === _array[i].name)
+        {
             _mode = "block";
             title.innerText = _array[i]
                 .title;
@@ -1359,30 +1539,37 @@ function switch_modal_containers(mode =
             .display = _mode;
     }
 
-    span.onclick = function() {
+    span.onclick = function ()
+    {
         modal_close_();
     };
 }
 
 function discount_calculate(price,
-                            discount) {
+                            discount)
+{
     discount = discount / 100;
     return (price * discount)
         .toFixed();
 }
 
-function get_cookie_cart() {
+function get_cookie_cart()
+{
     let cookie_cart = {};
 
-    try {
+    try
+    {
         cookie_cart = JSON.parse(Cookies
             .get(cart_cookie));
-    } catch (_) {}
+    }
+    catch (_)
+    {}
 
     return cookie_cart;
 }
 
-function updateCartCount() {
+function updateCartCount()
+{
     document.getElementById(
         "count_cart_items_dn")
         .innerText = countProperties(
@@ -1390,18 +1577,22 @@ function updateCartCount() {
     );
 }
 
-function groupAlreadyInCart(user_cart) {
+function groupAlreadyInCart(user_cart)
+{
     let cart = Object.keys(user_cart);
 
     for (let i = 0; i <
     donate_services_array
-        .length; i++) {
+        .length; i++)
+    {
         if (donate_services_array[i]
-            .type === "group") {
+            .type === "group")
+        {
             if (cart.includes(
                 donate_services_array[
                     i].id.toString()
-            )) {
+            ))
+            {
                 return true;
             }
         }
@@ -1411,7 +1602,8 @@ function groupAlreadyInCart(user_cart) {
 }
 
 function comment_show_action(id, close =
-    false) {
+    false)
+{
     let comment_text = document
         .getElementById(
             `comment_text_${id}`);
@@ -1420,7 +1612,8 @@ function comment_show_action(id, close =
             `comment_show_${id}`);
 
     swiper_comments.on("slideChange",
-        function() {
+        function ()
+        {
             comment_show_action(id,
                 true);
         });
@@ -1428,14 +1621,17 @@ function comment_show_action(id, close =
     if (close || comment_text
         .getAttribute(
             "fullShowComment") === "1"
-    ) {
+    )
+    {
         comment_text.style.height =
             "100px";
         comment_text.setAttribute(
             "fullShowComment", "0");
         comment_show.innerText =
             "Раскрыть";
-    } else {
+    }
+    else
+    {
         comment_text.style.height =
             "100%";
         comment_text.setAttribute(
@@ -1445,39 +1641,47 @@ function comment_show_action(id, close =
     }
 }
 
-function initComments() {
+function initComments()
+{
     let array_ = document
         .getElementById(
             "comment_swipe_array");
 
-    let createSwiper = function() {
+    let createSwiper = function ()
+    {
         swiper_comments =
             new Swiper(
-                "#comment_swipe_container", {
+                "#comment_swipe_container",
+                {
                     spaceBetween: 12,
                     loop: true,
                     observer: true,
                     observeParents: true,
                     preventClicks: false,
                     preventClicksPropagation: false,
-                    autoplay: {
-                        delay: 8000,
-                    },
-                    pagination: {
-                        el: ".swiper-pagination",
-                        clickable: true,
-                    },
-                    navigation: {
-                        prevEl: "#prev_comment",
-                        nextEl: "#next_comment",
-                    },
+                    autoplay:
+                        {
+                            delay: 8000,
+                        },
+                    pagination:
+                        {
+                            el: ".swiper-pagination",
+                            clickable: true,
+                        },
+                    navigation:
+                        {
+                            prevEl: "#prev_comment",
+                            nextEl: "#next_comment",
+                        },
                 });
     };
 
-    let playersGet = function(
-        callback) {
+    let playersGet = function (
+        callback)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 callback(r);
             },
             "assets/data/players.json",
@@ -1485,29 +1689,35 @@ function initComments() {
         );
     };
 
-    let searchPlayer = function(
-        players, name) {
+    let searchPlayer = function (
+        players, name)
+    {
         for (let i = 0; i < players
-            .length; i++) {
+            .length; i++)
+        {
             if (players[i].name ===
-                name) {
+                name)
+            {
                 return players[i];
             }
         }
     };
 
     requestCall(
-        function(r) {
+        function (r)
+        {
             let comment = r;
             shuffle(comment);
 
-            playersGet(function(
-                players) {
+            playersGet(function (
+                players)
+            {
                 for (let i =
                     0; i <
                      comment
                          .length; i++
-                ) {
+                )
+                {
                     let player =
                         searchPlayer(
                             players,
@@ -1583,7 +1793,8 @@ function initComments() {
                             .clientHeight >
                         100 +
                         correction_height
-                    ) {
+                    )
+                    {
                         comment_text
                             .style
                             .height =
@@ -1592,7 +1803,9 @@ function initComments() {
                             .style
                             .overflow =
                             "hidden";
-                    } else {
+                    }
+                    else
+                    {
                         comment_show
                             .style
                             .display =
@@ -1608,48 +1821,60 @@ function initComments() {
     );
 }
 
-function buildPlayersSwiper() {
+function buildPlayersSwiper()
+{
     let array_ = document
         .getElementById(
             "players-swiper-array");
 
-    let createSwiper = function() {
+    let createSwiper = function ()
+    {
         new Swiper(
-            "#players_swipe_container", {
+            "#players_swipe_container",
+            {
                 slidesPerView: 1,
                 spaceBetween: 24,
-                autoplay: {
-                    delay: 2000,
-                },
+                autoplay:
+                    {
+                        delay: 2000,
+                    },
                 loop: true,
                 observer: true,
                 observeParents: true,
                 preventClicks: false,
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                breakpoints: {
-                    600: {
-                        slidesPerView: 2,
+                pagination:
+                    {
+                        el: ".swiper-pagination",
+                        clickable: true,
                     },
-                    920: {
-                        slidesPerView: 3,
+                breakpoints:
+                    {
+                        600:
+                            {
+                                slidesPerView: 2,
+                            },
+                        920:
+                            {
+                                slidesPerView: 3,
+                            },
+                        1200:
+                            {
+                                slidesPerView: 4,
+                            },
+                        1600:
+                            {
+                                slidesPerView: 5,
+                            },
                     },
-                    1200: {
-                        slidesPerView: 4,
-                    },
-                    1600: {
-                        slidesPerView: 5,
-                    },
-                },
             });
     };
 
-    let badges_get = function(
-        callback) {
+    let badges_get = function (
+        callback)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 callback(r);
             },
             "assets/data/badges.json",
@@ -1657,9 +1882,11 @@ function buildPlayersSwiper() {
         );
     };
 
-    badges_get(function(badges_paste) {
+    badges_get(function (badges_paste)
+    {
         requestCall(
-            function(r) {
+            function (r)
+            {
                 let player =
                     r;
                 shuffle(
@@ -1670,11 +1897,13 @@ function buildPlayersSwiper() {
                     0; i <
                      player
                          .length; i++
-                ) {
+                )
+                {
                     let ult_template =
                         "";
 
-                    function getBadges() {
+                    function getBadges()
+                    {
                         let result =
                             "";
                         player
@@ -1691,7 +1920,8 @@ function buildPlayersSwiper() {
                                 ]
                                 .badges
                                 .length; s++
-                        ) {
+                        )
+                        {
                             let badge_local =
                                 player[
                                     i
@@ -1710,7 +1940,8 @@ function buildPlayersSwiper() {
                                         .includes(
                                             "clan-"
                                         )
-                            ) {
+                            )
+                            {
                                 result
                                     =
                                     result +
@@ -1726,7 +1957,8 @@ function buildPlayersSwiper() {
                         return result;
                     }
 
-                    function getClan() {
+                    function getClan()
+                    {
                         for (
                             let s =
                                 0; s <
@@ -1735,7 +1967,8 @@ function buildPlayersSwiper() {
                                 ]
                                 .badges
                                 .length; s++
-                        ) {
+                        )
+                        {
                             if (player[
                                 i
                                 ]
@@ -1745,7 +1978,8 @@ function buildPlayersSwiper() {
                                 .includes(
                                     "clan-"
                                 )
-                            ) {
+                            )
+                            {
                                 return player[
                                     i
                                     ]
@@ -1824,7 +2058,8 @@ function buildPlayersSwiper() {
 }
 
 function donate_element_click(
-    product_data) {
+    product_data)
+{
     switch_modal_containers("service");
     let exclude_types = ["group"];
     let desc = document.getElementById(
@@ -1856,7 +2091,8 @@ function donate_element_click(
     let cookie_cart = get_cookie_cart();
     let switch_ = false;
 
-    let _update_count = function() {
+    let _update_count = function ()
+    {
         add_to_cart.setAttribute(
             "onClick",
             `donate_cart(${product_data.service_id}, ${items_count_donate.value})`
@@ -1879,20 +2115,26 @@ function donate_element_click(
             product_data.type ===
             "group") &&
         groupAlreadyInCart(cookie_cart)
-    ) {
+    )
+    {
         switch_modal_containers("info");
         switch_ = true;
         let group_error = "";
 
         if (product_data.type ===
-            "group") {
+            "group")
+        {
             group_error =
                 "Вы уже выбрали привилегию. Удалите её из корзины, если хотите выбрать другую.";
-        } else if (product_in_cart) {
+        }
+        else if (product_in_cart)
+        {
             group_error = `Ошибка, вы можете добавить товар 
                 <span class="text-primary fw-semibold">${product_data.name}</span> 
                 только один раз.`;
-        } else {
+        }
+        else
+        {
             group_error =
                 "Мы не знаем почему, но эта ошибка вызвана по неизвестным причинам.";
         }
@@ -1907,7 +2149,8 @@ function donate_element_click(
     let count_state = "block";
 
     if (exclude_types.includes(
-        product_data.type)) {
+        product_data.type))
+    {
         count_state = "none";
     }
 
@@ -1916,7 +2159,8 @@ function donate_element_click(
     count_hint.style.display =
         count_state;
 
-    let only_dig = function() {
+    let only_dig = function ()
+    {
         let value =
             items_count_donate
                 .value;
@@ -1925,12 +2169,14 @@ function donate_element_click(
                 "");
     };
 
-    let _calculate_price = function() {
+    let _calculate_price = function ()
+    {
         only_dig();
 
         if (!exclude_types.includes(
             product_data.type
-        )) {
+        ))
+        {
             let _price = parseInt(
                     items_count_donate
                         .value) *
@@ -1944,11 +2190,13 @@ function donate_element_click(
                 "";
 
             if (isNaN(_price) || 1 >
-                Math.sign(_price)) {
+                Math.sign(_price))
+            {
                 _price = 0;
             }
 
-            if (currenct_in_cart) {
+            if (currenct_in_cart)
+            {
                 template_counter_i = `
                     Уже в корзине - 
                         <span class="text-primary fw-semibold">
@@ -1978,18 +2226,22 @@ function donate_element_click(
 
     items_count_donate.addEventListener(
         "input",
-        function(_) {
+        function (_)
+        {
             _calculate_price();
         });
     modal_open_();
 }
 
-function donate_get_service_by_id(id) {
+function donate_get_service_by_id(id)
+{
     for (let i = 0; i <
     donate_services_array
-        .length; i++) {
+        .length; i++)
+    {
         if (donate_services_array[i]
-            .id === parseInt(id)) {
+            .id === parseInt(id))
+        {
             return donate_services_array[
                 i];
         }
@@ -1999,12 +2251,14 @@ function donate_get_service_by_id(id) {
 }
 
 function donateResetPaymentState(type =
-                                     1, repeat = false) {
+                                     1, repeat = false)
+{
     let sl = "_c";
     let vl = document.getElementById(
         "donate_sum")
         .value.trim();
-    if (!coins_sell_mode) {
+    if (!coins_sell_mode)
+    {
         sl = "";
         vl = 0;
     }
@@ -2021,7 +2275,8 @@ function donateResetPaymentState(type =
 }
 
 function donate_cart(product, count,
-                     remove = false) {
+                     remove = false)
+{
     let cart = Cookies.get(cart_cookie);
     let cart_parsed = get_cookie_cart();
     let product_count_in_cart = 0;
@@ -2029,36 +2284,47 @@ function donate_cart(product, count,
     let local_prm =
         '<span style="color: #a4a6ff">';
 
-    try {
+    try
+    {
         let p = cart_parsed[product];
 
-        if (Number.isInteger(p)) {
+        if (Number.isInteger(p))
+        {
             product_count_in_cart = +p;
         }
-    } catch (_) {}
+    }
+    catch (_)
+    {}
 
     if (!Number.isInteger(product) || !
-        Number.isInteger(count)) {
+        Number.isInteger(count))
+    {
         console.log(
             "Error data donate_cart"
         );
         return;
-    } else if (1 > Math.sign(count)) {
+    }
+    else if (1 > Math.sign(count))
+    {
         notify(
             "Количество не может быть равно нулю или меньше"
         );
         return;
-    } else if (product_count_in_cart +
-        count > max_item_count) {
+    }
+    else if (product_count_in_cart +
+        count > max_item_count)
+    {
         notify(
             `Максимальное количество - ${local_prm}${max_item_count}</span>`
         );
         return;
     }
 
-    if (!cart) {
+    if (!cart)
+    {
         Cookies.set(cart_cookie, JSON
-            .stringify({}));
+            .stringify(
+                {}));
     }
 
     let els_ = JSON.parse(Cookies.get(
@@ -2067,13 +2333,17 @@ function donate_cart(product, count,
         donate_get_service_by_id(
             product);
 
-    if (remove) {
+    if (remove)
+    {
         delete els_[product];
         notify(
             `Товар ${local_prm} ${product_data.name}</span> убран из корзины`
         );
-    } else {
-        if (els_[product]) {
+    }
+    else
+    {
+        if (els_[product])
+        {
             els_[product] = els_[
                 product] + count;
             notify(
@@ -2083,7 +2353,9 @@ function donate_cart(product, count,
                     товара ${local_prm} ${product_data.name} 
                     </span>`
             );
-        } else {
+        }
+        else
+        {
             els_[product] = count;
             notify(
                 `Товар ${local_prm} ${product_data.name}</span> добавлен в корзину`
@@ -2099,22 +2371,27 @@ function donate_cart(product, count,
     donateResetPaymentState();
 }
 
-function donate_cart_button(els = {}) {
+function donate_cart_button(els = {})
+{
     let selector_ = document
         .querySelectorAll(
             ".donate-cart-button-cn");
 
-    if (coins_sell_mode) {
+    if (coins_sell_mode)
+    {
         return;
     }
 
     for (let i = 0; i < selector_
-        .length; i++) {
+        .length; i++)
+    {
         let sl = selector_[i].style;
 
-        if (countProperties(els)) {
+        if (countProperties(els))
+        {
             sl.display = "flex";
-            setTimeout(function() {
+            setTimeout(function ()
+            {
                 sl.opacity = 1;
                 sl.marginTop =
                     "15px";
@@ -2123,12 +2400,15 @@ function donate_cart_button(els = {}) {
                         "disabled"
                     );
             }, 50);
-        } else {
+        }
+        else
+        {
             selector_[i].setAttribute(
                 "disabled", "");
             sl.opacity = 0;
             sl.marginTop = "-50px";
-            setTimeout(function() {
+            setTimeout(function ()
+            {
                 sl.display =
                     "none";
             }, 350);
@@ -2136,15 +2416,19 @@ function donate_cart_button(els = {}) {
     }
 }
 
-function donateFlushCart() {
+function donateFlushCart()
+{
     Cookies.remove(cart_cookie);
-    donate_cart_button({});
+    donate_cart_button(
+        {});
     notify("Корзина очищена");
 }
 
-function couponCheck(coins = false) {
+function couponCheck(coins = false)
+{
     let selector_c = "";
-    if (coins_sell_mode) {
+    if (coins_sell_mode)
+    {
         selector_c = "-c";
     }
 
@@ -2156,26 +2440,34 @@ function couponCheck(coins = false) {
         );
     let code = "";
 
-    try {
+    try
+    {
         code = input.value.trim();
-    } catch (_) {}
+    }
+    catch (_)
+    {}
 
-    let coupon_notfd = function() {
+    let coupon_notfd = function ()
+    {
         notify(
             `Купон <span class="text-primary fw-semibold">${failed_coupon}</span> не найден`
         );
     };
 
-    let check_coupon_coins = function(
-        products) {
-        if (products) {
+    let check_coupon_coins = function (
+        products)
+    {
+        if (products)
+        {
             for (let i = 0; i <
             products.length; i++
-            ) {
+            )
+            {
                 if (products[i]
                         .id ===
                     donate_services_array[
-                        0].id) {
+                        0].id)
+                {
                     return true;
                 }
             }
@@ -2183,37 +2475,50 @@ function couponCheck(coins = false) {
         return false;
     };
 
-    if (!code.length) {
+    if (!code.length)
+    {
         notify("Вы не указали купон");
         return;
-    } else if (code.length > 20) {
+    }
+    else if (code.length > 20)
+    {
         notify("Купон слишком длинный");
         return;
-    } else if (!/^[A-z\d_]+$/.test(
-        code)) {
+    }
+    else if (!/^[A-z\d_]+$/.test(
+        code))
+    {
         notify("Купон указан неверно");
         return;
-    } else if (checked_coupon ===
-        code) {
+    }
+    else if (checked_coupon ===
+        code)
+    {
         notify(
             "Этот купон уже используется"
         );
         return;
-    } else if (failed_coupon === code) {
+    }
+    else if (failed_coupon === code)
+    {
         coupon_notfd();
         return;
     }
 
-    let input_lock = function(lock =
-                                  false) {
-        if (lock) {
+    let input_lock = function (lock =
+                                   false)
+    {
+        if (lock)
+        {
             input.setAttribute(
                 "disabled", "");
             button.setAttribute(
                 "disabled", "");
             button.innerText =
                 "Проверяем";
-        } else {
+        }
+        else
+        {
             input.removeAttribute(
                 "disabled");
             button.removeAttribute(
@@ -2224,10 +2529,13 @@ function couponCheck(coins = false) {
     };
 
     input_lock(true);
-    check_coupon(function(r) {
-        if (r) {
+    check_coupon(function (r)
+    {
+        if (r)
+        {
             let call =
-                function() {
+                function ()
+                {
                     checked_coupon
                         = code;
                     notify(
@@ -2236,15 +2544,18 @@ function couponCheck(coins = false) {
                 };
             if (!
                 coins_sell_mode
-            ) {
+            )
+            {
                 call();
                 donateCartCall(
                     code,
                     false);
-            } else if (
+            }
+            else if (
                 check_coupon_coins(
                     r.products)
-            ) {
+            )
+            {
                 call();
                 let sl =
                     document
@@ -2259,12 +2570,16 @@ function couponCheck(coins = false) {
                         <span class="text-muted text-end" style="width: 30%">
                             ${r.discount}%</span>
                     </li>`;
-            } else {
+            }
+            else
+            {
                 notify(
                     "Этот купон недействительный"
                 );
             }
-        } else {
+        }
+        else
+        {
             failed_coupon =
                 code;
             coupon_notfd();
@@ -2275,14 +2590,16 @@ function couponCheck(coins = false) {
 }
 
 function donate_enable_coupon(enabled =
-                                  true) {
+                                  true)
+{
     let input = document.getElementById(
         "coupon-input");
     let button = document
         .getElementById(
             "coupon-button");
 
-    if (enabled) {
+    if (enabled)
+    {
         input.setAttribute(
             "placeholder", "BRFF");
         button.setAttribute("onClick",
@@ -2291,7 +2608,9 @@ function donate_enable_coupon(enabled =
             "disabled");
         button.removeAttribute(
             "disabled");
-    } else {
+    }
+    else
+    {
         input.setAttribute("disabled",
             "");
         input.setAttribute(
@@ -2303,9 +2622,11 @@ function donate_enable_coupon(enabled =
 }
 
 function generatePaymentLink(type = 1,
-                             sum = 0) {
+                             sum = 0)
+{
     let selector_c = "";
-    if (coins_sell_mode) {
+    if (coins_sell_mode)
+    {
         selector_c = "_c";
     }
     let button = document
@@ -2325,23 +2646,32 @@ function generatePaymentLink(type = 1,
     let local_prm =
         '<span style="color: #a4a6ff">';
 
-    try {
+    try
+    {
         coupon = checked_coupon.trim();
-    } catch (_) {}
+    }
+    catch (_)
+    {}
 
-    if (type === 1) {
+    if (type === 1)
+    {
         if (!Number.isInteger(sum) || !
-            Number.isInteger(sum)) {
+            Number.isInteger(sum))
+        {
             notify(
                 "Ошибка проверки суммы"
             );
             return;
-        } else if (1 > Math.sign(sum)) {
+        }
+        else if (1 > Math.sign(sum))
+        {
             notify(
                 "Сумма не может равняться нулю или меньше"
             );
             return;
-        } else if (sum > max_sum) {
+        }
+        else if (sum > max_sum)
+        {
             notify(
                 `Максимальная сумма - ${local_prm}${max_sum}</span>`
             );
@@ -2349,42 +2679,54 @@ function generatePaymentLink(type = 1,
         }
     }
 
-    if (!customer.length) {
+    if (!customer.length)
+    {
         notify(
             "Введите пожалуйста ваш никнейм"
         );
         return;
-    } else if (customer.length > 40) {
+    }
+    else if (customer.length > 40)
+    {
         notify(
             "Ваш никнейм слишком длинный"
         );
         return;
-    } else if (!/^[A-z\d_]+$/.test(
-        customer)) {
+    }
+    else if (!/^[A-z\d_]+$/.test(
+        customer))
+    {
         notify(
             "Никнейм не соотвествует формату"
         );
     }
 
-    if (!email.length) {
+    if (!email.length)
+    {
         email = "";
-    } else if (!validateEmail(email)) {
+    }
+    else if (!validateEmail(email))
+    {
         notify(
             "Ошибка, адрес почты недействительный"
         );
         return;
     }
 
-    if (!coupon) {
+    if (!coupon)
+    {
         coupon = "";
     }
     console.log(type)
     console.log(donate_services_array)
-    if (coins_sell_mode) {
+    if (coins_sell_mode)
+    {
         products = JSON.parse(
             `{"${donate_services_array[type-1].id}": ${sum}}`
         );
-    } else {
+    }
+    else
+    {
         products = get_cookie_cart();
     }
 
@@ -2393,15 +2735,18 @@ function generatePaymentLink(type = 1,
         "Проверяем данные...";
 
     let get_data_service = (
-        service_id) => {
+        service_id) =>
+    {
         for (let i = 0; i <
         products_by_serverid
-            .length; i++) {
+            .length; i++)
+        {
             if (parseInt(
                     products_by_serverid[
                         i].id) ===
                 parseInt(service_id)
-            ) {
+            )
+            {
                 return products_by_serverid[
                     i];
             }
@@ -2411,8 +2756,10 @@ function generatePaymentLink(type = 1,
     let _d_service = get_data_service(
         current_c_item);
     create_payment(
-        function(callback_data) {
-            if (callback_data) {
+        function (callback_data)
+        {
+            if (callback_data)
+            {
                 button
                     .removeAttribute(
                         "disabled");
@@ -2425,7 +2772,9 @@ function generatePaymentLink(type = 1,
                     "onClick",
                     "payment_action_bt()"
                 );
-            } else {
+            }
+            else
+            {
                 notify(
                     "Ошибка, не удалось сформировать чек для оплаты"
                 );
@@ -2438,7 +2787,8 @@ function generatePaymentLink(type = 1,
     );
 }
 
-function payment_action_bt() {
+function payment_action_bt()
+{
     window.open(payment_url_global,
         "_blank");
 
@@ -2454,7 +2804,8 @@ function payment_action_bt() {
     let title = document.querySelector(
         ".modal-title");
 
-    let build_modal_wind = function() {
+    let build_modal_wind = function ()
+    {
         cart_dom.innerHTML = "";
         title.innerText = "";
         succ_text.innerText =
@@ -2470,19 +2821,22 @@ function payment_action_bt() {
     };
 
     let flush_inputs_donate =
-        function() {
+        function ()
+        {
             let inputs = [
                 "donate_sum", "donate_customer_c", "donate_email_c", "coupon-input-c",
             ];
             for (let i = 0; i < inputs
-                .length; i++) {
+                .length; i++)
+            {
                 document.getElementById(
                     inputs[i])
                     .value = "";
             }
         };
 
-    let enable_modal = function() {
+    let enable_modal = function ()
+    {
         switch_modal_containers(
             "success");
         modal_open_();
@@ -2494,7 +2848,8 @@ function payment_action_bt() {
     enable_modal();
 }
 
-function donate_check_services_cart() {
+function donate_check_services_cart()
+{
     let services_cookie = Object.keys(
         get_cookie_cart());
     let services_origin =
@@ -2502,15 +2857,18 @@ function donate_check_services_cart() {
     let services = [];
 
     for (let i = 0; i < services_origin
-        .length; i++) {
+        .length; i++)
+    {
         services.push(services_origin[i]
             .id);
     }
 
     for (let i = 0; i < services_cookie
-        .length; i++) {
+        .length; i++)
+    {
         if (!services.includes(parseInt(
-            services_cookie[i]))) {
+            services_cookie[i])))
+        {
             let cart = JSON.parse(
                 Cookies.get(
                     cart_cookie));
@@ -2528,20 +2886,25 @@ function donate_check_services_cart() {
     }
 }
 
-function initDonate() {
+function initDonate()
+{
     let els = {};
 
-    try {
+    try
+    {
         els = JSON.parse(Cookies.get(
             cart_cookie));
-    } catch (_) {}
+    }
+    catch (_)
+    {}
 
     donate_cart_button(els);
     donate_enable_coupon(true);
 }
 
 function donateCartCall(coupon = null,
-                        nickname_update = true) {
+                        nickname_update = true)
+{
     let cart = get_cookie_cart();
     let cart_keys = Object.keys(cart);
     let cart_dom = document
@@ -2560,17 +2923,20 @@ function donateCartCall(coupon = null,
     let sum_price = 0;
 
     for (let i = 0; i <
-    selectors_payment.length; i++) {
+    selectors_payment.length; i++)
+    {
         selectors_payment[i]
             .addEventListener("input",
-                function(_) {
+                function (_)
+                {
                     donateResetPaymentState
                     ();
                 });
     }
 
     for (let i = 0; i < cart_keys
-        .length; i++) {
+        .length; i++)
+    {
         let item =
             donate_get_service_by_id(
                 cart_keys[i]);
@@ -2598,7 +2964,8 @@ function donateCartCall(coupon = null,
         `;
     }
 
-    let coupon_container = function() {
+    let coupon_container = function ()
+    {
         cart_dom.innerHTML =
             cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between bg-light">
@@ -2609,7 +2976,8 @@ function donateCartCall(coupon = null,
             </li>`;
     };
 
-    let sum_container = function() {
+    let sum_container = function ()
+    {
         cart_dom.innerHTML =
             cart_dom.innerHTML +
             `<li class="list-group-item d-flex justify-content-between">
@@ -2623,13 +2991,15 @@ function donateCartCall(coupon = null,
             </li>`;
     };
 
-    if (coupon) {
+    if (coupon)
+    {
         coupon_container();
     }
 
     sum_container();
 
-    if (nickname_update) {
+    if (nickname_update)
+    {
         shuffle(glob_players);
         document
             .querySelector(
@@ -2639,7 +3009,8 @@ function donateCartCall(coupon = null,
     }
 }
 
-function donateCoinsPay(type = 1) {
+function donateCoinsPay(type = 1)
+{
     let button = document
         .getElementById(
             "payment-button-donate_c");
@@ -2647,9 +3018,12 @@ function donateCoinsPay(type = 1) {
         "donate_sum");
 
     if (!sum.value && !/^[\d]+$/.test(
-        sum.value)) {
+        sum.value))
+    {
         sum = 0;
-    } else {
+    }
+    else
+    {
         sum = sum.value;
     }
 
@@ -2659,7 +3033,8 @@ function donateCoinsPay(type = 1) {
 }
 
 function donateModalCall(type_item,
-                         item_id, nickname_update = true) {
+                         item_id, nickname_update = true)
+{
     let sum = document.getElementById(
         "donate_sum");
     let customer_field = document
@@ -2688,7 +3063,8 @@ function donateModalCall(type_item,
         ".modal-title");
     let item_name;
 
-    let update_title = (descriptor) => {
+    let update_title = (descriptor) =>
+    {
         title.innerText = title
             .innerText.replace(
                 /\([\s\S]*?\)/)
@@ -2699,7 +3075,8 @@ function donateModalCall(type_item,
 
     current_c_item = item_id;
 
-    if (type_item === 1) {
+    if (type_item === 1)
+    {
         sum_container.style.display =
             "";
         email_container_classL.remove(
@@ -2712,10 +3089,13 @@ function donateModalCall(type_item,
         `;
         item_name = "Токены";
         sum.addEventListener("input",
-            function(_) {
+            function (_)
+            {
                 donateCoinsPay();
             });
-    } else if (type_item === 2) {
+    }
+    else if (type_item === 2)
+    {
         sum_container.style.display =
             "none";
         email_container_classL.remove(
@@ -2729,7 +3109,8 @@ function donateModalCall(type_item,
         item_name = "Пропуск";
         customer_field.addEventListener(
             "input",
-            function(_) {
+            function (_)
+            {
                 donateCoinsPay(
                     type_item);
             });
@@ -2739,10 +3120,12 @@ function donateModalCall(type_item,
             "\n", "");
 
     for (let i = 0; i <
-    selectors_payment.length; i++) {
+    selectors_payment.length; i++)
+    {
         selectors_payment[i]
             .addEventListener("input",
-                function(_) {
+                function (_)
+                {
                     donateResetPaymentState
                     ();
                 });
@@ -2752,7 +3135,8 @@ function donateModalCall(type_item,
         "service_coins");
     modal_open_();
 
-    if (nickname_update) {
+    if (nickname_update)
+    {
         shuffle(glob_players);
         document
             .querySelector(
@@ -2766,15 +3150,18 @@ function donateModalCall(type_item,
 }
 
 function linksSet(selector_,
-                  fisrt_el_mrg = false) {
+                  fisrt_el_mrg = false)
+{
     let sl = document.getElementById(
         selector_);
     let mrg =
         "margin-left: 0 !important";
 
     for (let i = 0; i < links_lt
-        .length; i++) {
-        if (!fisrt_el_mrg || i) {
+        .length; i++)
+    {
+        if (!fisrt_el_mrg || i)
+        {
             mrg = "";
         }
 
@@ -2788,11 +3175,14 @@ function linksSet(selector_,
     }
 }
 
-function initCrypto() {
-    if (!freeze_crypto) {
+function initCrypto()
+{
+    if (!freeze_crypto)
+    {
         freeze_crypto = true;
         crypto_token = "";
-        getCrypto(function(token_) {
+        getCrypto(function (token_)
+        {
             crypto_token =
                 token_;
             freeze_crypto =
@@ -2801,10 +3191,12 @@ function initCrypto() {
     }
 }
 
-function initLanding() {
+function initLanding()
+{
     if (development_hosts.includes(
             window.location.hostname) &&
-        lock_of) {
+        lock_of)
+    {
         document.getElementById(
             "landing_description_gb"
         )
@@ -2820,7 +3212,8 @@ function initLanding() {
     linksSet("links-block-footer-v");
 }
 
-function finishLoad() {
+function finishLoad()
+{
     document.querySelector("main")
         .setAttribute("style", "");
     document.querySelector("footer")
@@ -2832,7 +3225,8 @@ function finishLoad() {
     )
         .innerHTML =
         `Создал KovalYRS с ${heart}, специально для ZALUPA.ONLINE`;
-    if (grecaptcha) {
+    if (grecaptcha)
+    {
         document.getElementById(
             "re-badge-text")
             .innerText =
@@ -2840,7 +3234,8 @@ function finishLoad() {
     }
 }
 
-function observerSystemTheme() {
+function observerSystemTheme()
+{
     let mode_list = ["dark", "light"];
     let theme_switch = document
         .querySelector(
@@ -2848,13 +3243,17 @@ function observerSystemTheme() {
         .querySelector(
             ".form-check-input");
 
-    let updateTheme = (mode) => {
-        if (mode === "dark") {
+    let updateTheme = (mode) =>
+    {
+        if (mode === "dark")
+        {
             root.classList.add(
                 "dark-mode");
             theme_switch.checked =
                 true;
-        } else {
+        }
+        else
+        {
             root.classList.remove(
                 "dark-mode");
             theme_switch.checked =
@@ -2863,7 +3262,8 @@ function observerSystemTheme() {
     };
 
     for (let i = 0; i < mode_list
-        .length; i++) {
+        .length; i++)
+    {
         let observer = window
             .matchMedia(
                 `(prefers-color-scheme: ${mode_list[i]})`
@@ -2878,7 +3278,8 @@ function observerSystemTheme() {
 }
 
 function callSucessPayModal(payment_id =
-                                0) {
+                                0)
+{
     let cart_dom = document
         .getElementById(
             "donate-cart-list-success");
@@ -2894,11 +3295,13 @@ function callSucessPayModal(payment_id =
     donateSwitchContainer((display =
         true));
 
-    let buildPayment = function(
-        payment) {
+    let buildPayment = function (
+        payment)
+    {
         if (payment.status &&
             payment_id == parseInt(
-                payment.id)) {
+                payment.id))
+        {
             succ_text.innerText =
                 "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
             cont_ok.style.display =
@@ -2927,7 +3330,8 @@ function callSucessPayModal(payment_id =
                 </li>
             `;
 
-            if (coins_sell_mode) {
+            if (coins_sell_mode)
+            {
                 sum_template = `
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Сумма</span>
@@ -2945,13 +3349,15 @@ function callSucessPayModal(payment_id =
 
             if (!payment.enrolled ||
                 payment.enrolled < 1
-            ) {
+            )
+            {
                 sum_template = "";
             }
             if (!payment.email
                 .length || payment
                 .email.match(
-                    "undefined")) {
+                    "undefined"))
+            {
                 payment.email =
                     "Ну указано";
             }
@@ -2961,17 +3367,21 @@ function callSucessPayModal(payment_id =
                 payment
                     .payment_system
                     .match("undefined")
-            ) {
+            )
+            {
                 system_template =
                     "";
             }
             if (!payment
                 .created_at || !
                 payment.created_at
-                    .length) {
+                    .length)
+            {
                 payment.created_at =
                     "Неизвестно";
-            } else {
+            }
+            else
+            {
                 let parsed_time =
                     new Date(payment
                         .created_at
@@ -3008,7 +3418,9 @@ function callSucessPayModal(payment_id =
                 </li>
                 ${sum_template}
             `;
-        } else {
+        }
+        else
+        {
             succ_text.innerText =
                 "Чек неоплачен, Шеф недоволен.";
             document
@@ -3021,23 +3433,28 @@ function callSucessPayModal(payment_id =
         }
     };
 
-    let enable_modal = function(
-        payment) {
+    let enable_modal = function (
+        payment)
+    {
         buildPayment(payment);
         switch_modal_containers(
             "success");
         modal_open_();
     };
 
-    checkPayment(function(payment) {
+    checkPayment(function (payment)
+    {
         if (typeof payment
                 .status !==
-            "undefined") {
+            "undefined")
+        {
             enable_modal(
                 payment);
             title.innerText =
                 `Чек #${payment.id}`;
-        } else {
+        }
+        else
+        {
             notify(
                 "Ошибка, чек не найден или EasyDonate вернул недействительный ответ"
             );
@@ -3045,22 +3462,27 @@ function callSucessPayModal(payment_id =
     }, payment_id);
 }
 
-function successPay() {
+function successPay()
+{
     let url = new URL(window.location
         .href)
         .searchParams;
     let payment_id = url.get(
         "pg_order_id");
 
-    if (payment_id) {
+    if (payment_id)
+    {
         callSucessPayModal(payment_id);
     }
 }
 
-function donateContainerHash() {
-    let updater = function() {
+function donateContainerHash()
+{
+    let updater = function ()
+    {
         if (linkHash() ==
-            "donate") {
+            "donate")
+        {
             donate_displayed = true;
             donateSwitchContainer((
                 display =
@@ -3072,15 +3494,18 @@ function donateContainerHash() {
     window.onhashchange = updater;
 }
 
-function initJarallax() {
+function initJarallax()
+{
     jarallax(document.querySelectorAll(
-        '.jarallax'), {
-        speed: 0.15,
-        type: "scale-opacity"
-    });
+            '.jarallax'),
+        {
+            speed: 0.15,
+            type: "scale-opacity"
+        });
 }
 
-function initTooltip() {
+function initTooltip()
+{
     let tooltipTriggerList = [].slice
         .call(
             document.querySelectorAll(
@@ -3088,12 +3513,14 @@ function initTooltip() {
             )
         );
     let tooltipList = tooltipTriggerList
-        .map(function(
-            tooltipTriggerEl) {
+        .map(function (
+            tooltipTriggerEl)
+        {
             tooltip_instance =
                 new bootstrap
                     .Tooltip(
-                        tooltipTriggerEl, {
+                        tooltipTriggerEl,
+                        {
                             template: `
                                 <div class="tooltip" role="tooltip">
                                     <div class="tooltip-inner"></div>
@@ -3102,30 +3529,36 @@ function initTooltip() {
                         });
         });
 
-    if (tooltip_instance) {
-        setInterval(function() {
+    if (tooltip_instance)
+    {
+        setInterval(function ()
+        {
             tooltip_instance
                 .update();
         }, 1000);
     }
 }
 
-function initSmoothScrollObserver() {
+function initSmoothScrollObserver()
+{
     let skip_list = ["donate"];
-    let scrollerObject = new SmoothScroll(options={
+    let scrollerObject = new SmoothScroll(options = {
         speed: 500,
         speedAsDuration: true
     });
 
-    let callScroller = () => {
+    let callScroller = () =>
+    {
         console.log("call")
         let identifier = linkHash();
 
-        if (!skip_list.includes(identifier)) {
+        if (!skip_list.includes(identifier))
+        {
             scrollerObject.animateScroll(
                 document.querySelector(
                     `section[id="${identifier}"]`
-                ), null, {
+                ), null,
+                {
                     offset: 40
                 }
             );
@@ -3136,7 +3569,8 @@ function initSmoothScrollObserver() {
     window.onhashchange = callScroller;
 }
 
-const initCore = function() {
+const initCore = function ()
+{
     initHost();
     initCrypto();
     initLanding();
@@ -3161,8 +3595,10 @@ const initCore = function() {
     elem.parentNode.removeChild(
         elem);
 
-    window.onload = function() {
-        if (!debug_lock_init) {
+    window.onload = function ()
+    {
+        if (!debug_lock_init)
+        {
             let preloader =
                 document
                     .querySelector(
@@ -3171,7 +3607,8 @@ const initCore = function() {
             let wait = 1500;
             let move_wait = 100;
             setTimeout(
-                function() {
+                function ()
+                {
                     preloader
                         .classList
                         .remove(
@@ -3179,7 +3616,8 @@ const initCore = function() {
                         );
                     if (!
                         donate_displayed
-                    ) {
+                    )
+                    {
                         document
                             .body
                             .style
@@ -3187,12 +3625,14 @@ const initCore = function() {
                             "";
                     }
                     window
-                        .scrollTo({
-                            top: 0,
-                        });
+                        .scrollTo(
+                            {
+                                top: 0,
+                            });
                 }, wait);
             setTimeout(
-                function() {
+                function ()
+                {
                     preloader
                         .remove();
 
@@ -3205,6 +3645,7 @@ const initCore = function() {
     };
 };
 
-script_core.onload = function() {
+script_core.onload = function ()
+{
     initCore();
 };
