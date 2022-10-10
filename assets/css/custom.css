@@ -106,7 +106,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   --si-btn-hover-color: #33354d !important;
 }
 .dark-mode .btn-dark:hover {
-  box-shadow: 0 0.3rem 1.15rem -0.15rem rgb(102, 11, 243) !important;
+  box-shadow: 0 0.3rem 1.15rem -0.15rem rgba(102, 11, 243, 0.7) !important;
 }
 
 a:hover {
@@ -478,6 +478,12 @@ iframe {
   background-color: #772ce8;
 }
 
+.donate-item-butt-bottom {
+  margin-top: 0.3rem;
+  padding: 0.4rem;
+  font-size: 0.8rem;
+}
+
 input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
@@ -674,6 +680,7 @@ iframe[id*=telegram-post] {
   font-size: 0.85em;
   margin: auto;
   width: 85%;
+  height: 80px;
 }
 
 .verified-icon {
@@ -1190,10 +1197,14 @@ a:hover .emoji > b {
 
 .stone-logo-subtext {
   width: 100%;
+  position: relative;
   background-image: url(../images/stone-logo-subtext.webp);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  scale: 0.5;
+  bottom: 0;
+  transition: all 1.6s;
   filter: drop-shadow(2px 4px var(--stone-logo-shadow-size) rgba(var(--stone-log-shadow-color)));
 }
 .stone-logo-subtext.footer-logo {
@@ -1279,6 +1290,13 @@ a:hover .emoji > b {
 
 .dark-mode .container-second-round {
   filter: unset !important;
+}
+
+#exit-button-container-donate {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: calc(var(--si-gutter-x) * 0);
 }
 
 /*# sourceMappingURL=custom.css.map */

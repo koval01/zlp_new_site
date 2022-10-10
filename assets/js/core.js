@@ -44,6 +44,8 @@ var debug_lock_init = false;
 var freeze_monitoring = false;
 var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
+var products_by_serverid = [];
+var current_c_item = 0;
 
 function initHost() {
     let keys = Object.keys(site_domains);
@@ -558,7 +560,7 @@ function get_donate_services(callback) {
     });
 }
 
-function create_payment(callback, customer, products, email = "", coupon = "") {
+function create_payment(callback, customer, products, server_id, email = "", coupon = "") {
     re_check(function (token_update) {
         requestCall(
             function (r) {
@@ -573,6 +575,7 @@ function create_payment(callback, customer, products, email = "", coupon = "") {
                 email: email,
                 coupon: coupon,
                 token: token_update,
+                server_id: server_id,
                 success_url: `https://${work_domain_v}`,
             }
         );
@@ -621,6 +624,16 @@ function appendServices() {
         donate_services_array = services;
         let size_classes = ["row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"];
         let sl = document.getElementById("donate_items_list");
+        
+        let get_product_type = (name, type) => {
+            name = name.toLowerCase();
+            type = type.toLowerCase();
+            if (name.includes("токен") && type === "currency") {
+                return 1;
+            } else if (name.includes("проходка") && type === "other") {
+                return 2;
+            }
+        }
 
         if (!services.length) {
             sl.innerHTML =
@@ -636,7 +649,9 @@ function appendServices() {
                     description: services[i].description,
                     type: services[i].type,
                     service_id: services[i].id,
+                    server_id: services[i].server_id,
                 };
+                products_by_serverid.push(services[i]);
                 let _name = "";
                 let _desc = "";
                 let padding_desc = "p-3";
@@ -660,6 +675,7 @@ function appendServices() {
                     </p>
                     <p class="fs-sm mb-0">${services[i].description}</p>
                 `;
+                let item_butt_template = '';
 
                 if (i && size_classes.length >= i) {
                     sl.classList.add(size_classes[i - 1]);
@@ -671,27 +687,30 @@ function appendServices() {
 
                 if (!coins_sell_mode) {
                     _name = services[i].name;
-                } else if (services[i].name.toLowerCase() === "токены") {
-                    _name = `${services[i].price} ${getNoun(
-                        services[i].price,
-                        "рубль",
-                        "рубля",
-                        "рублей"
-                    )} = ${services[i].number} ${getNoun(
-                        services[i].number,
-                        "токен",
-                        "токена",
-                        "токенов"
-                    )}`;
-                    padding_desc = "p-0";
-                    desc_template = `
+                } else {
+                    let button_title;
+                    if (services[i].name.toLowerCase() === "токены") {
+                        _name = `${services[i].price} ${getNoun(
+                            services[i].price,
+                            "рубль",
+                            "рубля",
+                            "рублей"
+                        )} = ${services[i].number} ${getNoun(
+                            services[i].number,
+                            "токен",
+                            "токена",
+                            "токенов"
+                        )}`;
+                        padding_desc = "p-0";
+                        desc_template = `
                         <p class="mb-0 token-description-dnt">
                             Игровая валюта, которую можно сделать как в игре, так и получить за поддержку проекта.
                         </p>`;
+                        button_title = "Хочу токены";
 
-                    click_template = "";
-                } else if (services[i].name.toLowerCase().includes("проходка")) {
-                    _name = `
+                        click_template = "";
+                    } else if (services[i].name.toLowerCase().includes("проходка")) {
+                        _name = `
                         <span class="text-primary">${services[i].name}</span>,
                         ${services[i].price} ${getNoun(
                             services[i].price,
@@ -699,13 +718,20 @@ function appendServices() {
                             "рубля",
                             "рублей"
                         )}`;
-                    padding_desc = "p-0";
-                    desc_template = `
+                        padding_desc = "p-0";
+                        desc_template = `
                         <p class="mb-0 token-description-dnt">
                             За финансовую поддержку проекта ты получишь пропуск на приватный сервер.
                         </p>`;
+                        button_title = "Хочу пропуск";
 
-                    click_template = "";
+                        click_template = "";
+                    }
+                    item_butt_template = `
+                        <button class="btn btn-primary shadow-primary btn-shadow-hide btn-lg min-w-zl donate-item-butt-bottom" 
+                            onclick="donateModalCall(${get_product_type(click_data.name, click_data.type)}, ${click_data.service_id})">
+                            ${button_title}
+                        </button>`;
                 }
 
                 sl.innerHTML =
@@ -733,6 +759,7 @@ function appendServices() {
                           <div class="card-body text-center ${padding_desc}">
                                 <h3 class="fs-lg fw-semibold pt-1 mb-2">${_name}</h3>
                                 ${desc_template}
+                                ${item_butt_template}
                           </div>
                         </div>
                     </div>
@@ -741,10 +768,9 @@ function appendServices() {
 
             setTimeout(function () {
                 let elem = document.getElementById("donate_block_load");
-                let butt = document.getElementById("donate-button-container");
                 let ids = [
                     "donate_items_list",
-                    "donate-title-desc",
+                    "donate-header-container",
                     "donate-test-mode-enb",
                     "donate-cart-container",
                 ];
@@ -753,9 +779,6 @@ function appendServices() {
                     elem.parentNode.removeChild(elem);
                 } catch (_) {}
 
-                if (coins_sell_mode) {
-                    butt.style.display = "";
-                }
 
                 for (let i = 0; i < ids.length; i++) {
                     try {
@@ -1380,15 +1403,15 @@ function donate_get_service_by_id(id) {
     return null;
 }
 
-function donateResetPaymentState(repeat = false) {
+function donateResetPaymentState(type=1, repeat = false) {
     let sl = "_c";
     let vl = document.getElementById("donate_sum").value.trim();
     if (!coins_sell_mode) {
         sl = "";
-        vl = "";
+        vl = 0;
     }
     let button = document.getElementById("payment-button-donate" + sl);
-    button.setAttribute("onClick", `generatePaymentLink(${vl})`);
+    button.setAttribute("onClick", `generatePaymentLink(sum=${vl}, type=${type})`);
     button.removeAttribute("disabled");
     button.innerText = repeat ? "Повторить" : "Дальше";
 }
@@ -1599,7 +1622,7 @@ function donate_enable_coupon(enabled = true) {
     }
 }
 
-function generatePaymentLink(sum = 0) {
+function generatePaymentLink(type=1, sum = 0) {
     let selector_c = "";
     if (coins_sell_mode) {
         selector_c = "_c";
@@ -1617,15 +1640,17 @@ function generatePaymentLink(sum = 0) {
         coupon = checked_coupon.trim();
     } catch (_) {}
 
-    if (!Number.isInteger(sum) || !Number.isInteger(sum)) {
-        notify("Ошибка проверки суммы");
-        return;
-    } else if (1 > Math.sign(sum)) {
-        notify("Сумма не может равняться нулю или меньше");
-        return;
-    } else if (sum > max_sum) {
-        notify(`Максимальная сумма - ${local_prm}${max_sum}</span>`);
-        return;
+    if (type === 1) {
+        if (!Number.isInteger(sum) || !Number.isInteger(sum)) {
+            notify("Ошибка проверки суммы");
+            return;
+        } else if (1 > Math.sign(sum)) {
+            notify("Сумма не может равняться нулю или меньше");
+            return;
+        } else if (sum > max_sum) {
+            notify(`Максимальная сумма - ${local_prm}${max_sum}</span>`);
+            return;
+        }
     }
 
     if (!customer.length) {
@@ -1648,15 +1673,26 @@ function generatePaymentLink(sum = 0) {
     if (!coupon) {
         coupon = "";
     }
-
+    console.log(type)
+    console.log(donate_services_array)
     if (coins_sell_mode) {
-        products = JSON.parse(`{"${donate_services_array[0].id}": ${sum}}`);
+        products = JSON.parse(`{"${donate_services_array[type-1].id}": ${sum}}`);
     } else {
         products = get_cookie_cart();
     }
 
     button.setAttribute("disabled", "");
     button.innerText = "Проверяем данные...";
+
+    let get_data_service = (service_id) => {
+        for (let i = 0; i < products_by_serverid.length; i++) {
+            if (parseInt(products_by_serverid[i].id) === parseInt(service_id)) {
+                return products_by_serverid[i];
+            }
+        }
+    }
+
+    let _d_service = get_data_service(current_c_item);
     create_payment(
         function (callback_data) {
             if (callback_data) {
@@ -1666,11 +1702,12 @@ function generatePaymentLink(sum = 0) {
                 button.setAttribute("onClick", "payment_action_bt()");
             } else {
                 notify("Ошибка, не удалось сформировать чек для оплаты");
-                donateResetPaymentState(true);
+                donateResetPaymentState(repeat=true);
             }
         },
         customer,
         products,
+        _d_service.server_id,
         email,
         coupon
     );
@@ -1831,27 +1868,68 @@ function donateCartCall(coupon = null, nickname_update = true) {
     }
 }
 
-function donateCoinsPay() {
+function donateCoinsPay(type=1) {
     let button = document.getElementById("payment-button-donate_c");
     let sum = document.getElementById("donate_sum");
 
-    if (!/^[\d]+$/.test(sum.value)) {
+    if (!sum.value && !/^[\d]+$/.test(sum.value)) {
         sum = 0;
     } else {
         sum = sum.value;
     }
 
-    button.setAttribute("onClick", `generatePaymentLink(${sum})`);
+    button.setAttribute("onClick", `generatePaymentLink(sum=${sum}, type=${type})`);
 }
 
-function donateModalCall(nickname_update = true) {
+function donateModalCall(type_item, item_id, nickname_update = true) {
     let sum = document.getElementById("donate_sum");
+    let customer_field = document.getElementById("donate_customer_c");
+    let sum_container = document.getElementById("sum-tokens-container");
+    let email_container_classL = document.getElementById("customer-email-tokens-container").classList;
+    let modal_payment_text = document.getElementById("donate-text-span");
+    let payment_text_form;
     let selectors_payment = [
         document.getElementById("donate_sum"),
         document.getElementById("donate_customer_c"),
         document.getElementById("donate_email_c"),
         document.getElementById("coupon-input-c"),
     ];
+    let title = document.querySelector(".modal-title");
+    let item_name;
+
+    let update_title = (descriptor) => {
+        title.innerText = title.innerText.replace(/\([\s\S]*?\)/).trim();
+        title.innerText = `${title.innerText} (${descriptor})`;
+    }
+
+    current_c_item = item_id;
+
+    if (type_item === 1) {
+        sum_container.style.display = "";
+        email_container_classL.remove("col-sm-6");
+        email_container_classL.add("col-12");
+        payment_text_form = `
+            Воспользовавшись этой формой, вы можете поддержать проект финансово.
+            За поддержку вы получите вознаграждение – за каждый рубль по одному игровому токену.
+        `;
+        item_name = "Токены";
+        sum.addEventListener("input", function (_) {
+            donateCoinsPay();
+        });
+    } else if (type_item === 2) {
+        sum_container.style.display = "none";
+        email_container_classL.remove("col-12");
+        email_container_classL.add("col-sm-6");
+        payment_text_form = `
+            Вы можете совершить разовый платеж и получить на месяц пропуск к частному серверу 
+            в качестве вознаграждения за финансовую поддержку проекта.
+        `;
+        item_name = "Пропуск";
+        customer_field.addEventListener("input", function (_) {
+            donateCoinsPay(type_item);
+        });
+    }
+    modal_payment_text.innerText = payment_text_form.replaceAll("\n", "");
 
     for (let i = 0; i < selectors_payment.length; i++) {
         selectors_payment[i].addEventListener("input", function (_) {
@@ -1869,9 +1947,7 @@ function donateModalCall(nickname_update = true) {
             .setAttribute("placeholder", glob_players[0]);
     }
 
-    sum.addEventListener("input", function (_) {
-        donateCoinsPay();
-    });
+    update_title(item_name);
 }
 
 function linksSet(selector_, fisrt_el_mrg = false) {
@@ -1920,7 +1996,7 @@ function finishLoad() {
     document.querySelector("main").setAttribute("style", "");
     document.querySelector("footer").setAttribute("style", "");
     let heart =
-        '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: 0.95rem"><b>❤️</b></i>';
+        '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: 0.6rem;bottom:-3px"><b>❤️</b></i>';
     document.getElementById(
         "footer-text-blc"
     ).innerHTML = `Создал KovalYRS с ${heart}, специально для ZALUPA.ONLINE`;
@@ -2146,8 +2222,8 @@ const initCore = function () {
     window.onload = function () {
         if (!debug_lock_init) {
             let preloader = document.querySelector(".page-loading");
-            let wait = 1000;
-            let move_wait = 100;
+            let wait = 1500;
+            let move_wait = 150;
             setTimeout(function () {
                 preloader.classList.remove("active");
                 if (!donate_displayed) {

@@ -51,7 +51,7 @@
 <body class="noselect" style="overflow-y: hidden">
 <div class="page-loading active">
     <div class="page-loading-inner">
-        <div class="stone-logo-subtext loading-splash-logo pb-5 mb-5 flicker"></div>
+        <div class="stone-logo-subtext loading-splash-logo pb-5 mb-5" id="logo-spalsh-sb"></div>
         <div class="page-spinner"></div>
         <div class="quoute_container_loader py-5">
             <span style="font-style: italic">&#171;Пиздец блять, полетел на хуй&#187;</span>
@@ -88,11 +88,13 @@
     </header>
     <div class="donate-global-container" style="height: 0;min-height: 0;z-index: -1">
         <section id="donate_block" class="container my-5 mb-5 pt-5">
-            <div class="align-items-center justify-content-between text-center pt-md-1 pb-lg-3 donate-header-container bg-secondary">
+            <div
+                    id="donate-header-container" style="display: none"
+                    class="align-items-center justify-content-between text-center pt-md-1 pb-lg-3 donate-header-container bg-secondary">
                 <h2 class="h2 mb-sm-1 mb-md-3 me-md-3 p-sm-1 p-md-2 p-lg-2 pb-1">Донат</h2>
-                <p class="pb-2 pb-lg-4 pb-xl-5 mb-3 pb-3" id="donate-title-desc" style="display: none">
+                <p class="pb-2 pb-lg-4 pb-xl-5 mb-3 pb-3" id="donate-title-desc">
                     Ты можешь поддержать проект финансово, это поможет нам продолжать работу над ним.
-                    В качестве вознаграждения вы можете получить игровую валюту или пропуск на частный сервер.
+                    В качестве вознаграждения вы можете получить игровую валюту или пропуск на приватный сервер.
                 </p>
             </div>
             <div class="row row-cols-1 g-4 mb-4 mb-lg-5 mt-2 mt-lg-4" id="donate_items_list"></div>
@@ -111,12 +113,6 @@
                 <button class="btn btn-icon btn-secondary btn-shadow-hide mx-2 donate-cart-button-cn"
                         onclick="donateFlushCart()">
                     <span class="donate-cancel-cart">&times;</span>
-                </button>
-            </div>
-            <div id="donate-button-container" class="p-2" style="display: none">
-                <button class="btn btn-primary shadow-primary btn-shadow-hide btn-lg min-w-zl donate-button"
-                        onclick="donateModalCall()">
-                    Пополнить токены
                 </button>
             </div>
             <div id="exit-button-container-donate">
@@ -161,31 +157,28 @@
                             </div>
                         </div>
                         <div id="modal-donate-finish-container-b" style="display: none;">
-                            <span class="text-start mb-4" style="display: block">
-                                Воспользовавшись этой формой, вы можете поддержать проект финансово.
-                                За поддержку вы получите вознаграждение – за каждый рубль по одному игровому токену.
-                            </span>
+                            <span id="donate-text-span" class="text-start mb-4" style="display: block"></span>
                             <ul id="donate-coins-payment" class="list-group mb-3"></ul>
                             <form class="needs-validation" novalidate="">
                                 <div class="row g-3">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" id="sum-tokens-container">
                                         <label for="donate_sum" class="form-label">Сумма</label>
                                         <input type="number" class="form-control" id="donate_sum" placeholder="300"
                                                value=""
                                                required="">
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" id="customer-tokens-container">
                                         <label for="donate_customer_c" class="form-label">Никнейм</label>
                                         <input type="text" class="form-control" id="donate_customer_c"
                                                placeholder="Blackflexxy" value="" required="">
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12" id="customer-email-tokens-container">
                                         <label for="donate_email_c" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
                                         </label>
                                         <input type="email" class="form-control" id="donate_email_c"
                                                placeholder="eblan@mail.ru">
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12" id="coupon-tokens-container">
                                         <label for="coupon-input-c" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
                                         </label>
                                         <div class="input-group">
@@ -519,8 +512,8 @@
             <div class="me-2 stone-logo-subtext footer-logo"></div>
         </div>
         <div id="links-block-footer-v" class="d-flex justify-content-center pt-4 mt-lg-3"></div>
-        <p class="nav d-block fs-sm text-center pt-5 mt-lg-4 mb-0">
-            <span class="opacity-80" id="footer-text-blc"></span>
+        <p class="nav d-block fs-sm text-center pt-5 mt-lg-4 mb-0" style="font-size: .6rem">
+            <span class="opacity-70" id="footer-text-blc"></span>
             <br/>
             <span id="re-badge-text" class="opacity-40"></span>
         </p>
