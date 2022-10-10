@@ -117,7 +117,7 @@
     "name": "DjyZott",
     "head": "https://cravatar.eu/helmhead/DjyZott/256.png",
     "desc": "Хуйлан c Анархии",
-    "badges": ["old", "rich", "clan-Alliance"]
+    "badges": ["old", "rich"]
   },
   {
     "name": "SaiG4",
@@ -171,7 +171,7 @@
     "name": "lucky367",
     "head": "https://cravatar.eu/helmhead/lucky367/256.png",
     "desc": "Главный плеер Общения",
-    "badges": ["old", "clan-Alliance"]
+    "badges": ["old"]
   },
   {
     "name": "2p0y",
@@ -213,7 +213,7 @@
     "name": "Sunflower",
     "head": "assets/images/players/Sunflower.png",
     "desc": "Очередная женщина сервера",
-    "badges": ["girl", "clan-Yakuza"]
+    "badges": ["girl"]
   },
   {
     "name": "EXPlaned",
@@ -225,19 +225,19 @@
     "name": "Varleims",
     "head": "assets/images/players/Varleims.png",
     "desc": "Голос как у Хесуса",
-    "badges": ["traveler", "clan-Yakuza", "boy"]
+    "badges": ["traveler", "boy"]
   },
   {
     "name": "IIoska",
     "head": "assets/images/players/IIoska.png",
     "desc": "Создатель клана Yakuza",
-    "badges": ["traveler", "rich", "clan-Yakuza"]
+    "badges": ["traveler", "rich"]
   },
   {
     "name": "bagdantixi",
     "head": "assets/images/players/bagdantixi.png",
     "desc": "Очень крутой школьник",
-    "badges": ["conflict", "clan-Yakuza"]
+    "badges": ["conflict"]
   },
   {
     "name": "Rikumashi",

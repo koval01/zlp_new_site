@@ -5,6 +5,12 @@ const container_dev_splash = document
         ".is-dev-site-splash");
 const test_local = false;
 
+function init_logo_splash() {
+    let logo_selector = document.getElementById("logo-spalsh-sb");
+    logo_selector.style.scale = 1;
+    logo_selector.style.bottom = "5vh";
+}
+
 function notify(text) {
     const error_box = document
         .querySelector(
@@ -151,6 +157,8 @@ if (!development_hosts.includes(window
         is_development_splash();
     }
 }
+
+init_logo_splash();
 
 let script_re = document.createElement(
     'script');
