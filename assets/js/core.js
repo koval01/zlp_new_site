@@ -3098,6 +3098,13 @@ function donateContainerHash() {
     window.onhashchange = updater;
 }
 
+function initJarallax() {
+    jarallax(document.querySelectorAll('.jarallax'), {
+        speed: 0.15,
+        type: "scale-opacity"
+    });
+}
+
 function initTooltip() {
     let tooltipTriggerList = [].slice
         .call(
@@ -3142,6 +3149,7 @@ const initCore = function () {
     gameServerUpdater();
     initDonate();
     initEventsList();
+    initJarallax();
     finishLoad();
     successPay();
     ytVideoSetter(skip = true);
