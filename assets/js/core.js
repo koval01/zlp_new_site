@@ -3110,6 +3110,32 @@ function initTooltip() {
     }
 }
 
+function initSmoothScrollObserver() {
+    let skip_list = ["donate"];
+    let scrollerObject = new SmoothScroll(options={
+        speed: 500,
+        speedAsDuration: true
+    });
+
+    let callScroller = () => {
+        console.log("call")
+        let identifier = linkHash();
+
+        if (!skip_list.includes(identifier)) {
+            scrollerObject.animateScroll(
+                document.querySelector(
+                    `section[id="${identifier}"]`
+                ), null, {
+                    offset: 40
+                }
+            );
+        }
+    }
+
+    callScroller();
+    window.onhashchange = callScroller;
+}
+
 const initCore = function() {
     initHost();
     initCrypto();
@@ -3143,7 +3169,7 @@ const initCore = function() {
                         ".page-loading"
                     );
             let wait = 1500;
-            let move_wait = 150;
+            let move_wait = 100;
             setTimeout(
                 function() {
                     preloader
@@ -3171,8 +3197,8 @@ const initCore = function() {
                         .remove();
 
                     // after tasks
-                    initTooltip
-                    ();
+                    initTooltip();
+                    initSmoothScrollObserver();
                 }, wait +
                 move_wait);
         }
