@@ -35,7 +35,7 @@ input:-webkit-autofill
   background: rgba(144, 72, 255, .5)
 
 .bg-light:not(.badge), .card.card-hover.bg-light
-    background: rgb(255 255 255 / 57%) !important
+    background: rgb(255 255 255 / 75%) !important
     backdrop-filter: blur(16px)
 
 .dark-mode
@@ -51,14 +51,14 @@ input:-webkit-autofill
   --contr-color-var: #fff
 
   .bg-light:not(.badge), .card.card-hover.bg-light
-    background-color: rgb(23 20 28 / 55%) !important
+    background-color: rgb(24 24 27 / 65%) !important
     backdrop-filter: blur(16px)
     -webkit-backdrop-filter: blur(16px)
     border-bottom: 1px solid rgba(255, 255, 255, 0.24)
 
 .header-logo
   width: 8rem
-  height: 2.4rem
+  height: 2.3rem
   background-image: url(../images/logo.webp)
   background-repeat: no-repeat
   background-size: contain
@@ -1066,6 +1066,9 @@ a:hover
     --stone-log-shadow-color: 144, 72, 255, .95
 
   &.loading-splash-logo
+    scale: 0.5
+    bottom: 0
+
     height: 24vh
     margin-top: -4rem
     --stone-logo-shadow-size: 36px
@@ -1082,8 +1085,6 @@ a:hover
   background-position: center
   background-size: contain
   background-repeat: no-repeat
-  scale: 0.5
-  bottom: 0
   transition: all 1.6s
   filter: drop-shadow(2px 4px var(--stone-logo-shadow-size) rgba(var(--stone-log-shadow-color)))
 
@@ -1099,6 +1100,31 @@ a:hover
 //@media (min-height: 740px)
 //  .donate-global-container
 //    overflow-y: auto !important
+
+.server_history_bg
+  background-size: cover
+  background-repeat: no-repeat
+  width: 100%
+  height: 100vh
+  color: #fff !important
+
+  h1, h2, h3, h4, h5, h6
+    color: #fff !important
+
+  > .black-filter_sr_hs
+    position: absolute
+    width: 100%
+    height: 100%
+    opacity: .6
+    background-color: #000
+    z-index: -1
+
+  > .container
+    padding: 2rem !important
+
+@media (max-width: 960px)
+  .server_history_bg
+    background-position: center
 
 .donate-global-container
   position: relative

@@ -41,7 +41,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
 }
 
 .bg-light:not(.badge), .card.card-hover.bg-light {
-  background: rgba(255, 255, 255, 0.57) !important;
+  background: rgba(255, 255, 255, 0.75) !important;
   backdrop-filter: blur(16px);
 }
 
@@ -58,7 +58,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   --contr-color-var: #fff;
 }
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
-  background-color: rgba(23, 20, 28, 0.55) !important;
+  background-color: rgba(24, 24, 27, 0.65) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.24);
@@ -66,7 +66,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
 
 .header-logo {
   width: 8rem;
-  height: 2.4rem;
+  height: 2.3rem;
   background-image: url(../images/logo.webp);
   background-repeat: no-repeat;
   background-size: contain;
@@ -1202,8 +1202,6 @@ a:hover .emoji > b {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  scale: 0.5;
-  bottom: 0;
   transition: all 1.6s;
   filter: drop-shadow(2px 4px var(--stone-logo-shadow-size) rgba(var(--stone-log-shadow-color)));
 }
@@ -1213,6 +1211,8 @@ a:hover .emoji > b {
   --stone-log-shadow-color: 144, 72, 255, .95;
 }
 .stone-logo-subtext.loading-splash-logo {
+  scale: 0.5;
+  bottom: 0;
   height: 24vh;
   margin-top: -4rem;
   --stone-logo-shadow-size: 36px;
@@ -1236,6 +1236,33 @@ a:hover .emoji > b {
   position: relative;
 }
 
+.server_history_bg {
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  color: #fff !important;
+}
+.server_history_bg h1, .server_history_bg h2, .server_history_bg h3, .server_history_bg h4, .server_history_bg h5, .server_history_bg h6 {
+  color: #fff !important;
+}
+.server_history_bg > .black-filter_sr_hs {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+  background-color: #000;
+  z-index: -1;
+}
+.server_history_bg > .container {
+  padding: 2rem !important;
+}
+
+@media (max-width: 960px) {
+  .server_history_bg {
+    background-position: center;
+  }
+}
 .donate-global-container {
   position: relative;
   min-height: 100vh;

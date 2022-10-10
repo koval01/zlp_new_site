@@ -3144,7 +3144,7 @@ const initCore = function () {
     initEventsList();
     finishLoad();
     successPay();
-    ytVideoSetter((skip = true));
+    ytVideoSetter(skip = true);
 
     let elem = document
         .getElementById(
