@@ -671,7 +671,7 @@ function appendServices() {
 
                 if (!coins_sell_mode) {
                     _name = services[i].name;
-                } else {
+                } else if (services[i].name.toLowerCase() === "токены") {
                     _name = `${services[i].price} ${getNoun(
                         services[i].price,
                         "рубль",
@@ -686,7 +686,23 @@ function appendServices() {
                     padding_desc = "p-0";
                     desc_template = `
                         <p class="mb-0 token-description-dnt">
-                            Деньги не возвращаем. Даже не пробуй жаловаться v0kky.
+                            Игровая валюта, которую можно сделать как в игре, так и получить за поддержку проекта.
+                        </p>`;
+
+                    click_template = "";
+                } else if (services[i].name.toLowerCase().includes("проходка")) {
+                    _name = `
+                        <span class="text-primary">${services[i].name}</span>,
+                        ${services[i].price} ${getNoun(
+                            services[i].price,
+                            "рубль",
+                            "рубля",
+                            "рублей"
+                        )}`;
+                    padding_desc = "p-0";
+                    desc_template = `
+                        <p class="mb-0 token-description-dnt">
+                            За финансовую поддержку проекта ты получишь пропуск на приватный сервер.
                         </p>`;
 
                     click_template = "";

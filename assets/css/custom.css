@@ -419,7 +419,7 @@ iframe {
 }
 @media (min-width: 992px) {
   .mt-lg-4-first {
-    height: calc(100vh - 16px);
+    height: 100vh;
   }
   .background_media_overlay_tag {
     height: 100vh;
@@ -435,25 +435,18 @@ iframe {
     margin-left: 2vw;
     margin-right: 2vw;
   }
-  .vova-bg-landing {
+  .vova-bg-landing, .vova-bg-landing-mask {
     position: absolute;
     height: 100vh;
     background-image: url(../images/vova-background.webp);
     background-repeat: no-repeat;
     background-size: contain;
-    background-position-y: -1.6em;
+    background-position-y: -1em;
     z-index: 0;
     filter: brightness(0.95);
     -webkit-filter: brightness(0.95);
   }
   .vova-bg-landing-mask {
-    position: absolute;
-    height: 100vh;
-    background-image: url(../images/vova-background.webp);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position-y: -1.6em;
-    z-index: 0;
     filter: drop-shadow(0 0 35px #291d4c);
     -webkit-filter: drop-shadow(0 0 35px #291d4c);
   }
@@ -584,6 +577,7 @@ body.modal-open {
   display: block;
   margin: auto;
   width: 150px;
+  height: 150px;
 }
 
 .parent-image-shadow {
@@ -607,15 +601,15 @@ body.modal-open {
   position: absolute;
   top: 2px;
   transform: scale(1);
-  transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.8s cubic-bezier(0.32, 0.4, 0.45, 0.94);
   z-index: 1;
   opacity: 1;
-  filter: blur(24px) brightness(0.9);
-  -webkit-filter: blur(24px) brightness(0.9);
+  filter: blur(24px) brightness(0.8);
+  -webkit-filter: blur(24px) brightness(0.8);
 }
 
 .container-item-donate-n:hover .backgroundImg {
-  transform: scale(2);
+  transform: scale(1.6);
 }
 
 #discord-embed iframe {
@@ -667,7 +661,7 @@ iframe[id*=telegram-post] {
 
 .donate-header-container {
   padding: 0.8em;
-  border-radius: 0.4rem;
+  border-radius: 0.7rem;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -678,6 +672,8 @@ iframe[id*=telegram-post] {
 .token-description-dnt {
   font-weight: 600;
   font-size: 0.85em;
+  margin: auto;
+  width: 85%;
 }
 
 .verified-icon {
@@ -1229,15 +1225,11 @@ a:hover .emoji > b {
   position: relative;
 }
 
-@media (max-height: 740px) {
-  .donate-global-container {
-    overflow-y: auto !important;
-  }
-}
 .donate-global-container {
   position: relative;
   min-height: 100vh;
   transition: all 1s;
+  overflow-y: auto !important;
 }
 
 .donate-container-exit-button {
