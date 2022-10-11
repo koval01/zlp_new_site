@@ -1867,9 +1867,11 @@ function callSucessPayModal(payment_id = 0) {
 
     let update_pm_desc = () => {
         let img_product = glob_func_payment_data.product.image;
+        let name_product = glob_func_payment_data.product.name;
 
         if (img_product && img_product.length) {
             document.querySelector(".payment-sucess-vova").src = img_product;
+            document.querySelector(".item-name-payment-result").innerText = name_product;
         }
     }
 
@@ -1880,7 +1882,6 @@ function callSucessPayModal(payment_id = 0) {
             cont_ok.style.display = "";
 
             let item_type = item_type_(payment.product.name);
-            let item_name_template;
 
             let system_template = `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -1901,13 +1902,6 @@ function callSucessPayModal(payment_id = 0) {
             `;
 
             if (coins_sell_mode) {
-                item_name_template = `
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Товар</span>
-                        <strong class="text-primary">${payment.product.name}</strong>
-                    </li>
-                `
-
                 if (item_type === 1) {
                     sum_template = `
                         <li class="list-group-item d-flex justify-content-between">
@@ -1970,7 +1964,6 @@ function callSucessPayModal(payment_id = 0) {
                     </div>
                     <span>${payment.created_at}</span>
                 </li>
-                ${item_name_template}
                 ${sum_template}
             `;
         } else {
