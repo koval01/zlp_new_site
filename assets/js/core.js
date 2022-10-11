@@ -1248,7 +1248,7 @@ function donateResetPaymentState(type = 1, repeat = false) {
     }
     let button = document
         .getElementById("payment-button-donate" + sl);
-    button.setAttribute("onClick", `generatePaymentLink(sum=${vl}, type=${type})`);
+    button.setAttribute("onClick", `generatePaymentLink(${type}, ${(type === 2) ? 1 : vl})`);
     button.removeAttribute("disabled");
     button.innerText = repeat ? "Повторить" : "Дальше";
 }
@@ -1270,7 +1270,6 @@ function donate_cart(product, count, remove = false) {
     }
 
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
-        console.log("Error data donate_cart");
         return;
     } else if (1 > Math.sign(count)) {
         notify("Количество не может быть равно нулю или меньше");
@@ -1514,8 +1513,6 @@ function generatePaymentLink(type = 1, sum = 0) {
     if (!coupon) {
         coupon = "";
     }
-    console.log(type)
-    console.log(donate_services_array)
     if (coins_sell_mode) {
         products = JSON.parse(`{"${donate_services_array[type - 1].id}": ${sum}}`);
     } else {
@@ -1543,7 +1540,7 @@ function generatePaymentLink(type = 1, sum = 0) {
             button.setAttribute("onClick", "payment_action_bt()");
         } else {
             notify("Ошибка, не удалось сформировать чек для оплаты");
-            donateResetPaymentState(repeat = true);
+            donateResetPaymentState(type,repeat = true);
         }
     }, customer, products, _d_service.server_id, email, coupon);
 }
@@ -1698,7 +1695,7 @@ function donateCoinsPay(type = 1) {
         sum = sum.value;
     }
 
-    button.setAttribute("onClick", `generatePaymentLink(sum=${sum}, type=${type})`);
+    button.setAttribute("onClick", `generatePaymentLink(${type}, ${(type === 2) ? 1 : sum})`);
 }
 
 function donateModalCall(type_item, item_id, nickname_update = true) {
@@ -1754,7 +1751,7 @@ function donateModalCall(type_item, item_id, nickname_update = true) {
     for (let i = 0; i < selectors_payment.length; i++) {
         selectors_payment[i]
             .addEventListener("input", function (_) {
-                donateResetPaymentState();
+                donateResetPaymentState(type_item);
             });
     }
 
@@ -1768,6 +1765,7 @@ function donateModalCall(type_item, item_id, nickname_update = true) {
             .setAttribute("placeholder", glob_players[0]);
     }
 
+    donateResetPaymentState(type_item);
     update_title(item_name);
 }
 
@@ -1845,6 +1843,8 @@ function observerSystemTheme() {
 }
 
 function callSucessPayModal(payment_id = 0) {
+    let glob_func_payment_data;
+
     let cart_dom = document
         .getElementById("donate-cart-list-success");
     let succ_text = document
@@ -1855,10 +1855,32 @@ function callSucessPayModal(payment_id = 0) {
 
     donateSwitchContainer((display = true));
 
+    let item_type_ = (product_name) => {
+        let t = (product_name).toLowerCase();
+
+        if (t.includes("токен")) {
+            return 1;
+        } else if (t.includes("проходка")) {
+            return 2;
+        }
+    }
+
+    let update_pm_desc = () => {
+        let img_product = glob_func_payment_data.product.image;
+
+        if (img_product && img_product.length) {
+            document.querySelector(".payment-sucess-vova").attributes.src = img_product;
+        }
+    }
+
     let buildPayment = function (payment) {
         if (payment.status && payment_id == parseInt(payment.id)) {
+            glob_func_payment_data = payment;
             succ_text.innerText = "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
             cont_ok.style.display = "";
+
+            let item_type = item_type_(payment.product.name);
+            let item_name_template;
 
             let system_template = `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -1879,12 +1901,28 @@ function callSucessPayModal(payment_id = 0) {
             `;
 
             if (coins_sell_mode) {
-                sum_template = `
+                item_name_template = `
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Сумма</span>
-                        <strong class="text-primary">${payment.enrolled} ${getNoun(payment.enrolled, "токен", "токена", "токенов")}</strong>
+                        <span>Товар</span>
+                        <strong class="text-primary">${payment.product.name}</strong>
                     </li>
-                `;
+                `
+
+                if (item_type === 1) {
+                    sum_template = `
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Сумма</span>
+                            <strong class="text-primary">${payment.enrolled} ${getNoun(payment.enrolled, "токен", "токена", "токенов")}</strong>
+                        </li>
+                    `;
+                } else if (item_type === 2) {
+                    sum_template = `
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Сумма</span>
+                            <strong class="text-primary">${payment.product.price} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
+                        </li>
+                    `;
+                }
             }
 
             if (!payment.enrolled || payment.enrolled < 1) {
@@ -1915,6 +1953,7 @@ function callSucessPayModal(payment_id = 0) {
                     </div>
                     <span>${payment.customer}</span>
                 </li>
+                ${item_name_template}
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
                         <h6 class="my-0 text-start">
@@ -1946,6 +1985,9 @@ function callSucessPayModal(payment_id = 0) {
         buildPayment(payment);
         switch_modal_containers("success");
         modal_open_();
+
+        // updaters
+        update_pm_desc();
     };
 
     checkPayment(function (payment) {
@@ -2010,13 +2052,14 @@ function initTooltip() {
 
 function initSmoothScrollObserver() {
     let skip_list = ["donate"];
-    let scrollerObject = new SmoothScroll(options = {
-        speed: 500, speedAsDuration: true
-    });
+    let scrollerObject = new SmoothScroll("section");
 
     let callScroller = () => {
-        console.log("call")
-        let identifier = linkHash();
+        let identifier = linkHash().toLowerCase();
+
+        if (!(identifier && identifier.length)) {
+            return;
+        }
 
         if (!skip_list.includes(identifier)) {
             scrollerObject.animateScroll(document.querySelector(`section[id="${identifier}"]`), null, {
