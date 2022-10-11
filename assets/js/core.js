@@ -614,7 +614,7 @@ function appendServices() {
                 if (!coins_sell_mode) {
                     _name = services[i].name;
                 } else {
-                    let button_title;
+                    let button_title = "";
                     if (services[i]
                         .name
                         .toLowerCase() === "токены") {
