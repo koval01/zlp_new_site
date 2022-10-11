@@ -617,7 +617,8 @@ function appendServices() {
                     let button_title = "";
                     if (services[i]
                         .name
-                        .toLowerCase() === "токены") {
+                        .toLowerCase()
+                        .includes("токен")) {
                         _name = `${services[i].price} ${getNoun(services[i].price, "рубль", "рубля", "рублей")} = ${services[i].number} ${getNoun(services[i].number, "токен", "токена", "токенов")}`;
                         padding_desc = "p-0";
                         desc_template = `
