@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" style="overflow-x:hidden">
 <head>
     <meta charset="utf-8">
     <title>Zalupa.Online</title>
@@ -17,15 +17,15 @@
     <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#6366f1">
     <link rel="shortcut icon" href="assets/favicon/favicon.ico">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.2/css/boxicons.min.css"
-          integrity="sha512-AGmpdsTqvAh2GvTWzVhhJ9VqQb1eAXwOM7uiWtv0DzcnGaGWy98K51z2cK5OG3gp4NB1HbMaD7p0MeO9kE7E3w=="
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
+          integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.css"
-          integrity="sha512-T3xwtELy3dqQUajk2sl4V6x/VnT+WbXgAKIu/Go7L6oDDWf4A5dJbG49vKn0am3dTNh/KHAbU2+4Ih2vVioxSg=="
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.3/swiper-bundle.min.css"
+          integrity="sha512-uuenj2ro+QKfF5Ig2BYOy3s3BhYPODotv/9V8Ue1MHrrwsiYKY01WzNMNk45i0jRUMXZxEuGpUzyPahsKOMKTg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" media="screen" href="assets/css/theme.min.css">
     <link rel="stylesheet" media="screen" href="assets/css/custom.min.css">
-    <link rel="stylesheet" media="screen" href="assets/css/loader.css">
+    <link rel="stylesheet" media="screen" href="assets/css/loader.min.css">
     <script src="assets/js/dark_init.min.js"></script>
     <script>
         var domain_site = "zalupa.online";
@@ -48,11 +48,11 @@
         }
     </style>
 </head>
-<body class="noselect">
+<body class="noselect" style="overflow-y: hidden">
 <div class="page-loading active">
     <div class="page-loading-inner">
+        <div class="stone-logo-subtext loading-splash-logo pb-5 mb-5" id="logo-spalsh-sb"></div>
         <div class="page-spinner"></div>
-        <span>Загрузка... <br/>Zalupa.Online </span>
         <div class="quoute_container_loader py-5">
             <span style="font-style: italic">&#171;Пиздец блять, полетел на хуй&#187;</span>
             <br> ― <span class="authorOrTitle"> bratishkinoff </span>
@@ -70,7 +70,7 @@
         </span>
         <button type="button"
                 class="btn btn-lg btn-dark w-100 mx-0"
-                onclick="close_dev_splash()">
+                onclick="closeDevSplash()">
             Я понял
         </button>
     </div>
@@ -86,410 +86,445 @@
             </div>
         </div>
     </header>
-    <section class="container-fluid position-relative px-0 pt-5 mt-3 mt-lg-4-first">
-        <div class="hero-bg-st position-absolute top-50 translate-middle-y fake-block-sett-bg"></div>
-        <div class="row g-0">
-            <div class="vova-bg-landing"></div>
-            <div class="vova-bg-landing-mask"></div>
-            <div class="col-xl-7 col-lg-6 pe-lg-5"></div>
-            <div class="col-xl-5 col-lg-6 position-relative py-5">
-                <div class="position-relative zindex-5 text-center text-lg-start px-3 px-lg-0 py-xl-4 py-xxl-5 mt-lg-3 mx-auto mx-lg-0 landing-global-block-set"
-                     style="max-width: 530px;">
-                    <h1 class="display-1 pb-lg-3 mb-3 landing-head-text">Zalupa.Online</h1>
-                    <h3 class="loading-dots" id="server_online_status">Получение данных о сервере</h3>
-                    <p id="error_get_server_status"></p>
-                    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5"
-                         style="padding-bottom: 0 !important;">
-                        <a href="#instruction_block" class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3"
-                           data-scroll data-scroll-offset="20">Играть</a>
-                        <a href="#donate_block" class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3"
-                           data-scroll data-scroll-offset="80">Донат</a>
-                    </div>
-                    <div id="landing-links-tp" class="justify-content-center justify-content-lg-start py-4"></div>
-                    <div class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5">
-                        <span class="fs-sm" id="landing_description_gb">
-                          <span class="text-primary fw-semibold">Тысячи</span>
-                            успешных мужчин уже играют у нас </span>
-                    </div>
-                    <span class="fs-sm" id="landing_dark_msg_gb"></span>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-7 col-lg-6 pe-lg-5">
-            <div class="d-flex h-100 pe-xl-4">
-                <div class="vova-right-back"></div>
-            </div>
-        </div>
-        <div class="position-absolute d-none d-lg-block bottom-0 start-0 w-100 zindex-5 pb-xxl-3">
-            <div class="container pb-4 mb-3 mb-xxl-0" style="display: none">
-                <a href="#server_history"
-                   class="d-table theme-styled-text-st opacity-80 text-decoration-none w-auto scroll-bottom-landing"
-                   data-scroll data-scroll-offset="20">
-              <span class="d-flex align-items-center" id="swipe-down-landing-n">
-                  Крути вниз, чтобы увидеть больше <i class="bx bx-down-arrow-circle fs-3 ms-2"></i>
-              </span>
-                </a>
-            </div>
-        </div>
-    </section>
-    <section id="telegram_block" class="position-relative py-5">
-        <div class="container py-2 py-md-2 py-lg-3">
-            <h2 class="h3 text-center mb-0">Последние новости</h2>
-            <div class="position-relative px-sm-5 mx-auto" style="display: none" id="news_zlp_buttons">
-                <button type="button" id="prev_news"
-                        class="btn btn-prev btn-icon btn-sm bg-faded-primary position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
-                    <i class="bx bx-chevron-left"></i>
-                </button>
-                <button type="button" id="next_news"
-                        class="btn btn-next btn-icon btn-sm bg-faded-primary position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
-                    <i class="bx bx-chevron-right"></i>
-                </button>
-                <div class="swiper swiper-nav-onhover pt-1 mx-md-2" id="news_swipe_container">
-                    <div class="swiper-shadow-overlay swiper-shadow-blocks swiper-left-shadow"></div>
-                    <div class="swiper-shadow-overlay swiper-shadow-blocks swiper-right-shadow"></div>
-                    <div class="swiper-wrapper pt-4 pb-3" id="news_swipe_array"></div>
-                    <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-5"
-                         id="news_swiper_pagination"></div>
-                </div>
-            </div>
-            <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
-        </div>
-    </section>
-    <section id="video_block" class="py-5">
-        <div class="container py-2 py-md-4 py-lg-5">
-            <h3 class="h3 text-center mb-lg-4">Наглядно о сервере</h3>
-            <p class="fs-lg text-muted text-center mb-4 mb-lg-5"> Предлагаем тебе просмотреть видео ниже, чтобы лучше
-                понять о чем наш сервер, какова его философия, кто там живет. </p>
-            <div class="row py-xl-3" style="padding: 12px">
-                <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4" style="padding: 1.5em">
-                    <div class="col" style="margin: auto">
-                        <div class="d-flex align-items-center">
-                            <div class="display-4 text-primary">3</div>
-                            <p class="ps-3 mb-0">Сервера: Лобби, Общение и Анархия</p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="display-4 text-primary">7+</div>
-                            <p class="ps-3 mb-0">Наша целевая аудитория</p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="display-4 text-primary">1.19</div>
-                            <p class="ps-3 mb-0">Версия клиента для игры</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="position-relative overflow-hidden rounded-3 col-xl-6 col-lg-7 order-lg-1 mb-4">
-                    <div class="top-0 zindex-5 d-flex align-items-center justify-content-center">
-                        <iframe src="https://www.youtube.com/embed/BzvZxCXKctM" title="YouTube video player"
-                                frameborder="0" class="video-container-yt"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="server_history" class="position-relative mt-5">
-        <div class="position-absolute top-0 start-0 w-100 h-100"></div>
-        <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
-            <h2 class="h1 text-center text-sm-start mb-4">Большое начало в 2021-м году</h2>
-            <p class="pb-2 pb-lg-4 pb-xl-5 mb-3"> Здесь будет небольшая история о том, как сервер начинал свою работу.
-                Также, какие игроки повлияли на вектор его развития, как это было. </p>
-            <h2 class="h3 text-lg-start mb-4 mb-lg-5">Известные игроки</h2>
-            <div class="swiper mb-2" id="players_swipe_container">
-                <div class="swiper-shadow-overlay swiper-left-shadow"></div>
-                <div class="swiper-shadow-overlay swiper-right-shadow"></div>
-                <div class="swiper-wrapper" id="players-swiper-array"></div>
-                <div class="swiper-pagination position-relative pt-2 mt-4 players-pagination"></div>
-            </div>
-        </div>
-    </section>
-    <section id="comments_block" class="mb-5 mt-5">
-        <div class="container py-2 py-md-2 py-lg-3">
-            <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-5">Комментарии игроков</h2>
-            <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;" id="comments_zlp_buttons">
-                <button type="button" id="prev_comment"
-                        class="btn btn-prev btn-icon btn-sm bg-faded-primary position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
-                    <i class="bx bx-chevron-left"></i>
-                </button>
-                <button type="button" id="next_comment"
-                        class="btn btn-next btn-icon btn-sm bg-faded-primary position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
-                    <i class="bx bx-chevron-right"></i>
-                </button>
-                <div class="swiper swiper-nav-onhover pt-1 mx-md-2" id="comment_swipe_container">
-                    <div class="swiper-shadow-overlay swiper-shadow-blocks swiper-left-shadow"></div>
-                    <div class="swiper-shadow-overlay swiper-shadow-blocks swiper-right-shadow"></div>
-                    <div class="swiper-wrapper pt-4 pb-3" id="comment_swipe_array"></div>
-                    <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4"></div>
-                </div>
-                <p class="text-center">
-                    Чтобы мы добавили Ваш комментарий - свяжитесь с <a href="https://t.me/Elon_TuskOFF" target="_blank">Elon Tusk</a>
+    <div class="donate-global-container" style="height: 0;min-height: 0;z-index: -1">
+        <section id="donate_block" class="container my-5 mb-5 pt-5">
+            <div
+                    id="donate-header-container" style="display: none"
+                    class="align-items-center justify-content-between text-center pt-md-1 pb-lg-3 donate-header-container bg-secondary">
+                <h2 class="h2 mb-sm-1 mb-md-3 me-md-3 p-sm-1 p-md-2 p-lg-2 pb-1">Донат</h2>
+                <p class="pb-2 pb-lg-4 pb-xl-5 mb-3 pb-3" id="donate-title-desc">
+                    Ты можешь поддержать проект финансово, это поможет нам продолжать работу над ним.
+                    В качестве вознаграждения вы можете получить игровую валюту или пропуск на приватный сервер.
                 </p>
             </div>
-        </div>
-    </section>
-    <section id="instruction_block" class="py-4">
-        <div class="container py-2 py-md-4 py-lg-5">
-            <h3 class="h1 text-center mb-lg-4">Инструкция для начала игры</h3>
-            <p class="fs-lg text-muted text-center mb-4 mb-lg-5">
-                Установка клиента игры
-            </p>
-            <div class="row py-xl-3 g-2" style="padding: 12px">
-                <div class="position-relative overflow-hidden rounded-3 col-lg-6 order-lg-2 mb-4 p-4">
-                    <div class="top-0 zindex-5 d-flex align-items-center justify-content-center">
-                        <iframe src="https://www.youtube.com/embed/zyEUQw_yd5E" title="YouTube video player"
-                                frameborder="0" class="video-container-yt"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-                <div class="col-lg-6 order-lg-2 mb-4 p-4" style="padding: 1.2em">
-                    <div class="col noselect-allow" style="margin: auto">
-                        <div class="d-flex align-items-center">
-                            <div class="display-6 text-primary">1</div>
-                            <p class="ps-3 mb-0">
-                                Скачайте лаунчер на ваш выбор.
-                                <a href="https://www.minecraft.net/ru-ru/download" target="_blank">
-                                    Лицензия</a> или
-                                <a href="https://tlaun.ch/installer" target="_blank">
-                                    TL Legacy</a>
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="display-6 text-primary">2</div>
-                            <p class="ps-3 mb-0">
-                                Установите
-                                Fabric 1.19.2
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="display-6 text-primary">3</div>
-                            <p class="ps-3 mb-0">
-                                Установите пак модов, которые необходимые для игры.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="row row-cols-1 g-4 mb-4 mb-lg-5 mt-2 mt-lg-4" id="donate_items_list"></div>
+            <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+            <div>
+                <p id="donate-test-mode-enb" class="text-center p-2 m-0" style="display: none"></p>
             </div>
-            <p class="fs-lg text-muted text-center mb-4 mb-lg-5">
-                Установка необходимых модификаций
-            </p>
-            <div class="row py-xl-3 g-2" style="padding: 12px">
-                <div class="col-lg-6 order-lg-2 mb-4 p-4">
-                    <div class="col noselect-allow" style="margin: auto">
-                        <div class="d-flex align-items-center">
-                            <div class="display-6 text-primary">1</div>
-                            <p class="ps-3 mb-0">
-                                Откройте установщик Fabric и установите версию 1.19.2
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="display-6 text-primary">2</div>
-                            <p class="ps-3 mb-0">
-                                Нажмите комбинацию <code>Win+R</code> и в появившейся строке введите
-                                <code>%appdata%</code>
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="display-6 text-primary">3</div>
-                            <p class="ps-3 mb-0">
-                                Перейдите в папку <code>.minecraft</code> и перенесите в нее обе папки из сборки
-                                (<span class="text-primary">emotes и mods</span>)
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="display-6 text-primary">4</div>
-                            <p class="ps-3 mb-0">
-                                В лаунчере выберите версию Fabric - 1.19.2. Готово!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 order-lg-2 mb-4 justify-content-center text-center">
-                    <a href="assets/files/Сборка.zip"
-                       class="btn btn-primary shadow-primary mt-3 m-1" download="">
-                        Скачать готовую сборку модов v1</a>
-                    <a href="https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.11.0/fabric-installer-0.11.0.exe"
-                       class="btn btn-primary shadow-primary mt-3 m-1" download="">
-                        Fabric установщик для лицензии</a>
-                </div>
+            <div id="donate-cart-container"
+                 class="donate_cart_button_cn mb-3 row-cols-3 d-flex flex-sm-row justify-content-center"
+                 style="display: none !important;">
+                <button class="btn btn-primary shadow-primary btn-shadow-hide btn-lg donate-cart-button-cn min-w-zl"
+                        onclick="donateCartCall()">
+                    <embed src="assets/images/shopping-cart.svg" class="cst-icon-svg">
+                    Корзина ( <span id="count_cart_items_dn">0</span>)
+                </button>
+                <button class="btn btn-icon btn-secondary btn-shadow-hide mx-2 donate-cart-button-cn"
+                        onclick="donateFlushCart()">
+                    <span class="donate-cancel-cart">&times;</span>
+                </button>
             </div>
-        </div>
-    </section>
-    <section id="donate_block" class="container my-5 mb-5">
-        <div class="align-items-center justify-content-between text-center pt-md-1 pb-lg-3 donate-header-container">
-            <h2 class="h2 mb-sm-1 mb-md-3 me-md-3 p-sm-1 p-md-2 p-lg-2 pb-1">Донат</h2>
-            <p class="pb-2 pb-lg-4 pb-xl-5 mb-3 pb-3" id="donate-title-desc" style="display: none">
-                Ты можешь поддержать проект финансово, это поможет нам продолжать работу над ним.
-                В качестве вознаграждения ты получишь игровые токены, которые сможешь обменять
-                на внутриигровые бонусы.
-            </p>
-        </div>
-        <div class="row row-cols-1 g-4 mt-2 mt-lg-4" id="donate_items_list"></div>
-        <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
-        <div>
-            <p id="donate-test-mode-enb" class="text-center p-2 m-0" style="display: none"></p>
-        </div>
-        <div id="donate-cart-container"
-             class="donate_cart_button_cn mb-3 row-cols-3 d-flex flex-sm-row justify-content-center"
-             style="display: none !important;">
-            <button class="btn btn-primary shadow-primary btn-lg donate-cart-button-cn min-w-zl"
-                    onclick="donate_cart_call()">
-                <embed src="assets/images/shopping-cart.svg" class="cst-icon-svg">
-                Корзина ( <span id="count_cart_items_dn">0</span>)
-            </button>
-            <button class="btn btn-icon btn-secondary mx-2 donate-cart-button-cn" onclick="donate_flush_cart()">
-                <span class="donate-cancel-cart">&times;</span>
-            </button>
-        </div>
-        <div id="donate-button-container" class="p-2" style="display: none">
-            <button class="btn btn-primary shadow-primary btn-lg min-w-zl donate-button"
-                    onclick="donate_modal_call()">
-                Пополнить токены
-            </button>
-        </div>
-        <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
-            <div class="modal-content rounded-4 shadow" style="text-align: center">
-                <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title"></h5>
-                </div>
-                <div class="modal-body py-0">
-                    <div id="modal-donate-container-c">
-                        <form class="needs-validation" novalidate="">
-                            <p id="donate_item_select_text" class="text-start"></p>
-                            <div class="row g-3 add_data_cart">
-                                <div class="col-sm-6" style="margin: auto">
-                                    <label id="donate_count_text_hint" for="donate_customer" class="form-label">
-                                        Количество</label>
-                                    <input type="number" class="form-control" id="items_count_donate" placeholder=""
-                                           value="" required="">
-                                </div>
-                            </div>
-                            <br/>
-                            <button id="donate_button_add_to_cart" class="w-100 btn btn-primary btn-lg" type="button">
-                                Добавить
-                            </button>
-                        </form>
+            <div id="exit-button-container-donate">
+                <i onclick="donateSwitchContainer()" class="bx bx-chevron-down donate-container-exit-button"></i>
+            </div>
+            <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
+                <div class="modal-content rounded-4 shadow" style="text-align: center">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title"></h5>
                     </div>
-                    <div id="modal-info-container-c" style="display: none">
-                        <p id="donate_info_block_text"></p>
-                    </div>
-                    <div id="modal-donate-success-container" style="display: none">
-                        <ul id="donate-cart-list-success" class="list-group mb-3"></ul>
-                        <div class="d-flex" id="only-ok-payment" style="display: none">
-                            <img src="assets/images/vova-gribnik.webp" alt="Vova"
-                                 class="payment-sucess-vova" loading="lazy">
-                            <span id="success-pay-text-js">
-                                Оплата прошла успешно, Шеф доволен, спасибо.
-                            </span>
-                        </div>
-                    </div>
-                    <div id="modal-donate-finish-container-b" style="display: none;">
-                        <span class="text-start mb-4" style="display: block">
-                            Воспользовавшись этой формой, вы можете поддержать проект финансово.
-                            За поддержку вы получите вознаграждение – за каждый рубль по одному игровому токену.
-                        </span>
-                        <ul id="donate-coins-payment" class="list-group mb-3"></ul>
-                        <form class="needs-validation" novalidate="">
-                            <div class="row g-3">
-                                <div class="col-sm-6">
-                                    <label for="donate_sum" class="form-label">Сумма</label>
-                                    <input type="number" class="form-control" id="donate_sum" placeholder="300" value=""
-                                           required="">
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="donate_customer_c" class="form-label">Никнейм</label>
-                                    <input type="text" class="form-control" id="donate_customer_c"
-                                           placeholder="Blackflexxy" value="" required="">
-                                </div>
-                                <div class="col-12">
-                                    <label for="donate_email_c" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
-                                    </label>
-                                    <input type="email" class="form-control" id="donate_email_c"
-                                           placeholder="eblan@mail.ru">
-                                </div>
-                                <div class="col-12">
-                                    <label for="coupon-input-c" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
-                                    </label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="coupon-input-c" placeholder="BRFF">
-                                        <button class="btn btn-dark" id="coupon-button-c" type="button"
-                                                onclick="coupon_check(true)">Проверить
-                                        </button>
+                    <div class="modal-body py-0">
+                        <div id="modal-donate-container-c">
+                            <form class="needs-validation" novalidate="">
+                                <p id="donate_item_select_text" class="text-start"></p>
+                                <div class="row g-3 add_data_cart">
+                                    <div class="col-sm-6" style="margin: auto">
+                                        <label id="donate_count_text_hint" for="donate_customer" class="form-label">
+                                            Количество</label>
+                                        <input type="number" class="form-control" id="items_count_donate" placeholder=""
+                                               value="" required="">
                                     </div>
                                 </div>
+                                <br/>
+                                <button id="donate_button_add_to_cart"
+                                        class="w-100 btn btn-primary btn-lg btn-shadow-hide"
+                                        type="button">
+                                    Добавить
+                                </button>
+                            </form>
+                        </div>
+                        <div id="modal-info-container-c" style="display: none">
+                            <p id="donate_info_block_text"></p>
+                        </div>
+                        <div id="modal-donate-success-container" style="display: none">
+                            <ul id="donate-cart-list-success" class="list-group mb-3"></ul>
+                            <div class="d-flex" id="only-ok-payment" style="display: none">
+                                <img src="assets/images/vova-gribnik.webp" alt="Vova"
+                                     class="payment-sucess-vova" loading="lazy">
+                                <h6 class="item-name-payment-result text-primary mt-1 mt-lg-2"></h6>
+                                <span id="success-pay-text-js">
+                                    Оплата прошла успешно, Шеф доволен, спасибо.
+                                </span>
                             </div>
-                            <br>
-                            <button id="payment-button-donate_c" onclick="generate_payment_link(0)"
-                                    class="w-100 btn btn-primary btn-lg" type="button">Дальше
-                            </button>
-                        </form>
-                    </div>
-                    <div id="modal-donate-finish-container-c" style="display: none">
-                        <ul id="donate-cart-list" class="list-group mb-3"></ul>
-                        <form class="needs-validation" novalidate="">
-                            <div class="row g-3" id="cart-build-js">
-                                <div class="col-sm-6">
-                                    <label for="donate_customer" class="form-label">Никнейм</label>
-                                    <input type="text" class="form-control" id="donate_customer"
-                                           placeholder="Blackflexxy" value="" required="">
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="donate_email" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
-                                    </label>
-                                    <input type="email" class="form-control" id="donate_email"
-                                           placeholder="eblan@mail.ru">
-                                </div>
-                                <div class="col-12">
-                                    <label for="coupon" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
-                                    </label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="coupon-input" placeholder="BRFF"
-                                               disabled>
-                                        <button class="btn btn-dark" id="coupon-button" type="button" disabled>
-                                            Проверить
-                                        </button>
+                        </div>
+                        <div id="modal-donate-finish-container-b" style="display: none;">
+                            <span id="donate-text-span" class="text-start mb-4" style="display: block"></span>
+                            <ul id="donate-coins-payment" class="list-group mb-3"></ul>
+                            <form class="needs-validation" novalidate="">
+                                <div class="row g-3">
+                                    <div class="col-sm-6" id="sum-tokens-container">
+                                        <label for="donate_sum" class="form-label">Сумма</label>
+                                        <input type="number" class="form-control" id="donate_sum" placeholder="300"
+                                               value=""
+                                               required="">
+                                    </div>
+                                    <div class="col-sm-6" id="customer-tokens-container">
+                                        <label for="donate_customer_c" class="form-label">Никнейм</label>
+                                        <input type="text" class="form-control" id="donate_customer_c"
+                                               placeholder="Blackflexxy" value="" required="">
+                                    </div>
+                                    <div class="col-12" id="customer-email-tokens-container">
+                                        <label for="donate_email_c" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
+                                        </label>
+                                        <input type="email" class="form-control" id="donate_email_c"
+                                               placeholder="eblan@mail.ru">
+                                    </div>
+                                    <div class="col-12" id="coupon-tokens-container">
+                                        <label for="coupon-input-c" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="coupon-input-c"
+                                                   placeholder="BRFF">
+                                            <button class="btn btn-dark btn-shadow-hide" id="coupon-button-c"
+                                                    type="button"
+                                                    onclick="couponCheck(true)">Проверить
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br/>
-                            <button id="payment-button-donate" onclick="generate_payment_link()"
-                                    class="w-100 btn btn-primary btn-lg" type="button"> Дальше
-                            </button>
-                        </form>
+                                <br>
+                                <button id="payment-button-donate_c" onclick="generatePaymentLink(0)"
+                                        class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button">Дальше
+                                </button>
+                            </form>
+                        </div>
+                        <div id="modal-donate-finish-container-c" style="display: none">
+                            <ul id="donate-cart-list" class="list-group mb-3"></ul>
+                            <form class="needs-validation" novalidate="">
+                                <div class="row g-3" id="cart-build-js">
+                                    <div class="col-sm-6">
+                                        <label for="donate_customer" class="form-label">Никнейм</label>
+                                        <input type="text" class="form-control" id="donate_customer"
+                                               placeholder="Blackflexxy" value="" required="">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="donate_email" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
+                                        </label>
+                                        <input type="email" class="form-control" id="donate_email"
+                                               placeholder="eblan@mail.ru">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="coupon" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="coupon-input" placeholder="BRFF"
+                                                   disabled>
+                                            <button class="btn btn-dark btn-shadow-hide" id="coupon-button"
+                                                    type="button" disabled>
+                                                Проверить
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <button id="payment-button-donate" onclick="generatePaymentLink()"
+                                        class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button"> Дальше
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer flex-column border-top-0">
+                        <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b btn-shadow-hide">Закрыть
+                        </button>
                     </div>
                 </div>
-                <div class="modal-footer flex-column border-top-0">
-                    <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b">Закрыть</button>
+            </div>
+        </section>
+    </div>
+    <div class="main-global-container">
+        <section class="container-fluid position-relative px-0 pt-5 mt-lg-4-first" id="head-container">
+            <div class="hero-bg-st position-absolute top-50 translate-middle-y fake-block-sett-bg"></div>
+            <div class="row g-0">
+                <div class="vova-bg-landing"></div>
+                <div class="vova-bg-landing-mask"></div>
+                <div class="col-xl-7 col-lg-6 pe-lg-5"></div>
+                <div class="col-xl-5 col-lg-6 position-relative py-5">
+                    <div class="position-relative zindex-5 text-center text-lg-start px-3 px-lg-0 py-xl-4 py-xxl-5 mt-lg-3 mx-auto mx-lg-0 landing-global-block-set"
+                         style="max-width: 530px;">
+                        <h1 class="display-1 pb-lg-3 mb-3 landing-head-text">Zalupa.Online</h1>
+                        <h3 class="loading-dots" id="server_online_status">Получение данных о сервере</h3>
+                        <p id="error_get_server_status"></p>
+                        <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start py-4 py-lg-5"
+                             style="padding-bottom: 0 !important;">
+                            <a href="#instruction_block"
+                               class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide"
+                               data-scroll data-scroll-offset="20">Играть</a>
+                            <button onclick="donateSwitchContainer()"
+                                    class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
+                                Донат
+                            </button>
+                        </div>
+                        <div id="landing-links-tp" class="justify-content-center justify-content-lg-start py-4"></div>
+                        <div class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5">
+                            <span class="fs-sm" id="landing_description_gb">
+                              <span class="text-primary fw-semibold">Тысячи</span>
+                                успешных мужчин уже играют у нас </span>
+                        </div>
+                        <span class="fs-sm" id="landing_dark_msg_gb"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="discord_block" class="discord-block-back-st py-5 mt-5">
-        <div class="container py-2 py-md-4 py-lg-5">
-            <div class="row py-xl-3">
-                <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-4">
-                    <h2 class="h1 text-center text-sm-start pb-4 mb-0 mb-lg-3">Discord-Залупа <i class="emoji" style="background-image:url('assets/images/emoji/shushing-face.png')"><b>🤫</b></i></h2>
-                    <h2 class="h5 text-lg-start mb-4 mb-lg-5"> Пизди с такими же дебилами как и ты -
-                        безлимитно, хоть целый день, правда.</h2>
-                </div>
-                <div class="col-xl-6 col-lg-7 order-lg-1">
-                    <div id="discord-embed"></div>
+            <div class="col-xl-7 col-lg-6 pe-lg-5">
+                <div class="d-flex h-100 pe-xl-4">
+                    <div class="vova-right-back"></div>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="position-absolute d-none d-lg-block bottom-0 start-0 w-100 zindex-5 pb-xxl-3">
+                <div class="container pb-4 mb-3 mb-xxl-0" style="display: none">
+                    <a href="#server_history"
+                       class="d-table theme-styled-text-st opacity-80 text-decoration-none w-auto scroll-bottom-landing"
+                       data-scroll data-scroll-offset="20">
+                  <span class="d-flex align-items-center" id="swipe-down-landing-n">
+                      Крути вниз, чтобы увидеть больше <i class="bx bx-down-arrow-circle fs-3 ms-2"></i>
+                  </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="events" class="position-relative py-5">
+            <div class="event-switch-buttons">
+                <div class="underline-button">
+                    <button class="underline-button-item" id="news-c-button" disabled
+                            onclick="switchEventsPages('news')">
+                        Новости
+                    </button>
+                </div>
+                <div class="underline-button">
+                    <button class="underline-button-item" id="events-c-button" disabled
+                            onclick="switchEventsPages('events')">
+                        Ивенты
+                    </button>
+                </div>
+            </div>
+            <div class="container py-2 py-md-3 py-lg-4 events-c-container" id="news-c-container">
+                <div class="position-relative px-sm-5 mx-auto" style="display: none" id="news_zlp_buttons">
+                    <button type="button" id="prev_news"
+                            class="btn btn-prev btn-icon btn-sm btn-shadow-hide bg-faded-primary position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
+                        <i class="bx bx-chevron-left"></i>
+                    </button>
+                    <button type="button" id="next_news"
+                            class="btn btn-next btn-icon btn-sm btn-shadow-hide bg-faded-primary position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
+                        <i class="bx bx-chevron-right"></i>
+                    </button>
+                    <div class="swiper swiper-nav-onhover pt-1 mx-md-2" id="news_swipe_container">
+                        <div class="swiper-shadow-overlay swiper-shadow-blocks swiper-left-shadow"></div>
+                        <div class="swiper-shadow-overlay swiper-shadow-blocks swiper-right-shadow"></div>
+                        <div class="swiper-wrapper pt-4 pb-3" id="news_swipe_array"></div>
+                        <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-5"
+                             id="news_swiper_pagination"></div>
+                    </div>
+                </div>
+                <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+            </div>
+            <div class="container py-2 py-md-3 py-lg-4 events-c-container" id="events-c-container"
+                 style="display: none; top: -2rem">
+                <div class="row row-cols-1 g-4 mt-2 mt-lg-4" id="events-row-container">
+                </div>
+                <div id="events_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+            </div>
+        </section>
+        <section id="video_block" class="py-2">
+            <div class="container py-2 py-md-4 py-lg-5">
+                <h3 class="h3 text-center mb-lg-4">Наглядно о сервере</h3>
+                <p class="fs-lg text-muted text-center mb-1 mb-lg-2"> Предлагаем тебе просмотреть видео ниже, чтобы
+                    лучше
+                    понять о чем наш сервер, какова его философия, кто там живет. </p>
+                <div class="row py-xl-3" style="padding: 12px">
+                    <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-3" style="padding: 1.5em">
+                        <div class="col" style="margin: auto">
+                            <div class="d-flex align-items-center">
+                                <div class="display-4 text-primary">3</div>
+                                <p class="ps-3 mb-0">Сервера: Лобби, Общение и Анархия</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="display-4 text-primary">7+</div>
+                                <p class="ps-3 mb-0">Наша целевая аудитория</p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="display-4 text-primary">1.19</div>
+                                <p class="ps-3 mb-0">Версия клиента для игры</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="position-relative overflow-hidden rounded-3 col-xl-6 col-lg-7 order-lg-1 mb-4">
+                        <div class="top-0 zindex-5 d-flex align-items-center justify-content-center">
+                            <div class="VideoSetter">
+                                <video class="video-container" controls>
+                                    <source src="https://raw.githubusercontent.com/koval01/zlp_new_site/media/video_main.mp4"
+                                            type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="server_history" class="position-relative mt-0">
+            <div class="bg-dark">
+                <div class="jarallax server_history_bg mb-3 mb-lg-4" style="
+                            background-image: url(assets/images/players_background_x2.webp)
+                    ">
+                    <div class="black-filter_sr_hs"></div>
+                    <div class="container">
+                        <h2 class="h1 text-center text-sm-start mb-4">Большое начало в 2021-м году</h2>
+                        <p class="pb-2 pb-lg-4 pb-xl-5 mb-3">
+                            Здесь будет небольшая история о том, как сервер начинал свою работу.
+                            Также, какие игроки повлияли на вектор его развития, как это было.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="position-absolute top-0 start-0 w-100 h-100"></div>
+            <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
+                <h2 class="h3 text-lg-start mb-4 mb-lg-5">Известные игроки</h2>
+                <div class="swiper mb-2" id="players_swipe_container">
+                    <div class="swiper-shadow-overlay swiper-left-shadow"></div>
+                    <div class="swiper-shadow-overlay swiper-right-shadow"></div>
+                    <div class="swiper-wrapper" id="players-swiper-array"></div>
+                    <div class="swiper-pagination position-relative pt-2 mt-4 players-pagination"></div>
+                </div>
+            </div>
+        </section>
+        <section id="comments" class="mb-5 mt-5">
+            <div class="container py-2 py-md-2 py-lg-3">
+                <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-5">Комментарии игроков</h2>
+                <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;" id="comments_zlp_buttons">
+                    <button type="button" id="prev_comment"
+                            class="btn btn-prev btn-icon btn-sm btn-shadow-hide bg-faded-primary position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
+                        <i class="bx bx-chevron-left"></i>
+                    </button>
+                    <button type="button" id="next_comment"
+                            class="btn btn-next btn-icon btn-sm btn-shadow-hide bg-faded-primary position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4">
+                        <i class="bx bx-chevron-right"></i>
+                    </button>
+                    <div class="swiper swiper-nav-onhover pt-1 mx-md-2" id="comment_swipe_container">
+                        <div class="swiper-shadow-overlay swiper-shadow-blocks swiper-left-shadow"></div>
+                        <div class="swiper-shadow-overlay swiper-shadow-blocks swiper-right-shadow"></div>
+                        <div class="swiper-wrapper pt-4 pb-3" id="comment_swipe_array"></div>
+                        <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4"></div>
+                    </div>
+                    <p class="text-center">
+                        Чтобы мы добавили Ваш комментарий - свяжитесь с <a href="https://t.me/Elon_TuskOFF"
+                                                                           target="_blank">Elon Tusk</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section id="instructions" class="py-4 bg-secondary-adaptive">
+            <div class="container py-2 pt-4 pt-lg-5 pb-0 mb-0 bg-secondary container-second-round">
+                <h3 class="h1 text-center mb-lg-4">Инструкция для начала игры</h3>
+                <p class="fs-lg text-muted text-center mb-0">
+                    Установка клиента игры
+                </p>
+                <div class="row py-xl-3 g-2 pt-0" style="padding: 12px">
+                    <div class="position-relative overflow-hidden rounded-3 col-lg-6 order-lg-2 mb-4">
+                        <div class="top-0 zindex-5 d-flex align-items-center justify-content-center">
+                            <div class="VideoSetter">
+                                <video class="video-container" controls>
+                                    <source src="https://raw.githubusercontent.com/koval01/zlp_new_site/media/video_ad.mp4"
+                                            type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-lg-2 mb-4 p-4" style="padding: 1.2em">
+                        <div class="col noselect-allow" style="margin: auto">
+                            <div class="d-flex align-items-center">
+                                <div class="display-6 text-primary">1</div>
+                                <p class="ps-3 mb-0">
+                                    Скачайте лаунчер на ваш выбор.
+                                    <a href="https://www.minecraft.net/ru-ru/download" target="_blank">
+                                        Лицензия</a> или
+                                    <a href="https://tlaun.ch/installer" target="_blank">
+                                        TL Legacy</a>
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="display-6 text-primary">2</div>
+                                <p class="ps-3 mb-0">
+                                    Установите
+                                    Fabric 1.19.2
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="display-6 text-primary">3</div>
+                                <p class="ps-3 mb-0">
+                                    Установите пак модов, которые необходимые для игры.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="fs-lg text-muted text-center mb-0">
+                    Установка необходимых модификаций
+                </p>
+                <div class="row py-xl-3 g-2 pb-0 pt-0" style="padding: 12px">
+                    <div class="col-lg-6 order-lg-2 mb-4 p-4">
+                        <div class="col noselect-allow" style="margin: auto">
+                            <div class="d-flex align-items-center">
+                                <div class="display-6 text-primary">1</div>
+                                <p class="ps-3 mb-0">
+                                    Откройте установщик Fabric и установите версию 1.19.2
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="display-6 text-primary">2</div>
+                                <p class="ps-3 mb-0">
+                                    Нажмите комбинацию <span class="text-primary">Win+R</span> и в появившейся строке
+                                    введите
+                                    <span class="text-primary">%appdata%</span>
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="display-6 text-primary">3</div>
+                                <p class="ps-3 mb-0">
+                                    Перейдите в папку <span class="text-primary">.minecraft</span> и перенесите в нее
+                                    обе папки из сборки
+                                    (<span class="text-primary">emotes и mods</span>)
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="display-6 text-primary">4</div>
+                                <p class="ps-3 mb-0">
+                                    В лаунчере выберите версию Fabric - 1.19.2. Готово!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-lg-2 mb-4 justify-content-center text-center">
+                        <a href="assets/files/Сборка.zip"
+                           class="btn btn-primary shadow-primary mt-3 m-1" download="">
+                            Скачать готовую сборку модов v1</a>
+                        <a href="https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.11.0/fabric-installer-0.11.0.exe"
+                           class="btn btn-primary shadow-primary mt-3 m-1" download="">
+                            Fabric установщик для лицензии</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
     <div class="error_box_cst" id="error_box_cst_id" style="margin-bottom:-150px">
         <p class="error_text_cst"></p>
     </div>
 </main>
-<footer class="footer pt-5 pb-4 pb-lg-5" style="display: none">
+<footer class="footer pb-4 pb-lg-5" style="display: none">
     <div class="container text-center pt-lg-3">
         <div class="navbar-brand justify-content-center text-dark mb-2 mb-lg-4">
-            <img src="assets/images/logo.webp" class="me-2" width="190" alt="Zalupa.Online">
+            <div class="me-2 stone-logo-subtext footer-logo"></div>
         </div>
         <div id="links-block-footer-v" class="d-flex justify-content-center pt-4 mt-lg-3"></div>
-        <p class="nav d-block fs-sm text-center pt-5 mt-lg-4 mb-0">
-            <span class="opacity-80" id="footer-text-blc"></span>
+        <p class="nav d-block fs-sm text-center pt-5 mt-lg-4 mb-0" style="font-size: .8rem !important">
+            <span class="opacity-70" id="footer-text-blc"></span>
             <br/>
             <span id="re-badge-text" class="opacity-40"></span>
         </p>
@@ -501,17 +536,23 @@
         <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
     </a>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"
+        integrity="sha512-6UofPqm0QupIL0kzS/UIzekR73/luZdC6i/kXDbWnLOJoqwklBK6519iUnShaYceJ0y4FaiPtX/hRnV/X/xlUQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
         integrity="sha512-wT7uPE7tOP6w4o28u1DN775jYjHQApdBnib5Pho4RB0Pgd9y7eSkAV1BTqQydupYDB9GBhTcQQzyNMPMV3cAew=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"
-        integrity="sha512-vyRAVI0IEm6LI/fVSv/Wq/d0KUfrg3hJq2Qz5FlfER69sf3ZHlOrsLriNm49FxnpUGmhx+TaJKwJ+ByTLKT+Yg=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"
+        integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.polyfills.min.js"
         integrity="sha512-LZ6YBzwuQvIG41twjliX3HUVeAd+ErnJ0UsqRnkI4firX2l71jxbKJoax/hu7XY2tiyLl0YA2kcnz/XEW+9O3g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.2/swiper-bundle.min.js"
-        integrity="sha512-V1mUBtsuFY9SNr+ptlCQAlPkhsH0RGLcazvOCFt415od2Bf9/YkdjXxZCdhrP/TVYsPeAWuHa+KYLbjNbeEnWg=="
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.3/swiper-bundle.min.js"
+        integrity="sha512-4MIWP9ui3MVR0iuCnJ9l6b9DWrCspboU0BbX5DNXoSJ4ZQXjrY7+sPJEehrR0rAx88jVUT9f9Hoa7fawwB3jHg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/2.0.4/jarallax.min.js"
+        integrity="sha512-nvmYAfRcRhffFD47Bz2In79HI86Zw84cCPXs675EjUYqgLAkirq2N38LXI6U5r6UZ+vz2zqBWxRQaScpjPwF5A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="assets/js/theme.min.js"></script>
 <script src="assets/js/init.min.js"></script>

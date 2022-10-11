@@ -1,0 +1,54 @@
+{
+  "admin": {
+    "title": "Админ",
+    "item": "admin"
+  },
+  "traveler": {
+    "title": "Путешественник",
+    "item": "camping"
+  },
+  "developer": {
+    "title": "Разработчик",
+    "item": "sloth"
+  },
+  "old": {
+    "title": "Олд",
+    "item": "old-man"
+  },
+  "girl": {
+    "title": "Девушка",
+    "item": "tulip"
+  },
+  "streamer": {
+    "title": "Стример",
+    "item": "studio-microphone"
+  },
+  "conflict": {
+    "title": "Конфликтный",
+    "item": "orangutan"
+  },
+  "rich": {
+    "title": "Богатый",
+    "item": "money-bag"
+  },
+  "legend": {
+    "title": "Легенда",
+    "item": "baby-symbol"
+  },
+  "boy": {
+    "title": "Boy next door",
+    "item": "glass-of-milk"
+  },
+  "adamoovv": {
+    "title": "Адамов",
+    "item": "clown-face"
+  },
+  "king": {
+    "title": "Насяльника",
+    "item": "king"
+  },
+  "helping": {
+    "title": "Помощь администрации",
+    "item": "handshake"
+  }
+}
