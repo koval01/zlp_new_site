@@ -1869,7 +1869,7 @@ function callSucessPayModal(payment_id = 0) {
         let img_product = glob_func_payment_data.product.image;
 
         if (img_product && img_product.length) {
-            document.querySelector(".payment-sucess-vova").attributes.src = img_product;
+            document.querySelector(".payment-sucess-vova").src = img_product;
         }
     }
 
