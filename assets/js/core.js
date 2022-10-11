@@ -658,7 +658,7 @@ function appendServices() {
                           <div class="position-relative container-item-donate-n">
                             <div class="parent-image-shadow donate_item_hover" 
                                 id="donate_item_hover_${services[i].id}">
-                                <div class="imageContainer">
+                                <div class="imageContainer item-levitaion-dec">
                                     <img src="${services[i].image}"
                                      class="rounded-3 foregroundImg" alt="${services[i].name}" 
                                      style="display: block; margin: auto; width: 100px" loading="lazy">
