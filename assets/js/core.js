@@ -365,6 +365,7 @@ function donateSwitchContainer(display) {
         update_zIndex("");
 
         donate_displayed = true;
+        location.hash = "#donate";
     } else {
         container.style.minHeight = "0";
         container.style.zIndex = "-1";
@@ -1845,6 +1846,7 @@ function observerSystemTheme() {
 
 function callSucessPayModal(payment_id = 0) {
     let glob_func_payment_data;
+    let item_nm_payment_result = false;
 
     let cart_dom = document
         .getElementById("donate-cart-list-success");
@@ -1872,7 +1874,12 @@ function callSucessPayModal(payment_id = 0) {
 
         if (img_product && img_product.length) {
             document.querySelector(".payment-sucess-vova").src = img_product;
-            document.querySelector(".item-name-payment-result").innerText = name_product;
+            let name_selector = document.querySelector(".item-name-payment-result");
+            if (item_nm_payment_result) {
+                name_selector.innerText = name_product;
+            } else {
+                name_selector.style.marginBottom = "4vh";
+            }
         }
     }
 

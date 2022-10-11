@@ -32,10 +32,6 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   -webkit-text-fill-color: var(--contr-color-var) !important;
 }
 
-::-moz-selection {
-  background: rgba(144, 72, 255, 0.5);
-}
-
 ::selection {
   background: rgba(144, 72, 255, 0.5);
 }
@@ -60,7 +56,6 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
   background-color: rgba(24, 24, 27, 0.65) !important;
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.24);
 }
 
@@ -208,8 +203,10 @@ a:hover {
 }
 
 .payment-sucess-vova {
-  height: 16vh;
-  border-radius: 7em;
+  display: block;
+  margin: auto;
+  height: 16vw;
+  border-radius: 3em;
 }
 
 #only-ok-payment {
@@ -228,12 +225,9 @@ a:hover {
   mix-blend-mode: difference !important;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
   .payment-sucess-vova {
-    margin: auto;
-    display: block;
-    height: 12vh;
-    border-radius: 3.5em;
+    height: 20vh;
   }
   #only-ok-payment {
     display: block !important;
@@ -283,7 +277,6 @@ iframe {
   overflow: hidden;
   display: inline-block;
   vertical-align: bottom;
-  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
   animation: ellipsis steps(4, end) 900ms infinite;
   content: "…";
   width: 0;
@@ -292,11 +285,6 @@ iframe {
 @keyframes ellipsis {
   to {
     width: 25px;
-  }
-}
-@-webkit-keyframes ellipsis {
-  to {
-    width: 20px;
   }
 }
 .fake-block-sett-bg {
@@ -314,7 +302,6 @@ iframe {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -322,7 +309,6 @@ iframe {
   -webkit-touch-callout: default;
   -webkit-user-select: text;
   -moz-user-select: text;
-  -ms-user-select: text;
   user-select: text;
 }
 
@@ -333,7 +319,6 @@ iframe {
   right: 0;
   bottom: 0;
   backdrop-filter: blur(0.12vw);
-  -webkit-backdrop-filter: blur(0.12vw);
   z-index: -4;
 }
 
@@ -344,7 +329,6 @@ iframe {
 
 .dark-mode .background_media_overlay_tag {
   filter: brightness(0.8);
-  -webkit-filter: brightness(0.8);
 }
 
 .vova-bg-mobile {
@@ -386,7 +370,6 @@ iframe {
   background-position: right 25% bottom 28px;
   z-index: 0;
   filter: brightness(0.95);
-  -webkit-filter: brightness(0.95);
 }
 
 .vova-bg-l-mobile-mask {
@@ -398,7 +381,6 @@ iframe {
   background-position: right 25% bottom 28px;
   z-index: 0;
   filter: drop-shadow(0 0 25px #392568);
-  -webkit-filter: drop-shadow(0 0 25px #392568);
 }
 
 .news-button-view {
@@ -448,11 +430,9 @@ iframe {
     background-position-y: -1em;
     z-index: 0;
     filter: brightness(0.95);
-    -webkit-filter: brightness(0.95);
   }
   .vova-bg-landing-mask {
     filter: drop-shadow(0 0 35px #291d4c);
-    -webkit-filter: drop-shadow(0 0 35px #291d4c);
   }
   .landing-head-text {
     background-position: -9px;
@@ -560,9 +540,9 @@ body.modal-open {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-bottom: 24px;
+  padding-left: 0.9em !important;
+  padding-right: 0.9em !important;
+  padding-bottom: 4em;
   transition: all 0.4s;
   -webkit-backdrop-filter: blur(12px);
 }
@@ -615,7 +595,6 @@ body.modal-open {
   z-index: 1;
   opacity: 1;
   filter: blur(24px) brightness(0.8);
-  -webkit-filter: blur(24px) brightness(0.8);
 }
 
 .container-item-donate-n:hover .backgroundImg {
@@ -636,7 +615,6 @@ body.modal-open {
 
 iframe[id*=telegram-post] {
   filter: drop-shadow(2px 4px 6px black);
-  -webkit-filter: drop-shadow(2px 4px 6px black);
 }
 
 .comment-show-button {
@@ -650,8 +628,6 @@ iframe[id*=telegram-post] {
 .hero-bg-st {
   background: linear-gradient(315deg, rgba(145, 71, 255, 0.05), rgba(145, 71, 255, 0.2), rgba(145, 71, 255, 0.05));
   background-size: 100% 600%;
-  -webkit-animation: HerokuGradientBack 8s ease infinite;
-  -moz-animation: HerokuGradientBack 8s ease infinite;
   animation: HerokuGradientBack 8s ease infinite;
   height: 100%;
   width: 100%;
@@ -780,28 +756,6 @@ iframe[id*=telegram-post] {
   width: 50%;
 }
 
-@-webkit-keyframes HerokuGradientBack {
-  0% {
-    background-position: 87% 0;
-  }
-  50% {
-    background-position: 14% 100%;
-  }
-  100% {
-    background-position: 87% 0;
-  }
-}
-@-moz-keyframes HerokuGradientBack {
-  0% {
-    background-position: 87% 0;
-  }
-  50% {
-    background-position: 14% 100%;
-  }
-  100% {
-    background-position: 87% 0;
-  }
-}
 @keyframes HerokuGradientBack {
   0% {
     background-position: 87% 0;
@@ -847,12 +801,10 @@ iframe[id*=telegram-post] {
 
 .hover-blur-rl {
   filter: blur(8px);
-  -webkit-filter: blur(8px);
   transition: all 0.6s;
 }
 .hover-blur-rl:hover {
   filter: blur(0);
-  -webkit-filter: blur(0);
 }
 
 .donate-cancel-cart {
@@ -863,7 +815,6 @@ iframe[id*=telegram-post] {
 
 .discord-block-back-st {
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .error_text_cst {
@@ -871,7 +822,6 @@ iframe[id*=telegram-post] {
   padding: 1em;
   margin: 0;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 
 .error_box_cst {
@@ -889,7 +839,6 @@ iframe[id*=telegram-post] {
 .btn-scroll-top.show {
   background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   color: var(--si-btn-scroll-top-color);
   transition: all 0.7s !important;
   border: 0 rgba(0, 0, 0, 0);
@@ -907,7 +856,6 @@ iframe[id*=telegram-post] {
 .cst-icon-svg {
   height: 1.5em;
   filter: invert(1);
-  -webkit-filter: invert(1);
   margin: 5px;
 }
 
@@ -1158,7 +1106,6 @@ a:hover .emoji > b {
   filter: invert(0.6);
 }
 .underline-button > .underline-button-item:not(:hover)::after {
-  -webkit-transform: scalex(0);
   transform: scalex(0);
 }
 .underline-button > .underline-button-item:enabled::after {
