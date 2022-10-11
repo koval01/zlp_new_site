@@ -1953,7 +1953,6 @@ function callSucessPayModal(payment_id = 0) {
                     </div>
                     <span>${payment.customer}</span>
                 </li>
-                ${item_name_template}
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
                         <h6 class="my-0 text-start">
@@ -1971,6 +1970,7 @@ function callSucessPayModal(payment_id = 0) {
                     </div>
                     <span>${payment.created_at}</span>
                 </li>
+                ${item_name_template}
                 ${sum_template}
             `;
         } else {
