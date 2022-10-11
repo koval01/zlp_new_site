@@ -208,7 +208,7 @@ a:hover {
 }
 
 .payment-sucess-vova {
-  height: 40vh;
+  height: 16vh;
   border-radius: 7em;
 }
 
@@ -232,7 +232,7 @@ a:hover {
   .payment-sucess-vova {
     margin: auto;
     display: block;
-    height: 20vh;
+    height: 12vh;
     border-radius: 3.5em;
   }
   #only-ok-payment {
@@ -1210,8 +1210,8 @@ a:hover .emoji > b {
 }
 .stone-logo-subtext.footer-logo {
   height: 100px;
-  --stone-logo-shadow-size: 16px;
-  --stone-log-shadow-color: 144, 72, 255, .95;
+  --stone-logo-shadow-size: 4em;
+  --stone-log-shadow-color: 144, 72, 255, .4;
 }
 .stone-logo-subtext.loading-splash-logo {
   scale: 0.75;
@@ -1327,6 +1327,10 @@ a:hover .emoji > b {
   bottom: 0;
   width: 100%;
   left: calc(var(--si-gutter-x) * 0);
+}
+
+#donate-cart-list-success > li {
+  border: 0 !important;
 }
 
 /*# sourceMappingURL=custom.css.map */
