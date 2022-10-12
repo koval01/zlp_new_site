@@ -533,7 +533,7 @@ function create_payment(callback, customer, products, server_id, email = "", cou
 function check_coupon(callback, coupon) {
     re_check(function (token_update) {
         requestCall(function (r) {
-            if (r.coupon) {
+            if (r.coupon && r.success) {
                 callback(r.coupon);
             }
         }, `${backend_host}/donate/coupon`, "POST", true, {
@@ -1412,6 +1412,7 @@ function couponCheck(coins = false) {
 
     input_lock(true);
     check_coupon(function (r) {
+        console.log("call")
         if (r) {
             let call = function () {
                 checked_coupon = code;
@@ -1740,7 +1741,7 @@ function donateModalCall(type_item, item_id, nickname_update = true) {
         email_container_classL.remove("col-12");
         email_container_classL.add("col-sm-6");
         payment_text_form = `
-            Вы можете совершить разовый платеж и получить на месяц пропуск к частному серверу 
+            Вы можете совершить разовый платеж и получить пропуск на сезон к приватному серверу 
             в качестве вознаграждения за финансовую поддержку проекта.
         `;
         item_name = "Пропуск";
