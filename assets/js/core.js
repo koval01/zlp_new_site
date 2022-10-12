@@ -1241,7 +1241,15 @@ function donate_get_service_by_id(id) {
     return null;
 }
 
-function donateResetPaymentState(type = 1, repeat = false) {
+function donateResetPaymentState(type = 1, repeat = false, coupon_reset = false) {
+    let coupon_sl = document
+        .getElementById("donate-coins-payment");
+    let inputs = [
+        "donate_sum",
+        "donate_customer_c",
+        "donate_email_c",
+        "coupon-input-c"
+    ]
     let sl = "_c";
     let vl = document.getElementById("donate_sum")
         .value.trim();
@@ -1251,6 +1259,21 @@ function donateResetPaymentState(type = 1, repeat = false) {
     }
     let button = document
         .getElementById("payment-button-donate" + sl);
+    let update_inputs = () => {
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].includes("coupon") && !coupon_reset) {
+                // pass
+            } else {
+                document.getElementById(inputs[i]).value = "";
+            }
+        }
+    }
+    if (coupon_reset) {
+        coupon_sl.innerHTML = "";
+        update_inputs();
+        checked_coupon = "";
+        failed_coupon = "";
+    }
     button.setAttribute("onClick", `generatePaymentLink(${type}, ${(type === 2) ? 1 : vl})`);
     button.removeAttribute("disabled");
     button.innerText = repeat ? "Повторить" : "Дальше";
@@ -1371,10 +1394,10 @@ function couponCheck(coins = false) {
         notify(`Купон <span class="text-primary fw-semibold">${failed_coupon}</span> не найден`);
     };
 
-    let check_coupon_coins = function (products) {
+    let check_coupon_valid = function (products, product) {
         if (products) {
             for (let i = 0; i < products.length; i++) {
-                if (products[i].id === donate_services_array[0].id) {
+                if (products[i].id === current_c_item) {
                     return true;
                 }
             }
@@ -1421,7 +1444,7 @@ function couponCheck(coins = false) {
             if (!coins_sell_mode) {
                 call();
                 donateCartCall(code, false);
-            } else if (check_coupon_coins(r.products)) {
+            } else if (check_coupon_valid(r.products, current_c_item)) {
                 call();
                 let sl = document
                     .getElementById("donate-coins-payment");
@@ -1768,7 +1791,7 @@ function donateModalCall(type_item, item_id, nickname_update = true) {
             .setAttribute("placeholder", glob_players[0]);
     }
 
-    donateResetPaymentState(type_item);
+    donateResetPaymentState(type_item, false, true);
     update_title(item_name);
 }
 
