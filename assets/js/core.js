@@ -372,6 +372,7 @@ function donateSwitchContainer(display) {
         document.body.style.overflowY = "";
 
         donate_displayed = false;
+        location.hash = "#main";
     }
 }
 
@@ -538,7 +539,30 @@ function check_coupon(callback, coupon) {
             }
             callback(null);
         }, `${backend_host}/donate/coupon`, "POST", true, {
-            code: coupon, token: token_update,
+            code: coupon, token: token_update
+        });
+    });
+}
+
+function checkFeedbackStatus(callback) {
+    re_check(function (token_update) {
+        requestCall(function (r) {
+            callback(r.success);
+        }, `${backend_host}/feedback/check`, "POST", true, {
+            token: token_update
+        });
+    });
+}
+
+function sendFeedback(callback, text) {
+    re_check(function (token_update) {
+        requestCall(function (r) {
+            if (r.coupon && r.success) {
+                callback(r.coupon);
+            }
+            callback(null);
+        }, `${backend_host}/feedback/send`, "POST", true, {
+            text: text, token: token_update
         });
     });
 }
