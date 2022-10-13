@@ -384,8 +384,8 @@ iframe {
 }
 
 .news-button-view {
-  margin-right: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
+  margin-right: 0 !important;
+  margin-bottom: 0.7rem !important;
 }
 
 .male-emoji {
@@ -1089,7 +1089,7 @@ a:hover .emoji > b {
 .underline-button {
   position: relative;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: calc(2vw + 1.4vh);
   font-weight: 400;
   line-height: 100%;
   color: var(--contr-color-var);

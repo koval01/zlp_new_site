@@ -259,7 +259,7 @@ function appendPostsNews() {
         });
     };
 
-    let add_news_in_array = function (posts, source) {
+    let add_news_in_array = function (posts) {
         let array_ = document
             .getElementById("news_swipe_array");
         posts = posts.reverse();
@@ -348,10 +348,9 @@ function appendPostsNews() {
         }
     };
 
-    let posts_source = 1; // zalupaonline
     get_news_(function (posts) {
-        add_news_in_array(posts, posts_source);
-    }, posts_source);
+        add_news_in_array(posts);
+    }, 1);
 }
 
 function donateSwitchContainer(display) {
