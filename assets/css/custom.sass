@@ -835,12 +835,12 @@ a:hover
   background-repeat: no-repeat
   background-position: center
   background-color: #222
-  border-radius: .6rem
+  border-radius: calc(0.6vw + 0.8vh)
   height: 100%
 
   > .background-news-overlay
     position: relative
-    border-radius: .6rem
+    border-radius: calc(0.6vw + 0.8vh)
     background: rgb(0, 0, 0, 0.4)
     height: 100%
     overflow: hidden
@@ -849,25 +849,25 @@ a:hover
       background-color: rgba(0, 0, 0, 0)
       transition: background-color 1.4s
       height: 100%
-      border-radius: .6rem
+      border-radius: calc(0.6vw + 0.8vh)
       overflow: hidden
 
 .dark-mode .background-news-overlay-dark-mode
   background-color: rgba(0, 0, 0, .4) !important
 
 .news-text-container
-  padding-top: .8rem
-  padding-left: 2rem
+  padding-top: 0 !important
+  padding-left: 1rem
 
   > .news-text
     text-shadow: 0 0 16px #000
 
   > .news-bottom-container
     position: absolute
-    bottom: 1rem
+    bottom: .5rem
     display: block
     width: 100%
-    padding-right: 3rem
+    padding-right: 2.5rem
 
     > a
       float: right
@@ -878,6 +878,8 @@ a:hover
       padding-bottom: .8rem
 
     > .news-bottom-container
+      padding-right: 1.6rem !important
+
       > a
         float: unset
         display: flex

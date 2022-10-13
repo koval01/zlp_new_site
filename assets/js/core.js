@@ -266,8 +266,6 @@ function appendPostsNews() {
 
         for (let i = 0; i < posts.length; i++) {
             let text = posts[i].text;
-            let text_array = text
-                .split("<br>");
             let datetime = new Date(posts[i].datetime_utc);
             if (!posts[i].cover) {
                 posts[i].cover = "assets/images/spawn.webp";
@@ -280,7 +278,7 @@ function appendPostsNews() {
                                 <div class="background-news-overlay-dark-mode">
                                     <blockquote class="card-body mt-2 mb-3 news-text-container">
                                         <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family: sans-serif">
-                                                ${text_array[0]}</p>
+                                                ${text}</p>
                                         <div class="news-bottom-container">
                                             <a class="btn btn-primary shadow-primary btn-lg news-button-view"
                                                href="${posts[i].link}" target="_blank">
@@ -310,7 +308,17 @@ function appendPostsNews() {
             let text_split = selector_text
                 .innerText.split(" ");
             let font_size = ((text_len - -8) * 0.4) / 100;
-            selector_text.style.fontSize = `calc(${parseFloat(1.8 - font_size)}vw + ${parseFloat(1.8 - font_size)}vh + ${parseFloat(1.6 - font_size)}vmin)`;
+            let fix_float_fs = (float, font_size, correction_float = 0.32, correction_font = 0.9) => {
+                return float < correction_float ? correction_float * (font_size / correction_font) : float
+            }
+            selector_text.style.fontSize = `calc(${
+                fix_float_fs(parseFloat(1.7 - font_size), font_size)
+            }vw + ${
+                fix_float_fs(parseFloat(1.7 - font_size), font_size)
+            }vh + ${
+                fix_float_fs(parseFloat(1.5 - font_size), font_size)
+            }vmin)`;
+            selector_text.style.padding = `${fix_float_fs(parseFloat(1.3 - font_size), font_size, 0.22, 1.05)}rem`;
             getImageLightness(posts[i].cover, function (brightness) {
                 let style_ = `#000000${(((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 64)
                     .toString(16)

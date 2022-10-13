@@ -951,12 +951,12 @@ a:hover .emoji > b {
   background-repeat: no-repeat;
   background-position: center;
   background-color: #222;
-  border-radius: 0.6rem;
+  border-radius: calc(0.6vw + 0.8vh);
   height: 100%;
 }
 .background-news > .background-news-overlay {
   position: relative;
-  border-radius: 0.6rem;
+  border-radius: calc(0.6vw + 0.8vh);
   background: rgba(0, 0, 0, 0.4);
   height: 100%;
   overflow: hidden;
@@ -965,7 +965,7 @@ a:hover .emoji > b {
   background-color: rgba(0, 0, 0, 0);
   transition: background-color 1.4s;
   height: 100%;
-  border-radius: 0.6rem;
+  border-radius: calc(0.6vw + 0.8vh);
   overflow: hidden;
 }
 
@@ -974,18 +974,18 @@ a:hover .emoji > b {
 }
 
 .news-text-container {
-  padding-top: 0.8rem;
-  padding-left: 2rem;
+  padding-top: 0 !important;
+  padding-left: 1rem;
 }
 .news-text-container > .news-text {
   text-shadow: 0 0 16px #000;
 }
 .news-text-container > .news-bottom-container {
   position: absolute;
-  bottom: 1rem;
+  bottom: 0.5rem;
   display: block;
   width: 100%;
-  padding-right: 3rem;
+  padding-right: 2.5rem;
 }
 .news-text-container > .news-bottom-container > a {
   float: right;
@@ -994,6 +994,9 @@ a:hover .emoji > b {
 @media (max-width: 600px) {
   .news-text-container > .news-text {
     padding-bottom: 0.8rem;
+  }
+  .news-text-container > .news-bottom-container {
+    padding-right: 1.6rem !important;
   }
   .news-text-container > .news-bottom-container > a {
     float: unset;
