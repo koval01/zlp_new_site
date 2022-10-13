@@ -2107,7 +2107,7 @@ function initTooltip() {
 }
 
 function initSmoothScrollObserver() {
-    let skip_list = ["donate"];
+    let skip_list = ["donate", "main"];
     let scrollerObject = new SmoothScroll("section");
 
     let callScroller = () => {
