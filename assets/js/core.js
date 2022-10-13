@@ -316,7 +316,7 @@ function appendPostsNews() {
             }vw + ${
                 fix_float_fs(parseFloat(1.7 - font_size), font_size)
             }vh + ${
-                fix_float_fs(parseFloat(1.5 - font_size), font_size)
+                fix_float_fs(parseFloat(1.8 - font_size), font_size)
             }vmin)`;
             selector_text.style.padding = `${fix_float_fs(parseFloat(1.3 - font_size), font_size, 0.22, 1.05)}rem`;
             getImageLightness(posts[i].cover, function (brightness) {
