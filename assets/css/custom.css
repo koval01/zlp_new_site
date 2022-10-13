@@ -384,8 +384,8 @@ iframe {
 }
 
 .news-button-view {
-  margin-right: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
+  margin-right: 0 !important;
+  margin-bottom: 0.7rem !important;
 }
 
 .male-emoji {
