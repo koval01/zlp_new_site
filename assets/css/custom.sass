@@ -63,6 +63,9 @@ input:-webkit-autofill
   background-size: contain
   background-position: center
 
+.dark-mode .header-logo
+  background-image: url(../images/logo-dark.webp) !important
+
 .landing-head-text
   background-image: url(../images/logo.webp)
   background-position: center
@@ -74,6 +77,9 @@ input:-webkit-autofill
   display: flex
   margin: auto
   filter: drop-shadow(0 1px 2px black)
+
+.dark-mode .landing-head-text
+  background-image: url(../images/logo-dark.webp) !important
 
 .dark-mode #landing_description_gb
   text-shadow: 0 0 5px black
@@ -1152,3 +1158,12 @@ a:hover
 
   100%
     bottom: .4em
+
+.text-gradient-primary
+  background: linear-gradient(to right, #e4c5fd, #b254ff, #d8a7ff) !important
+  -webkit-background-clip: text !important
+  -webkit-text-fill-color: transparent
+
+.dark-mode .text-gradient-primary
+  background: linear-gradient(to right, #6a1fdd, #ae27cc, #e444fc) !important
+  -webkit-background-clip: text !important
