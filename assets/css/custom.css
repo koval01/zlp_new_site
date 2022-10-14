@@ -1368,7 +1368,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   background-position: center;
   margin-top: 0.5rem;
   width: 100%;
-  height: 8em;
+  height: 100%;
 }
 
 @media (max-width: 767px) {
