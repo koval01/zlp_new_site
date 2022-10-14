@@ -277,7 +277,7 @@ function appendPostsNews() {
                             <div class="background-news-overlay" id="news-overlay-${i}">
                                 <div class="background-news-overlay-dark-mode">
                                     <blockquote class="card-body mt-2 mb-3 news-text-container">
-                                        <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family: sans-serif">
+                                        <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family:sans-serif">
                                                 ${text}</p>
                                         <div class="news-bottom-container">
                                             <a class="btn btn-primary shadow-primary btn-lg news-button-view"
@@ -302,6 +302,7 @@ function appendPostsNews() {
             let selector_text = document
                 .getElementById(`news_text_${i}`);
             selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
+            selector_text.style.width = "100%";
             selector_text.classList
                 .add("text-light");
             let text_len = selector_text.innerText.length;
@@ -326,6 +327,34 @@ function appendPostsNews() {
                 document
                     .getElementById(`news-overlay-${i}`).style.background = style_;
             });
+            let calculate_text_position = () => {
+                // local init var
+                let selector_text = document.getElementById(`news_text_${i}`);
+                let font_size = parseFloat(window.getComputedStyle(
+                    selector_text, null
+                ).getPropertyValue('font-size')
+                    .replace("px", ""));
+
+                if (font_size > 24) {
+                    selector_text.style.position = "absolute";
+                    selector_text.style.textAlign = "center";
+                    selector_text.style.alignItems = "center";
+                    selector_text.style.height = "100%";
+                    selector_text.style.display = "inline-block";
+                    selector_text.style.paddingBottom = "5rem";
+                    selector_text.style.paddingRight = "3rem";
+                } else {
+                    selector_text.style.position = "";
+                    selector_text.style.textAlign = "";
+                    selector_text.style.alignItems = "";
+                    selector_text.style.height = "";
+                    selector_text.style.display = "";
+                    selector_text.style.paddingBottom = "";
+                    selector_text.style.paddingRight = "";
+                }
+            }
+            addEventListener('resize', (event) => calculate_text_position());
+            setInterval(calculate_text_position, 200);
         }
         let loading_done = function () {
             setTimeout(function () {
@@ -379,7 +408,7 @@ function donateSwitchContainer(display) {
         document.body.style.overflowY = "";
 
         donate_displayed = false;
-        location.hash = "#main";
+        location.hash = "#";
     }
 }
 
@@ -428,7 +457,7 @@ function monitoring_game_server_update() {
                 selector
                     .classList
                     .remove("loading-dots");
-                selector.innerHTML = `Сейчас играет <span class="text-gradient-primary fw-semibold">${data.online}</span>
+                selector.innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span>
             <i class="emoji male-emoji" style="margin-left: -.35rem!important;background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
             ${getNoun(data.online)}
             <i class="emoji male-emoji" style="background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
@@ -1911,7 +1940,7 @@ function callSucessPayModal(payment_id = 0) {
         .getElementById("only-ok-payment");
     let title = document.querySelector(".modal-title");
 
-    donateSwitchContainer((display = true));
+    donateSwitchContainer(true);
 
     let item_type_ = (product_name) => {
         let t = (product_name).toLowerCase();
@@ -2067,14 +2096,16 @@ function successPay() {
 
 function donateContainerHash() {
     let updater = function () {
-        if (linkHash() == "donate") {
+        // console.log(`donateContainerHash: ${linkHash()}`);
+        if (linkHash() === "donate") {
             donate_displayed = true;
-            donateSwitchContainer((display = true));
+            donateSwitchContainer(donate_displayed);
         }
     };
 
     updater();
-    window.onhashchange = updater;
+    addEventListener(
+        'hashchange', (event) => updater());
 }
 
 function initJarallax() {
@@ -2107,7 +2138,6 @@ function initTooltip() {
 }
 
 function initSmoothScrollObserver() {
-    let skip_list = ["donate", "main"];
     let scrollerObject = new SmoothScroll("section");
 
     let callScroller = () => {
@@ -2117,11 +2147,13 @@ function initSmoothScrollObserver() {
             return;
         }
 
-        if (!skip_list.includes(identifier)) {
-            scrollerObject.animateScroll(document.querySelector(`section[id="${identifier}"]`), null, {
-                offset: 40
-            });
+        if (identifier === "donate") {
+            identifier = "donate_block";
         }
+
+        scrollerObject.animateScroll(document.querySelector(`section[id="${identifier}"]`), null, {
+            offset: 50
+        });
     }
 
     callScroller();

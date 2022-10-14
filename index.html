@@ -343,15 +343,15 @@
                     <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-3" style="padding: 1.5em">
                         <div class="col" style="margin: auto">
                             <div class="d-flex align-items-center">
-                                <div class="display-4 text-gradient-primary">3</div>
-                                <p class="ps-3 mb-0">Сервера: Лобби, Общение и Анархия</p>
+                                <div class="display-4 text-primary">4</div>
+                                <p class="ps-3 mb-0">Сервера: Лобби, Общение, Анархия и <a href="#private_server" class="text-gradient-primary" data-scroll data-scroll-offset="70">Приватный сервер</a></p>
                             </div>
                             <div class="d-flex align-items-center">
-                                <div class="display-4 text-gradient-primary">7+</div>
+                                <div class="display-4 text-primary">7+</div>
                                 <p class="ps-3 mb-0">Наша целевая аудитория</p>
                             </div>
                             <div class="d-flex align-items-center">
-                                <div class="display-4 text-gradient-primary">1.19</div>
+                                <div class="display-4 text-primary">1.19.2</div>
                                 <p class="ps-3 mb-0">Версия клиента для игры</p>
                             </div>
                         </div>
@@ -374,6 +374,8 @@
                 <div class="jarallax server_history_bg mb-3 mb-lg-4" style="
                             background-image: url(assets/images/players_background_x2.webp)
                     ">
+                    <div class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-top-shadow"></div>
+                    <div class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-bottom-shadow"></div>
                     <div class="black-filter_sr_hs"></div>
                     <div class="container">
                         <h2 class="h1 text-center text-sm-start mb-4">Большое начало в 2021-м году</h2>
@@ -386,13 +388,37 @@
             </div>
             <div class="position-absolute top-0 start-0 w-100 h-100"></div>
             <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
-                <h2 class="h3 text-lg-start mb-4 mb-lg-5">Известные игроки</h2>
+                <div class="shadow-vertical-overlay vertical-bottom-shadow transparent-vertical-shadow" style="top:unset;bottom:0;height:40%"></div>
+                <h2 class="h3 text-center mb-4 mb-lg-5">Известные игроки</h2>
                 <div class="swiper mb-2" id="players_swipe_container">
                     <div class="swiper-shadow-overlay swiper-left-shadow"></div>
                     <div class="swiper-shadow-overlay swiper-right-shadow"></div>
                     <div class="swiper-wrapper" id="players-swiper-array"></div>
                     <div class="swiper-pagination position-relative pt-2 mt-4 players-pagination"></div>
                 </div>
+            </div>
+        </section>
+        <section id="private_server" class="pt-5 py-2 pb-2 bg-secondary-adaptive">
+            <div class="container py-2 pt-2 pt-lg-3 pb-1 mb-0 bg-secondary container-second-round">
+                <h3 class="h1 text-center text-gradient-primary mb-lg-4">Приватный сервер</h3>
+                <div class="row py-xl-3 g-2 pt-0" style="padding: 12px">
+                    <div class="position-relative overflow-hidden rounded-3 col-md-8 order-lg-2 mb-4">
+                        <p>
+                            Проект Zalupa.Online за период своего существования от единого сервера
+                            Анархии перерос в проект с несколькими режимами, один из таких – частный
+                            сервер с ванильным выживанием. Особенность этого сервера, что туда попадают
+                            только те, кто поддержал сервер финансово. Также единственный режим, где вы
+                            можете быть на уровне с администрацией, ведь здесь можно играть только с
+                            правами обычного игрока, никаких привилегий.
+                        </p>
+                    </div>
+                    <div class="position-relative overflow-hidden rounded-3 col-md-4 order-lg-2 mb-4">
+                        <div class="private-server-hub item-levitaion-dec"></div>
+                    </div>
+                </div>
+                <a href="#donate" style="display: block" id="donate-private-butt"
+                   class="btn btn-primary shadow-primary btn-lg mb-3 btn-shadow-hide">
+                    Погнали</a>
             </div>
         </section>
         <section id="comments" class="mb-5 mt-5">
