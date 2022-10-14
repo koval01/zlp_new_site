@@ -1898,7 +1898,7 @@ function finishLoad() {
         .setAttribute("style", "");
     document.querySelector("footer")
         .setAttribute("style", "");
-    let heart = '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: 0.6rem;bottom:-3px"><b>❤️</b></i>';
+    let heart = '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: 0.7rem;bottom:-1px"><b>❤️</b></i>';
     document.getElementById("footer-text-blc").innerHTML = `Создал KovalYRS с ${heart}, специально для ZALUPA.ONLINE`;
     if (grecaptcha) {
         document.getElementById("re-badge-text").innerText = "This site uses Google ReCaptcha technology";
