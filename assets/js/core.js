@@ -312,7 +312,7 @@ function appendPostsNews() {
                 return float < correction_float ? correction_float * (font_size / correction_font) : float
             }
             selector_text.style.fontSize = `calc(${
-                fix_float_fs(parseFloat(1.7 - font_size), font_size)
+                fix_float_fs(parseFloat(1.4 - font_size), font_size)
             }vw + ${
                 fix_float_fs(parseFloat(1.7 - font_size), font_size)
             }vh + ${
