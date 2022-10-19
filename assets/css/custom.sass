@@ -20,13 +20,14 @@ html
 footer
   padding-top: 8rem
 
-input:-webkit-autofill
-  transition: background-color 99999s ease-in-out 0s
-  -webkit-text-fill-color: var(--contr-color-var) !important
-
-  &:hover, &:focus, &:active
+input, textarea
+  &:-webkit-autofill
     transition: background-color 99999s ease-in-out 0s
     -webkit-text-fill-color: var(--contr-color-var) !important
+
+    &:hover, &:focus, &:active
+      transition: background-color 99999s ease-in-out 0s
+      -webkit-text-fill-color: var(--contr-color-var) !important
 
 \::selection
   background: rgba(144, 72, 255, .5)
@@ -420,7 +421,7 @@ input
     -webkit-appearance: none
     margin: 0
 
-input.form-control
+input.form-control, textarea
   border: 2px solid #e5e5e5 !important
   background: #e5e5e5 !important
 
@@ -430,7 +431,7 @@ input.form-control
   &:active
     border: 2px solid #a970ff !important
 
-.dark-mode input.form-control
+.dark-mode input.form-control, textarea
   border: 2px solid #464649 !important
   background: #464649 !important
 
@@ -440,8 +441,9 @@ input.form-control
   &:active
     border: 2px solid #a970ff !important
 
-input#theme-mode
-  background-color: #9147ff !important
+input, textarea
+  #theme-mode
+    background-color: #9147ff !important
 
 .text-primary
   color: #a76eff !important
@@ -1239,3 +1241,14 @@ figure.news-figure
 
 .dark-mode .select-text-border
   border-color: #8a24d5 !important
+
+#admin-message
+  width: 100%
+  min-height: 35vh
+  max-height: 60vh
+
+label[for="admin-message"]
+  color: #fff
+  position: absolute
+  right: 2rem
+  bottom: 0

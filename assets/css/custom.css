@@ -23,11 +23,11 @@ footer {
   padding-top: 8rem;
 }
 
-input:-webkit-autofill {
+input:-webkit-autofill, textarea:-webkit-autofill {
   transition: background-color 99999s ease-in-out 0s;
   -webkit-text-fill-color: var(--contr-color-var) !important;
 }
-input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus, textarea:-webkit-autofill:active {
   transition: background-color 99999s ease-in-out 0s;
   -webkit-text-fill-color: var(--contr-color-var) !important;
 }
@@ -481,29 +481,29 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
   margin: 0;
 }
 
-input.form-control {
+input.form-control, textarea {
   border: 2px solid #e5e5e5 !important;
   background: #e5e5e5 !important;
 }
-input.form-control:focus {
+input.form-control:focus, textarea:focus {
   border: 2px solid #a970ff !important;
 }
-input.form-control:active {
+input.form-control:active, textarea:active {
   border: 2px solid #a970ff !important;
 }
 
-.dark-mode input.form-control {
+.dark-mode input.form-control, textarea {
   border: 2px solid #464649 !important;
   background: #464649 !important;
 }
-.dark-mode input.form-control:focus {
+.dark-mode input.form-control:focus, textarea:focus {
   border: 2px solid #a970ff !important;
 }
-.dark-mode input.form-control:active {
+.dark-mode input.form-control:active, textarea:active {
   border: 2px solid #a970ff !important;
 }
 
-input#theme-mode {
+input #theme-mode, textarea #theme-mode {
   background-color: #9147ff !important;
 }
 
@@ -1392,6 +1392,19 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 
 .dark-mode .select-text-border {
   border-color: #8a24d5 !important;
+}
+
+#admin-message {
+  width: 100%;
+  min-height: 35vh;
+  max-height: 60vh;
+}
+
+label[for=admin-message] {
+  color: #fff;
+  position: absolute;
+  right: 2rem;
+  bottom: 0;
 }
 
 /*# sourceMappingURL=custom.css.map */

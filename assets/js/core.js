@@ -863,6 +863,7 @@ function ytVideoSetter(skip = false) {
 function modal_close_() {
     document.body.classList.remove("modal-open");
     document.getElementById("scroll_butt_container").style.display = "";
+    document.getElementsByTagName("html")[0].style.overflowY = ""
     let modal = document.getElementById("donate_item_modal");
     modal.style.opacity = 0;
     setTimeout(function () {
@@ -870,20 +871,23 @@ function modal_close_() {
     }, 350);
 }
 
-function modal_open_() {
+function modal_open_(onclick_lock=false) {
     document.body.classList.add("modal-open");
     document.getElementById("scroll_butt_container").style.display = "none";
+    document.getElementsByTagName("html")[0].style.overflowY = "hidden"
     let modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
     setTimeout(function () {
         modal.style.opacity = 1;
     }, 50);
 
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal_close_();
+    if (!onclick_lock) {
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal_close_();
+            }
         }
-    };
+    }
 }
 
 function switch_modal_containers(mode = "service", info_params = {}) {
@@ -2132,7 +2136,7 @@ function rulesPrivateContainerHash() {
                         </div>
                         <span class="ps-2 pe-2 text-start">${rules[i].text}</span>
                     </li>
-                `
+                `;
             }
             switch_modal_containers("info", {
                 title: "Правила приватного сервера",
@@ -2142,7 +2146,43 @@ function rulesPrivateContainerHash() {
                 </ul>
             `});
             modal_open_();
-        })
+        });
+    });
+}
+
+function adminsContactContainerHash() {
+    observerContainerHash(["contact", "support", "bug", "report"], function () {
+        switch_modal_containers("info", {
+            title: "Обратная связь",
+            content: `
+                <p class="mb-2 mb-lg-3 mb-xl-4 text-start">
+                    Это форма для предложений и жалоб, опишите пожалуйста кратко и 
+                    ясно свою идею или предложение без воды.
+                </p>
+                <div id="contant-input-container">
+                    <label for="admin-message">0/0</label>
+                    <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
+                    </textarea>
+                </div>
+                <button onclick="alert('this test')" class="w-100 btn btn-primary btn-lg btn-shadow-hide mt-3 mt-lg-4 type="button">
+                    Отправить
+                </button>
+            `});
+        let max_len = 3000;
+        let textarea = document.getElementById("admin-message");
+        let label = document.querySelector('label[for="admin-message"]');
+        let space = "\x20";
+        if (textarea.value.includes(space.repeat(3))) {
+            textarea.value = textarea.value.trim();
+        }
+        textarea.maxLength = max_len;
+        let update_len_counter = () => {
+            label.innerText = `${textarea.value.length}/${max_len}`;
+        }
+        update_len_counter();
+        addEventListener("keydown", (_) => update_len_counter());
+        addEventListener("keyup", (_) => update_len_counter());
+        modal_open_(onclick_lock=true);
     });
 }
 
@@ -2155,7 +2195,7 @@ function observerContainerHash(hash_array, action) {
 
     updater();
     addEventListener(
-        'hashchange', (event) => updater());
+        'hashchange', (_) => updater());
 }
 
 function initJarallax() {
@@ -2215,6 +2255,7 @@ const initCore = function () {
     observerSystemTheme();
     donateContainerHash();
     rulesPrivateContainerHash();
+    adminsContactContainerHash();
     buildPlayersSwiper();
     appendPostsNews();
     initComments();
