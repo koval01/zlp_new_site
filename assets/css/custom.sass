@@ -20,19 +20,20 @@ html
 footer
   padding-top: 8rem
 
-input:-webkit-autofill
-  transition: background-color 99999s ease-in-out 0s
-  -webkit-text-fill-color: var(--contr-color-var) !important
-
-  &:hover, &:focus, &:active
+input, textarea
+  &:-webkit-autofill
     transition: background-color 99999s ease-in-out 0s
     -webkit-text-fill-color: var(--contr-color-var) !important
+
+    &:hover, &:focus, &:active
+      transition: background-color 99999s ease-in-out 0s
+      -webkit-text-fill-color: var(--contr-color-var) !important
 
 \::selection
   background: rgba(144, 72, 255, .5)
 
 .bg-light:not(.badge), .card.card-hover.bg-light
-    background: rgb(255 255 255 / 75%) !important
+    background: rgb(255 255 255 / 90%) !important
     backdrop-filter: blur(16px)
 
 .dark-mode
@@ -132,7 +133,7 @@ a:hover
 .bg-secondary-adaptive
   background: unset !important
 
-@media (max-width: 780px)
+@media (max-width: 767px)
   .bg-secondary-adaptive
     background: #fff !important
 
@@ -296,7 +297,7 @@ iframe
 .vova-bg-mobile
   display: none
 
-@media (max-width: 850px)
+@media (max-width: 950px)
   .players-pagination
     display: none
 
@@ -420,7 +421,7 @@ input
     -webkit-appearance: none
     margin: 0
 
-input.form-control
+input.form-control, textarea
   border: 2px solid #e5e5e5 !important
   background: #e5e5e5 !important
 
@@ -430,7 +431,7 @@ input.form-control
   &:active
     border: 2px solid #a970ff !important
 
-.dark-mode input.form-control
+.dark-mode input.form-control, textarea
   border: 2px solid #464649 !important
   background: #464649 !important
 
@@ -440,8 +441,9 @@ input.form-control
   &:active
     border: 2px solid #a970ff !important
 
-input#theme-mode
-  background-color: #9147ff !important
+input, textarea
+  #theme-mode
+    background-color: #9147ff !important
 
 .text-primary
   color: #a76eff !important
@@ -803,7 +805,7 @@ a:hover
   overflow: hidden
   position: relative
   background: no-repeat -1000px -1000px
-  background-size: 1em
+  background-size: .95em
   text-indent: -10em
   padding: 3px 3px 3px 2px
   margin: -3px -2px
@@ -825,38 +827,44 @@ a:hover
     pointer-events: none
 
 .dark-mode .news-figure
-  --shadow-news-block: rgba(255, 255, 255, 0)
+  $shadow-news-block: rgba(255, 255, 255, 0)
 
 .news-figure
-  --shadow-news-block: rgba(119, 44, 232, 0)
+  $shadow-news-block: rgba(119, 44, 232, 0)
+
   margin: auto
   padding: 0 !important
   margin-bottom: 0 !important
-  box-shadow: 0 0 25px var(--shadow-news-block) !important
+  box-shadow: 0 0 25px var($shadow-news-block) !important
   transition: box-shadow 1s
   width: 90%
 
-.background-news
-  background-size: cover
-  background-repeat: no-repeat
-  background-position: center
-  background-color: #222
-  border-radius: calc(0.6vw + 0.8vh)
-  height: 100%
+figure.news-figure
+  $border-news-figure: calc(.6vh + .8vw)
 
-  > .background-news-overlay
-    position: relative
-    border-radius: calc(0.6vw + 0.8vh)
-    background: rgb(0, 0, 0, 0.4)
+  border-radius: $border-news-figure
+
+  > .background-news
+    background-size: cover
+    background-repeat: no-repeat
+    background-position: center
+    background-color: #222
+    border-radius: $border-news-figure
     height: 100%
-    overflow: hidden
 
-    > .background-news-overlay-dark-mode
-      background-color: rgba(0, 0, 0, 0)
-      transition: background-color 1.4s
+    > .background-news-overlay
+      position: relative
+      border-radius: calc(.6vh + .6vw)
+      background: $border-news-figure
       height: 100%
-      border-radius: calc(0.6vw + 0.8vh)
       overflow: hidden
+
+      > .background-news-overlay-dark-mode
+        background-color: rgba(0, 0, 0, 0)
+        transition: background-color 1.4s
+        height: 100%
+        border-radius: $border-news-figure
+        overflow: hidden
 
 .dark-mode .background-news-overlay-dark-mode
   background-color: rgba(0, 0, 0, .4) !important
@@ -873,12 +881,16 @@ a:hover
     bottom: .5rem
     display: block
     width: 100%
-    padding-right: 2.5rem
+    padding-right: 2.4rem
 
     > a
       float: right
 
 @media (max-width: 600px)
+  #donate-private-butt
+    width: unset !important
+    margin: 0 10%
+
   .news-text-container
     > .news-text
       padding-bottom: .8rem
@@ -901,7 +913,7 @@ a:hover
   margin-top: 1em !important
 
 .dark-mode .swiper-shadow-overlay
-  --shadow-color-swiper: 14, 14, 16
+  --shadow-color-swiper: 14, 14, 16, 1
 
 .swiper-right-shadow
   --shadow-position-swiper: to left
@@ -923,7 +935,38 @@ a:hover
   --shadow-color-swiper: 255, 255, 255, 1
   transition: width .6s
 
-  background: linear-gradient(var(--shadow-position-swiper), rgb(var(--shadow-color-swiper)) 10%, rgba(0, 0, 0, 0) 90%)
+  background: linear-gradient(var(--shadow-position-swiper), rgba(var(--shadow-color-swiper)) 10%, rgba(0, 0, 0, 0) 90%)
+
+.vertical-bottom-shadow
+  --shadow-position-swiper: to top
+  top: 90.1%
+
+.vertical-top-shadow
+  --shadow-position-swiper: to bottom
+  top: -2px
+
+.dark-mode .shadow-vertical-overlay
+  --vertical-shadow-color: 14, 14, 16, 1
+
+.shadow-vertical-overlay-dark
+  --vertical-shadow-color: 14, 14, 16, 1 !important
+
+.transparent-vertical-shadow
+  --vertical-shadow-color: 255, 255, 255, .3 !important
+
+.dark-mode .transparent-vertical-shadow
+  --vertical-shadow-color: 14, 14, 16, .3 !important
+
+.shadow-vertical-overlay
+  position: absolute
+  width: 100%
+  height: 10%
+  z-index: 1000
+  pointer-events: none
+  --vertical-shadow-color: 255, 255, 255, 1
+  transition: width .6s
+
+  background: linear-gradient(var(--shadow-position-swiper), rgba(var(--vertical-shadow-color)) 10%, rgba(0, 0, 0, 0) 90%)
 
 .dark-mode .object-block-col
   --color-event-object: #fff
@@ -1082,6 +1125,7 @@ a:hover
 
   > .container
     padding: 2rem !important
+    padding-top: 3rem !important
 
 @media (max-width: 960px)
   .server_history_bg
@@ -1151,19 +1195,60 @@ a:hover
 
 @keyframes ItemLevitation
   0%
-    bottom: .4em
+    -webkit-transform: translateY(0)
+    transform: translateY(0)
 
   50%
-    bottom: 0
+    -webkit-transform: translate3d(0, -10px, 0)
+    transform: translate3d(0, -10px, 0)
 
   100%
-    bottom: .4em
+    -webkit-transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0)
 
 .text-gradient-primary
-  background: linear-gradient(to right, #e4c5fd, #b254ff, #d8a7ff) !important
+  background: linear-gradient(to right, #bb90de, #b254ff, #c6a0e4) !important
   -webkit-background-clip: text !important
   -webkit-text-fill-color: transparent
 
 .dark-mode .text-gradient-primary
   background: linear-gradient(to right, #6a1fdd, #ae27cc, #e444fc) !important
   -webkit-background-clip: text !important
+
+.private-server-hub
+  background-image: url(../images/private-server-hub.webp)
+  background-size: contain
+  background-repeat: no-repeat
+  background-position: center
+  margin-top: .5rem
+  width: 100%
+  height: 100%
+
+@media (max-width: 767px)
+  .private-server-hub
+    display: none !important
+
+#donate-private-butt
+  margin: auto
+  width: 16rem
+
+.select-text-border
+  border: 1px solid #b66ff1
+  border-radius: 0.4rem
+  padding: 0 .25rem .2rem .25rem
+  margin-left: .1rem
+  white-space: nowrap
+
+.dark-mode .select-text-border
+  border-color: #8a24d5 !important
+
+#admin-message
+  width: 100%
+  min-height: 35vh
+  max-height: 60vh
+
+label[for="admin-message"]
+  color: #fff
+  position: absolute
+  right: 2rem
+  bottom: 0

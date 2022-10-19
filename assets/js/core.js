@@ -238,6 +238,12 @@ function get_news_(callback, source) {
     });
 }
 
+function get_rules_private_server(callback) {
+    requestCall(function (r) {
+        callback(r);
+    }, "assets/data/private_server_rules.json", "GET", true);
+}
+
 function appendPostsNews() {
     let createSwiper = function () {
         new Swiper("#news_swipe_container", {
@@ -277,7 +283,7 @@ function appendPostsNews() {
                             <div class="background-news-overlay" id="news-overlay-${i}">
                                 <div class="background-news-overlay-dark-mode">
                                     <blockquote class="card-body mt-2 mb-3 news-text-container">
-                                        <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family: sans-serif">
+                                        <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family:sans-serif">
                                                 ${text}</p>
                                         <div class="news-bottom-container">
                                             <a class="btn btn-primary shadow-primary btn-lg news-button-view"
@@ -302,21 +308,28 @@ function appendPostsNews() {
             let selector_text = document
                 .getElementById(`news_text_${i}`);
             selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
+            selector_text.style.width = "100%";
             selector_text.classList
                 .add("text-light");
             let text_len = selector_text.innerText.length;
             let text_split = selector_text
                 .innerText.split(" ");
             let font_size = ((text_len - -8) * 0.4) / 100;
-            let fix_float_fs = (float, font_size, correction_float = 0.32, correction_font = 0.9) => {
-                return float < correction_float ? correction_float * (font_size / correction_font) : float
+            let fix_float_fs = (
+                float, font_size,
+                correction_float = 0.32,
+                correction_font = 0.9,
+                max_val = 0
+            ) => {
+                float = float < correction_float ? correction_float * (font_size / correction_font) : float
+                return max_val ? (float < max_val ? float : max_val) : float
             }
             selector_text.style.fontSize = `calc(${
-                fix_float_fs(parseFloat(1.4 - font_size), font_size)
+                fix_float_fs(parseFloat(1.3 - font_size), font_size)
             }vw + ${
-                fix_float_fs(parseFloat(1.7 - font_size), font_size)
+                fix_float_fs(parseFloat(1.5 - font_size), font_size)
             }vh + ${
-                fix_float_fs(parseFloat(1.8 - font_size), font_size)
+                fix_float_fs(parseFloat(1.65 - font_size), font_size)
             }vmin)`;
             selector_text.style.padding = `${fix_float_fs(parseFloat(1.3 - font_size), font_size, 0.22, 1.05)}rem`;
             getImageLightness(posts[i].cover, function (brightness) {
@@ -326,6 +339,34 @@ function appendPostsNews() {
                 document
                     .getElementById(`news-overlay-${i}`).style.background = style_;
             });
+            let calculate_text_position = () => {
+                // local init var
+                let selector_text = document.getElementById(`news_text_${i}`);
+                let font_size = parseFloat(window.getComputedStyle(
+                    selector_text, null
+                ).getPropertyValue('font-size')
+                    .replace("px", ""));
+
+                if (font_size > 24) {
+                    selector_text.style.position = "absolute";
+                    selector_text.style.textAlign = "center";
+                    selector_text.style.alignItems = "center";
+                    selector_text.style.height = "100%";
+                    selector_text.style.display = "inline-block";
+                    selector_text.style.paddingBottom = "5rem";
+                    selector_text.style.paddingRight = "3rem";
+                } else {
+                    selector_text.style.position = "";
+                    selector_text.style.textAlign = "";
+                    selector_text.style.alignItems = "";
+                    selector_text.style.height = "";
+                    selector_text.style.display = "";
+                    selector_text.style.paddingBottom = "";
+                    selector_text.style.paddingRight = "";
+                }
+            }
+            addEventListener('resize', (event) => calculate_text_position());
+            setInterval(calculate_text_position, 200);
         }
         let loading_done = function () {
             setTimeout(function () {
@@ -379,7 +420,7 @@ function donateSwitchContainer(display) {
         document.body.style.overflowY = "";
 
         donate_displayed = false;
-        location.hash = "#main";
+        location.hash = "#";
     }
 }
 
@@ -428,7 +469,7 @@ function monitoring_game_server_update() {
                 selector
                     .classList
                     .remove("loading-dots");
-                selector.innerHTML = `Сейчас играет <span class="text-gradient-primary fw-semibold">${data.online}</span>
+                selector.innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span>
             <i class="emoji male-emoji" style="margin-left: -.35rem!important;background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
             ${getNoun(data.online)}
             <i class="emoji male-emoji" style="background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
@@ -822,6 +863,7 @@ function ytVideoSetter(skip = false) {
 function modal_close_() {
     document.body.classList.remove("modal-open");
     document.getElementById("scroll_butt_container").style.display = "";
+    document.getElementsByTagName("html")[0].style.overflowY = ""
     let modal = document.getElementById("donate_item_modal");
     modal.style.opacity = 0;
     setTimeout(function () {
@@ -829,23 +871,26 @@ function modal_close_() {
     }, 350);
 }
 
-function modal_open_() {
+function modal_open_(onclick_lock=false) {
     document.body.classList.add("modal-open");
     document.getElementById("scroll_butt_container").style.display = "none";
+    document.getElementsByTagName("html")[0].style.overflowY = "hidden"
     let modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
     setTimeout(function () {
         modal.style.opacity = 1;
     }, 50);
 
-    window.onclick = function (event) {
-        if (event.target === modal) {
-            modal_close_();
+    if (!onclick_lock) {
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal_close_();
+            }
         }
-    };
+    }
 }
 
-function switch_modal_containers(mode = "service") {
+function switch_modal_containers(mode = "service", info_params = {}) {
     let span = document
         .getElementsByClassName("close_b")[0];
     let info = document.getElementById("modal-info-container-c");
@@ -879,6 +924,11 @@ function switch_modal_containers(mode = "service") {
         }
 
         _array[i].selector.style.display = _mode;
+    }
+
+    if (mode === "info") {
+        title.innerText = info_params.title;
+        document.getElementById("info-content-modal").innerHTML = info_params.content;
     }
 
     span.onclick = function () {
@@ -1869,7 +1919,7 @@ function finishLoad() {
         .setAttribute("style", "");
     document.querySelector("footer")
         .setAttribute("style", "");
-    let heart = '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: 0.6rem;bottom:-3px"><b>❤️</b></i>';
+    let heart = '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: 0.7rem;bottom:-1px"><b>❤️</b></i>';
     document.getElementById("footer-text-blc").innerHTML = `Создал KovalYRS с ${heart}, специально для ZALUPA.ONLINE`;
     if (grecaptcha) {
         document.getElementById("re-badge-text").innerText = "This site uses Google ReCaptcha technology";
@@ -1911,7 +1961,7 @@ function callSucessPayModal(payment_id = 0) {
         .getElementById("only-ok-payment");
     let title = document.querySelector(".modal-title");
 
-    donateSwitchContainer((display = true));
+    donateSwitchContainer(true);
 
     let item_type_ = (product_name) => {
         let t = (product_name).toLowerCase();
@@ -2066,15 +2116,86 @@ function successPay() {
 }
 
 function donateContainerHash() {
+    observerContainerHash(["donate", "donate_block"], function () {
+        donate_displayed = true;
+        donateSwitchContainer(donate_displayed);
+    });
+}
+
+function rulesPrivateContainerHash() {
+    observerContainerHash(["private_rules"], function () {
+        let content = "";
+        get_rules_private_server(function (rules) {
+            for (let i = 0; i < rules.length; i++) {
+                content += `
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0 text-start">
+                                ${i+1}
+                            </h6>
+                        </div>
+                        <span class="ps-2 pe-2 text-start">${rules[i].text}</span>
+                    </li>
+                `;
+            }
+            switch_modal_containers("info", {
+                title: "Правила приватного сервера",
+                content: `
+                <ul class="list-group mb-4 mb-lg-5">
+                    ${content}
+                </ul>
+            `});
+            modal_open_();
+        });
+    });
+}
+
+function adminsContactContainerHash() {
+    observerContainerHash(["contact", "support", "bug", "report"], function () {
+        switch_modal_containers("info", {
+            title: "Обратная связь",
+            content: `
+                <p class="mb-2 mb-lg-3 mb-xl-4 text-start">
+                    Это форма для предложений и жалоб, опишите пожалуйста кратко и 
+                    ясно свою идею или предложение без воды.
+                </p>
+                <div id="contant-input-container">
+                    <label for="admin-message">0/0</label>
+                    <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
+                    </textarea>
+                </div>
+                <button onclick="alert('this test')" class="w-100 btn btn-primary btn-lg btn-shadow-hide mt-3 mt-lg-4 type="button">
+                    Отправить
+                </button>
+            `});
+        let max_len = 3000;
+        let textarea = document.getElementById("admin-message");
+        let label = document.querySelector('label[for="admin-message"]');
+        let space = "\x20";
+        if (textarea.value.includes(space.repeat(3))) {
+            textarea.value = textarea.value.trim();
+        }
+        textarea.maxLength = max_len;
+        let update_len_counter = () => {
+            label.innerText = `${textarea.value.length}/${max_len}`;
+        }
+        update_len_counter();
+        addEventListener("keydown", (_) => update_len_counter());
+        addEventListener("keyup", (_) => update_len_counter());
+        modal_open_(onclick_lock=true);
+    });
+}
+
+function observerContainerHash(hash_array, action) {
     let updater = function () {
-        if (linkHash() == "donate") {
-            donate_displayed = true;
-            donateSwitchContainer((display = true));
+        if (hash_array.includes(linkHash())) {
+            action();
         }
     };
 
     updater();
-    window.onhashchange = updater;
+    addEventListener(
+        'hashchange', (_) => updater());
 }
 
 function initJarallax() {
@@ -2107,21 +2228,20 @@ function initTooltip() {
 }
 
 function initSmoothScrollObserver() {
-    let skip_list = ["donate", "main"];
     let scrollerObject = new SmoothScroll("section");
 
     let callScroller = () => {
         let identifier = linkHash().toLowerCase();
 
-        if (!(identifier && identifier.length)) {
+        if (!(identifier && identifier.length) || ([
+            "private_rules"
+        ].includes(identifier))) {
             return;
         }
 
-        if (!skip_list.includes(identifier)) {
-            scrollerObject.animateScroll(document.querySelector(`section[id="${identifier}"]`), null, {
-                offset: 40
-            });
-        }
+        scrollerObject.animateScroll(document.querySelector(`section[id="${identifier}"]`), null, {
+            offset: 50
+        });
     }
 
     callScroller();
@@ -2134,6 +2254,8 @@ const initCore = function () {
     initLanding();
     observerSystemTheme();
     donateContainerHash();
+    rulesPrivateContainerHash();
+    adminsContactContainerHash();
     buildPlayersSwiper();
     appendPostsNews();
     initComments();
