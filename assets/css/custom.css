@@ -503,7 +503,7 @@ input.form-control:active, textarea:active {
   border: 2px solid #a970ff !important;
 }
 
-input #theme-mode, textarea #theme-mode {
+input#theme-mode {
   background-color: #9147ff !important;
 }
 
