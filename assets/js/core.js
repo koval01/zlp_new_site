@@ -584,8 +584,9 @@ function check_coupon(callback, coupon) {
         requestCall(function (r) {
             if (r.coupon && r.success) {
                 callback(r.coupon);
+            } else {
+                callback(null);
             }
-            callback(null);
         }, `${backend_host}/donate/coupon`, "POST", true, {
             code: coupon, token: token_update
         });
@@ -1517,6 +1518,7 @@ function couponCheck(coins = false) {
 
     input_lock(true);
     check_coupon(function (r) {
+        // console.log(`check_coupon = ${typeof r}`);
         if (r) {
             let call = function () {
                 checked_coupon = code;
