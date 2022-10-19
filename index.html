@@ -81,6 +81,12 @@
     <header class="header navbar navbar-expand-lg bg-light shadow-sm fixed-top">
         <div class="container px-3">
             <div class="header-logo navbar-brand pe-3"></div>
+            <script async src="https://telegram.org/js/telegram-widget.js?21" data-telegram-login="zalupa_feedback_bot" data-size="large" data-radius="8" data-onauth="onTelegramAuth(user)"></script>
+            <script type="text/javascript">
+                function onTelegramAuth(user) {
+                    alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+                }
+            </script>
             <div class="form-check form-switch mode-switch pe-lg-1 ms-auto" data-bs-toggle="mode">
                 <input type="checkbox" class="form-check-input" id="theme-mode">
                 <label class="form-check-label d-none d-sm-block" for="theme-mode">Светло</label>
