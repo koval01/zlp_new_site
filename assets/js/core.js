@@ -596,7 +596,11 @@ function check_coupon(callback, coupon) {
 function checkFeedbackStatus(callback) {
     re_check(function (token_update) {
         requestCall(function (r) {
-            callback(r.success);
+            if (r) {
+                callback(r.success);
+            } else {
+                callback(false);
+            }
         }, `${backend_host}/feedback/check`, "POST", true, {
             token: token_update
         });
@@ -606,13 +610,51 @@ function checkFeedbackStatus(callback) {
 function sendFeedback(callback, text) {
     re_check(function (token_update) {
         requestCall(function (r) {
-            if (r.coupon && r.success) {
-                callback(r.coupon);
+            if (r) {
+                callback(r.success);
+            } else {
+                callback(false);
             }
-            callback(null);
         }, `${backend_host}/feedback/send`, "POST", true, {
             text: text, token: token_update
         });
+    });
+}
+
+function sendFeedbackAction() {
+    let button = document.getElementById("send-feedback-button");
+    let textarea = document.getElementById("admin-message");
+    let text = textarea.value;
+    
+    if (text.length < 20) {
+        notify("Сообщение очень короткое!");
+        return;
+    }
+    
+    let button_lock = (lock=true) => {
+        if (lock) {
+            button.setAttribute("disabled", "");
+        } else {
+            button.removeAttribute("disabled");
+        }
+        button.innerText = lock ? "Ожидайте..." : "Отправить";
+    }
+
+    button_lock();
+    checkFeedbackStatus(function (check_data) {
+        if (check_data) {
+            sendFeedback(function (send_data) {
+                if (send_data) {
+                    notify("Сообщение отправлено админам.");
+                } else {
+                    notify("Ошибка на стороне сервера, попробуйте позже.");
+                }
+                button_lock(false);
+            }, text);
+        } else {
+            button_lock(false);
+            notify("Не удалось пройти проверку, попробуйте позже.");
+        }
     });
 }
 
@@ -2166,11 +2208,11 @@ function adminsContactContainerHash() {
                     <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
                     </textarea>
                 </div>
-                <button onclick="alert('this test')" class="w-100 btn btn-primary btn-lg btn-shadow-hide mt-3 mt-lg-4 type="button">
+                <button onclick="sendFeedbackAction()" class="w-100 btn btn-primary btn-lg btn-shadow-hide mt-3 mt-lg-4" id="send-feedback-button" type="button">
                     Отправить
                 </button>
             `});
-        let max_len = 3000;
+        let max_len = 2500;
         let textarea = document.getElementById("admin-message");
         let label = document.querySelector('label[for="admin-message"]');
         let space = "\x20";
