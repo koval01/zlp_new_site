@@ -17,6 +17,8 @@
     <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#6366f1">
     <link rel="shortcut icon" href="assets/favicon/favicon.ico">
     <meta name="theme-color" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
           integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -86,6 +88,127 @@
             </div>
         </div>
     </header>
+    <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
+        <div class="modal-content rounded-4 shadow" style="text-align: center">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body py-0">
+                <div id="modal-donate-container-c">
+                    <form class="needs-validation" novalidate="">
+                        <p id="donate_item_select_text" class="text-start"></p>
+                        <div class="row g-3 add_data_cart">
+                            <div class="col-sm-6" style="margin: auto">
+                                <label id="donate_count_text_hint" for="donate_customer" class="form-label">
+                                    Количество</label>
+                                <input type="number" class="form-control" id="items_count_donate" placeholder=""
+                                       value="" required="">
+                            </div>
+                        </div>
+                        <br/>
+                        <button id="donate_button_add_to_cart"
+                                class="w-100 btn btn-primary btn-lg btn-shadow-hide"
+                                type="button">
+                            Добавить
+                        </button>
+                    </form>
+                </div>
+                <div id="modal-info-container-c" style="display: none">
+                    <div id="info-content-modal"></div>
+                </div>
+                <div id="modal-donate-success-container" style="display: none">
+                    <ul id="donate-cart-list-success" class="list-group mb-4 mb-lg-5"></ul>
+                    <div id="only-ok-payment" style="display: none">
+                        <img src="assets/images/vova-gribnik.webp" alt="Vova"
+                             class="payment-sucess-vova item-levitaion-dec" loading="lazy">
+                        <h6 class="item-name-payment-result text-primary mt-1 mt-lg-2"></h6>
+                        <span id="success-pay-text-js">
+                                    Оплата прошла успешно, Шеф доволен, спасибо.
+                                </span>
+                    </div>
+                </div>
+                <div id="modal-donate-finish-container-b" style="display: none;">
+                    <span id="donate-text-span" class="text-start mb-4" style="display: block"></span>
+                    <ul id="donate-coins-payment" class="list-group mb-3"></ul>
+                    <form class="needs-validation" novalidate="">
+                        <div class="row g-3">
+                            <div class="col-sm-6" id="sum-tokens-container">
+                                <label for="donate_sum" class="form-label">Сумма</label>
+                                <input type="number" class="form-control" id="donate_sum" placeholder="300"
+                                       value=""
+                                       required="">
+                            </div>
+                            <div class="col-sm-6" id="customer-tokens-container">
+                                <label for="donate_customer_c" class="form-label">Никнейм</label>
+                                <input type="text" class="form-control" id="donate_customer_c"
+                                       placeholder="Blackflexxy" value="" required="">
+                            </div>
+                            <div class="col-12" id="customer-email-tokens-container">
+                                <label for="donate_email_c" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
+                                </label>
+                                <input type="email" class="form-control" id="donate_email_c"
+                                       placeholder="eblan@mail.ru">
+                            </div>
+                            <div class="col-12" id="coupon-tokens-container">
+                                <label for="coupon-input-c" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="coupon-input-c"
+                                           placeholder="BRFF">
+                                    <button class="btn btn-dark btn-shadow-hide" id="coupon-button-c"
+                                            type="button"
+                                            onclick="couponCheck(true)">Проверить
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <button id="payment-button-donate_c" onclick="generatePaymentLink(0)"
+                                class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button">Дальше
+                        </button>
+                    </form>
+                </div>
+                <div id="modal-donate-finish-container-c" style="display: none">
+                    <ul id="donate-cart-list" class="list-group mb-3"></ul>
+                    <form class="needs-validation" novalidate="">
+                        <div class="row g-3" id="cart-build-js">
+                            <div class="col-sm-6">
+                                <label for="donate_customer" class="form-label">Никнейм</label>
+                                <input type="text" class="form-control" id="donate_customer"
+                                       placeholder="Blackflexxy" value="" required="">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="donate_email" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
+                                </label>
+                                <input type="email" class="form-control" id="donate_email"
+                                       placeholder="eblan@mail.ru">
+                            </div>
+                            <div class="col-12">
+                                <label for="coupon" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="coupon-input" placeholder="BRFF"
+                                           disabled>
+                                    <button class="btn btn-dark btn-shadow-hide" id="coupon-button"
+                                            type="button" disabled>
+                                        Проверить
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <button id="payment-button-donate" onclick="generatePaymentLink()"
+                                class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button"> Дальше
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer flex-column border-top-0">
+                <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b btn-shadow-hide">Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="donate-global-container" style="height: 0;min-height: 0;z-index: -1">
         <section id="donate_block" class="container my-5 mb-5 pt-5">
             <div
@@ -94,7 +217,8 @@
                 <h2 class="h2 mb-sm-1 mb-md-3 me-md-3 p-sm-1 p-md-2 p-lg-2 pb-1">Донат</h2>
                 <p class="pb-2 pb-lg-4 pb-xl-5 mb-3 pb-3" id="donate-title-desc">
                     Ты можешь поддержать проект финансово, это поможет нам продолжать работу над ним.
-                    В качестве вознаграждения вы можете получить игровую валюту или пропуск на приватный сервер.
+                    В качестве вознаграждения вы можете получить игровую валюту или пропуск на
+                    <span class="text-gradient-primary select-text-border">приватный сервер</span>
                 </p>
             </div>
             <div class="row row-cols-1 g-4 mb-4 mb-lg-5 mt-2 mt-lg-4" id="donate_items_list"></div>
@@ -117,127 +241,6 @@
             </div>
             <div id="exit-button-container-donate">
                 <i onclick="donateSwitchContainer()" class="bx bx-chevron-down donate-container-exit-button"></i>
-            </div>
-            <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
-                <div class="modal-content rounded-4 shadow" style="text-align: center">
-                    <div class="modal-header border-bottom-0">
-                        <h5 class="modal-title"></h5>
-                    </div>
-                    <div class="modal-body py-0">
-                        <div id="modal-donate-container-c">
-                            <form class="needs-validation" novalidate="">
-                                <p id="donate_item_select_text" class="text-start"></p>
-                                <div class="row g-3 add_data_cart">
-                                    <div class="col-sm-6" style="margin: auto">
-                                        <label id="donate_count_text_hint" for="donate_customer" class="form-label">
-                                            Количество</label>
-                                        <input type="number" class="form-control" id="items_count_donate" placeholder=""
-                                               value="" required="">
-                                    </div>
-                                </div>
-                                <br/>
-                                <button id="donate_button_add_to_cart"
-                                        class="w-100 btn btn-primary btn-lg btn-shadow-hide"
-                                        type="button">
-                                    Добавить
-                                </button>
-                            </form>
-                        </div>
-                        <div id="modal-info-container-c" style="display: none">
-                            <p id="donate_info_block_text"></p>
-                        </div>
-                        <div id="modal-donate-success-container" style="display: none">
-                            <ul id="donate-cart-list-success" class="list-group mb-4 mb-lg-5"></ul>
-                            <div id="only-ok-payment" style="display: none">
-                                <img src="assets/images/vova-gribnik.webp" alt="Vova"
-                                     class="payment-sucess-vova item-levitaion-dec" loading="lazy">
-                                <h6 class="item-name-payment-result text-primary mt-1 mt-lg-2"></h6>
-                                <span id="success-pay-text-js">
-                                    Оплата прошла успешно, Шеф доволен, спасибо.
-                                </span>
-                            </div>
-                        </div>
-                        <div id="modal-donate-finish-container-b" style="display: none;">
-                            <span id="donate-text-span" class="text-start mb-4" style="display: block"></span>
-                            <ul id="donate-coins-payment" class="list-group mb-3"></ul>
-                            <form class="needs-validation" novalidate="">
-                                <div class="row g-3">
-                                    <div class="col-sm-6" id="sum-tokens-container">
-                                        <label for="donate_sum" class="form-label">Сумма</label>
-                                        <input type="number" class="form-control" id="donate_sum" placeholder="300"
-                                               value=""
-                                               required="">
-                                    </div>
-                                    <div class="col-sm-6" id="customer-tokens-container">
-                                        <label for="donate_customer_c" class="form-label">Никнейм</label>
-                                        <input type="text" class="form-control" id="donate_customer_c"
-                                               placeholder="Blackflexxy" value="" required="">
-                                    </div>
-                                    <div class="col-12" id="customer-email-tokens-container">
-                                        <label for="donate_email_c" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
-                                        </label>
-                                        <input type="email" class="form-control" id="donate_email_c"
-                                               placeholder="eblan@mail.ru">
-                                    </div>
-                                    <div class="col-12" id="coupon-tokens-container">
-                                        <label for="coupon-input-c" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
-                                        </label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="coupon-input-c"
-                                                   placeholder="BRFF">
-                                            <button class="btn btn-dark btn-shadow-hide" id="coupon-button-c"
-                                                    type="button"
-                                                    onclick="couponCheck(true)">Проверить
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <button id="payment-button-donate_c" onclick="generatePaymentLink(0)"
-                                        class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button">Дальше
-                                </button>
-                            </form>
-                        </div>
-                        <div id="modal-donate-finish-container-c" style="display: none">
-                            <ul id="donate-cart-list" class="list-group mb-3"></ul>
-                            <form class="needs-validation" novalidate="">
-                                <div class="row g-3" id="cart-build-js">
-                                    <div class="col-sm-6">
-                                        <label for="donate_customer" class="form-label">Никнейм</label>
-                                        <input type="text" class="form-control" id="donate_customer"
-                                               placeholder="Blackflexxy" value="" required="">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="donate_email" class="form-label">Почта <span class="text-muted">(Необязательно)</span>
-                                        </label>
-                                        <input type="email" class="form-control" id="donate_email"
-                                               placeholder="eblan@mail.ru">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="coupon" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
-                                        </label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="coupon-input" placeholder="BRFF"
-                                                   disabled>
-                                            <button class="btn btn-dark btn-shadow-hide" id="coupon-button"
-                                                    type="button" disabled>
-                                                Проверить
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br/>
-                                <button id="payment-button-donate" onclick="generatePaymentLink()"
-                                        class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button"> Дальше
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer flex-column border-top-0">
-                        <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b btn-shadow-hide">Закрыть
-                        </button>
-                    </div>
-                </div>
             </div>
         </section>
     </div>
@@ -344,7 +347,11 @@
                         <div class="col" style="margin: auto">
                             <div class="d-flex align-items-center">
                                 <div class="display-4 text-primary">4</div>
-                                <p class="ps-3 mb-0">Сервера: Лобби, Общение, Анархия и <a href="#private_server" class="text-gradient-primary" data-scroll data-scroll-offset="70">Приватный сервер</a></p>
+                                <p class="ps-3 mb-0">Сервера: Лобби, Общение, Анархия и <a href="#private_server"
+                                                                                           class="text-gradient-primary select-text-border"
+                                                                                           data-scroll
+                                                                                           data-scroll-offset="70">Приватный
+                                    сервер</a></p>
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="display-4 text-primary">7+</div>
@@ -388,7 +395,8 @@
             </div>
             <div class="position-absolute top-0 start-0 w-100 h-100"></div>
             <div class="container position-relative zindex-5 pt-1 pt-md-2 pb-lg-2 pt-lg-4">
-                <div class="shadow-vertical-overlay vertical-bottom-shadow transparent-vertical-shadow" style="top:unset;bottom:0;height:40%"></div>
+                <div class="shadow-vertical-overlay vertical-bottom-shadow transparent-vertical-shadow"
+                     style="top:unset;bottom:0;height:40%"></div>
                 <h2 class="h3 text-center mb-4 mb-lg-5">Известные игроки</h2>
                 <div class="swiper mb-2" id="players_swipe_container">
                     <div class="swiper-shadow-overlay swiper-left-shadow"></div>
@@ -402,21 +410,23 @@
             <div class="container py-2 pt-2 pt-lg-3 pb-1 mb-0 bg-secondary container-second-round">
                 <h3 class="h1 text-center text-gradient-primary mb-lg-4">Приватный сервер</h3>
                 <div class="row py-xl-3 g-2 pt-0" style="padding: 12px">
-                    <div class="position-relative overflow-hidden rounded-3 col-md-8 order-lg-2 mb-4">
+                    <div class="position-relative overflow-hidden rounded-3 col-md-8 col-lg-9 order-lg-2 mb-4">
                         <p>
                             Проект Zalupa.Online за период своего существования от единого сервера
                             Анархии перерос в проект с несколькими режимами, один из таких – частный
                             сервер с ванильным выживанием. Особенность этого сервера, что туда попадают
                             только те, кто поддержал сервер финансово. Также единственный режим, где вы
                             можете быть на уровне с администрацией, ведь здесь можно играть только с
-                            правами обычного игрока, никаких привилегий.
+                            правами обычного игрока, никаких привилегий. Также не забудь
+                            <a class="text-gradient-primary" href="#private_rules">прочитать правила</a>.
                         </p>
                     </div>
-                    <div class="position-relative overflow-hidden rounded-3 col-md-4 order-lg-2 mb-4">
+                    <div class="position-relative overflow-hidden rounded-3 col-md-4 col-lg-3 order-lg-2 mb-4"
+                         style="padding:.8rem 0;margin:0!important">
                         <div class="private-server-hub item-levitaion-dec"></div>
                     </div>
                 </div>
-                <a href="#donate" style="display: block" id="donate-private-butt"
+                <a href="#donate_block" style="display: block" id="donate-private-butt"
                    class="btn btn-primary shadow-primary btn-lg mb-3 btn-shadow-hide">
                     Погнали</a>
             </div>

@@ -238,6 +238,12 @@ function get_news_(callback, source) {
     });
 }
 
+function get_rules_private_server(callback) {
+    requestCall(function (r) {
+        callback(r);
+    }, "assets/data/private_server_rules.json", "GET", true);
+}
+
 function appendPostsNews() {
     let createSwiper = function () {
         new Swiper("#news_swipe_container", {
@@ -309,15 +315,21 @@ function appendPostsNews() {
             let text_split = selector_text
                 .innerText.split(" ");
             let font_size = ((text_len - -8) * 0.4) / 100;
-            let fix_float_fs = (float, font_size, correction_float = 0.32, correction_font = 0.9) => {
-                return float < correction_float ? correction_float * (font_size / correction_font) : float
+            let fix_float_fs = (
+                float, font_size,
+                correction_float = 0.32,
+                correction_font = 0.9,
+                max_val = 0
+            ) => {
+                float = float < correction_float ? correction_float * (font_size / correction_font) : float
+                return max_val ? (float < max_val ? float : max_val) : float
             }
             selector_text.style.fontSize = `calc(${
-                fix_float_fs(parseFloat(1.4 - font_size), font_size)
+                fix_float_fs(parseFloat(1.3 - font_size), font_size)
             }vw + ${
-                fix_float_fs(parseFloat(1.7 - font_size), font_size)
+                fix_float_fs(parseFloat(1.5 - font_size), font_size)
             }vh + ${
-                fix_float_fs(parseFloat(1.8 - font_size), font_size)
+                fix_float_fs(parseFloat(1.65 - font_size), font_size)
             }vmin)`;
             selector_text.style.padding = `${fix_float_fs(parseFloat(1.3 - font_size), font_size, 0.22, 1.05)}rem`;
             getImageLightness(posts[i].cover, function (brightness) {
@@ -874,7 +886,7 @@ function modal_open_() {
     };
 }
 
-function switch_modal_containers(mode = "service") {
+function switch_modal_containers(mode = "service", info_params = {}) {
     let span = document
         .getElementsByClassName("close_b")[0];
     let info = document.getElementById("modal-info-container-c");
@@ -908,6 +920,11 @@ function switch_modal_containers(mode = "service") {
         }
 
         _array[i].selector.style.display = _mode;
+    }
+
+    if (mode === "info") {
+        title.innerText = info_params.title;
+        document.getElementById("info-content-modal").innerHTML = info_params.content;
     }
 
     span.onclick = function () {
@@ -2095,11 +2112,44 @@ function successPay() {
 }
 
 function donateContainerHash() {
+    observerContainerHash(["donate", "donate_block"], function () {
+        donate_displayed = true;
+        donateSwitchContainer(donate_displayed);
+    });
+}
+
+function rulesPrivateContainerHash() {
+    observerContainerHash(["private_rules"], function () {
+        let content = "";
+        get_rules_private_server(function (rules) {
+            for (let i = 0; i < rules.length; i++) {
+                content += `
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0 text-start">
+                                ${i+1}
+                            </h6>
+                        </div>
+                        <span class="ps-2 pe-2 text-start">${rules[i].text}</span>
+                    </li>
+                `
+            }
+            switch_modal_containers("info", {
+                title: "Правила приватного сервера",
+                content: `
+                <ul class="list-group mb-4 mb-lg-5">
+                    ${content}
+                </ul>
+            `});
+            modal_open_();
+        })
+    });
+}
+
+function observerContainerHash(hash_array, action) {
     let updater = function () {
-        // console.log(`donateContainerHash: ${linkHash()}`);
-        if (linkHash() === "donate") {
-            donate_displayed = true;
-            donateSwitchContainer(donate_displayed);
+        if (hash_array.includes(linkHash())) {
+            action();
         }
     };
 
@@ -2143,12 +2193,10 @@ function initSmoothScrollObserver() {
     let callScroller = () => {
         let identifier = linkHash().toLowerCase();
 
-        if (!(identifier && identifier.length)) {
+        if (!(identifier && identifier.length) || ([
+            "private_rules"
+        ].includes(identifier))) {
             return;
-        }
-
-        if (identifier === "donate") {
-            identifier = "donate_block";
         }
 
         scrollerObject.animateScroll(document.querySelector(`section[id="${identifier}"]`), null, {
@@ -2166,6 +2214,7 @@ const initCore = function () {
     initLanding();
     observerSystemTheme();
     donateContainerHash();
+    rulesPrivateContainerHash();
     buildPlayersSwiper();
     appendPostsNews();
     initComments();

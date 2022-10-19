@@ -1056,11 +1056,12 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 
 .vertical-bottom-shadow {
   --shadow-position-swiper: to top;
-  top: 90%;
+  top: 90.1%;
 }
 
 .vertical-top-shadow {
   --shadow-position-swiper: to bottom;
+  top: -2px;
 }
 
 .dark-mode .shadow-vertical-overlay {
@@ -1379,6 +1380,18 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 #donate-private-butt {
   margin: auto;
   width: 16rem;
+}
+
+.select-text-border {
+  border: 1px solid #b66ff1;
+  border-radius: 0.4rem;
+  padding: 0 0.25rem 0.2rem 0.25rem;
+  margin-left: 0.1rem;
+  white-space: nowrap;
+}
+
+.dark-mode .select-text-border {
+  border-color: #8a24d5 !important;
 }
 
 /*# sourceMappingURL=custom.css.map */
