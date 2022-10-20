@@ -2286,13 +2286,12 @@ function rulesPrivateContainerHash() {
     });
 }
 
-function adminsContactContainerHash() {
-    observerContainerHash(["contact", "support", "bug", "report"], function() {
-        checkTelegramAuthData(function (data) {
-            if (data) {
-                switch_modal_containers("info", {
-                    title: "Обратная связь",
-                    content: `
+function openAdminContact() {
+    checkTelegramAuthData(function (data) {
+        if (data) {
+            switch_modal_containers("info", {
+                title: "Обратная связь",
+                content: `
                         <p class="mb-2 mb-lg-3 mb-xl-4 text-start">
                             Это форма для предложений и жалоб, опишите пожалуйста кратко и 
                             ясно свою идею или предложение без воды.
@@ -2306,28 +2305,33 @@ function adminsContactContainerHash() {
                             Отправить
                         </button>
                     `
-                });
-                let max_len = 3000;
-                let textarea = document.getElementById("admin-message");
-                let label = document.querySelector('label[for="admin-message"]');
-                let space = "\x20";
-                if (textarea.value.includes(space.repeat(3))) {
-                    textarea.value = textarea.value.trim();
-                }
-                textarea.maxLength = max_len;
-                let update_len_counter = () => {
-                    label.innerText = `${textarea.value.length}/${max_len}`;
-                }
-                update_len_counter();
-                addEventListener("keydown", (_) => update_len_counter());
-                addEventListener("keyup", (_) => update_len_counter());
-                modal_open_(onclick_lock = true);
-            } else {
-                console.log("Error check Telegram auth");
-                openTelegramAuthModal();
-                notify("Вам необходимо авторизоватся для этой функции");
+            });
+            let max_len = 3000;
+            let textarea = document.getElementById("admin-message");
+            let label = document.querySelector('label[for="admin-message"]');
+            let space = "\x20";
+            if (textarea.value.includes(space.repeat(3))) {
+                textarea.value = textarea.value.trim();
             }
-        });
+            textarea.maxLength = max_len;
+            let update_len_counter = () => {
+                label.innerText = `${textarea.value.length}/${max_len}`;
+            }
+            update_len_counter();
+            addEventListener("keydown", (_) => update_len_counter());
+            addEventListener("keyup", (_) => update_len_counter());
+            modal_open_(onclick_lock = true);
+        } else {
+            console.log("Error check Telegram auth");
+            openTelegramAuthModal();
+            notify("Вам необходимо авторизоватся для этой функции");
+        }
+    });
+}
+
+function adminsContactContainerHash() {
+    observerContainerHash(["contact", "support", "bug", "report"], function() {
+        openAdminContact();
     });
 }
 
