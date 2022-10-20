@@ -2341,7 +2341,7 @@ function observerContainerHash(hash_array, action) {
 
 function openTelegramAuthModal() {
     console.log("Telegram auth preparing...");
-    modal_close_();
+    // modal_close_();
     let script_telegram_widget = document.createElement(
         'script');
 
