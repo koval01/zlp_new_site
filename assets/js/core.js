@@ -66,6 +66,17 @@ function b64_to_utf8(str) {
     return decodeURIComponent(escape(window.atob(str)));
 }
 
+function getAvatarColorIDforTG(user_id) {
+    var result = 0;
+    var base = 1;
+    while (user_id > 0) {
+        result += (user_id % 7) * base;
+        base *= 10;
+        user_id = Math.floor(user_id / 7);
+    }
+    return parseInt(result.toString().slice(-1));
+}
+
 function getHash(link) {
     let hash = window.location.hash
         .substr(1);
@@ -1604,7 +1615,7 @@ function couponCheck(coins = false) {
     let code = "";
 
     try {
-        code = input.value.trim();
+        code = input.value.trim().toUpperCase();
     } catch (_) {}
 
     let coupon_notfd = function() {

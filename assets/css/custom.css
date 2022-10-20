@@ -17,6 +17,27 @@ html {
   --second-bg-theme: #fefefe;
   --contr-color-var: #000;
   --si-primary: rgb(144, 72, 255) !important;
+  --telegram-bgcolor0: #e17076;
+  --telegram-bgcolor1: #faa774;
+  --telegram-bgcolor2: #a695e7;
+  --telegram-bgcolor3: #7bc862;
+  --telegram-bgcolor4: #6ec9cb;
+  --telegram-bgcolor5: #65aadd;
+  --telegram-bgcolor6: #ee7aae;
+  --telegram-bgcolor0-top: #ff885e;
+  --telegram-bgcolor0-bottom: #ff516a;
+  --telegram-bgcolor1-top: #ffcd6a;
+  --telegram-bgcolor1-bottom: #ffa85c;
+  --telegram-bgcolor2-top: #82b1ff;
+  --telegram-bgcolor2-bottom: #665fff;
+  --telegram-bgcolor3-top: #a0de7e;
+  --telegram-bgcolor3-bottom: #54cb68;
+  --telegram-bgcolor4-top: #53edd6;
+  --telegram-bgcolor4-bottom: #28c9b7;
+  --telegram-bgcolor5-top: #72d5fd;
+  --telegram-bgcolor5-bottom: #2a9ef1;
+  --telegram-bgcolor6-top: #e0a2f3;
+  --telegram-bgcolor6-bottom: #d669ed;
 }
 
 footer {
@@ -39,6 +60,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
 .bg-light:not(.badge), .card.card-hover.bg-light {
   background: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .dark-mode {
@@ -56,6 +78,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
   background-color: rgba(24, 24, 27, 0.65) !important;
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.24);
 }
 
@@ -87,6 +110,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   display: flex;
   margin: auto;
   filter: drop-shadow(0 1px 2px black);
+  -webkit-filter: drop-shadow(0 1px 2px black);
 }
 
 .dark-mode .landing-head-text {
@@ -200,6 +224,7 @@ a:hover {
   margin: 5vw;
   border-radius: 0.5rem !important;
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.65));
+  -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.65));
 }
 
 .video-container-yt {
@@ -208,6 +233,7 @@ a:hover {
   margin: 5vw;
   border-radius: 0.5rem !important;
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.65));
+  -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.65));
 }
 
 .payment-sucess-vova {
@@ -327,6 +353,7 @@ iframe {
   right: 0;
   bottom: 0;
   backdrop-filter: blur(0.12vw);
+  -webkit-backdrop-filter: blur(0.12vw);
   z-index: -4;
 }
 
@@ -337,6 +364,7 @@ iframe {
 
 .dark-mode .background_media_overlay_tag {
   filter: brightness(0.8);
+  -webkit-filter: brightness(0.8);
 }
 
 .vova-bg-mobile {
@@ -378,6 +406,7 @@ iframe {
   background-position: right 25% bottom 28px;
   z-index: 0;
   filter: brightness(0.95);
+  -webkit-filter: brightness(0.95);
 }
 
 .vova-bg-l-mobile-mask {
@@ -389,6 +418,7 @@ iframe {
   background-position: right 25% bottom 28px;
   z-index: 0;
   filter: drop-shadow(0 0 25px #392568);
+  -webkit-filter: drop-shadow(0 0 25px #392568);
 }
 
 .news-button-view {
@@ -403,6 +433,7 @@ iframe {
 
 .dark-mode .male-emoji {
   filter: invert(1);
+  -webkit-filter: invert(1);
 }
 
 @media (max-width: 992px) {
@@ -438,9 +469,11 @@ iframe {
     background-position-y: -1em;
     z-index: 0;
     filter: brightness(0.95);
+    -webkit-filter: brightness(0.95);
   }
   .vova-bg-landing-mask {
     filter: drop-shadow(0 0 35px #291d4c);
+    -webkit-filter: drop-shadow(0 0 35px #291d4c);
   }
   .landing-head-text {
     background-position: -9px;
@@ -552,6 +585,7 @@ body.modal-open {
   padding-right: 0.9em !important;
   padding-bottom: 4em;
   transition: all 0.4s;
+  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
@@ -603,6 +637,7 @@ body.modal-open {
   z-index: 1;
   opacity: 1;
   filter: blur(24px) brightness(0.8);
+  -webkit-filter: blur(24px) brightness(0.8);
 }
 
 .container-item-donate-n:hover .backgroundImg {
@@ -623,6 +658,7 @@ body.modal-open {
 
 iframe[id*=telegram-post] {
   filter: drop-shadow(2px 4px 6px black);
+  -webkit-filter: drop-shadow(2px 4px 6px black);
 }
 
 .comment-show-button {
@@ -700,6 +736,7 @@ iframe[id*=telegram-post] {
   background-repeat: no-repeat;
   background-size: cover;
   filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.6));
+  -webkit-filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.6));
 }
 .player_head_container > .player-head {
   height: 155px;
@@ -809,10 +846,12 @@ iframe[id*=telegram-post] {
 
 .hover-blur-rl {
   filter: blur(8px);
+  -webkit-filter: blur(8px);
   transition: all 0.6s;
 }
 .hover-blur-rl:hover {
   filter: blur(0);
+  -webkit-filter: blur(0);
 }
 
 .donate-cancel-cart {
@@ -823,6 +862,7 @@ iframe[id*=telegram-post] {
 
 .discord-block-back-st {
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .error_text_cst {
@@ -830,6 +870,7 @@ iframe[id*=telegram-post] {
   padding: 1em;
   margin: 0;
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .error_box_cst {
@@ -847,6 +888,7 @@ iframe[id*=telegram-post] {
 .btn-scroll-top.show {
   background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--si-btn-scroll-top-color);
   transition: all 0.7s !important;
   border: 0 rgba(0, 0, 0, 0);
@@ -864,6 +906,7 @@ iframe[id*=telegram-post] {
 .cst-icon-svg {
   height: 1.5em;
   filter: invert(1);
+  -webkit-filter: invert(1);
   margin: 5px;
 }
 
@@ -1154,6 +1197,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 .underline-button > .underline-button-item:disabled {
   color: var(--contr-color-var);
   filter: invert(0.6);
+  -webkit-filter: invert(0.6);
 }
 .underline-button > .underline-button-item:not(:hover)::after {
   transform: scalex(0);
@@ -1204,6 +1248,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   background-repeat: no-repeat;
   transition: all 1.6s;
   filter: drop-shadow(2px 4px var(--stone-logo-shadow-size) rgba(var(--stone-log-shadow-color)));
+  -webkit-filter: drop-shadow(2px 4px var(--stone-logo-shadow-size) rgba(var(--stone-log-shadow-color)));
 }
 .stone-logo-subtext.footer-logo {
   height: 100px;
@@ -1276,6 +1321,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   width: 4rem;
   color: var(--contr-color-var);
   filter: invert(0.4);
+  -webkit-filter: invert(0.4);
   text-align: center;
   margin: auto;
   display: block;
@@ -1283,6 +1329,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 }
 .donate-container-exit-button:hover {
   filter: unset !important;
+  -webkit-filter: unset !important;
 }
 
 .ytVideoSetter {
@@ -1313,11 +1360,13 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 .container-second-round {
   border-radius: 0.6rem;
   filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));
   transition: filter 1s;
 }
 
 .dark-mode .container-second-round {
   filter: unset !important;
+  -webkit-filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));
 }
 
 #exit-button-container-donate {
