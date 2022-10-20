@@ -425,10 +425,11 @@ function donateSwitchContainer(display) {
 
     if (!donate_displayed || display) {
         document.body.style.overflowY = "hidden";
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
+        // debug disable
+        // window.scrollTo({
+        //     top: 0,
+        //     behavior: "smooth",
+        // });
         container.style.minHeight = "";
         update_zIndex("");
 
