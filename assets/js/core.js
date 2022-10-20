@@ -35,6 +35,7 @@ var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
 var current_c_item = 0;
+var telegram_cookie_token = "telegram_auth"
 
 function initHost() {
     let keys = Object.keys(site_domains);
@@ -48,6 +49,14 @@ function initHost() {
 function linkHash() {
     return window.location.hash
         .substring(1);
+}
+
+function utf8_to_b64(str) {
+    return window.btoa(unescape(encodeURIComponent(str)));
+}
+
+function b64_to_utf8(str) {
+    return decodeURIComponent(escape(window.atob(str)));
 }
 
 function getHash(link) {
@@ -1496,6 +1505,14 @@ function donateFlushCart() {
     Cookies.remove(cart_cookie);
     donate_cart_button({});
     notify("Корзина очищена");
+}
+
+function onTelegramAuth(user) {
+    Cookies.set(telegram_cookie_token, utf8_to_b64(JSON.stringify(user)));
+}
+
+function getTelegramAuth() {
+    return b64_to_utf8(JSON.parse(Cookies.get(telegram_cookie_token)));
 }
 
 function couponCheck(coins = false) {
