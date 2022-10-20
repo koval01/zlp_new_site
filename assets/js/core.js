@@ -2323,7 +2323,9 @@ function adminsContactContainerHash() {
                 addEventListener("keyup", (_) => update_len_counter());
                 modal_open_(onclick_lock = true);
             } else {
-                console.log("Error check Telegram auth")
+                console.log("Error check Telegram auth");
+                openTelegramAuthModal();
+                notify("Вам необходимо авторизоватся для этой функции");
             }
         });
     });
