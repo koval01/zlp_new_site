@@ -1400,6 +1400,12 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   max-height: 60vh;
 }
 
+#telegram-auth-container {
+  display: block;
+  margin: auto;
+  width: 150px;
+}
+
 label[for=admin-message] {
   color: #fff;
   position: absolute;

@@ -28,6 +28,7 @@ var crypto_token = "";
 var tooltip_instance;
 var events_page_state = "news";
 var donate_displayed = false;
+var modal_displayed = false;
 var freeze_crypto = false;
 var debug_lock_init = false;
 var freeze_monitoring = false;
@@ -913,17 +914,21 @@ function ytVideoSetter(skip = false) {
 }
 
 function modal_close_() {
-    document.body.classList.remove("modal-open");
-    document.getElementById("scroll_butt_container").style.display = "";
-    document.getElementsByTagName("html")[0].style.overflowY = ""
-    let modal = document.getElementById("donate_item_modal");
-    modal.style.opacity = 0;
-    setTimeout(function () {
-        modal.style.display = "none";
-    }, 350);
+    if (modal_displayed) {
+        document.body.classList.remove("modal-open");
+        document.getElementById("scroll_butt_container").style.display = "";
+        document.getElementsByTagName("html")[0].style.overflowY = ""
+        let modal = document.getElementById("donate_item_modal");
+        modal.style.opacity = 0;
+        setTimeout(function () {
+            modal.style.display = "none";
+        }, 350);
+        modal_displayed = false;
+    }
 }
 
 function modal_open_(onclick_lock=false) {
+    modal_displayed = true;
     document.body.classList.add("modal-open");
     document.getElementById("scroll_butt_container").style.display = "none";
     document.getElementsByTagName("html")[0].style.overflowY = "hidden"
@@ -980,7 +985,9 @@ function switch_modal_containers(mode = "service", info_params = {}) {
 
     if (mode === "info") {
         title.innerText = info_params.title;
-        document.getElementById("info-content-modal").innerHTML = info_params.content;
+        if (info_params.content.length) {
+            document.getElementById("info-content-modal").innerHTML = info_params.content;
+        }
     }
 
     span.onclick = function () {
@@ -2257,6 +2264,32 @@ function observerContainerHash(hash_array, action) {
     updater();
     addEventListener(
         'hashchange', (_) => updater());
+}
+
+function openTelegramAuthModal() {
+    console.log("Telegram auth preparing...");
+    modal_close_();
+    let script_telegram_widget = document.createElement(
+        'script');
+
+    script_telegram_widget.src = "https://telegram.org/js/telegram-widget.js?21";
+    script_telegram_widget.setAttribute("async", "");
+    script_telegram_widget.setAttribute("data-telegram-login", telegram_bot_username);
+    script_telegram_widget.setAttribute("data-size", "large");
+    script_telegram_widget.setAttribute("data-radius", "8");
+    script_telegram_widget.setAttribute("data-onauth", "onTelegramAuth(user)");
+
+    script_telegram_widget.onload = function () {
+        switch_modal_containers("info", {
+            title: "Авторизация",
+            content: ""});
+        modal_open_();
+    }
+
+    let container = document.createElement("div");
+    document.getElementById("info-content-modal").appendChild(container);
+    container.id = "telegram-auth-container";
+    container.appendChild(script_telegram_widget);
 }
 
 function initJarallax() {
