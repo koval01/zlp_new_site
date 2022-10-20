@@ -33,6 +33,7 @@
         var domain_site = "zalupa.online";
         var domain_back = "api.zalupa.online";
         var re_token = "6LezQ64hAAAAAAQt2DE-1hMP4hF8nkyjli-p2rLY";
+        var telegram_bot_username = "zalupa_feedback_bot";
     </script>
     <style id="dark-perm-set-bv">
         @media (prefers-color-scheme: dark) {
@@ -261,7 +262,11 @@
                              style="padding-bottom: 0 !important;">
                             <a href="#instructions"
                                class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide"
-                               data-scroll data-scroll-offset="40">Играть</a>
+                               data-scroll data-scroll-offset="40">
+                                Играть</a>
+                            <a onclick="openAdminContact()" href="#contact"
+                               class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
+                                Обратная связь</a>
                             <button onclick="donateSwitchContainer()"
                                     class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
                                 Донат
@@ -410,7 +415,7 @@
             <div class="container py-2 pt-2 pt-lg-3 pb-1 mb-0 bg-secondary container-second-round">
                 <h3 class="h1 text-center text-gradient-primary mb-lg-4">Приватный сервер</h3>
                 <div class="row py-xl-3 g-2 pt-0" style="padding: 12px">
-                    <div class="position-relative overflow-hidden rounded-3 col-md-8 col-lg-9 order-lg-2 mb-4">
+                    <div class="position-relative overflow-hidden rounded-3 col-md-8 col-lg-9 order-lg-2 mb-2">
                         <p>
                             Проект Zalupa.Online за период своего существования от единого сервера
                             Анархии перерос в проект с несколькими режимами, один из таких – частный
@@ -418,10 +423,10 @@
                             только те, кто поддержал сервер финансово. Также единственный режим, где вы
                             можете быть на уровне с администрацией, ведь здесь можно играть только с
                             правами обычного игрока, никаких привилегий. Также не забудь
-                            <a class="text-gradient-primary" href="#private_rules">прочитать правила</a>.
+                            <a class="text-gradient-primary" href="#private_rules" onclick="rulesModalOpen()">прочитать правила</a>.
                         </p>
                     </div>
-                    <div class="position-relative overflow-hidden rounded-3 col-md-4 col-lg-3 order-lg-2 mb-4"
+                    <div id="server-hub-icon" class="position-relative overflow-hidden rounded-3 col-md-4 col-lg-3 order-lg-2 mb-2"
                          style="padding:.8rem 0;margin:0!important">
                         <div class="private-server-hub item-levitaion-dec"></div>
                     </div>

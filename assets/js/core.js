@@ -1,19 +1,25 @@
 "use strict";
 
 const site_domains = {
-    prod: domain_site, dev: development_hosts[0], test: development_hosts[1],
+    prod: domain_site,
+    dev: development_hosts[0],
+    test: development_hosts[1],
 };
 const cart_cookie = "cart_box";
 const channels = 2;
 const links_lt = [{
-    name: "twitch", link: "https://www.twitch.tv/bratishkinoff",
+    name: "twitch",
+    link: "https://www.twitch.tv/bratishkinoff",
 }, {
-    name: "youtube", link: "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ",
+    name: "youtube",
+    link: "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ",
 }, {
-    name: "telegram", link: "https://t.me/zalupaonline",
+    name: "telegram",
+    link: "https://t.me/zalupaonline",
 }, {
-    name: "discord", link: "https://discord.gg/qEqbVbMeEx",
-},];
+    name: "discord",
+    link: "https://discord.gg/qEqbVbMeEx",
+}, ];
 const lock_of = true;
 const coins_sell_mode = true;
 var donate_services_array = [];
@@ -28,6 +34,7 @@ var crypto_token = "";
 var tooltip_instance;
 var events_page_state = "news";
 var donate_displayed = false;
+var modal_displayed = false;
 var freeze_crypto = false;
 var debug_lock_init = false;
 var freeze_monitoring = false;
@@ -35,6 +42,7 @@ var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
 var current_c_item = 0;
+var telegram_cookie_token = "telegram_auth"
 
 function initHost() {
     let keys = Object.keys(site_domains);
@@ -50,11 +58,19 @@ function linkHash() {
         .substring(1);
 }
 
+function utf8_to_b64(str) {
+    return window.btoa(unescape(encodeURIComponent(str)));
+}
+
+function b64_to_utf8(str) {
+    return decodeURIComponent(escape(window.atob(str)));
+}
+
 function getHash(link) {
     let hash = window.location.hash
         .substr(1);
     return Object.keys(hash.split("&")
-        .reduce(function (result, item) {
+        .reduce(function(result, item) {
             let parts = item
                 .split("=");
             result[parts[0]] = parts[1];
@@ -63,25 +79,26 @@ function getHash(link) {
 }
 
 function re_check(callback) {
-    grecaptcha.ready(function () {
+    grecaptcha.ready(function() {
         grecaptcha
             .execute(re_token, {
                 action: "submit",
             })
-            .then(function (token_update) {
+            .then(function(token_update) {
                 callback(token_update);
             });
     });
 }
 
 function shuffle(array) {
-    let currentIndex = array.length, randomIndex;
+    let currentIndex = array.length,
+        randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math
             .random() * currentIndex);
         currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex],];
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex], ];
     }
 
     return array;
@@ -119,7 +136,7 @@ function getImageLightness(imageSrc, callback) {
 
     let colorSum = 0;
 
-    img.onload = function () {
+    img.onload = function() {
         let canvas = document
             .createElement("canvas");
         canvas.width = this.width;
@@ -191,8 +208,8 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
 }
 
 function getCrypto(callback, source) {
-    re_check(function (token_update) {
-        requestCall(function (r) {
+    re_check(function(token_update) {
+        requestCall(function(r) {
             if (r.success) {
                 callback(r.token);
             } else {
@@ -205,8 +222,8 @@ function getCrypto(callback, source) {
 }
 
 function get_events_(callback) {
-    re_check(function (token_update) {
-        requestCall(function (r) {
+    re_check(function(token_update) {
+        requestCall(function(r) {
             callback(r.events);
         }, `${backend_host}/events`, "POST", true, {
             token: token_update,
@@ -216,11 +233,12 @@ function get_events_(callback) {
 
 function get_yt_video_(callback, video_id, skip = false) {
     if (!skip) {
-        re_check(function (token_update) {
-            requestCall(function (r) {
+        re_check(function(token_update) {
+            requestCall(function(r) {
                 callback(r.body);
             }, `${backend_host}/youtube_get`, "POST", true, {
-                token: token_update, video_id: video_id,
+                token: token_update,
+                video_id: video_id,
             });
         });
     } else {
@@ -229,8 +247,8 @@ function get_yt_video_(callback, video_id, skip = false) {
 }
 
 function get_news_(callback, source) {
-    re_check(function (token_update) {
-        requestCall(function (r) {
+    re_check(function(token_update) {
+        requestCall(function(r) {
             callback(r.messages);
         }, `${backend_host}/channel_parse?choice=${source}`, "POST", true, {
             token: token_update,
@@ -239,13 +257,13 @@ function get_news_(callback, source) {
 }
 
 function get_rules_private_server(callback) {
-    requestCall(function (r) {
+    requestCall(function(r) {
         callback(r);
     }, "assets/data/private_server_rules.json", "GET", true);
 }
 
 function appendPostsNews() {
-    let createSwiper = function () {
+    let createSwiper = function() {
         new Swiper("#news_swipe_container", {
             spaceBetween: 12,
             loop: true,
@@ -257,15 +275,17 @@ function appendPostsNews() {
                 delay: 1000 * 10,
             },
             pagination: {
-                el: "#news_swiper_pagination", clickable: true,
+                el: "#news_swiper_pagination",
+                clickable: true,
             },
             navigation: {
-                prevEl: "#prev_news", nextEl: "#next_news",
+                prevEl: "#prev_news",
+                nextEl: "#next_news",
             },
         });
     };
 
-    let add_news_in_array = function (posts) {
+    let add_news_in_array = function(posts) {
         let array_ = document
             .getElementById("news_swipe_array");
         posts = posts.reverse();
@@ -332,7 +352,7 @@ function appendPostsNews() {
                 fix_float_fs(parseFloat(1.65 - font_size), font_size)
             }vmin)`;
             selector_text.style.padding = `${fix_float_fs(parseFloat(1.3 - font_size), font_size, 0.22, 1.05)}rem`;
-            getImageLightness(posts[i].cover, function (brightness) {
+            getImageLightness(posts[i].cover, function(brightness) {
                 let style_ = `#000000${(((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 64)
                     .toString(16)
                     .slice(0, 2)}`;
@@ -368,8 +388,8 @@ function appendPostsNews() {
             addEventListener('resize', (event) => calculate_text_position());
             setInterval(calculate_text_position, 200);
         }
-        let loading_done = function () {
-            setTimeout(function () {
+        let loading_done = function() {
+            setTimeout(function() {
                 let sl = document
                     .getElementById("telegram_block_load");
                 let container_news = document
@@ -379,8 +399,7 @@ function appendPostsNews() {
                     sl.parentNode
                         .removeChild(sl);
                     container_news.style.display = "";
-                } catch (_) {
-                }
+                } catch (_) {}
             }, 150);
         };
         if (posts) {
@@ -389,7 +408,7 @@ function appendPostsNews() {
         }
     };
 
-    get_news_(function (posts) {
+    get_news_(function(posts) {
         add_news_in_array(posts);
     }, 1);
 }
@@ -398,8 +417,8 @@ function donateSwitchContainer(display) {
     let container = document
         .querySelector(".donate-global-container");
 
-    let update_zIndex = function (variable) {
-        setTimeout(function () {
+    let update_zIndex = function(variable) {
+        setTimeout(function() {
             container.style.zIndex = variable;
         }, 850);
     };
@@ -407,7 +426,8 @@ function donateSwitchContainer(display) {
     if (!donate_displayed || display) {
         document.body.style.overflowY = "hidden";
         window.scrollTo({
-            top: 0, behavior: "smooth",
+            top: 0,
+            behavior: "smooth",
         });
         container.style.minHeight = "";
         update_zIndex("");
@@ -425,7 +445,7 @@ function donateSwitchContainer(display) {
 }
 
 function get_game_server_data(callback) {
-    let _data_error = function (ok = false) {
+    let _data_error = function(ok = false) {
         let string_ = "";
 
         if (ok) {
@@ -437,8 +457,8 @@ function get_game_server_data(callback) {
         document.getElementById("error_get_server_status").innerText = string_;
     };
     if (crypto_token) {
-        requestCall(function (r) {
-            setTimeout(function () {
+        requestCall(function(r) {
+            setTimeout(function() {
                 freeze_monitoring = false;
             }, 800);
             if (r.success) {
@@ -459,7 +479,7 @@ function monitoring_game_server_update() {
     if (!freeze_monitoring) {
         freeze_monitoring = true;
 
-        get_game_server_data(function (data) {
+        get_game_server_data(function(data) {
             if (data.online) {
                 if (typeof gameServerUpdater_setter !== "undefined") {
                     clearInterval(gameServerUpdater_setter);
@@ -494,19 +514,20 @@ function initEventsList() {
         .getElementById("events-c-button");
     let row_class = ["row-cols-md-2", "row-cols-lg-2", "row-cols-xl-3"];
 
-    get_events_(function (data) {
+    get_events_(function(data) {
         if (data && data.length) {
             events_block_load
                 .remove();
 
-            data.sort(function (a, b) {
-                let keyA = new Date(a.date_start), keyB = new Date(b.date_start);
+            data.sort(function(a, b) {
+                let keyA = new Date(a.date_start),
+                    keyB = new Date(b.date_start);
                 if (keyA < keyB) return -1;
                 if (keyA > keyB) return 1;
                 return 0;
             });
 
-            let time_correction = function (date) {
+            let time_correction = function(date) {
                 let userTimezoneOffset = -date
                     .getTimezoneOffset() * 60000;
                 return new Date(date
@@ -554,8 +575,8 @@ function initEventsList() {
 }
 
 function get_donate_services(callback) {
-    re_check(function (token_update) {
-        requestCall(function (r) {
+    re_check(function(token_update) {
+        requestCall(function(r) {
             callback(r.services);
         }, `${backend_host}/donate/services`, "POST", true, {
             token: token_update,
@@ -564,8 +585,8 @@ function get_donate_services(callback) {
 }
 
 function create_payment(callback, customer, products, server_id, email = "", coupon = "") {
-    re_check(function (token_update) {
-        requestCall(function (r) {
+    re_check(function(token_update) {
+        requestCall(function(r) {
             callback(r.payment);
         }, `${backend_host}/donate/payment/create`, "POST", true, {
             customer: customer,
@@ -580,54 +601,124 @@ function create_payment(callback, customer, products, server_id, email = "", cou
 }
 
 function check_coupon(callback, coupon) {
-    re_check(function (token_update) {
-        requestCall(function (r) {
+    re_check(function(token_update) {
+        requestCall(function(r) {
             if (r.coupon && r.success) {
                 callback(r.coupon);
             } else {
                 callback(null);
             }
         }, `${backend_host}/donate/coupon`, "POST", true, {
-            code: coupon, token: token_update
-        });
-    });
-}
-
-function checkFeedbackStatus(callback) {
-    re_check(function (token_update) {
-        requestCall(function (r) {
-            callback(r.success);
-        }, `${backend_host}/feedback/check`, "POST", true, {
+            code: coupon,
             token: token_update
         });
     });
 }
 
-function sendFeedback(callback, text) {
-    re_check(function (token_update) {
-        requestCall(function (r) {
-            if (r.coupon && r.success) {
-                callback(r.coupon);
+function checkTelegramAuthData(callback) {
+    let auth_data = getTelegramAuth(true);
+    if (auth_data) {
+        requestCall(function(r) {
+            if (r) {
+                callback(r.success);
+            } else {
+                callback(false);
             }
-            callback(null);
-        }, `${backend_host}/feedback/send`, "POST", true, {
-            text: text, token: token_update
+        }, `${backend_host}/telegram/auth/check`, "POST", true, {
+            tg_auth_data: auth_data
         });
+    } else {
+        callback(false);
+    }
+}
+
+function checkFeedbackStatus(callback) {
+    let auth_data = getTelegramAuth(true);
+    if (auth_data) {
+        re_check(function (token_update) {
+            requestCall(function (r) {
+                if (r) {
+                    callback(r.success);
+                } else {
+                    callback(false);
+                }
+            }, `${backend_host}/feedback/check`, "POST", true, {
+                token: token_update, tg_auth_data: auth_data
+            });
+        });
+    }
+}
+
+function sendFeedback(callback, text) {
+    let auth_data = getTelegramAuth(true);
+    if (auth_data) {
+        re_check(function (token_update) {
+            requestCall(function (r) {
+                if (r) {
+                    callback(r.success);
+                } else {
+                    callback(false);
+                }
+            }, `${backend_host}/feedback/send`, "POST", true, {
+                text: text,
+                token: token_update,
+                tg_auth_data: auth_data
+            });
+        });
+    }
+}
+
+function sendFeedbackAction() {
+    let button = document.getElementById("send-feedback-button");
+    let textarea = document.getElementById("admin-message");
+    let text = textarea.value;
+
+    if (text.length < 20) {
+        notify("Сообщение очень короткое!");
+        return;
+    }
+
+    let button_lock = (lock = true) => {
+        if (lock) {
+            button.setAttribute("disabled", "");
+        } else {
+            button.removeAttribute("disabled");
+        }
+        button.innerText = lock ? "Ожидайте..." : "Отправить";
+    }
+
+    button_lock();
+    checkFeedbackStatus(function(check_data) {
+        if (check_data) {
+            sendFeedback(function(send_data) {
+                if (send_data) {
+                    notify("Сообщение отправлено админам.");
+                } else {
+                    notify("Ошибка на стороне сервера, попробуйте позже.");
+                }
+                button_lock(false);
+            }, text);
+        } else {
+            button_lock(false);
+            notify("Не удалось пройти проверку, попробуйте позже.");
+        }
     });
 }
 
 function checkPayment(callback, payment_id) {
-    re_check(function (token_update) {
-        requestCall(function (r) {
+    re_check(function(token_update) {
+        requestCall(function(r) {
             callback(r.payment);
         }, `${backend_host}/donate/payment_get`, "POST", true, {
-            payment_id: parseInt(payment_id), token: token_update, tokens_send: coins_sell_mode,
+            payment_id: parseInt(payment_id),
+            token: token_update,
+            tokens_send: coins_sell_mode,
         });
     });
 }
 
 function appendServices() {
-    get_donate_services(function (services) {
+    get_donate_services(function(services) {
         donate_services_array = services;
         let size_classes = ["row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"];
         let sl = document
@@ -756,16 +847,15 @@ function appendServices() {
                 `;
             }
 
-            setTimeout(function () {
+            setTimeout(function() {
                 let elem = document
                     .getElementById("donate_block_load");
-                let ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container",];
+                let ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container", ];
 
                 try {
                     elem.parentNode
                         .removeChild(elem);
-                } catch (_) {
-                }
+                } catch (_) {}
 
 
                 for (let i = 0; i < ids.length; i++) {
@@ -826,8 +916,8 @@ function redirect_(url) {
 }
 
 function ytVideoSetter(skip = false) {
-    let set_video = function (el, video_id, params) {
-        let video = get_yt_video_(function (data) {
+    let set_video = function(el, video_id, params) {
+        let video = get_yt_video_(function(data) {
             if (data && data.video.x720.url && !skip) {
                 el.innerHTML = `
                     <video class="video-container" ${params.autoplay != null ? 'autoplay=""' : ""} ${params.muted != null ? 'muted=""' : ""} ${params.loop != null ? 'loop=""' : ""} ${params.controls != null ? 'controls=""' : ""} style="object-fit: contain">
@@ -852,9 +942,12 @@ function ytVideoSetter(skip = false) {
         if (video_id && video_id.length && video_id.length < 20) {
             set_video(el, video_id, (params = {
                 autoplay: el
-                    .getAttribute("autoplay"), muted: el
-                    .getAttribute("muted"), loop: el
-                    .getAttribute("loop"), controls: el
+                    .getAttribute("autoplay"),
+                muted: el
+                    .getAttribute("muted"),
+                loop: el
+                    .getAttribute("loop"),
+                controls: el
                     .getAttribute("controls"),
             }));
         }
@@ -862,28 +955,32 @@ function ytVideoSetter(skip = false) {
 }
 
 function modal_close_() {
-    document.body.classList.remove("modal-open");
-    document.getElementById("scroll_butt_container").style.display = "";
-    document.getElementsByTagName("html")[0].style.overflowY = ""
-    let modal = document.getElementById("donate_item_modal");
-    modal.style.opacity = 0;
-    setTimeout(function () {
-        modal.style.display = "none";
-    }, 350);
+    if (modal_displayed) {
+        document.body.classList.remove("modal-open");
+        document.getElementById("scroll_butt_container").style.display = "";
+        document.getElementsByTagName("html")[0].style.overflowY = ""
+        let modal = document.getElementById("donate_item_modal");
+        modal.style.opacity = 0;
+        setTimeout(function() {
+            modal.style.display = "none";
+        }, 350);
+        modal_displayed = false;
+    }
 }
 
-function modal_open_(onclick_lock=false) {
+function modal_open_(onclick_lock = false) {
+    modal_displayed = true;
     document.body.classList.add("modal-open");
     document.getElementById("scroll_butt_container").style.display = "none";
     document.getElementsByTagName("html")[0].style.overflowY = "hidden"
     let modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
-    setTimeout(function () {
+    setTimeout(function() {
         modal.style.opacity = 1;
     }, 50);
 
     if (!onclick_lock) {
-        window.onclick = function (event) {
+        window.onclick = function(event) {
             if (event.target === modal) {
                 modal_close_();
             }
@@ -905,16 +1002,26 @@ function switch_modal_containers(mode = "service", info_params = {}) {
         .getElementById("modal-donate-finish-container-c");
     let title = document.querySelector(".modal-title");
     let _array = [{
-        name: "service", selector: service, title: "Товар",
+        name: "service",
+        selector: service,
+        title: "Товар",
     }, {
-        name: "service_coins", selector: service_coins, title: "Оплата пожертвования",
+        name: "service_coins",
+        selector: service_coins,
+        title: "Оплата пожертвования",
     }, {
-        name: "info", selector: info, title: "Сообщение",
+        name: "info",
+        selector: info,
+        title: "Сообщение",
     }, {
-        name: "success", selector: success, title: "Чек",
+        name: "success",
+        selector: success,
+        title: "Чек",
     }, {
-        name: "donate_finish", selector: finish_donate, title: "Корзина",
-    },];
+        name: "donate_finish",
+        selector: finish_donate,
+        title: "Корзина",
+    }, ];
 
     for (let i = 0; i < _array.length; i++) {
         let _mode = "none";
@@ -929,10 +1036,12 @@ function switch_modal_containers(mode = "service", info_params = {}) {
 
     if (mode === "info") {
         title.innerText = info_params.title;
-        document.getElementById("info-content-modal").innerHTML = info_params.content;
+        if (info_params.content.length) {
+            document.getElementById("info-content-modal").innerHTML = info_params.content;
+        }
     }
 
-    span.onclick = function () {
+    span.onclick = function() {
         modal_close_();
     };
 }
@@ -949,8 +1058,7 @@ function get_cookie_cart() {
     try {
         cookie_cart = JSON.parse(Cookies
             .get(cart_cookie));
-    } catch (_) {
-    }
+    } catch (_) {}
 
     return cookie_cart;
 }
@@ -979,7 +1087,7 @@ function comment_show_action(id, close = false) {
     let comment_show = document
         .getElementById(`comment_show_${id}`);
 
-    swiper_comments.on("slideChange", function () {
+    swiper_comments.on("slideChange", function() {
         comment_show_action(id, true);
     });
 
@@ -999,7 +1107,7 @@ function initComments() {
     let array_ = document
         .getElementById("comment_swipe_array");
 
-    let createSwiper = function () {
+    let createSwiper = function() {
         swiper_comments = new Swiper("#comment_swipe_container", {
             spaceBetween: 12,
             loop: true,
@@ -1011,21 +1119,23 @@ function initComments() {
                 delay: 8000,
             },
             pagination: {
-                el: ".swiper-pagination", clickable: true,
+                el: ".swiper-pagination",
+                clickable: true,
             },
             navigation: {
-                prevEl: "#prev_comment", nextEl: "#next_comment",
+                prevEl: "#prev_comment",
+                nextEl: "#next_comment",
             },
         });
     };
 
-    let playersGet = function (callback) {
-        requestCall(function (r) {
+    let playersGet = function(callback) {
+        requestCall(function(r) {
             callback(r);
         }, "assets/data/players.json", "GET", true);
     };
 
-    let searchPlayer = function (players, name) {
+    let searchPlayer = function(players, name) {
         for (let i = 0; i < players.length; i++) {
             if (players[i].name === name) {
                 return players[i];
@@ -1033,11 +1143,11 @@ function initComments() {
         }
     };
 
-    requestCall(function (r) {
+    requestCall(function(r) {
         let comment = r;
         shuffle(comment);
 
-        playersGet(function (players) {
+        playersGet(function(players) {
             for (let i = 0; i < comment.length; i++) {
                 let player = searchPlayer(players, comment[i].name);
 
@@ -1094,34 +1204,46 @@ function buildPlayersSwiper() {
     let array_ = document
         .getElementById("players-swiper-array");
 
-    let createSwiper = function () {
+    let createSwiper = function() {
         new Swiper("#players_swipe_container", {
-            slidesPerView: 1, spaceBetween: 24, autoplay: {
+            slidesPerView: 1,
+            spaceBetween: 24,
+            autoplay: {
                 delay: 2000,
-            }, loop: true, observer: true, observeParents: true, preventClicks: false, pagination: {
-                el: ".swiper-pagination", clickable: true,
-            }, breakpoints: {
+            },
+            loop: true,
+            observer: true,
+            observeParents: true,
+            preventClicks: false,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
                 600: {
                     slidesPerView: 2,
-                }, 920: {
+                },
+                920: {
                     slidesPerView: 3,
-                }, 1200: {
+                },
+                1200: {
                     slidesPerView: 4,
-                }, 1600: {
+                },
+                1600: {
                     slidesPerView: 5,
                 },
             },
         });
     };
 
-    let badges_get = function (callback) {
-        requestCall(function (r) {
+    let badges_get = function(callback) {
+        requestCall(function(r) {
             callback(r);
         }, "assets/data/badges.json", "GET", true);
     };
 
-    badges_get(function (badges_paste) {
-        requestCall(function (r) {
+    badges_get(function(badges_paste) {
+        requestCall(function(r) {
             let player = r;
             shuffle(player);
 
@@ -1222,7 +1344,7 @@ function donate_element_click(product_data) {
     let cookie_cart = get_cookie_cart();
     let switch_ = false;
 
-    let _update_count = function () {
+    let _update_count = function() {
         add_to_cart.setAttribute("onClick", `donate_cart(${product_data.service_id}, ${items_count_donate.value})`);
     };
 
@@ -1261,12 +1383,12 @@ function donate_element_click(product_data) {
     items_count_donate.style.display = count_state;
     count_hint.style.display = count_state;
 
-    let only_dig = function () {
+    let only_dig = function() {
         let value = items_count_donate.value;
         items_count_donate.value = value.replace(/\D+/g, "");
     };
 
-    let _calculate_price = function () {
+    let _calculate_price = function() {
         only_dig();
 
         if (!exclude_types.includes(product_data.type)) {
@@ -1307,7 +1429,7 @@ function donate_element_click(product_data) {
 
     _calculate_price();
 
-    items_count_donate.addEventListener("input", function (_) {
+    items_count_donate.addEventListener("input", function(_) {
         _calculate_price();
     });
     modal_open_();
@@ -1374,8 +1496,7 @@ function donate_cart(product, count, remove = false) {
         if (Number.isInteger(p)) {
             product_count_in_cart = +p;
         }
-    } catch (_) {
-    }
+    } catch (_) {}
 
     if (!Number.isInteger(product) || !Number.isInteger(count)) {
         return;
@@ -1433,7 +1554,7 @@ function donate_cart_button(els = {}) {
 
         if (countProperties(els)) {
             sl.display = "flex";
-            setTimeout(function () {
+            setTimeout(function() {
                 sl.opacity = 1;
                 sl.marginTop = "15px";
                 selector_[i]
@@ -1443,7 +1564,7 @@ function donate_cart_button(els = {}) {
             selector_[i].setAttribute("disabled", "");
             sl.opacity = 0;
             sl.marginTop = "-50px";
-            setTimeout(function () {
+            setTimeout(function() {
                 sl.display = "none";
             }, 350);
         }
@@ -1454,6 +1575,21 @@ function donateFlushCart() {
     Cookies.remove(cart_cookie);
     donate_cart_button({});
     notify("Корзина очищена");
+}
+
+function onTelegramAuth(user) {
+    Cookies.set(telegram_cookie_token, utf8_to_b64(JSON.stringify(user)));
+    modal_close_();
+    notify(`Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name}</span>`);
+}
+
+function getTelegramAuth(raw=false) {
+    let cookie_field = Cookies.get(telegram_cookie_token);
+    if (raw) {
+        return cookie_field;
+    } else if (cookie_field) {
+        return JSON.parse(b64_to_utf8(cookie_field));
+    }
 }
 
 function couponCheck(coins = false) {
@@ -1469,14 +1605,13 @@ function couponCheck(coins = false) {
 
     try {
         code = input.value.trim();
-    } catch (_) {
-    }
+    } catch (_) {}
 
-    let coupon_notfd = function () {
+    let coupon_notfd = function() {
         notify(`Купон <span class="text-primary fw-semibold">${failed_coupon}</span> не найден`);
     };
 
-    let check_coupon_valid = function (products, product) {
+    let check_coupon_valid = function(products, product) {
         if (products) {
             for (let i = 0; i < products.length; i++) {
                 if (products[i].id === current_c_item) {
@@ -1504,7 +1639,7 @@ function couponCheck(coins = false) {
         return;
     }
 
-    let input_lock = function (lock = false) {
+    let input_lock = function(lock = false) {
         if (lock) {
             input.setAttribute("disabled", "");
             button.setAttribute("disabled", "");
@@ -1517,10 +1652,10 @@ function couponCheck(coins = false) {
     };
 
     input_lock(true);
-    check_coupon(function (r) {
+    check_coupon(function(r) {
         // console.log(`check_coupon = ${typeof r}`);
         if (r) {
-            let call = function () {
+            let call = function() {
                 checked_coupon = code;
                 notify(`Купон <span class="text-primary fw-semibold">${code}</span> действительный`);
             };
@@ -1586,8 +1721,7 @@ function generatePaymentLink(type = 1, sum = 0) {
 
     try {
         coupon = checked_coupon.trim();
-    } catch (_) {
-    }
+    } catch (_) {}
 
     if (type === 1) {
         if (!Number.isInteger(sum) || !Number.isInteger(sum)) {
@@ -1640,7 +1774,7 @@ function generatePaymentLink(type = 1, sum = 0) {
     }
 
     let _d_service = get_data_service(current_c_item);
-    create_payment(function (callback_data) {
+    create_payment(function(callback_data) {
         if (callback_data) {
             button
                 .removeAttribute("disabled");
@@ -1649,7 +1783,7 @@ function generatePaymentLink(type = 1, sum = 0) {
             button.setAttribute("onClick", "payment_action_bt()");
         } else {
             notify("Ошибка, не удалось сформировать чек для оплаты");
-            donateResetPaymentState(type,repeat = true);
+            donateResetPaymentState(type, repeat = true);
         }
     }, customer, products, _d_service.server_id, email, coupon);
 }
@@ -1665,7 +1799,7 @@ function payment_action_bt() {
         .getElementById("only-ok-payment");
     let title = document.querySelector(".modal-title");
 
-    let build_modal_wind = function () {
+    let build_modal_wind = function() {
         cart_dom.innerHTML = "";
         title.innerText = "";
         succ_text.innerText = "Давай, плати. Шеф ждёт...";
@@ -1675,14 +1809,14 @@ function payment_action_bt() {
             .setAttribute("src", "assets/images/vova-gay.webp");
     };
 
-    let flush_inputs_donate = function () {
-        let inputs = ["donate_sum", "donate_customer_c", "donate_email_c", "coupon-input-c",];
+    let flush_inputs_donate = function() {
+        let inputs = ["donate_sum", "donate_customer_c", "donate_email_c", "coupon-input-c", ];
         for (let i = 0; i < inputs.length; i++) {
             document.getElementById(inputs[i]).value = "";
         }
     };
 
-    let enable_modal = function () {
+    let enable_modal = function() {
         switch_modal_containers("success");
         modal_open_();
         build_modal_wind();
@@ -1717,8 +1851,7 @@ function initDonate() {
 
     try {
         els = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {
-    }
+    } catch (_) {}
 
     donate_cart_button(els);
     donate_enable_coupon(true);
@@ -1729,7 +1862,7 @@ function donateCartCall(coupon = null, nickname_update = true) {
     let cart_keys = Object.keys(cart);
     let cart_dom = document
         .getElementById("donate-cart-list");
-    let selectors_payment = [document.getElementById("donate_customer"), document.getElementById("donate_email"), document.getElementById("coupon-input"),];
+    let selectors_payment = [document.getElementById("donate_customer"), document.getElementById("donate_email"), document.getElementById("coupon-input"), ];
     switch_modal_containers("donate_finish");
     modal_open_();
     cart_dom.innerHTML = "";
@@ -1737,7 +1870,7 @@ function donateCartCall(coupon = null, nickname_update = true) {
 
     for (let i = 0; i < selectors_payment.length; i++) {
         selectors_payment[i]
-            .addEventListener("input", function (_) {
+            .addEventListener("input", function(_) {
                 donateResetPaymentState();
             });
     }
@@ -1763,7 +1896,7 @@ function donateCartCall(coupon = null, nickname_update = true) {
         `;
     }
 
-    let coupon_container = function () {
+    let coupon_container = function() {
         cart_dom.innerHTML = cart_dom.innerHTML + `<li class="list-group-item d-flex justify-content-between bg-light">
                 <div class="text-primary">
                     <h6 class="my-0 text-start">Купон</h6>
@@ -1772,7 +1905,7 @@ function donateCartCall(coupon = null, nickname_update = true) {
             </li>`;
     };
 
-    let sum_container = function () {
+    let sum_container = function() {
         cart_dom.innerHTML = cart_dom.innerHTML + `<li class="list-group-item d-flex justify-content-between">
                 <span>Сумма</span>
                 <strong>${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}</strong>
@@ -1817,7 +1950,7 @@ function donateModalCall(type_item, item_id, nickname_update = true) {
     let modal_payment_text = document
         .getElementById("donate-text-span");
     let payment_text_form;
-    let selectors_payment = [document.getElementById("donate_sum"), document.getElementById("donate_customer_c"), document.getElementById("donate_email_c"), document.getElementById("coupon-input-c"),];
+    let selectors_payment = [document.getElementById("donate_sum"), document.getElementById("donate_customer_c"), document.getElementById("donate_email_c"), document.getElementById("coupon-input-c"), ];
     let title = document.querySelector(".modal-title");
     let item_name;
 
@@ -1839,7 +1972,7 @@ function donateModalCall(type_item, item_id, nickname_update = true) {
             За поддержку вы получите вознаграждение – за каждый рубль по одному игровому токену.
         `;
         item_name = "Токены";
-        sum.addEventListener("input", function (_) {
+        sum.addEventListener("input", function(_) {
             donateCoinsPay();
         });
     } else if (type_item === 2) {
@@ -1851,7 +1984,7 @@ function donateModalCall(type_item, item_id, nickname_update = true) {
             в качестве вознаграждения за финансовую поддержку проекта.
         `;
         item_name = "Пропуск";
-        customer_field.addEventListener("input", function (_) {
+        customer_field.addEventListener("input", function(_) {
             donateCoinsPay(type_item);
         });
     }
@@ -1859,7 +1992,7 @@ function donateModalCall(type_item, item_id, nickname_update = true) {
 
     for (let i = 0; i < selectors_payment.length; i++) {
         selectors_payment[i]
-            .addEventListener("input", function (_) {
+            .addEventListener("input", function(_) {
                 donateResetPaymentState(type_item);
             });
     }
@@ -1899,7 +2032,7 @@ function initCrypto() {
     if (!freeze_crypto) {
         freeze_crypto = true;
         crypto_token = "";
-        getCrypto(function (token_) {
+        getCrypto(function(token_) {
             crypto_token = token_;
             freeze_crypto = false;
         });
@@ -1990,7 +2123,7 @@ function callSucessPayModal(payment_id = 0) {
         }
     }
 
-    let buildPayment = function (payment) {
+    let buildPayment = function(payment) {
         if (payment.status && payment_id == parseInt(payment.id)) {
             glob_func_payment_data = payment;
             succ_text.innerText = "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
@@ -2089,7 +2222,7 @@ function callSucessPayModal(payment_id = 0) {
         }
     };
 
-    let enable_modal = function (payment) {
+    let enable_modal = function(payment) {
         buildPayment(payment);
         switch_modal_containers("success");
         modal_open_();
@@ -2098,7 +2231,7 @@ function callSucessPayModal(payment_id = 0) {
         update_pm_desc();
     };
 
-    checkPayment(function (payment) {
+    checkPayment(function(payment) {
         if (typeof payment.status !== "undefined") {
             enable_modal(payment);
             title.innerText = `Чек #${payment.id}`;
@@ -2118,18 +2251,17 @@ function successPay() {
 }
 
 function donateContainerHash() {
-    observerContainerHash(["donate", "donate_block"], function () {
+    observerContainerHash(["donate", "donate_block"], function() {
         donate_displayed = true;
         donateSwitchContainer(donate_displayed);
     });
 }
 
-function rulesPrivateContainerHash() {
-    observerContainerHash(["private_rules"], function () {
-        let content = "";
-        get_rules_private_server(function (rules) {
-            for (let i = 0; i < rules.length; i++) {
-                content += `
+function rulesModalOpen() {
+    let content = "";
+    get_rules_private_server(function(rules) {
+        for (let i = 0; i < rules.length; i++) {
+            content += `
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                         <div>
                             <h6 class="my-0 text-start">
@@ -2139,57 +2271,76 @@ function rulesPrivateContainerHash() {
                         <span class="ps-2 pe-2 text-start">${rules[i].text}</span>
                     </li>
                 `;
-            }
-            switch_modal_containers("info", {
-                title: "Правила приватного сервера",
-                content: `
+        }
+        switch_modal_containers("info", {
+            title: "Правила приватного сервера",
+            content: `
                 <ul class="list-group mb-4 mb-lg-5">
                     ${content}
                 </ul>
-            `});
-            modal_open_();
+            `
         });
+        modal_open_();
+    });
+}
+
+function rulesPrivateContainerHash() {
+    observerContainerHash(["private_rules"], function() {
+        rulesModalOpen();
+    });
+}
+
+function openAdminContact() {
+    checkTelegramAuthData(function (data) {
+        if (data) {
+            switch_modal_containers("info", {
+                title: "Обратная связь",
+                content: `
+                        <p class="mb-2 mb-lg-3 mb-xl-4 text-start">
+                            Это форма для предложений и жалоб, опишите пожалуйста кратко и 
+                            ясно свою идею или предложение без воды.
+                        </p>
+                        <div id="contant-input-container">
+                            <label for="admin-message">0/0</label>
+                            <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
+                            </textarea>
+                        </div>
+                        <button onclick="sendFeedbackAction()" class="w-100 btn btn-primary btn-lg btn-shadow-hide mt-3 mt-lg-4" id="send-feedback-button" type="button">
+                            Отправить
+                        </button>
+                    `
+            });
+            let max_len = 3000;
+            let textarea = document.getElementById("admin-message");
+            let label = document.querySelector('label[for="admin-message"]');
+            let space = "\x20";
+            if (textarea.value.includes(space.repeat(3))) {
+                textarea.value = textarea.value.trim();
+            }
+            textarea.maxLength = max_len;
+            let update_len_counter = () => {
+                label.innerText = `${textarea.value.length}/${max_len}`;
+            }
+            update_len_counter();
+            addEventListener("keydown", (_) => update_len_counter());
+            addEventListener("keyup", (_) => update_len_counter());
+            modal_open_(onclick_lock = true);
+        } else {
+            console.log("Error check Telegram auth");
+            openTelegramAuthModal();
+            notify("Вам необходимо авторизоватся для этой функции");
+        }
     });
 }
 
 function adminsContactContainerHash() {
-    observerContainerHash(["contact", "support", "bug", "report"], function () {
-        switch_modal_containers("info", {
-            title: "Обратная связь",
-            content: `
-                <p class="mb-2 mb-lg-3 mb-xl-4 text-start">
-                    Это форма для предложений и жалоб, опишите пожалуйста кратко и 
-                    ясно свою идею или предложение без воды.
-                </p>
-                <div id="contant-input-container">
-                    <label for="admin-message">0/0</label>
-                    <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
-                    </textarea>
-                </div>
-                <button onclick="alert('this test')" class="w-100 btn btn-primary btn-lg btn-shadow-hide mt-3 mt-lg-4 type="button">
-                    Отправить
-                </button>
-            `});
-        let max_len = 3000;
-        let textarea = document.getElementById("admin-message");
-        let label = document.querySelector('label[for="admin-message"]');
-        let space = "\x20";
-        if (textarea.value.includes(space.repeat(3))) {
-            textarea.value = textarea.value.trim();
-        }
-        textarea.maxLength = max_len;
-        let update_len_counter = () => {
-            label.innerText = `${textarea.value.length}/${max_len}`;
-        }
-        update_len_counter();
-        addEventListener("keydown", (_) => update_len_counter());
-        addEventListener("keyup", (_) => update_len_counter());
-        modal_open_(onclick_lock=true);
+    observerContainerHash(["contact", "support", "bug", "report"], function() {
+        openAdminContact();
     });
 }
 
 function observerContainerHash(hash_array, action) {
-    let updater = function () {
+    let updater = function() {
         if (hash_array.includes(linkHash())) {
             action();
         }
@@ -2200,9 +2351,52 @@ function observerContainerHash(hash_array, action) {
         'hashchange', (_) => updater());
 }
 
+function openTelegramAuthModal() {
+    console.log("Telegram auth preparing...");
+    // modal_close_();
+    let script_telegram_widget = document.createElement(
+        'script');
+
+    script_telegram_widget.src = "https://telegram.org/js/telegram-widget.js?21";
+    script_telegram_widget.setAttribute("async", "");
+    script_telegram_widget.setAttribute("data-telegram-login", telegram_bot_username);
+    script_telegram_widget.setAttribute("data-size", "large");
+    script_telegram_widget.setAttribute("data-radius", "8");
+    script_telegram_widget.setAttribute("data-onauth", "onTelegramAuth(user)");
+
+    script_telegram_widget.onload = function() {
+        switch_modal_containers("info", {
+            title: "",
+            content: ""
+        });
+        modal_open_();
+    }
+
+    let content = document.getElementById("info-content-modal");
+    let container = document.createElement("div");
+    let text = document.createElement("p");
+
+    content.innerHTML = "";
+    content.appendChild(container);
+    content.appendChild(text);
+    text.innerText = `
+        Для некоторых функций на этом сайте необходимо авторизироваться. 
+        Мы не получим никаких конфиденциальных данных о вас, например, 
+        ваш номер или локацию, это нужно только для того, чтобы Telegram 
+        подтвердил, что вы являетесь владельцем своего аккаунта. Также 
+        не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
+        в нашем боте.
+    `.replaceAll("\n", "");
+
+    text.setAttribute("class", "text-start px-3 pt-1 pt-lg-2");
+    container.id = "telegram-auth-container";
+    container.appendChild(script_telegram_widget);
+}
+
 function initJarallax() {
     jarallax(document.querySelectorAll('.jarallax'), {
-        speed: 0.15, type: "scale-opacity"
+        speed: 0.15,
+        type: "scale-opacity"
     });
 }
 
@@ -2210,7 +2404,7 @@ function initTooltip() {
     let tooltipTriggerList = [].slice
         .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     let tooltipList = tooltipTriggerList
-        .map(function (tooltipTriggerEl) {
+        .map(function(tooltipTriggerEl) {
             tooltip_instance = new bootstrap
                 .Tooltip(tooltipTriggerEl, {
                     template: `
@@ -2222,7 +2416,7 @@ function initTooltip() {
         });
 
     if (tooltip_instance) {
-        setInterval(function () {
+        setInterval(function() {
             tooltip_instance
                 .update();
         }, 1000);
@@ -2250,14 +2444,11 @@ function initSmoothScrollObserver() {
     window.onhashchange = callScroller;
 }
 
-const initCore = function () {
+const initCore = function() {
     initHost();
     initCrypto();
     initLanding();
     observerSystemTheme();
-    donateContainerHash();
-    rulesPrivateContainerHash();
-    adminsContactContainerHash();
     buildPlayersSwiper();
     appendPostsNews();
     initComments();
@@ -2271,17 +2462,21 @@ const initCore = function () {
     successPay();
     ytVideoSetter(skip = true);
 
+    donateContainerHash();
+    rulesPrivateContainerHash();
+    adminsContactContainerHash();
+
     let elem = document
         .getElementById("dark-perm-set-bv");
     elem.parentNode.removeChild(elem);
 
-    window.onload = function () {
+    window.onload = function() {
         if (!debug_lock_init) {
             let preloader = document
                 .querySelector(".page-loading");
             let wait = 1500;
             let move_wait = 100;
-            setTimeout(function () {
+            setTimeout(function() {
                 preloader
                     .classList
                     .remove("active");
@@ -2293,7 +2488,7 @@ const initCore = function () {
                         top: 0,
                     });
             }, wait);
-            setTimeout(function () {
+            setTimeout(function() {
                 preloader
                     .remove();
 
@@ -2305,6 +2500,6 @@ const initCore = function () {
     };
 };
 
-script_core.onload = function () {
+script_core.onload = function() {
     initCore();
 };
