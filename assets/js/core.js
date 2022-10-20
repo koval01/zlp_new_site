@@ -1615,7 +1615,7 @@ function couponCheck(coins = false) {
     let code = "";
 
     try {
-        code = input.value.trim();
+        code = input.value.trim().toUpperCase();
     } catch (_) {}
 
     let coupon_notfd = function() {
