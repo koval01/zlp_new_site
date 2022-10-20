@@ -58,6 +58,7 @@ input, textarea
 .bg-light:not(.badge), .card.card-hover.bg-light
     background: rgb(255 255 255 / 90%) !important
     backdrop-filter: blur(16px)
+    -webkit-backdrop-filter: blur(16px)
 
 .dark-mode
   --theme-default-color: #fff
@@ -74,6 +75,7 @@ input, textarea
   .bg-light:not(.badge), .card.card-hover.bg-light
     background-color: rgb(24 24 27 / 65%) !important
     backdrop-filter: blur(16px)
+    -webkit-backdrop-filter: blur(16px)
     border-bottom: 1px solid rgba(255, 255, 255, 0.24)
 
 .bg-theme-set
@@ -101,6 +103,7 @@ input, textarea
   display: flex
   margin: auto
   filter: drop-shadow(0 1px 2px black)
+  -webkit-filter: drop-shadow(0 1px 2px black)
 
 .dark-mode .landing-head-text
   background-image: url(../images/logo-dark.webp) !important
@@ -196,6 +199,7 @@ a:hover
   margin: 5vw
   border-radius: 0.5rem !important
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, .65))
+  -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, .65))
 
 .video-container-yt
   width: 90vw
@@ -203,6 +207,7 @@ a:hover
   margin: 5vw
   border-radius: 0.5rem !important
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, .65))
+  -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, .65))
 
 .payment-sucess-vova
   display: block
@@ -308,6 +313,7 @@ iframe
   right: 0
   bottom: 0
   backdrop-filter: blur(0.12vw)
+  -webkit-backdrop-filter: blur(0.12vw)
   z-index: -4
 
 .background_media_overlay_tag
@@ -316,6 +322,7 @@ iframe
 
 .dark-mode .background_media_overlay_tag
   filter: brightness(0.8)
+  -webkit-filter: brightness(0.8)
 
 .vova-bg-mobile
   display: none
@@ -352,6 +359,7 @@ iframe
   background-position: right 25% bottom 28px
   z-index: 0
   filter: brightness(0.95)
+  -webkit-filter: brightness(0.95)
 
 .vova-bg-l-mobile-mask
   position: absolute
@@ -362,6 +370,7 @@ iframe
   background-position: right 25% bottom 28px
   z-index: 0
   filter: drop-shadow(0 0 25px #392568)
+  -webkit-filter: drop-shadow(0 0 25px #392568)
 
 .news-button-view
   margin-right: 0 !important
@@ -373,6 +382,7 @@ iframe
 
 .dark-mode .male-emoji
   filter: invert(1)
+  -webkit-filter: invert(1)
 
 @media (max-width: 992px)
   .loading-dots
@@ -406,9 +416,11 @@ iframe
     background-position-y: -1em
     z-index: 0
     filter: brightness(0.95)
+    -webkit-filter: brightness(0.95)
 
   .vova-bg-landing-mask
     filter: drop-shadow(0 0 35px #291d4c)
+    -webkit-filter: drop-shadow(0 0 35px #291d4c)
 
   .landing-head-text
     background-position: -9px
@@ -506,6 +518,7 @@ body.modal-open
   padding-right: .9em !important
   padding-bottom: 4em
   transition: all 0.4s
+  backdrop-filter: blur(12px)
   -webkit-backdrop-filter: blur(12px)
 
 .modal-content
@@ -552,6 +565,7 @@ body.modal-open
       z-index: 1
       opacity: 1
       filter: blur(24px) brightness(.8)
+      -webkit-filter: blur(24px) brightness(.8)
 
 .container-item-donate-n:hover .backgroundImg
   transform: scale(1.15)
@@ -567,6 +581,7 @@ body.modal-open
 
 iframe[id*='telegram-post']
   filter: drop-shadow(2px 4px 6px black)
+  -webkit-filter: drop-shadow(2px 4px 6px black)
 
 .comment-show-button
   transition: all .6s
@@ -635,6 +650,7 @@ iframe[id*='telegram-post']
     background-repeat: no-repeat
     background-size: cover
     filter: drop-shadow(2px 4px 8px #0009)
+    -webkit-filter: drop-shadow(2px 4px 8px #0009)
 
   > .player-head
     height: 155px
@@ -730,10 +746,12 @@ iframe[id*='telegram-post']
 
 .hover-blur-rl
   filter: blur(8px)
+  -webkit-filter: blur(8px)
   transition: all 0.6s
 
   &:hover
     filter: blur(0)
+    -webkit-filter: blur(0)
 
 .donate-cancel-cart
   color: var(si-body-color)
@@ -742,12 +760,14 @@ iframe[id*='telegram-post']
 
 .discord-block-back-st
   backdrop-filter: blur(12px)
+  -webkit-backdrop-filter: blur(12px)
 
 .error_text_cst
   color: #fff
   padding: 1em
   margin: 0
   backdrop-filter: blur(4px)
+  -webkit-backdrop-filter: blur(4px)
 
 .error_box_cst
   bottom: 0
@@ -763,6 +783,7 @@ iframe[id*='telegram-post']
 .btn-scroll-top.show
   background: rgba(0, 0, 0, 0.25)
   backdrop-filter: blur(8px)
+  -webkit-backdrop-filter: blur(8px)
   color: var(--si-btn-scroll-top-color)
   transition: all .7s !important
   border: 0 #0000
@@ -779,6 +800,7 @@ iframe[id*='telegram-post']
 .cst-icon-svg
   height: 1.5em
   filter: invert(1)
+  -webkit-filter: invert(1)
   margin: 5px
 
 .zlp-comment-icon
@@ -1048,6 +1070,7 @@ figure.news-figure
     &:disabled
       color: var(--contr-color-var)
       filter: invert(.6)
+      -webkit-filter: invert(.6)
 
     &:not(:hover)::after
       transform: scalex(0)
@@ -1113,6 +1136,7 @@ figure.news-figure
   background-repeat: no-repeat
   transition: all 1.6s
   filter: drop-shadow(2px 4px var(--stone-logo-shadow-size) rgba(var(--stone-log-shadow-color)))
+  -webkit-filter: drop-shadow(2px 4px var(--stone-logo-shadow-size) rgba(var(--stone-log-shadow-color)))
 
 #head-container
   position: relative !important
@@ -1164,6 +1188,7 @@ figure.news-figure
   width: 4rem
   color: var(--contr-color-var)
   filter: invert(.4)
+  -webkit-filter: invert(.4)
   text-align: center
   margin: auto
   display: block
@@ -1171,6 +1196,7 @@ figure.news-figure
 
   &:hover
     filter: unset !important
+    -webkit-filter: unset !important
 
 .ytVideoSetter
   width: 100%
@@ -1195,10 +1221,12 @@ figure.news-figure
 .container-second-round
   border-radius: .6rem
   filter: drop-shadow(0 0 16px #00000033)
+  -webkit-filter: drop-shadow(0 0 16px #00000033)
   transition: filter 1s
 
 .dark-mode .container-second-round
   filter: unset !important
+  -webkit-filter: drop-shadow(0 0 16px #00000033)
 
 #exit-button-container-donate
   position: relative
