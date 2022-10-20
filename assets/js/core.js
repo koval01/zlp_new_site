@@ -615,6 +615,23 @@ function check_coupon(callback, coupon) {
     });
 }
 
+function checkTelegramAuthData(callback) {
+    let auth_data = getTelegramAuth();
+    if (auth_data) {
+        requestCall(function(r) {
+            if (r) {
+                callback(r.success);
+            } else {
+                callback(false);
+            }
+        }, `${backend_host}/telegram/auth/check`, "POST", true, {
+            tg_auth_data: auth_data
+        });
+    } else {
+        callback(false);
+    }
+}
+
 function checkFeedbackStatus(callback) {
     re_check(function(token_update) {
         requestCall(function(r) {
@@ -1558,7 +1575,10 @@ function onTelegramAuth(user) {
 }
 
 function getTelegramAuth() {
-    return JSON.parse(b64_to_utf8(Cookies.get(telegram_cookie_token)));
+    let cookie_field = Cookies.get(telegram_cookie_token);
+    if (cookie_field) {
+        return JSON.parse(b64_to_utf8(cookie_field));
+    }
 }
 
 function couponCheck(coins = false) {
