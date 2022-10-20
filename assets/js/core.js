@@ -2454,6 +2454,10 @@ const initCore = function() {
     successPay();
     ytVideoSetter(skip = true);
 
+    donateContainerHash();
+    rulesPrivateContainerHash();
+    adminsContactContainerHash();
+
     let elem = document
         .getElementById("dark-perm-set-bv");
     elem.parentNode.removeChild(elem);
@@ -2483,10 +2487,6 @@ const initCore = function() {
                 // after tasks
                 initTooltip();
                 initSmoothScrollObserver();
-
-                donateContainerHash();
-                rulesPrivateContainerHash();
-                adminsContactContainerHash();
             }, wait + move_wait);
         }
     };
