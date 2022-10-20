@@ -2286,38 +2286,42 @@ function rulesPrivateContainerHash() {
 
 function adminsContactContainerHash() {
     observerContainerHash(["contact", "support", "bug", "report"], function() {
-        switch_modal_containers("info", {
-            title: "Обратная связь",
-            content: `
-                <p class="mb-2 mb-lg-3 mb-xl-4 text-start">
-                    Это форма для предложений и жалоб, опишите пожалуйста кратко и 
-                    ясно свою идею или предложение без воды.
-                </p>
-                <div id="contant-input-container">
-                    <label for="admin-message">0/0</label>
-                    <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
-                    </textarea>
-                </div>
-                <button onclick="sendFeedbackAction()" class="w-100 btn btn-primary btn-lg btn-shadow-hide mt-3 mt-lg-4" id="send-feedback-button" type="button">
-                    Отправить
-                </button>
-            `
+        checkTelegramAuthData(function (data) {
+            if (data) {
+                switch_modal_containers("info", {
+                    title: "Обратная связь",
+                    content: `
+                        <p class="mb-2 mb-lg-3 mb-xl-4 text-start">
+                            Это форма для предложений и жалоб, опишите пожалуйста кратко и 
+                            ясно свою идею или предложение без воды.
+                        </p>
+                        <div id="contant-input-container">
+                            <label for="admin-message">0/0</label>
+                            <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
+                            </textarea>
+                        </div>
+                        <button onclick="sendFeedbackAction()" class="w-100 btn btn-primary btn-lg btn-shadow-hide mt-3 mt-lg-4" id="send-feedback-button" type="button">
+                            Отправить
+                        </button>
+                    `
+                });
+                let max_len = 2500;
+                let textarea = document.getElementById("admin-message");
+                let label = document.querySelector('label[for="admin-message"]');
+                let space = "\x20";
+                if (textarea.value.includes(space.repeat(3))) {
+                    textarea.value = textarea.value.trim();
+                }
+                textarea.maxLength = max_len;
+                let update_len_counter = () => {
+                    label.innerText = `${textarea.value.length}/${max_len}`;
+                }
+                update_len_counter();
+                addEventListener("keydown", (_) => update_len_counter());
+                addEventListener("keyup", (_) => update_len_counter());
+                modal_open_(onclick_lock = true);
+            }
         });
-        let max_len = 2500;
-        let textarea = document.getElementById("admin-message");
-        let label = document.querySelector('label[for="admin-message"]');
-        let space = "\x20";
-        if (textarea.value.includes(space.repeat(3))) {
-            textarea.value = textarea.value.trim();
-        }
-        textarea.maxLength = max_len;
-        let update_len_counter = () => {
-            label.innerText = `${textarea.value.length}/${max_len}`;
-        }
-        update_len_counter();
-        addEventListener("keydown", (_) => update_len_counter());
-        addEventListener("keyup", (_) => update_len_counter());
-        modal_open_(onclick_lock = true);
     });
 }
 
