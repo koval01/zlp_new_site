@@ -616,7 +616,7 @@ function check_coupon(callback, coupon) {
 }
 
 function checkTelegramAuthData(callback) {
-    let auth_data = getTelegramAuth();
+    let auth_data = getTelegramAuth(true);
     if (auth_data) {
         requestCall(function(r) {
             if (r) {
@@ -1574,9 +1574,11 @@ function onTelegramAuth(user) {
     Cookies.set(telegram_cookie_token, utf8_to_b64(JSON.stringify(user)));
 }
 
-function getTelegramAuth() {
+function getTelegramAuth(raw=false) {
     let cookie_field = Cookies.get(telegram_cookie_token);
-    if (cookie_field) {
+    if (raw) {
+        return cookie_field;
+    } else if (cookie_field) {
         return JSON.parse(b64_to_utf8(cookie_field));
     }
 }
