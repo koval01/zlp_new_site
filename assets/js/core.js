@@ -2441,9 +2441,6 @@ const initCore = function() {
     initCrypto();
     initLanding();
     observerSystemTheme();
-    donateContainerHash();
-    rulesPrivateContainerHash();
-    adminsContactContainerHash();
     buildPlayersSwiper();
     appendPostsNews();
     initComments();
@@ -2486,6 +2483,10 @@ const initCore = function() {
                 // after tasks
                 initTooltip();
                 initSmoothScrollObserver();
+
+                donateContainerHash();
+                rulesPrivateContainerHash();
+                adminsContactContainerHash();
             }, wait + move_wait);
         }
     };
