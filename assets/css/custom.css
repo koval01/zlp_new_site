@@ -492,14 +492,14 @@ input.form-control:active, textarea:active {
   border: 2px solid #a970ff !important;
 }
 
-.dark-mode input.form-control, textarea {
+.dark-mode input.form-control, .dark-mode textarea {
   border: 2px solid #464649 !important;
   background: #464649 !important;
 }
-.dark-mode input.form-control:focus, textarea:focus {
+.dark-mode input.form-control:focus, .dark-mode textarea:focus {
   border: 2px solid #a970ff !important;
 }
-.dark-mode input.form-control:active, textarea:active {
+.dark-mode input.form-control:active, .dark-mode textarea:active {
   border: 2px solid #a970ff !important;
 }
 
