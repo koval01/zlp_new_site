@@ -1580,7 +1580,7 @@ function donateFlushCart() {
 function onTelegramAuth(user) {
     Cookies.set(telegram_cookie_token, utf8_to_b64(JSON.stringify(user)));
     modal_close_();
-    notify(`Вы успешно авторизовались как ${user.first_name} ${user.last_name}`);
+    notify(`Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name}</span>`);
 }
 
 function getTelegramAuth(raw=false) {
