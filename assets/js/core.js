@@ -2305,7 +2305,7 @@ function adminsContactContainerHash() {
                         </button>
                     `
                 });
-                let max_len = 2500;
+                let max_len = 3000;
                 let textarea = document.getElementById("admin-message");
                 let label = document.querySelector('label[for="admin-message"]');
                 let space = "\x20";
