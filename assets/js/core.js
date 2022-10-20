@@ -2337,7 +2337,7 @@ function openTelegramAuthModal() {
         подтвердил, что вы являетесь владельцем своего аккаунта. Также 
         не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
         в нашем боте.
-    `;
+    `.replaceAll("\n", "");
     text.setAttribute("class", "text-start px-3 pt-1 pt-lg-2");
     container.id = "telegram-auth-container";
     container.appendChild(script_telegram_widget);
