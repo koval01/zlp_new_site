@@ -1512,7 +1512,7 @@ function onTelegramAuth(user) {
 }
 
 function getTelegramAuth() {
-    return b64_to_utf8(JSON.parse(Cookies.get(telegram_cookie_token)));
+    return JSON.parse(b64_to_utf8(Cookies.get(telegram_cookie_token)));
 }
 
 function couponCheck(coins = false) {
