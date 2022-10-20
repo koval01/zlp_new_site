@@ -1373,7 +1373,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 }
 
 @media (max-width: 767px) {
-  .private-server-hub {
+  #server-hub-icon {
     display: none !important;
   }
 }
