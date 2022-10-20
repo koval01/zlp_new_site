@@ -633,32 +633,39 @@ function checkTelegramAuthData(callback) {
 }
 
 function checkFeedbackStatus(callback) {
-    re_check(function(token_update) {
-        requestCall(function(r) {
-            if (r) {
-                callback(r.success);
-            } else {
-                callback(false);
-            }
-        }, `${backend_host}/feedback/check`, "POST", true, {
-            token: token_update
+    let auth_data = getTelegramAuth(true);
+    if (auth_data) {
+        re_check(function (token_update) {
+            requestCall(function (r) {
+                if (r) {
+                    callback(r.success);
+                } else {
+                    callback(false);
+                }
+            }, `${backend_host}/feedback/check`, "POST", true, {
+                token: token_update, tg_auth_data: auth_data
+            });
         });
-    });
+    }
 }
 
 function sendFeedback(callback, text) {
-    re_check(function(token_update) {
-        requestCall(function(r) {
-            if (r) {
-                callback(r.success);
-            } else {
-                callback(false);
-            }
-        }, `${backend_host}/feedback/send`, "POST", true, {
-            text: text,
-            token: token_update
+    let auth_data = getTelegramAuth(true);
+    if (auth_data) {
+        re_check(function (token_update) {
+            requestCall(function (r) {
+                if (r) {
+                    callback(r.success);
+                } else {
+                    callback(false);
+                }
+            }, `${backend_host}/feedback/send`, "POST", true, {
+                text: text,
+                token: token_update,
+                tg_auth_data: auth_data
+            });
         });
-    });
+    }
 }
 
 function sendFeedbackAction() {
