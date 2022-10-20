@@ -2258,12 +2258,11 @@ function donateContainerHash() {
     });
 }
 
-function rulesPrivateContainerHash() {
-    observerContainerHash(["private_rules"], function() {
-        let content = "";
-        get_rules_private_server(function(rules) {
-            for (let i = 0; i < rules.length; i++) {
-                content += `
+function rulesModalOpen() {
+    let content = "";
+    get_rules_private_server(function(rules) {
+        for (let i = 0; i < rules.length; i++) {
+            content += `
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                         <div>
                             <h6 class="my-0 text-start">
@@ -2273,17 +2272,22 @@ function rulesPrivateContainerHash() {
                         <span class="ps-2 pe-2 text-start">${rules[i].text}</span>
                     </li>
                 `;
-            }
-            switch_modal_containers("info", {
-                title: "Правила приватного сервера",
-                content: `
+        }
+        switch_modal_containers("info", {
+            title: "Правила приватного сервера",
+            content: `
                 <ul class="list-group mb-4 mb-lg-5">
                     ${content}
                 </ul>
             `
-            });
-            modal_open_();
         });
+        modal_open_();
+    });
+}
+
+function rulesPrivateContainerHash() {
+    observerContainerHash(["private_rules"], function() {
+        rulesModalOpen();
     });
 }
 
