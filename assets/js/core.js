@@ -1579,6 +1579,8 @@ function donateFlushCart() {
 
 function onTelegramAuth(user) {
     Cookies.set(telegram_cookie_token, utf8_to_b64(JSON.stringify(user)));
+    modal_close_();
+    notify(`Вы успешно авторизовались как ${user.first_name} ${user.last_name}`);
 }
 
 function getTelegramAuth(raw=false) {
