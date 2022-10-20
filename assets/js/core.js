@@ -2319,14 +2319,26 @@ function openTelegramAuthModal() {
 
     script_telegram_widget.onload = function() {
         switch_modal_containers("info", {
-            title: "Авторизация",
+            title: "",
             content: ""
         });
         modal_open_();
     }
 
+    let content = document.getElementById("info-content-modal");
     let container = document.createElement("div");
-    document.getElementById("info-content-modal").appendChild(container);
+    let text = document.createElement("p");
+    content.appendChild(container);
+    content.appendChild(text);
+    text.innerText = `
+        Для некоторых функций на этом сайте необходимо авторизироваться. 
+        Мы не получим никаких конфиденциальных данных о вас, например, 
+        ваш номер или локацию, это нужно только для того, чтобы Telegram 
+        подтвердил, что вы являетесь владельцем своего аккаунта. Также 
+        не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
+        в нашем боте.
+    `;
+    text.setAttribute("class", "text-start px-3 pt-1 pt-lg-2");
     container.id = "telegram-auth-container";
     container.appendChild(script_telegram_widget);
 }
