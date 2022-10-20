@@ -2320,6 +2320,8 @@ function adminsContactContainerHash() {
                 addEventListener("keydown", (_) => update_len_counter());
                 addEventListener("keyup", (_) => update_len_counter());
                 modal_open_(onclick_lock = true);
+            } else {
+                console.log("Error check Telegram auth")
             }
         });
     });
@@ -2361,6 +2363,8 @@ function openTelegramAuthModal() {
     let content = document.getElementById("info-content-modal");
     let container = document.createElement("div");
     let text = document.createElement("p");
+
+    content.innerHTML = "";
     content.appendChild(container);
     content.appendChild(text);
     text.innerText = `
@@ -2371,6 +2375,7 @@ function openTelegramAuthModal() {
         не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
         в нашем боте.
     `.replaceAll("\n", "");
+
     text.setAttribute("class", "text-start px-3 pt-1 pt-lg-2");
     container.id = "telegram-auth-container";
     container.appendChild(script_telegram_widget);
