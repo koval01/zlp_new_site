@@ -1500,4 +1500,16 @@ label[for=admin-message] {
   bottom: 0;
 }
 
+.avatar-container {
+  display: flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-left: 1rem;
+  border-radius: 0.7rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../images/telegram-icon.webp);
+}
+
 /*# sourceMappingURL=custom.css.map */

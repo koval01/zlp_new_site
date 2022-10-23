@@ -2480,6 +2480,17 @@ function initSmoothScrollObserver() {
     window.onhashchange = callScroller;
 }
 
+function autoAuthTelegramObserver() {
+    checkTelegramAuthData(function (success) {
+        console.log(`Telegram auth check status : ${success}`);
+        if (success) {
+            const button_auth = document.querySelector(".avatar-container");
+
+            button_auth.removeAttribute("onclick");
+        }
+    })
+}
+
 const initCore = function() {
     initHost();
     initCrypto();
@@ -2501,6 +2512,8 @@ const initCore = function() {
     donateContainerHash();
     rulesPrivateContainerHash();
     adminsContactContainerHash();
+
+    autoAuthTelegramObserver();
 
     let elem = document
         .getElementById("dark-perm-set-bv");
