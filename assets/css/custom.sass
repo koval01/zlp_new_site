@@ -198,8 +198,8 @@ a:hover
   height: 50.625%
   margin: 5vw
   border-radius: 0.5rem !important
-  filter: drop-shadow(0 0 8px rgba(0, 0, 0, .65))
-  -webkit-filter: drop-shadow(0 0 8px rgba(0, 0, 0, .65))
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, .6))
+  -webkit-filter: drop-shadow(0 0 6px rgba(0, 0, 0, .6))
 
 .video-container-yt
   width: 90vw
@@ -902,6 +902,8 @@ figure.news-figure
       background: $border-news-figure
       height: 100%
       overflow: hidden
+      backdrop-filter: blur(3px)
+      -webkit-backdrop-filter: blur(3px)
 
       > .background-news-overlay-dark-mode
         background-color: rgba(0, 0, 0, 0)
@@ -980,6 +982,9 @@ figure.news-figure
   transition: width .6s
 
   background: linear-gradient(var(--shadow-position-swiper), rgba(var(--shadow-color-swiper)) 10%, rgba(0, 0, 0, 0) 90%)
+
+.shadow-high-up
+  background: linear-gradient(var(--shadow-position-swiper),rgba(var(--vertical-shadow-color)) 15%,transparent 100%) !important
 
 .vertical-bottom-shadow
   --shadow-position-swiper: to top
@@ -1274,6 +1279,33 @@ figure.news-figure
   width: 100%
   height: 100%
 
+@media (max-width: 960px)
+  #server-hub-text
+    text-align: center !important
+
+#server-hub-icon
+  position: absolute !important
+  height: 22rem
+  width: 22rem
+  top: -1rem
+  right: 1rem
+
+@media (max-width: 1800px)
+  #server-hub-icon
+    width: 20vw
+
+@media (max-width: 1500px)
+  #server-hub-icon
+    width: 22vw
+
+@media (max-width: 1300px)
+  #server-hub-icon
+    width: 24vw
+
+@media (max-width: 991px)
+  #server-hub-icon
+    width: 32vw
+
 @media (max-width: 767px)
   #server-hub-icon
     display: none !important
@@ -1306,3 +1338,14 @@ label[for="admin-message"]
   position: absolute
   right: 2rem
   bottom: 0
+
+.avatar-container
+  display: flex
+  width: 2.25rem
+  height: 2.25rem
+  margin-left: 1rem
+  border-radius: .7rem
+  background-size: contain
+  background-repeat: no-repeat
+  background-position: center
+  background-image: url(../images/telegram-icon.webp)

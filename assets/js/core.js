@@ -295,6 +295,7 @@ function appendPostsNews() {
             },
         });
     };
+    const text_modify_enable = true;
 
     let add_news_in_array = function(posts) {
         let array_ = document
@@ -304,19 +305,25 @@ function appendPostsNews() {
         for (let i = 0; i < posts.length; i++) {
             let text = posts[i].text;
             let datetime = new Date(posts[i].datetime_utc);
+
             if (!posts[i].cover) {
                 posts[i].cover = "assets/images/spawn.webp";
             }
+
             array_.innerHTML = array_.innerHTML + `
                 <div class="swiper-slide h-auto px-2">
                     <figure class="card h-100 position-relative border-0 shadow-sm news-figure" id="news_figure_${i}">
                         <div class="background-news" id="background-news-${i}">
                             <div class="background-news-overlay" id="news-overlay-${i}">
                                 <div class="background-news-overlay-dark-mode">
+                                    <div 
+                                    style="z-index:6;top:35.1%;height:65%"
+                                    class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-bottom-shadow shadow-high-up"
+                                    ></div>
                                     <blockquote class="card-body mt-2 mb-3 news-text-container">
                                         <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family:sans-serif">
                                                 ${text}</p>
-                                        <div class="news-bottom-container">
+                                        <div class="news-bottom-container" style="z-index:8">
                                             <a class="btn btn-primary shadow-primary btn-lg news-button-view"
                                                href="${posts[i].link}" target="_blank">
                                                     Подробнее</a>
@@ -334,70 +341,90 @@ function appendPostsNews() {
                     </span>
                 </div>
             `;
+
             let selector_bg = document
                 .getElementById(`background-news-${i}`);
-            let selector_text = document
-                .getElementById(`news_text_${i}`);
             selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
-            selector_text.style.width = "100%";
-            selector_text.classList
-                .add("text-light");
-            let text_len = selector_text.innerText.length;
-            let text_split = selector_text
-                .innerText.split(" ");
-            let font_size = ((text_len - -8) * 0.4) / 100;
-            let fix_float_fs = (
-                float, font_size,
-                correction_float = 0.32,
-                correction_font = 0.9,
-                max_val = 0
-            ) => {
-                float = float < correction_float ? correction_float * (font_size / correction_font) : float
-                return max_val ? (float < max_val ? float : max_val) : float
+
+            if (text_modify_enable) {
+                let selector_text = document
+                    .getElementById(`news_text_${i}`);
+
+                selector_text.style.width = "100%";
+                selector_text.classList
+                    .add("text-light");
+
+                let text_len = selector_text.innerText.length;
+                let text_split = selector_text
+                    .innerText.split(" ");
+
+                let font_size = ((text_len - -8) * .4) / 100;
+
+                let fix_float_fs = (
+                    float, font_size,
+                    correction_float = .32,
+                    correction_font = .26,
+                    max_val = .9
+                ) => {
+                    float = float < correction_float ? correction_float * (font_size / correction_font) : float
+                    return max_val ? (float < max_val ? float : max_val) : float
+                }
+
+                selector_text.style.fontSize = `calc(${
+                    fix_float_fs(parseFloat(1.8 - font_size), font_size)
+                }vw + ${
+                    fix_float_fs(parseFloat(1.8 - font_size), font_size)
+                }vh + ${
+                    fix_float_fs(parseFloat(1.9 - font_size), font_size)
+                }vmin)`;
+
+                selector_text.style.padding = `${
+                    fix_float_fs(parseFloat(
+                        1.3 - font_size
+                    ), font_size, 0.22, 1.05)
+                }rem`;
+
+                let calculate_text_position = () => {
+                    // local init var
+                    let selector_text = document.getElementById(`news_text_${i}`);
+                    let font_size = parseFloat(window.getComputedStyle(
+                        selector_text, null
+                    ).getPropertyValue('font-size')
+                        .replace("px", ""));
+
+                    selector_text.style.maxHeight = "25vh";
+
+                    if (font_size > 16) {
+                        selector_text.style.position = "absolute";
+                        selector_text.style.textAlign = "center";
+                        selector_text.style.alignItems = "center";
+                        selector_text.style.height = "";
+                        selector_text.style.display = "inline-block";
+                        selector_text.style.paddingBottom = "5rem";
+                        selector_text.style.paddingRight = "3rem";
+                    } else {
+                        selector_text.style.position = "";
+                        selector_text.style.textAlign = "";
+                        selector_text.style.alignItems = "";
+                        selector_text.style.height = "";
+                        selector_text.style.display = "";
+                        selector_text.style.paddingBottom = "";
+                        selector_text.style.paddingRight = "";
+                    }
+                }
+                addEventListener('resize', (event) => calculate_text_position());
+                setInterval(calculate_text_position, 100);
             }
-            selector_text.style.fontSize = `calc(${
-                fix_float_fs(parseFloat(1.3 - font_size), font_size)
-            }vw + ${
-                fix_float_fs(parseFloat(1.5 - font_size), font_size)
-            }vh + ${
-                fix_float_fs(parseFloat(1.65 - font_size), font_size)
-            }vmin)`;
-            selector_text.style.padding = `${fix_float_fs(parseFloat(1.3 - font_size), font_size, 0.22, 1.05)}rem`;
             getImageLightness(posts[i].cover, function(brightness) {
-                let style_ = `#000000${(((parseFloat(brightness) / 255.0) * 100.0).toFixed() + 64)
+                let style_ = `#000000${
+                    (((parseFloat(brightness) / 255.0) * 100.0)
+                        .toFixed() + 64)
                     .toString(16)
-                    .slice(0, 2)}`;
+                    .slice(0, 2)
+                }`;
                 document
                     .getElementById(`news-overlay-${i}`).style.background = style_;
             });
-            let calculate_text_position = () => {
-                // local init var
-                let selector_text = document.getElementById(`news_text_${i}`);
-                let font_size = parseFloat(window.getComputedStyle(
-                    selector_text, null
-                ).getPropertyValue('font-size')
-                    .replace("px", ""));
-
-                if (font_size > 24) {
-                    selector_text.style.position = "absolute";
-                    selector_text.style.textAlign = "center";
-                    selector_text.style.alignItems = "center";
-                    selector_text.style.height = "100%";
-                    selector_text.style.display = "inline-block";
-                    selector_text.style.paddingBottom = "5rem";
-                    selector_text.style.paddingRight = "3rem";
-                } else {
-                    selector_text.style.position = "";
-                    selector_text.style.textAlign = "";
-                    selector_text.style.alignItems = "";
-                    selector_text.style.height = "";
-                    selector_text.style.display = "";
-                    selector_text.style.paddingBottom = "";
-                    selector_text.style.paddingRight = "";
-                }
-            }
-            addEventListener('resize', (event) => calculate_text_position());
-            setInterval(calculate_text_position, 200);
         }
         let loading_done = function() {
             setTimeout(function() {
@@ -477,9 +504,7 @@ function get_game_server_data(callback) {
             } else {
                 crypto_token = "";
             }
-        }, `${backend_host}/server`, "POST", true, {
-            crypto_token: crypto_token,
-        });
+        }, `${backend_host}/server?crypto_token=${encodeURIComponent(crypto_token)}`, "GET", true);
     } else {
         initCrypto();
         freeze_monitoring = false;
@@ -2455,6 +2480,17 @@ function initSmoothScrollObserver() {
     window.onhashchange = callScroller;
 }
 
+function autoAuthTelegramObserver() {
+    checkTelegramAuthData(function (success) {
+        console.log(`Telegram auth check status : ${success}`);
+        if (success) {
+            const button_auth = document.querySelector(".avatar-container");
+
+            button_auth.removeAttribute("onclick");
+        }
+    })
+}
+
 const initCore = function() {
     initHost();
     initCrypto();
@@ -2476,6 +2512,8 @@ const initCore = function() {
     donateContainerHash();
     rulesPrivateContainerHash();
     adminsContactContainerHash();
+
+    autoAuthTelegramObserver();
 
     let elem = document
         .getElementById("dark-perm-set-bv");
