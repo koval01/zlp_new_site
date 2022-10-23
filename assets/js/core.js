@@ -392,13 +392,13 @@ function appendPostsNews() {
                     ).getPropertyValue('font-size')
                         .replace("px", ""));
 
-                    selector_text.style.maxHeight = "25vh";
+                    selector_text.style.maxHeight = "32vh";
 
                     if (font_size > 16) {
                         selector_text.style.position = "absolute";
                         selector_text.style.textAlign = "center";
                         selector_text.style.alignItems = "center";
-                        selector_text.style.height = "";
+                        // selector_text.style.height = "";
                         selector_text.style.display = "inline-block";
                         selector_text.style.paddingBottom = "5rem";
                         selector_text.style.paddingRight = "3rem";
@@ -406,7 +406,7 @@ function appendPostsNews() {
                         selector_text.style.position = "";
                         selector_text.style.textAlign = "";
                         selector_text.style.alignItems = "";
-                        selector_text.style.height = "";
+                        // selector_text.style.height = "";
                         selector_text.style.display = "";
                         selector_text.style.paddingBottom = "";
                         selector_text.style.paddingRight = "";
