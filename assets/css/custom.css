@@ -1009,8 +1009,8 @@ figure.news-figure > .background-news > .background-news-overlay {
   background: calc(0.6vh + 0.8vw);
   height: 100%;
   overflow: hidden;
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
 }
 figure.news-figure > .background-news > .background-news-overlay > .background-news-overlay-dark-mode {
   background-color: rgba(0, 0, 0, 0);
