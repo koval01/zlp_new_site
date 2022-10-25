@@ -210,7 +210,7 @@ function getNoun(number, one = "игрок", two = "игрока", five = "иг�
     return five;
 }
 
-function getCrypto(callback, source) {
+function getCrypto(callback) {
     re_check(function(token_update) {
         requestCall(function(r) {
             if (r.success) {
@@ -304,13 +304,13 @@ function appendPostsNews() {
 
             array_.innerHTML = array_.innerHTML + `
                 <div class="swiper-slide h-auto px-2">
-                    <figure class="card h-100 position-relative border-0 shadow-sm news-figure" id="news_figure_${i}">
+                    <figure class="card h-100 position-relative border-0 news-figure" id="news_figure_${i}">
                         <div class="background-news" id="background-news-${i}">
                             <div class="background-news-overlay" id="news-overlay-${i}">
                                 <div class="background-news-overlay-dark-mode">
                                     <div 
                                     style="z-index:6;top:35.1%;height:65%"
-                                    class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-bottom-shadow shadow-high-up"
+                                    class="shadow-vertical-overlay shadow-vertical-overlay-news vertical-bottom-shadow shadow-high-up"
                                     ></div>
                                     <blockquote class="card-body mt-2 mb-3 news-text-container">
                                         <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family:sans-serif">
@@ -626,6 +626,12 @@ function create_payment(callback, customer, products, server_id, email = "", cou
             success_url: `https://${work_domain_v}`,
         });
     });
+}
+
+function generateGiftLink(callback, payment_id) {
+    getCrypto(function (crypto_token) {
+        callback(`${backend_host}/gift/private_server?payment_id=${payment_id}&crypto_token=${encodeURIComponent(crypto_token)}`)
+    })
 }
 
 function check_coupon(callback, coupon) {

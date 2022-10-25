@@ -879,7 +879,7 @@ a:hover
   margin: auto
   padding: 0 !important
   margin-bottom: 0 !important
-  box-shadow: 0 0 25px var($shadow-news-block) !important
+  box-shadow: 0 -1rem 25px var($shadow-news-block) !important
   transition: box-shadow 1s
   width: 90%
 
@@ -997,7 +997,11 @@ figure.news-figure
 .dark-mode .shadow-vertical-overlay
   --vertical-shadow-color: 14, 14, 16, 1
 
-.shadow-vertical-overlay-dark
+.shadow-vertical-overlay-news
+  transition: background .6s !important
+  --vertical-shadow-color: 255, 255, 255, 1 !important
+
+.dark-mode .shadow-vertical-overlay-news
   --vertical-shadow-color: 14, 14, 16, 1 !important
 
 .transparent-vertical-shadow
