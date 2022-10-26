@@ -45,7 +45,7 @@ var current_c_item = 0;
 var telegram_cookie_token =
     "telegram_auth"
 
-function initHost() {
+const initHost = () => {
     const keys = Object.keys(
         site_domains);
     for (let i = 0; i < keys
@@ -58,24 +58,24 @@ function initHost() {
     }
 }
 
-function linkHash() {
+const linkHash = () => {
     return window.location.hash
         .substring(1);
 }
 
-function utf8_to_b64(str) {
+const utf8_to_b64 = (str) => {
     return window.btoa(unescape(
         encodeURIComponent(str)
     ));
 }
 
-function b64_to_utf8(str) {
+const b64_to_utf8 = (str) => {
     return decodeURIComponent(escape(
         window.atob(str)));
 }
 
-function getAvatarColorIDforTG(
-    user_id) {
+const getAvatarColorIDforTG = (
+    user_id) => {
     var result = 0;
     var base = 1;
     while (user_id > 0) {
@@ -88,12 +88,12 @@ function getAvatarColorIDforTG(
         .slice(-1));
 }
 
-function getHash(link) {
+const getHash = (link) => {
     const hash = window.location.hash
         .substr(1);
     return Object.keys(hash.split("&")
-        .reduce(function (result,
-                          item) {
+        .reduce((result,
+                 item) => {
             const parts = item
                 .split("=");
             result[parts[0]] =
@@ -102,15 +102,15 @@ function getHash(link) {
         }, {}))[0];
 }
 
-function re_check(callback) {
-    grecaptcha.ready(function () {
+const re_check = (callback) => {
+    grecaptcha.ready(() => {
         grecaptcha
             .execute(re_token, {
                 action: "submit",
             })
-            .then(function (
+            .then((
                 token_update
-            ) {
+            ) => {
                 callback(
                     token_update
                 );
@@ -118,7 +118,7 @@ function re_check(callback) {
     });
 }
 
-function shuffle(array) {
+const shuffle = (array) => {
     let currentIndex = array.length,
         randomIndex;
 
@@ -136,7 +136,7 @@ function shuffle(array) {
     return array;
 }
 
-function alternateSort(list) {
+const alternateSort = (list) => {
     let minIndex = 0;
     let minVal = 0;
 
@@ -161,8 +161,8 @@ function alternateSort(list) {
     }
 }
 
-function getImageLightness(imageSrc,
-                           callback) {
+const getImageLightness = (imageSrc,
+                           callback) => {
     const img = document.createElement(
         "img");
     img.src = imageSrc;
@@ -172,7 +172,7 @@ function getImageLightness(imageSrc,
 
     let colorSum = 0;
 
-    img.onload = function () {
+    img.onload = () => {
         const canvas = document
             .createElement(
                 "canvas");
@@ -212,7 +212,7 @@ function getImageLightness(imageSrc,
     };
 }
 
-function validateEmail(email) {
+const validateEmail = (email) => {
     return String(email)
         .toLowerCase()
         .match(
@@ -220,8 +220,8 @@ function validateEmail(email) {
         );
 }
 
-function url_builder_(base_url,
-                      submit_data_) {
+const url_builder_ = (base_url,
+                      submit_data_) => {
     const url = new URL(base_url);
 
     for (let i = 0; i < submit_data_
@@ -234,13 +234,13 @@ function url_builder_(base_url,
     return url.href;
 }
 
-function countProperties(obj) {
+const countProperties = (obj) => {
     return Object.keys(obj)
         .length;
 }
 
-function getNoun(number, one = "игрок",
-                 two = "игрока", five = "игроков") {
+const getNoun = (number, one = "игрок",
+                 two = "игрока", five = "игроков") => {
     let n = Math.abs(number);
 
     n %= 100;
@@ -259,10 +259,10 @@ function getNoun(number, one = "игрок",
     return five;
 }
 
-function getCrypto(callback) {
-    re_check(function (token_update) {
-        requestCall(function (
-                r) {
+const getCrypto = (callback) => {
+    re_check((token_update) => {
+        requestCall((
+                r) => {
                 if (r
                     .success
                 ) {
@@ -282,10 +282,10 @@ function getCrypto(callback) {
     });
 }
 
-function get_events_(callback) {
-    re_check(function (token_update) {
-        requestCall(function (
-                r) {
+const get_events_ = (callback) => {
+    re_check((token_update) => {
+        requestCall((
+                r) => {
                 callback(r
                     .events
                 );
@@ -297,14 +297,14 @@ function get_events_(callback) {
     });
 }
 
-function get_yt_video_(callback,
-                       video_id, skip = false) {
+const get_yt_video_ = (callback,
+                       video_id, skip = false) => {
     if (!skip) {
-        re_check(function (
-            token_update) {
+        re_check((
+            token_update) => {
             requestCall(
-                function (
-                    r) {
+                (
+                    r) => {
                     callback
                     (r
                         .body);
@@ -321,10 +321,10 @@ function get_yt_video_(callback,
     }
 }
 
-function get_news_(callback, source) {
-    re_check(function (token_update) {
-        requestCall(function (
-                r) {
+const get_news_ = (callback, source) => {
+    re_check((token_update) => {
+        requestCall((
+                r) => {
                 callback(r
                     .messages
                 );
@@ -336,17 +336,17 @@ function get_news_(callback, source) {
     });
 }
 
-function get_rules_private_server(
-    callback) {
-    requestCall(function (r) {
+const get_rules_private_server = (
+    callback) => {
+    requestCall((r) => {
             callback(r);
         },
         "assets/data/private_server_rules.json",
         "GET", true);
 }
 
-function appendPostsNews() {
-    const createSwiper = function () {
+const appendPostsNews = () => {
+    const createSwiper = () => {
         new Swiper(
             "#news_swipe_container", {
                 spaceBetween: 12,
@@ -371,8 +371,8 @@ function appendPostsNews() {
     };
     const text_modify_enable = true;
 
-    const add_news_in_array = function (
-        posts) {
+    const add_news_in_array = (
+        posts) => {
         const array_ = document
             .getElementById(
                 "news_swipe_array");
@@ -606,9 +606,9 @@ function appendPostsNews() {
             }
             getImageLightness(posts[
                     i].cover,
-                function (
+                (
                     brightness
-                ) {
+                ) => {
                     const
                         style_ = `#000000${
                             (((parseFloat(brightness) / 255.0) * 100.0)
@@ -626,9 +626,9 @@ function appendPostsNews() {
                 });
         }
         const loading_done =
-            function () {
+            () => {
                 setTimeout(
-                    function () {
+                    () => {
                         const
                             sl =
                                 document
@@ -662,21 +662,21 @@ function appendPostsNews() {
         }
     };
 
-    get_news_(function (posts) {
+    get_news_((posts) => {
         add_news_in_array(
             posts);
     }, 1);
 }
 
-function donateSwitchContainer(
-    display) {
+const donateSwitchContainer = (
+    display) => {
     const container = document
         .querySelector(
             ".donate-global-container");
 
-    const update_zIndex = function (
-        variable) {
-        setTimeout(function () {
+    const update_zIndex = (
+        variable) => {
+        setTimeout(() => {
             container.style
                 .zIndex =
                 variable;
@@ -706,10 +706,10 @@ function donateSwitchContainer(
     }
 }
 
-function get_game_server_data(
-    callback) {
-    const _data_error = function (ok =
-                                      false) {
+const get_game_server_data = (
+    callback) => {
+    const _data_error = (ok =
+                             false) => {
         let string_ = "";
 
         if (ok) {
@@ -725,9 +725,9 @@ function get_game_server_data(
             .innerText = string_;
     };
     if (crypto_token) {
-        requestCall(function (r) {
+        requestCall((r) => {
                 setTimeout(
-                    function () {
+                    () => {
                         freeze_monitoring
                             =
                             false;
@@ -748,12 +748,12 @@ function get_game_server_data(
     }
 }
 
-function monitoring_game_server_update() {
+const monitoring_game_server_update = () => {
     if (!freeze_monitoring) {
         freeze_monitoring = true;
 
-        get_game_server_data(function (
-            data) {
+        get_game_server_data((
+            data) => {
             if (data.online) {
                 if (typeof gameServerUpdater_setter !==
                     "undefined"
@@ -783,7 +783,7 @@ function monitoring_game_server_update() {
     }
 }
 
-function gameServerUpdater() {
+const gameServerUpdater = () => {
     monitoring_game_server_update();
     gameServerUpdater_setter =
         setInterval(
@@ -794,7 +794,7 @@ function gameServerUpdater() {
         6000);
 }
 
-function initEventsList() {
+const initEventsList = () => {
     const row_container = document
         .getElementById(
             "events-row-container");
@@ -806,16 +806,17 @@ function initEventsList() {
             "events-c-button");
     const row_class = ["row-cols-md-2",
         "row-cols-lg-2",
-        "row-cols-xl-3"];
+        "row-cols-xl-3"
+    ];
 
-    get_events_(function (data) {
+    get_events_((data) => {
         if (data && data
             .length) {
             events_block_load
                 .remove();
 
-            data.sort(function (
-                a, b) {
+            data.sort((
+                a, b) => {
                 const
                     keyA =
                         new Date(
@@ -841,8 +842,8 @@ function initEventsList() {
 
             const
                 time_correction =
-                    function (
-                        date) {
+                    (
+                        date) => {
                         const
                             userTimezoneOffset = -
                                     date
@@ -932,10 +933,10 @@ function initEventsList() {
     });
 }
 
-function get_donate_services(callback) {
-    re_check(function (token_update) {
-        requestCall(function (
-                r) {
+const get_donate_services = (callback) => {
+    re_check((token_update) => {
+        requestCall((
+                r) => {
                 callback(r
                     .services
                 );
@@ -947,12 +948,12 @@ function get_donate_services(callback) {
     });
 }
 
-function create_payment(callback,
+const create_payment = (callback,
                         customer, products, server_id,
-                        email = "", coupon = "") {
-    re_check(function (token_update) {
-        requestCall(function (
-                r) {
+                        email = "", coupon = "") => {
+    re_check((token_update) => {
+        requestCall((
+                r) => {
                 callback(r
                     .payment
                 );
@@ -970,20 +971,20 @@ function create_payment(callback,
     });
 }
 
-function generateGiftLink(callback,
-                          payment_id) {
-    getCrypto(function (crypto_token) {
+const generateGiftLink = (callback,
+                          payment_id) => {
+    getCrypto((crypto_token) => {
         callback(
             `${backend_host}/gift/private_server?payment_id=${payment_id}&crypto_token=${encodeURIComponent(crypto_token)}`
         )
     })
 }
 
-function check_coupon(callback,
-                      coupon) {
-    re_check(function (token_update) {
-        requestCall(function (
-                r) {
+const check_coupon = (callback,
+                      coupon) => {
+    re_check((token_update) => {
+        requestCall((
+                r) => {
                 if (r
                         .coupon &&
                     r
@@ -1006,12 +1007,12 @@ function check_coupon(callback,
     });
 }
 
-function checkTelegramAuthData(
-    callback) {
+const checkTelegramAuthData = (
+    callback) => {
     const auth_data = getTelegramAuth(
         true);
     if (auth_data) {
-        requestCall(function (r) {
+        requestCall((r) => {
                 if (r) {
                     callback(r
                         .success
@@ -1029,15 +1030,15 @@ function checkTelegramAuthData(
     }
 }
 
-function checkFeedbackStatus(callback) {
+const checkFeedbackStatus = (callback) => {
     const auth_data = getTelegramAuth(
         true);
     if (auth_data) {
-        re_check(function (
-            token_update) {
+        re_check((
+            token_update) => {
             requestCall(
-                function (
-                    r) {
+                (
+                    r) => {
                     if (r) {
                         callback
                         (r
@@ -1058,15 +1059,15 @@ function checkFeedbackStatus(callback) {
     }
 }
 
-function sendFeedback(callback, text) {
+const sendFeedback = (callback, text) => {
     const auth_data = getTelegramAuth(
         true);
     if (auth_data) {
-        re_check(function (
-            token_update) {
+        re_check((
+            token_update) => {
             requestCall(
-                function (
-                    r) {
+                (
+                    r) => {
                     if (r) {
                         callback
                         (r
@@ -1088,7 +1089,7 @@ function sendFeedback(callback, text) {
     }
 }
 
-function sendFeedbackAction() {
+const sendFeedbackAction = () => {
     const button = document
         .getElementById(
             "send-feedback-button");
@@ -1118,13 +1119,13 @@ function sendFeedbackAction() {
     }
 
     button_lock();
-    checkFeedbackStatus(function (
-        check_data) {
+    checkFeedbackStatus((
+        check_data) => {
         if (check_data) {
             sendFeedback(
-                function (
+                (
                     send_data
-                ) {
+                ) => {
                     if (
                         send_data) {
                         notify
@@ -1147,11 +1148,11 @@ function sendFeedbackAction() {
     });
 }
 
-function checkPayment(callback,
-                      payment_id) {
-    re_check(function (token_update) {
-        requestCall(function (
-                r) {
+const checkPayment = (callback,
+                      payment_id) => {
+    re_check((token_update) => {
+        requestCall((
+                r) => {
                 callback(r
                     .payment
                 );
@@ -1167,15 +1168,16 @@ function checkPayment(callback,
     });
 }
 
-function appendServices() {
-    get_donate_services(function (
-        services) {
+const appendServices = () => {
+    get_donate_services((
+        services) => {
         donate_services_array =
             services;
         const size_classes = [
             "row-cols-sm-2",
             "row-cols-md-3",
-            "row-cols-lg-4"];
+            "row-cols-lg-4"
+        ];
         const sl = document
             .getElementById(
                 "donate_items_list"
@@ -1386,7 +1388,7 @@ function appendServices() {
             }
 
             setTimeout(
-                function () {
+                () => {
                     const
                         elem =
                             document
@@ -1439,8 +1441,8 @@ function appendServices() {
     });
 }
 
-function switchEventsPages(
-    button_name) {
+const switchEventsPages = (
+    button_name) => {
     const news_page = document
         .getElementById(
             "news-c-container");
@@ -1496,15 +1498,15 @@ function switchEventsPages(
     }
 }
 
-function redirect_(url) {
+const redirect_ = (url) => {
     return window.location.replace(url);
 }
 
-function ytVideoSetter(skip = false) {
-    const set_video = function (el,
-                                video_id, params) {
+const ytVideoSetter = (skip = false) => {
+    const set_video = (el,
+                       video_id, params) => {
         const video = get_yt_video_(
-            function (data) {
+            (data) => {
                 if (data && data
                     .video.x720
                     .url && !
@@ -1557,7 +1559,7 @@ function ytVideoSetter(skip = false) {
     }
 }
 
-function modal_close_() {
+const modal_close_ = () => {
     if (modal_displayed) {
         document.body.classList.remove(
             "modal-open");
@@ -1571,7 +1573,7 @@ function modal_close_() {
             .getElementById(
                 "donate_item_modal");
         modal.style.opacity = 0;
-        setTimeout(function () {
+        setTimeout(() => {
             modal.style
                 .display =
                 "none";
@@ -1580,8 +1582,8 @@ function modal_close_() {
     }
 }
 
-function modal_open_(onclick_lock =
-                         false) {
+const modal_open_ = (onclick_lock =
+                         false) => {
     modal_displayed = true;
     document.body.classList.add(
         "modal-open");
@@ -1595,13 +1597,13 @@ function modal_open_(onclick_lock =
         .getElementById(
             "donate_item_modal");
     modal.style.display = "block";
-    setTimeout(function () {
+    setTimeout(() => {
         modal.style.opacity = 1;
     }, 50);
 
     if (!onclick_lock) {
-        window.onclick = function (
-            event) {
+        window.onclick = (
+            event) => {
             if (event.target ===
                 modal) {
                 modal_close_();
@@ -1610,8 +1612,8 @@ function modal_open_(onclick_lock =
     }
 }
 
-function switch_modal_containers(mode =
-                                     "service", info_params = {}) {
+const switch_modal_containers = (mode =
+                                     "service", info_params = {}) => {
     const span = document
         .getElementsByClassName(
             "close_b")[0];
@@ -1684,19 +1686,19 @@ function switch_modal_containers(mode =
         }
     }
 
-    span.onclick = function () {
+    span.onclick = () => {
         modal_close_();
     };
 }
 
-function discount_calculate(price,
-                            discount) {
+const discount_calculate = (price,
+                            discount) => {
     discount = discount / 100;
     return (price * discount)
         .toFixed();
 }
 
-function get_cookie_cart() {
+const get_cookie_cart = () => {
     let cookie_cart = {};
 
     try {
@@ -1707,14 +1709,14 @@ function get_cookie_cart() {
     return cookie_cart;
 }
 
-function updateCartCount() {
+const updateCartCount = () => {
     document.getElementById(
         "count_cart_items_dn")
         .innerText = countProperties(
         get_cookie_cart());
 }
 
-function groupAlreadyInCart(user_cart) {
+const groupAlreadyInCart = (user_cart) => {
     const cart = Object.keys(user_cart);
 
     for (let i = 0; i <
@@ -1734,8 +1736,8 @@ function groupAlreadyInCart(user_cart) {
     return false;
 }
 
-function comment_show_action(id, close =
-    false) {
+const comment_show_action = (id, close =
+    false) => {
     const comment_text = document
         .getElementById(
             `comment_text_${id}`);
@@ -1744,7 +1746,7 @@ function comment_show_action(id, close =
             `comment_show_${id}`);
 
     swiper_comments.on("slideChange",
-        function () {
+        () => {
             comment_show_action(id,
                 true);
         });
@@ -1768,12 +1770,12 @@ function comment_show_action(id, close =
     }
 }
 
-function initComments() {
+const initComments = () => {
     const array_ = document
         .getElementById(
             "comment_swipe_array");
 
-    const createSwiper = function () {
+    const createSwiper = () => {
         swiper_comments =
             new Swiper(
                 "#comment_swipe_container", {
@@ -1797,17 +1799,17 @@ function initComments() {
                 });
     };
 
-    const playersGet = function (
-        callback) {
-        requestCall(function (r) {
+    const playersGet = (
+        callback) => {
+        requestCall((r) => {
                 callback(r);
             },
             "assets/data/players.json",
             "GET", true);
     };
 
-    const searchPlayer = function (
-        players, name) {
+    const searchPlayer = (
+        players, name) => {
         for (let i = 0; i < players
             .length; i++) {
             if (players[i].name ===
@@ -1817,12 +1819,12 @@ function initComments() {
         }
     };
 
-    requestCall(function (r) {
+    requestCall((r) => {
             const comment = r;
             shuffle(comment);
 
-            playersGet(function (
-                players) {
+            playersGet((
+                players) => {
                 for (let i =
                     0; i <
                      comment
@@ -1924,12 +1926,12 @@ function initComments() {
         "GET", true);
 }
 
-function buildPlayersSwiper() {
+const buildPlayersSwiper = () => {
     const array_ = document
         .getElementById(
             "players-swiper-array");
 
-    const createSwiper = function () {
+    const createSwiper = () => {
         new Swiper(
             "#players_swipe_container", {
                 slidesPerView: 1,
@@ -1962,18 +1964,18 @@ function buildPlayersSwiper() {
             });
     };
 
-    const badges_get = function (
-        callback) {
-        requestCall(function (r) {
+    const badges_get = (
+        callback) => {
+        requestCall((r) => {
                 callback(r);
             },
             "assets/data/badges.json",
             "GET", true);
     };
 
-    badges_get(function (badges_paste) {
-        requestCall(function (
-                r) {
+    badges_get((badges_paste) => {
+        requestCall((
+                r) => {
                 const
                     player =
                         r;
@@ -1987,7 +1989,7 @@ function buildPlayersSwiper() {
                 ) {
                     // const ult_template = "";
 
-                    function getBadges() {
+                    const getBadges = () => {
                         let result =
                             "";
                         player
@@ -2036,7 +2038,7 @@ function buildPlayersSwiper() {
                         return result;
                     }
 
-                    function getClan() {
+                    const getClan = () => {
                         for (
                             let s =
                                 0; s <
@@ -2127,8 +2129,8 @@ function buildPlayersSwiper() {
     });
 }
 
-function donate_element_click(
-    product_data) {
+const donate_element_click = (
+    product_data) => {
     switch_modal_containers("service");
     const exclude_types = ["group"];
     const desc = document
@@ -2155,7 +2157,7 @@ function donate_element_click(
         get_cookie_cart();
     let switch_ = false;
 
-    const _update_count = function () {
+    const _update_count = () => {
         add_to_cart.setAttribute(
             "onClick",
             `donate_cart(${product_data.service_id}, ${items_count_donate.value})`
@@ -2212,7 +2214,7 @@ function donate_element_click(
     count_hint.style.display =
         count_state;
 
-    const only_dig = function () {
+    const only_dig = () => {
         const value =
             items_count_donate
                 .value;
@@ -2222,7 +2224,7 @@ function donate_element_click(
     };
 
     const _calculate_price =
-        function () {
+        () => {
             only_dig();
 
             if (!exclude_types.includes(
@@ -2275,13 +2277,13 @@ function donate_element_click(
 
     items_count_donate.addEventListener(
         "input",
-        function (_) {
+        (_) => {
             _calculate_price();
         });
     modal_open_();
 }
 
-function donate_get_service_by_id(id) {
+const donate_get_service_by_id = (id) => {
     for (let i = 0; i <
     donate_services_array
         .length; i++) {
@@ -2295,9 +2297,9 @@ function donate_get_service_by_id(id) {
     return null;
 }
 
-function donateResetPaymentState(type =
+const donateResetPaymentState = (type =
                                      1, repeat = false, coupon_reset =
-                                     false) {
+                                     false) => {
     const coupon_sl = document
         .getElementById(
             "donate-coins-payment");
@@ -2348,8 +2350,8 @@ function donateResetPaymentState(type =
         "Повторить" : "Дальше";
 }
 
-function donate_cart(product, count,
-                     remove = false) {
+const donate_cart = (product, count,
+                     remove = false) => {
     const cart = Cookies.get(
         cart_cookie);
     const cart_parsed =
@@ -2420,7 +2422,7 @@ function donate_cart(product, count,
     donateResetPaymentState();
 }
 
-function donate_cart_button(els = {}) {
+const donate_cart_button = (els = {}) => {
     const selector_ = document
         .querySelectorAll(
             ".donate-cart-button-cn");
@@ -2435,7 +2437,7 @@ function donate_cart_button(els = {}) {
 
         if (countProperties(els)) {
             sl.display = "flex";
-            setTimeout(function () {
+            setTimeout(() => {
                 sl.opacity = 1;
                 sl.marginTop =
                     "15px";
@@ -2449,7 +2451,7 @@ function donate_cart_button(els = {}) {
                 "disabled", "");
             sl.opacity = 0;
             sl.marginTop = "-50px";
-            setTimeout(function () {
+            setTimeout(() => {
                 sl.display =
                     "none";
             }, 350);
@@ -2457,13 +2459,13 @@ function donate_cart_button(els = {}) {
     }
 }
 
-function donateFlushCart() {
+const donateFlushCart = () => {
     Cookies.remove(cart_cookie);
     donate_cart_button({});
     notify("Корзина очищена");
 }
 
-function onTelegramAuth(user) {
+const onTelegramAuth = (user) => {
     Cookies.set(telegram_cookie_token,
         utf8_to_b64(JSON.stringify(
             user)));
@@ -2472,7 +2474,7 @@ function onTelegramAuth(user) {
         `Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name}</span>`);
 }
 
-function getTelegramAuth(raw = false) {
+const getTelegramAuth = (raw = false) => {
     const cookie_field = Cookies.get(
         telegram_cookie_token);
     if (cookie_field) {
@@ -2486,7 +2488,7 @@ function getTelegramAuth(raw = false) {
     }
 }
 
-function couponCheck(coins = false) {
+const couponCheck = (coins = false) => {
     let selector_c = "";
     if (coins_sell_mode) {
         selector_c = "-c";
@@ -2506,13 +2508,13 @@ function couponCheck(coins = false) {
             .toUpperCase();
     } catch (_) {}
 
-    const coupon_notfd = function () {
+    const coupon_notfd = () => {
         notify(
             `Купон <span class="text-primary fw-semibold">${failed_coupon}</span> не найден`);
     };
 
     const check_coupon_valid =
-        function (products, product) {
+        (products, product) => {
             if (products) {
                 for (let i = 0; i <
                 products.length; i++
@@ -2548,8 +2550,8 @@ function couponCheck(coins = false) {
         return;
     }
 
-    const input_lock = function (lock =
-                                     false) {
+    const input_lock = (lock =
+                            false) => {
         if (lock) {
             input.setAttribute(
                 "disabled", "");
@@ -2568,11 +2570,11 @@ function couponCheck(coins = false) {
     };
 
     input_lock(true);
-    check_coupon(function (r) {
+    check_coupon((r) => {
         // console.log(`check_coupon = ${typeof r}`);
         if (r) {
             const call =
-                function () {
+                () => {
                     checked_coupon
                         = code;
                     notify(
@@ -2617,8 +2619,8 @@ function couponCheck(coins = false) {
     }, code);
 }
 
-function donate_enable_coupon(enabled =
-                                  true) {
+const donate_enable_coupon = (enabled =
+                                  true) => {
     const input = document
         .getElementById("coupon-input");
     const button = document
@@ -2645,8 +2647,8 @@ function donate_enable_coupon(enabled =
     }
 }
 
-function generatePaymentLink(type = 1,
-                             sum = 0) {
+const generatePaymentLink = (type = 1,
+                             sum = 0) => {
     let selector_c = "";
     if (coins_sell_mode) {
         selector_c = "_c";
@@ -2744,8 +2746,8 @@ function generatePaymentLink(type = 1,
 
     const _d_service = get_data_service(
         current_c_item);
-    create_payment(function (
-            callback_data) {
+    create_payment((
+            callback_data) => {
             if (callback_data) {
                 button
                     .removeAttribute(
@@ -2771,7 +2773,7 @@ function generatePaymentLink(type = 1,
         coupon);
 }
 
-function payment_action_bt() {
+const payment_action_bt = () => {
     window.open(payment_url_global,
         "_blank");
 
@@ -2788,7 +2790,7 @@ function payment_action_bt() {
         .querySelector(".modal-title");
 
     const build_modal_wind =
-        function () {
+        () => {
             cart_dom.innerHTML = "";
             title.innerText = "";
             succ_text.innerText =
@@ -2804,12 +2806,13 @@ function payment_action_bt() {
         };
 
     const flush_inputs_donate =
-        function () {
+        () => {
             const inputs = [
                 "donate_sum",
                 "donate_customer_c",
                 "donate_email_c",
-                "coupon-input-c", ];
+                "coupon-input-c",
+            ];
             for (let i = 0; i < inputs
                 .length; i++) {
                 document.getElementById(
@@ -2818,7 +2821,7 @@ function payment_action_bt() {
             }
         };
 
-    const enable_modal = function () {
+    const enable_modal = () => {
         switch_modal_containers(
             "success");
         modal_open_();
@@ -2830,7 +2833,7 @@ function payment_action_bt() {
     enable_modal();
 }
 
-function donate_check_services_cart() {
+const donate_check_services_cart = () => {
     const services_cookie = Object.keys(
         get_cookie_cart());
     const services_origin =
@@ -2863,7 +2866,7 @@ function donate_check_services_cart() {
     }
 }
 
-function initDonate() {
+const initDonate = () => {
     let els = {};
 
     try {
@@ -2875,8 +2878,8 @@ function initDonate() {
     donate_enable_coupon(true);
 }
 
-function donateCartCall(coupon = null,
-                        nickname_update = true) {
+const donateCartCall = (coupon = null,
+                        nickname_update = true) => {
     const cart = get_cookie_cart();
     const cart_keys = Object.keys(cart);
     const cart_dom = document
@@ -2888,7 +2891,8 @@ function donateCartCall(coupon = null,
         document.getElementById(
             "donate_email"),
         document.getElementById(
-            "coupon-input"), ];
+            "coupon-input"),
+    ];
     switch_modal_containers(
         "donate_finish");
     modal_open_();
@@ -2899,7 +2903,7 @@ function donateCartCall(coupon = null,
     selectors_payment.length; i++) {
         selectors_payment[i]
             .addEventListener("input",
-                function (_) {
+                (_) => {
                     donateResetPaymentState
                     ();
                 });
@@ -2932,7 +2936,7 @@ function donateCartCall(coupon = null,
     }
 
     const coupon_container =
-        function () {
+        () => {
             cart_dom.innerHTML =
                 cart_dom.innerHTML + `<li class="list-group-item d-flex justify-content-between bg-light">
                 <div class="text-primary">
@@ -2942,7 +2946,7 @@ function donateCartCall(coupon = null,
             </li>`;
         };
 
-    const sum_container = function () {
+    const sum_container = () => {
         cart_dom.innerHTML =
             cart_dom.innerHTML + `<li class="list-group-item d-flex justify-content-between">
                 <span>Сумма</span>
@@ -2966,7 +2970,7 @@ function donateCartCall(coupon = null,
     }
 }
 
-function donateCoinsPay(type = 1) {
+const donateCoinsPay = (type = 1) => {
     const button = document
         .getElementById(
             "payment-button-donate_c");
@@ -2985,8 +2989,8 @@ function donateCoinsPay(type = 1) {
     );
 }
 
-function donateModalCall(type_item,
-                         item_id, nickname_update = true) {
+const donateModalCall = (type_item,
+                         item_id, nickname_update = true) => {
     const sum = document.getElementById(
         "donate_sum");
     const customer_field = document
@@ -3012,7 +3016,8 @@ function donateModalCall(type_item,
         document.getElementById(
             "donate_email_c"),
         document.getElementById(
-            "coupon-input-c"), ];
+            "coupon-input-c"),
+    ];
     const title = document
         .querySelector(".modal-title");
     let item_name;
@@ -3042,7 +3047,7 @@ function donateModalCall(type_item,
         `;
         item_name = "Токены";
         sum.addEventListener("input",
-            function (_) {
+            (_) => {
                 donateCoinsPay();
             });
     } else if (type_item === 2) {
@@ -3059,7 +3064,7 @@ function donateModalCall(type_item,
         item_name = "Пропуск";
         customer_field.addEventListener(
             "input",
-            function (_) {
+            (_) => {
                 donateCoinsPay(
                     type_item);
             });
@@ -3072,7 +3077,7 @@ function donateModalCall(type_item,
     selectors_payment.length; i++) {
         selectors_payment[i]
             .addEventListener("input",
-                function (_) {
+                (_) => {
                     donateResetPaymentState
                     (type_item);
                 });
@@ -3097,8 +3102,8 @@ function donateModalCall(type_item,
     update_title(item_name);
 }
 
-function linksSet(selector_,
-                  fisrt_el_mrg = false) {
+const linksSet = (selector_,
+                  fisrt_el_mrg = false) => {
     const sl = document.getElementById(
         selector_);
     let mrg =
@@ -3118,11 +3123,11 @@ function linksSet(selector_,
     }
 }
 
-function initCrypto() {
+const initCrypto = () => {
     if (!freeze_crypto) {
         freeze_crypto = true;
         crypto_token = "";
-        getCrypto(function (token_) {
+        getCrypto((token_) => {
             crypto_token =
                 token_;
             freeze_crypto =
@@ -3131,7 +3136,7 @@ function initCrypto() {
     }
 }
 
-function initLanding() {
+const initLanding = () => {
     if (development_hosts.includes(
             window.location.hostname) &&
         lock_of) {
@@ -3150,7 +3155,7 @@ function initLanding() {
     linksSet("links-block-footer-v");
 }
 
-function finishLoad() {
+const finishLoad = () => {
     document.querySelector("main")
         .setAttribute("style", "");
     document.querySelector("footer")
@@ -3169,7 +3174,7 @@ function finishLoad() {
     }
 }
 
-function observerSystemTheme() {
+const observerSystemTheme = () => {
     const mode_list = ["dark", "light"];
     const theme_switch = document
         .querySelector(
@@ -3204,8 +3209,8 @@ function observerSystemTheme() {
     }
 }
 
-function callSucessPayModal(payment_id =
-                                0) {
+const callSucessPayModal = (payment_id =
+                                0) => {
     let glob_func_payment_data;
     const item_nm_payment_result =
         false;
@@ -3269,8 +3274,8 @@ function callSucessPayModal(payment_id =
         }
     }
 
-    const buildPayment = function (
-        payment) {
+    const buildPayment = (
+        payment) => {
         if (payment.status &&
             payment_id == parseInt(
                 payment.id)) {
@@ -3401,8 +3406,8 @@ function callSucessPayModal(payment_id =
         }
     };
 
-    const enable_modal = function (
-        payment) {
+    const enable_modal = (
+        payment) => {
         buildPayment(payment);
         switch_modal_containers(
             "success");
@@ -3412,7 +3417,7 @@ function callSucessPayModal(payment_id =
         update_pm_desc();
     };
 
-    checkPayment(function (payment) {
+    checkPayment((payment) => {
         if (typeof payment
                 .status !==
             "undefined") {
@@ -3427,7 +3432,7 @@ function callSucessPayModal(payment_id =
     }, payment_id);
 }
 
-function successPay() {
+const successPay = () => {
     const url = new URL(window.location
         .href)
         .searchParams;
@@ -3439,10 +3444,11 @@ function successPay() {
     }
 }
 
-function donateContainerHash() {
+const donateContainerHash = () => {
     observerContainerHash(["donate",
-            "donate_block"],
-        function () {
+            "donate_block"
+        ],
+        () => {
             donate_displayed = true;
             donateSwitchContainer(
                 donate_displayed
@@ -3450,10 +3456,10 @@ function donateContainerHash() {
         });
 }
 
-function rulesModalOpen() {
+const rulesModalOpen = () => {
     let content = "";
-    get_rules_private_server(function (
-        rules) {
+    get_rules_private_server((
+        rules) => {
         for (let i = 0; i <
         rules.length; i++) {
             content += `
@@ -3480,17 +3486,18 @@ function rulesModalOpen() {
     });
 }
 
-function rulesPrivateContainerHash() {
+const rulesPrivateContainerHash = () => {
     observerContainerHash([
-            "private_rules"],
-        function () {
+            "private_rules"
+        ],
+        () => {
             rulesModalOpen();
         });
 }
 
-function openAdminContact() {
-    checkTelegramAuthData(function (
-        data) {
+const openAdminContact = () => {
+    checkTelegramAuthData((
+        data) => {
         if (data) {
             switch_modal_containers
             ("info", {
@@ -3568,17 +3575,18 @@ function openAdminContact() {
     });
 }
 
-function adminsContactContainerHash() {
+const adminsContactContainerHash = () => {
     observerContainerHash(["contact",
         "support", "bug",
-        "report"], function () {
+        "report"
+    ], () => {
         openAdminContact();
     });
 }
 
-function observerContainerHash(
-    hash_array, action) {
-    const updater = function () {
+const observerContainerHash = (
+    hash_array, action) => {
+    const updater = () => {
         if (hash_array.includes(
             linkHash())) {
             action();
@@ -3591,7 +3599,7 @@ function observerContainerHash(
             updater());
 }
 
-function openTelegramAuthModal() {
+const openTelegramAuthModal = () => {
     console.log(
         "Telegram auth preparing..."
     );
@@ -3616,7 +3624,7 @@ function openTelegramAuthModal() {
         "onTelegramAuth(user)");
 
     script_telegram_widget.onload =
-        function () {
+        () => {
             switch_modal_containers(
                 "info", {
                     title: "",
@@ -3654,7 +3662,7 @@ function openTelegramAuthModal() {
         script_telegram_widget);
 }
 
-function initJarallax() {
+const initJarallax = () => {
     jarallax(document.querySelectorAll(
         '.jarallax'), {
         speed: 0.15,
@@ -3662,15 +3670,15 @@ function initJarallax() {
     });
 }
 
-function initTooltip() {
+const initTooltip = () => {
     const tooltipTriggerList = [].slice
         .call(document.querySelectorAll(
             '[data-bs-toggle="tooltip"]'
         ));
     const tooltipList =
         tooltipTriggerList
-            .map(function (
-                tooltipTriggerEl) {
+            .map((
+                tooltipTriggerEl) => {
                 tooltip_instance =
                     new bootstrap
                         .Tooltip(
@@ -3684,14 +3692,14 @@ function initTooltip() {
             });
 
     if (tooltip_instance) {
-        setInterval(function () {
+        setInterval(() => {
             tooltip_instance
                 .update();
         }, 1000);
     }
 }
 
-function initSmoothScrollObserver() {
+const initSmoothScrollObserver = () => {
     const scrollerObject =
         new SmoothScroll("section");
 
@@ -3721,9 +3729,9 @@ function initSmoothScrollObserver() {
     window.onhashchange = callScroller;
 }
 
-function autoAuthTelegramObserver() {
-    checkTelegramAuthData(function (
-        success) {
+const autoAuthTelegramObserver = () => {
+    checkTelegramAuthData((
+        success) => {
         console.log(
             `Telegram auth check status : ${success}`
         );
@@ -3750,7 +3758,7 @@ function autoAuthTelegramObserver() {
     })
 }
 
-const initCore = function () {
+const initCore = () => {
     initHost();
     initCrypto();
     initLanding();
@@ -3780,7 +3788,7 @@ const initCore = function () {
     elem.parentNode.removeChild(
         elem);
 
-    window.onload = function () {
+    window.onload = () => {
         if (!debug_lock_init) {
             const preloader =
                 document
@@ -3791,7 +3799,7 @@ const initCore = function () {
             const move_wait =
                 100;
             setTimeout(
-                function () {
+                () => {
                     preloader
                         .classList
                         .remove(
@@ -3812,7 +3820,7 @@ const initCore = function () {
                         });
                 }, wait);
             setTimeout(
-                function () {
+                () => {
                     preloader
                         .remove();
 
@@ -3827,6 +3835,6 @@ const initCore = function () {
     };
 };
 
-script_core.onload = function () {
+script_core.onload = () => {
     initCore();
 };
