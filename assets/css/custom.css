@@ -1438,8 +1438,6 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   }
 }
 #server-hub-icon {
-  position: absolute !important;
-  height: 22rem;
   width: 22rem;
   top: -1rem;
   right: 1rem;
@@ -1462,7 +1460,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 }
 @media (max-width: 991px) {
   #server-hub-icon {
-    width: 32vw;
+    width: 30vw;
   }
 }
 @media (max-width: 767px) {
