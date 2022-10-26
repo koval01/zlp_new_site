@@ -45,7 +45,7 @@ var current_c_item = 0;
 var telegram_cookie_token = "telegram_auth"
 
 function initHost() {
-    let keys = Object.keys(site_domains);
+    const keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
         if (site_domains[keys[i]] === window.location.hostname) {
             work_domain_v = site_domains[keys[i]];
@@ -78,11 +78,11 @@ function getAvatarColorIDforTG(user_id) {
 }
 
 function getHash(link) {
-    let hash = window.location.hash
+    const hash = window.location.hash
         .substr(1);
     return Object.keys(hash.split("&")
         .reduce(function(result, item) {
-            let parts = item
+            const parts = item
                 .split("=");
             result[parts[0]] = parts[1];
             return result;
@@ -131,7 +131,7 @@ function alternateSort(list) {
         }
 
         if (minVal < list[i]) {
-            let temp = list[i];
+            const temp = list[i];
             list[i] = list[minIndex];
             list[minIndex] = temp;
         }
@@ -139,7 +139,7 @@ function alternateSort(list) {
 }
 
 function getImageLightness(imageSrc, callback) {
-    let img = document.createElement("img");
+    const img = document.createElement("img");
     img.src = imageSrc;
     img.crossOrigin = "Anonymous";
     img.style.display = "none";
@@ -148,17 +148,17 @@ function getImageLightness(imageSrc, callback) {
     let colorSum = 0;
 
     img.onload = function() {
-        let canvas = document
+        const canvas = document
             .createElement("canvas");
         canvas.width = this.width;
         canvas.height = this.height;
 
-        let ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d");
         ctx.drawImage(this, 0, 0);
 
-        let imageData = ctx
+        const imageData = ctx
             .getImageData(0, 0, canvas.width, canvas.height);
-        let data = imageData.data;
+        const data = imageData.data;
         let r, g, b, avg;
 
         for (let x = 0, len = data.length; x < len; x += 4) {
@@ -170,7 +170,7 @@ function getImageLightness(imageSrc, callback) {
             colorSum += avg;
         }
 
-        let brightness = Math.floor(colorSum / (this.width * this.height));
+        const brightness = Math.floor(colorSum / (this.width * this.height));
         callback(brightness);
 
         img.remove();
@@ -184,7 +184,7 @@ function validateEmail(email) {
 }
 
 function url_builder_(base_url, submit_data_) {
-    let url = new URL(base_url);
+    const url = new URL(base_url);
 
     for (let i = 0; i < submit_data_.length; i++) {
         url.searchParams.set(submit_data_[i].name, submit_data_[i].value);
@@ -266,7 +266,7 @@ function get_rules_private_server(callback) {
 }
 
 function appendPostsNews() {
-    let createSwiper = function() {
+    const createSwiper = function() {
         new Swiper("#news_swipe_container", {
             spaceBetween: 12,
             loop: true,
@@ -289,14 +289,14 @@ function appendPostsNews() {
     };
     const text_modify_enable = true;
 
-    let add_news_in_array = function(posts) {
-        let array_ = document
+    const add_news_in_array = function(posts) {
+        const array_ = document
             .getElementById("news_swipe_array");
         posts = posts.reverse();
 
         for (let i = 0; i < posts.length; i++) {
-            let text = posts[i].text;
-            let datetime = new Date(posts[i].datetime_utc);
+            const text = posts[i].text;
+            const datetime = new Date(posts[i].datetime_utc);
 
             if (!posts[i].cover) {
                 posts[i].cover = "assets/images/spawn.webp";
@@ -334,25 +334,25 @@ function appendPostsNews() {
                 </div>
             `;
 
-            let selector_bg = document
+            const selector_bg = document
                 .getElementById(`background-news-${i}`);
             selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
 
             if (text_modify_enable) {
-                let selector_text = document
+                const selector_text = document
                     .getElementById(`news_text_${i}`);
 
                 selector_text.style.width = "100%";
                 selector_text.classList
                     .add("text-light");
 
-                let text_len = selector_text.innerText.length;
-                let text_split = selector_text
+                const text_len = selector_text.innerText.length;
+                const text_split = selector_text
                     .innerText.split(" ");
 
-                let font_size = ((text_len - -8) * .4) / 100;
+                const font_size = ((text_len - -8) * .4) / 100;
 
-                let fix_float_fs = (
+                const fix_float_fs = (
                     float, font_size,
                     correction_float = .32,
                     correction_font = .26,
@@ -376,10 +376,10 @@ function appendPostsNews() {
                     ), font_size, 0.22, 1.05)
                 }rem`;
 
-                let calculate_text_position = () => {
+                const calculate_text_position = () => {
                     // local init var
-                    let selector_text = document.getElementById(`news_text_${i}`);
-                    let font_size = parseFloat(window.getComputedStyle(
+                    const selector_text = document.getElementById(`news_text_${i}`);
+                    const font_size = parseFloat(window.getComputedStyle(
                         selector_text, null
                     ).getPropertyValue('font-size')
                         .replace("px", ""));
@@ -408,7 +408,7 @@ function appendPostsNews() {
                 setInterval(calculate_text_position, 100);
             }
             getImageLightness(posts[i].cover, function(brightness) {
-                let style_ = `#000000${
+                const style_ = `#000000${
                     (((parseFloat(brightness) / 255.0) * 100.0)
                         .toFixed() + 64)
                     .toString(16)
@@ -418,11 +418,11 @@ function appendPostsNews() {
                     .getElementById(`news-overlay-${i}`).style.background = style_;
             });
         }
-        let loading_done = function() {
+        const loading_done = function() {
             setTimeout(function() {
-                let sl = document
+                const sl = document
                     .getElementById("telegram_block_load");
-                let container_news = document
+                const container_news = document
                     .getElementById("news_zlp_buttons");
 
                 try {
@@ -444,10 +444,10 @@ function appendPostsNews() {
 }
 
 function donateSwitchContainer(display) {
-    let container = document
+    const container = document
         .querySelector(".donate-global-container");
 
-    let update_zIndex = function(variable) {
+    const update_zIndex = function(variable) {
         setTimeout(function() {
             container.style.zIndex = variable;
         }, 850);
@@ -475,7 +475,7 @@ function donateSwitchContainer(display) {
 }
 
 function get_game_server_data(callback) {
-    let _data_error = function(ok = false) {
+    const _data_error = function(ok = false) {
         let string_ = "";
 
         if (ok) {
@@ -512,7 +512,7 @@ function monitoring_game_server_update() {
                 if (typeof gameServerUpdater_setter !== "undefined") {
                     clearInterval(gameServerUpdater_setter);
                 }
-                let selector = document
+                const selector = document
                     .getElementById("server_online_status");
                 selector
                     .classList
@@ -534,13 +534,13 @@ function gameServerUpdater() {
 }
 
 function initEventsList() {
-    let row_container = document
+    const row_container = document
         .getElementById("events-row-container");
-    let loader_ = document
+    const loader_ = document
         .getElementById("events_block_load");
-    let switch_button_ = document
+    const switch_button_ = document
         .getElementById("events-c-button");
-    let row_class = ["row-cols-md-2", "row-cols-lg-2", "row-cols-xl-3"];
+    const row_class = ["row-cols-md-2", "row-cols-lg-2", "row-cols-xl-3"];
 
     get_events_(function(data) {
         if (data && data.length) {
@@ -548,15 +548,15 @@ function initEventsList() {
                 .remove();
 
             data.sort(function(a, b) {
-                let keyA = new Date(a.date_start),
+                const keyA = new Date(a.date_start),
                     keyB = new Date(b.date_start);
                 if (keyA < keyB) return -1;
                 if (keyA > keyB) return 1;
                 return 0;
             });
 
-            let time_correction = function(date) {
-                let userTimezoneOffset = -date
+            const time_correction = function(date) {
+                const userTimezoneOffset = -date
                     .getTimezoneOffset() * 60000;
                 return new Date(date
                     .getTime() - userTimezoneOffset);
@@ -570,9 +570,9 @@ function initEventsList() {
                         .classList
                         .add(row_class[i]);
                 }
-                let st_date = time_correction(new Date(data[i].date_start));
-                let end_date = time_correction(new Date(data[i].date_end));
-                let time_in_moscow = new Date(new Date()
+                const st_date = time_correction(new Date(data[i].date_start));
+                const end_date = time_correction(new Date(data[i].date_end));
+                const time_in_moscow = new Date(new Date()
                     .toLocaleString("en-US", {
                         timeZone: "Europe/Moscow",
                     }));
@@ -582,7 +582,7 @@ function initEventsList() {
                 } else if (time_in_moscow > end_date) {
                     badge = "Завершено";
                 }
-                let template_ = `
+                const template_ = `
                     <div class="col">
                         <div class="object-block-col">
                             <h1>${data[i].title}</h1>
@@ -650,7 +650,7 @@ function check_coupon(callback, coupon) {
 }
 
 function checkTelegramAuthData(callback) {
-    let auth_data = getTelegramAuth(true);
+    const auth_data = getTelegramAuth(true);
     if (auth_data) {
         requestCall(function(r) {
             if (r) {
@@ -667,7 +667,7 @@ function checkTelegramAuthData(callback) {
 }
 
 function checkFeedbackStatus(callback) {
-    let auth_data = getTelegramAuth(true);
+    const auth_data = getTelegramAuth(true);
     if (auth_data) {
         re_check(function (token_update) {
             requestCall(function (r) {
@@ -684,7 +684,7 @@ function checkFeedbackStatus(callback) {
 }
 
 function sendFeedback(callback, text) {
-    let auth_data = getTelegramAuth(true);
+    const auth_data = getTelegramAuth(true);
     if (auth_data) {
         re_check(function (token_update) {
             requestCall(function (r) {
@@ -703,16 +703,16 @@ function sendFeedback(callback, text) {
 }
 
 function sendFeedbackAction() {
-    let button = document.getElementById("send-feedback-button");
-    let textarea = document.getElementById("admin-message");
-    let text = textarea.value;
+    const button = document.getElementById("send-feedback-button");
+    const textarea = document.getElementById("admin-message");
+    const text = textarea.value;
 
     if (text.length < 20) {
         notify("Сообщение очень короткое!");
         return;
     }
 
-    let button_lock = (lock = true) => {
+    const button_lock = (lock = true) => {
         if (lock) {
             button.setAttribute("disabled", "");
         } else {
@@ -754,11 +754,11 @@ function checkPayment(callback, payment_id) {
 function appendServices() {
     get_donate_services(function(services) {
         donate_services_array = services;
-        let size_classes = ["row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"];
-        let sl = document
+        const size_classes = ["row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"];
+        const sl = document
             .getElementById("donate_items_list");
 
-        let get_product_type = (name, type) => {
+        const get_product_type = (name, type) => {
             name = name
                 .toLowerCase();
             type = type
@@ -778,7 +778,7 @@ function appendServices() {
             donate_check_services_cart();
 
             for (let i = 0; i < services.length; i++) {
-                let click_data = {
+                const click_data = {
                     name: services[i].name,
                     price: services[i].price,
                     count: services[i].number,
@@ -790,7 +790,7 @@ function appendServices() {
                 products_by_serverid
                     .push(services[i]);
                 let _name = "";
-                let _desc = "";
+                // const _desc = "";
                 let padding_desc = "p-3";
                 let desc_template = `
                     <p class="mb-0">
@@ -882,9 +882,9 @@ function appendServices() {
             }
 
             setTimeout(function() {
-                let elem = document
+                const elem = document
                     .getElementById("donate_block_load");
-                let ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container", ];
+                const ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container", ];
 
                 try {
                     elem.parentNode
@@ -907,14 +907,14 @@ function appendServices() {
 }
 
 function switchEventsPages(button_name) {
-    let news_page = document
+    const news_page = document
         .getElementById("news-c-container");
-    let events_page = document
+    const events_page = document
         .getElementById("events-c-container");
 
-    let news_button = document
+    const news_button = document
         .getElementById("news-c-button");
-    let events_button = document
+    const events_button = document
         .getElementById("events-c-button");
 
     if (button_name !== events_page_state) {
@@ -950,8 +950,8 @@ function redirect_(url) {
 }
 
 function ytVideoSetter(skip = false) {
-    let set_video = function(el, video_id, params) {
-        let video = get_yt_video_(function(data) {
+    const set_video = function(el, video_id, params) {
+        const video = get_yt_video_(function(data) {
             if (data && data.video.x720.url && !skip) {
                 el.innerHTML = `
                     <video class="video-container" ${params.autoplay != null ? 'autoplay=""' : ""} ${params.muted != null ? 'muted=""' : ""} ${params.loop != null ? 'loop=""' : ""} ${params.controls != null ? 'controls=""' : ""} style="object-fit: contain">
@@ -971,7 +971,7 @@ function ytVideoSetter(skip = false) {
 
     for (let el of Array.from(document
         .getElementsByClassName("ytVideoSetter"))) {
-        let video_id = el.getAttribute("video_id");
+        const video_id = el.getAttribute("video_id");
 
         if (video_id && video_id.length && video_id.length < 20) {
             set_video(el, video_id, (params = {
@@ -993,7 +993,7 @@ function modal_close_() {
         document.body.classList.remove("modal-open");
         document.getElementById("scroll_butt_container").style.display = "";
         document.getElementsByTagName("html")[0].style.overflowY = ""
-        let modal = document.getElementById("donate_item_modal");
+        const modal = document.getElementById("donate_item_modal");
         modal.style.opacity = 0;
         setTimeout(function() {
             modal.style.display = "none";
@@ -1007,7 +1007,7 @@ function modal_open_(onclick_lock = false) {
     document.body.classList.add("modal-open");
     document.getElementById("scroll_butt_container").style.display = "none";
     document.getElementsByTagName("html")[0].style.overflowY = "hidden"
-    let modal = document.getElementById("donate_item_modal");
+    const modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
     setTimeout(function() {
         modal.style.opacity = 1;
@@ -1023,19 +1023,19 @@ function modal_open_(onclick_lock = false) {
 }
 
 function switch_modal_containers(mode = "service", info_params = {}) {
-    let span = document
+    const span = document
         .getElementsByClassName("close_b")[0];
-    let info = document.getElementById("modal-info-container-c");
-    let service = document
+    const info = document.getElementById("modal-info-container-c");
+    const service = document
         .getElementById("modal-donate-container-c");
-    let service_coins = document
+    const service_coins = document
         .getElementById("modal-donate-finish-container-b");
-    let success = document
+    const success = document
         .getElementById("modal-donate-success-container");
-    let finish_donate = document
+    const finish_donate = document
         .getElementById("modal-donate-finish-container-c");
-    let title = document.querySelector(".modal-title");
-    let _array = [{
+    const title = document.querySelector(".modal-title");
+    const _array = [{
         name: "service",
         selector: service,
         title: "Товар",
@@ -1102,7 +1102,7 @@ function updateCartCount() {
 }
 
 function groupAlreadyInCart(user_cart) {
-    let cart = Object.keys(user_cart);
+    const cart = Object.keys(user_cart);
 
     for (let i = 0; i < donate_services_array.length; i++) {
         if (donate_services_array[i].type === "group") {
@@ -1116,9 +1116,9 @@ function groupAlreadyInCart(user_cart) {
 }
 
 function comment_show_action(id, close = false) {
-    let comment_text = document
+    const comment_text = document
         .getElementById(`comment_text_${id}`);
-    let comment_show = document
+    const comment_show = document
         .getElementById(`comment_show_${id}`);
 
     swiper_comments.on("slideChange", function() {
@@ -1138,10 +1138,10 @@ function comment_show_action(id, close = false) {
 }
 
 function initComments() {
-    let array_ = document
+    const array_ = document
         .getElementById("comment_swipe_array");
 
-    let createSwiper = function() {
+    const createSwiper = function() {
         swiper_comments = new Swiper("#comment_swipe_container", {
             spaceBetween: 12,
             loop: true,
@@ -1163,13 +1163,13 @@ function initComments() {
         });
     };
 
-    let playersGet = function(callback) {
+    const playersGet = function(callback) {
         requestCall(function(r) {
             callback(r);
         }, "assets/data/players.json", "GET", true);
     };
 
-    let searchPlayer = function(players, name) {
+    const searchPlayer = function(players, name) {
         for (let i = 0; i < players.length; i++) {
             if (players[i].name === name) {
                 return players[i];
@@ -1178,12 +1178,12 @@ function initComments() {
     };
 
     requestCall(function(r) {
-        let comment = r;
+        const comment = r;
         shuffle(comment);
 
         playersGet(function(players) {
             for (let i = 0; i < comment.length; i++) {
-                let player = searchPlayer(players, comment[i].name);
+                const player = searchPlayer(players, comment[i].name);
 
                 array_.innerHTML = array_.innerHTML + `
                         <div class="swiper-slide h-auto px-2">
@@ -1210,16 +1210,16 @@ function initComments() {
                         </div>
                     `;
 
-                let comment_text = document
+                const comment_text = document
                     .getElementById(`comment_text_${i}`);
-                let comment_show = document
+                const comment_show = document
                     .getElementById(`comment_show_${i}`);
 
                 comment_show.style.fontWeight = "400";
                 comment_text.style.transition = "height 0.8s cubic-bezier(1, -0.3, 0, 1.21) 0s";
                 comment_text
                     .setAttribute("fullShowComment", "0");
-                let correction_height = 12;
+                const correction_height = 12;
 
                 if (comment_text.clientHeight > 100 + correction_height) {
                     comment_text.style.height = "100px";
@@ -1235,10 +1235,10 @@ function initComments() {
 }
 
 function buildPlayersSwiper() {
-    let array_ = document
+    const array_ = document
         .getElementById("players-swiper-array");
 
-    let createSwiper = function() {
+    const createSwiper = function() {
         new Swiper("#players_swipe_container", {
             slidesPerView: 1,
             spaceBetween: 24,
@@ -1270,7 +1270,7 @@ function buildPlayersSwiper() {
         });
     };
 
-    let badges_get = function(callback) {
+    const badges_get = function(callback) {
         requestCall(function(r) {
             callback(r);
         }, "assets/data/badges.json", "GET", true);
@@ -1278,11 +1278,11 @@ function buildPlayersSwiper() {
 
     badges_get(function(badges_paste) {
         requestCall(function(r) {
-            let player = r;
+            const player = r;
             shuffle(player);
 
             for (let i = 0; i < player.length; i++) {
-                let ult_template = "";
+                // const ult_template = "";
 
                 function getBadges() {
                     let result = "";
@@ -1291,7 +1291,7 @@ function buildPlayersSwiper() {
                         .badges
                         .sort();
                     for (let s = 0; s < player[i].badges.length; s++) {
-                        let badge_local = player[i].badges[s];
+                        const badge_local = player[i].badges[s];
                         if (badge_local && badge_local.length && badge_local !== "verified" && !badge_local
                             .includes("clan-")) {
                             result = result + `
@@ -1318,8 +1318,8 @@ function buildPlayersSwiper() {
 
                 glob_players
                     .push(player[i].name);
-                let player_badges_ = getBadges();
-                let player_clan = getClan();
+                const player_badges_ = getBadges();
+                const player_clan = getClan();
                 array_.innerHTML = array_.innerHTML + `
                     <div class="swiper-slide text-center">
                         <span class="d-block py-3">
@@ -1360,25 +1360,25 @@ function buildPlayersSwiper() {
 
 function donate_element_click(product_data) {
     switch_modal_containers("service");
-    let exclude_types = ["group"];
-    let desc = document.getElementById("donate_item_select_text");
-    let text_template = `Товар <span class="text-primary fw-semibold">${product_data.name}</span>,
+    const exclude_types = ["group"];
+    const desc = document.getElementById("donate_item_select_text");
+    const text_template = `Товар <span class="text-primary fw-semibold">${product_data.name}</span>,
             цена ${product_data.count} ${getNoun(product_data.count, "единицы", "единиц", "единиц")}
         <span class="text-primary fw-semibold">
             ${product_data.price}
             ${getNoun(product_data.price, "рубль", "рубля", "рублей")}
         </span>.
     `;
-    let items_count_donate = document
+    const items_count_donate = document
         .getElementById("items_count_donate");
-    let count_hint = document
+    const count_hint = document
         .getElementById("donate_count_text_hint");
-    let add_to_cart = document
+    const add_to_cart = document
         .getElementById("donate_button_add_to_cart");
-    let cookie_cart = get_cookie_cart();
+    const cookie_cart = get_cookie_cart();
     let switch_ = false;
 
-    let _update_count = function() {
+    const _update_count = function() {
         add_to_cart.setAttribute("onClick", `donate_cart(${product_data.service_id}, ${items_count_donate.value})`);
     };
 
@@ -1386,7 +1386,7 @@ function donate_element_click(product_data) {
 
     _update_count();
 
-    let product_in_cart = cookie_cart
+    const product_in_cart = cookie_cart
         .hasOwnProperty(product_data.service_id
             .toString());
 
@@ -1417,18 +1417,18 @@ function donate_element_click(product_data) {
     items_count_donate.style.display = count_state;
     count_hint.style.display = count_state;
 
-    let only_dig = function() {
-        let value = items_count_donate.value;
+    const only_dig = function() {
+        const value = items_count_donate.value;
         items_count_donate.value = value.replace(/\D+/g, "");
     };
 
-    let _calculate_price = function() {
+    const _calculate_price = function() {
         only_dig();
 
         if (!exclude_types.includes(product_data.type)) {
             let _price = parseInt(items_count_donate.value) * product_data.price;
 
-            let currenct_in_cart = cookie_cart[product_data.service_id];
+            const currenct_in_cart = cookie_cart[product_data.service_id];
             let template_counter_i = "";
 
             if (isNaN(_price) || 1 > Math.sign(_price)) {
@@ -1480,9 +1480,9 @@ function donate_get_service_by_id(id) {
 }
 
 function donateResetPaymentState(type = 1, repeat = false, coupon_reset = false) {
-    let coupon_sl = document
+    const coupon_sl = document
         .getElementById("donate-coins-payment");
-    let inputs = [
+    const inputs = [
         "donate_sum",
         "donate_customer_c",
         "donate_email_c",
@@ -1495,9 +1495,9 @@ function donateResetPaymentState(type = 1, repeat = false, coupon_reset = false)
         sl = "";
         vl = 0;
     }
-    let button = document
+    const button = document
         .getElementById("payment-button-donate" + sl);
-    let update_inputs = () => {
+    const update_inputs = () => {
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].includes("coupon") && !coupon_reset) {
                 // pass
@@ -1518,14 +1518,14 @@ function donateResetPaymentState(type = 1, repeat = false, coupon_reset = false)
 }
 
 function donate_cart(product, count, remove = false) {
-    let cart = Cookies.get(cart_cookie);
-    let cart_parsed = get_cookie_cart();
+    const cart = Cookies.get(cart_cookie);
+    const cart_parsed = get_cookie_cart();
     let product_count_in_cart = 0;
-    let max_item_count = 15000;
-    let local_prm = '<span style="color: #a4a6ff">';
+    const max_item_count = 15000;
+    const local_prm = '<span style="color: #a4a6ff">';
 
     try {
-        let p = cart_parsed[product];
+        const p = cart_parsed[product];
 
         if (Number.isInteger(p)) {
             product_count_in_cart = +p;
@@ -1547,8 +1547,8 @@ function donate_cart(product, count, remove = false) {
             .stringify({}));
     }
 
-    let els_ = JSON.parse(Cookies.get(cart_cookie));
-    let product_data = donate_get_service_by_id(product);
+    const els_ = JSON.parse(Cookies.get(cart_cookie));
+    const product_data = donate_get_service_by_id(product);
 
     if (remove) {
         delete els_[product];
@@ -1576,7 +1576,7 @@ function donate_cart(product, count, remove = false) {
 }
 
 function donate_cart_button(els = {}) {
-    let selector_ = document
+    const selector_ = document
         .querySelectorAll(".donate-cart-button-cn");
 
     if (coins_sell_mode) {
@@ -1584,7 +1584,7 @@ function donate_cart_button(els = {}) {
     }
 
     for (let i = 0; i < selector_.length; i++) {
-        let sl = selector_[i].style;
+        const sl = selector_[i].style;
 
         if (countProperties(els)) {
             sl.display = "flex";
@@ -1618,7 +1618,7 @@ function onTelegramAuth(user) {
 }
 
 function getTelegramAuth(raw=false) {
-    let cookie_field = Cookies.get(telegram_cookie_token);
+    const cookie_field = Cookies.get(telegram_cookie_token);
     if (cookie_field) {
         if (raw) {
             return cookie_field;
@@ -1634,8 +1634,8 @@ function couponCheck(coins = false) {
         selector_c = "-c";
     }
 
-    let input = document.getElementById("coupon-input" + selector_c);
-    let button = document
+    const input = document.getElementById("coupon-input" + selector_c);
+    const button = document
         .getElementById("coupon-button" + selector_c);
     let code = "";
 
@@ -1643,11 +1643,11 @@ function couponCheck(coins = false) {
         code = input.value.trim().toUpperCase();
     } catch (_) {}
 
-    let coupon_notfd = function() {
+    const coupon_notfd = function() {
         notify(`Купон <span class="text-primary fw-semibold">${failed_coupon}</span> не найден`);
     };
 
-    let check_coupon_valid = function(products, product) {
+    const check_coupon_valid = function(products, product) {
         if (products) {
             for (let i = 0; i < products.length; i++) {
                 if (products[i].id === current_c_item) {
@@ -1675,7 +1675,7 @@ function couponCheck(coins = false) {
         return;
     }
 
-    let input_lock = function(lock = false) {
+    const input_lock = function(lock = false) {
         if (lock) {
             input.setAttribute("disabled", "");
             button.setAttribute("disabled", "");
@@ -1691,7 +1691,7 @@ function couponCheck(coins = false) {
     check_coupon(function(r) {
         // console.log(`check_coupon = ${typeof r}`);
         if (r) {
-            let call = function() {
+            const call = function() {
                 checked_coupon = code;
                 notify(`Купон <span class="text-primary fw-semibold">${code}</span> действительный`);
             };
@@ -1700,7 +1700,7 @@ function couponCheck(coins = false) {
                 donateCartCall(code, false);
             } else if (check_coupon_valid(r.products, current_c_item)) {
                 call();
-                let sl = document
+                const sl = document
                     .getElementById("donate-coins-payment");
                 sl.innerHTML = `<li class="list-group-item d-flex justify-content-between bg-light">
                         <div class="text-primary">
@@ -1723,8 +1723,8 @@ function couponCheck(coins = false) {
 }
 
 function donate_enable_coupon(enabled = true) {
-    let input = document.getElementById("coupon-input");
-    let button = document
+    const input = document.getElementById("coupon-input");
+    const button = document
         .getElementById("coupon-button");
 
     if (enabled) {
@@ -1744,16 +1744,16 @@ function generatePaymentLink(type = 1, sum = 0) {
     if (coins_sell_mode) {
         selector_c = "_c";
     }
-    let button = document
+    const button = document
         .getElementById("payment-button-donate" + selector_c);
-    let customer = document
+    const customer = document
         .getElementById("donate_customer" + selector_c)
         .value.trim();
     let email = document.getElementById("donate_email" + selector_c)
         .value.trim();
     let coupon = "";
-    let max_sum = 15000;
-    let local_prm = '<span style="color: #a4a6ff">';
+    const max_sum = 15000;
+    const local_prm = '<span style="color: #a4a6ff">';
 
     try {
         coupon = checked_coupon.trim();
@@ -1801,7 +1801,7 @@ function generatePaymentLink(type = 1, sum = 0) {
     button.setAttribute("disabled", "");
     button.innerText = "Проверяем данные...";
 
-    let get_data_service = (service_id) => {
+    const get_data_service = (service_id) => {
         for (let i = 0; i < products_by_serverid.length; i++) {
             if (parseInt(products_by_serverid[i].id) === parseInt(service_id)) {
                 return products_by_serverid[i];
@@ -1809,7 +1809,7 @@ function generatePaymentLink(type = 1, sum = 0) {
         }
     }
 
-    let _d_service = get_data_service(current_c_item);
+    const _d_service = get_data_service(current_c_item);
     create_payment(function(callback_data) {
         if (callback_data) {
             button
@@ -1827,15 +1827,15 @@ function generatePaymentLink(type = 1, sum = 0) {
 function payment_action_bt() {
     window.open(payment_url_global, "_blank");
 
-    let cart_dom = document
+    const cart_dom = document
         .getElementById("donate-cart-list-success");
-    let succ_text = document
+    const succ_text = document
         .getElementById("success-pay-text-js");
-    let cont_ok = document
+    const cont_ok = document
         .getElementById("only-ok-payment");
-    let title = document.querySelector(".modal-title");
+    const title = document.querySelector(".modal-title");
 
-    let build_modal_wind = function() {
+    const build_modal_wind = function() {
         cart_dom.innerHTML = "";
         title.innerText = "";
         succ_text.innerText = "Давай, плати. Шеф ждёт...";
@@ -1845,14 +1845,14 @@ function payment_action_bt() {
             .setAttribute("src", "assets/images/vova-gay.webp");
     };
 
-    let flush_inputs_donate = function() {
-        let inputs = ["donate_sum", "donate_customer_c", "donate_email_c", "coupon-input-c", ];
+    const flush_inputs_donate = function() {
+        const inputs = ["donate_sum", "donate_customer_c", "donate_email_c", "coupon-input-c", ];
         for (let i = 0; i < inputs.length; i++) {
             document.getElementById(inputs[i]).value = "";
         }
     };
 
-    let enable_modal = function() {
+    const enable_modal = function() {
         switch_modal_containers("success");
         modal_open_();
         build_modal_wind();
@@ -1864,9 +1864,9 @@ function payment_action_bt() {
 }
 
 function donate_check_services_cart() {
-    let services_cookie = Object.keys(get_cookie_cart());
-    let services_origin = donate_services_array;
-    let services = [];
+    const services_cookie = Object.keys(get_cookie_cart());
+    const services_origin = donate_services_array;
+    const services = [];
 
     for (let i = 0; i < services_origin.length; i++) {
         services.push(services_origin[i].id);
@@ -1874,7 +1874,7 @@ function donate_check_services_cart() {
 
     for (let i = 0; i < services_cookie.length; i++) {
         if (!services.includes(parseInt(services_cookie[i]))) {
-            let cart = JSON.parse(Cookies.get(cart_cookie));
+            const cart = JSON.parse(Cookies.get(cart_cookie));
             delete cart[parseInt(services_cookie[i])];
             Cookies.set(cart_cookie, JSON.stringify(cart));
             console.log(`Remove ${services_cookie[i]} from cart`);
@@ -1894,11 +1894,11 @@ function initDonate() {
 }
 
 function donateCartCall(coupon = null, nickname_update = true) {
-    let cart = get_cookie_cart();
-    let cart_keys = Object.keys(cart);
-    let cart_dom = document
+    const cart = get_cookie_cart();
+    const cart_keys = Object.keys(cart);
+    const cart_dom = document
         .getElementById("donate-cart-list");
-    let selectors_payment = [document.getElementById("donate_customer"), document.getElementById("donate_email"), document.getElementById("coupon-input"), ];
+    const selectors_payment = [document.getElementById("donate_customer"), document.getElementById("donate_email"), document.getElementById("coupon-input"), ];
     switch_modal_containers("donate_finish");
     modal_open_();
     cart_dom.innerHTML = "";
@@ -1912,8 +1912,8 @@ function donateCartCall(coupon = null, nickname_update = true) {
     }
 
     for (let i = 0; i < cart_keys.length; i++) {
-        let item = donate_get_service_by_id(cart_keys[i]);
-        let price = item.price * cart[item.id];
+        const item = donate_get_service_by_id(cart_keys[i]);
+        const price = item.price * cart[item.id];
         sum_price += price;
         cart_dom.innerHTML = cart_dom.innerHTML + `
             <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -1932,7 +1932,7 @@ function donateCartCall(coupon = null, nickname_update = true) {
         `;
     }
 
-    let coupon_container = function() {
+    const coupon_container = function() {
         cart_dom.innerHTML = cart_dom.innerHTML + `<li class="list-group-item d-flex justify-content-between bg-light">
                 <div class="text-primary">
                     <h6 class="my-0 text-start">Купон</h6>
@@ -1941,7 +1941,7 @@ function donateCartCall(coupon = null, nickname_update = true) {
             </li>`;
     };
 
-    let sum_container = function() {
+    const sum_container = function() {
         cart_dom.innerHTML = cart_dom.innerHTML + `<li class="list-group-item d-flex justify-content-between">
                 <span>Сумма</span>
                 <strong>${sum_price} ${getNoun(sum_price, "рубль", "рубля", "рублей")}</strong>
@@ -1963,7 +1963,7 @@ function donateCartCall(coupon = null, nickname_update = true) {
 }
 
 function donateCoinsPay(type = 1) {
-    let button = document
+    const button = document
         .getElementById("payment-button-donate_c");
     let sum = document.getElementById("donate_sum");
 
@@ -1977,20 +1977,20 @@ function donateCoinsPay(type = 1) {
 }
 
 function donateModalCall(type_item, item_id, nickname_update = true) {
-    let sum = document.getElementById("donate_sum");
-    let customer_field = document
+    const sum = document.getElementById("donate_sum");
+    const customer_field = document
         .getElementById("donate_customer_c");
-    let sum_container = document
+    const sum_container = document
         .getElementById("sum-tokens-container");
-    let email_container_classL = document.getElementById("customer-email-tokens-container").classList;
-    let modal_payment_text = document
+    const email_container_classL = document.getElementById("customer-email-tokens-container").classList;
+    const modal_payment_text = document
         .getElementById("donate-text-span");
     let payment_text_form;
-    let selectors_payment = [document.getElementById("donate_sum"), document.getElementById("donate_customer_c"), document.getElementById("donate_email_c"), document.getElementById("coupon-input-c"), ];
-    let title = document.querySelector(".modal-title");
+    const selectors_payment = [document.getElementById("donate_sum"), document.getElementById("donate_customer_c"), document.getElementById("donate_email_c"), document.getElementById("coupon-input-c"), ];
+    const title = document.querySelector(".modal-title");
     let item_name;
 
-    let update_title = (descriptor) => {
+    const update_title = (descriptor) => {
         title.innerText = title
             .innerText.replace(/\([\s\S]*?\)/)
             .trim();
@@ -2048,7 +2048,7 @@ function donateModalCall(type_item, item_id, nickname_update = true) {
 }
 
 function linksSet(selector_, fisrt_el_mrg = false) {
-    let sl = document.getElementById(selector_);
+    const sl = document.getElementById(selector_);
     let mrg = "margin-left: 0 !important";
 
     for (let i = 0; i < links_lt.length; i++) {
@@ -2090,7 +2090,7 @@ function finishLoad() {
         .setAttribute("style", "");
     document.querySelector("footer")
         .setAttribute("style", "");
-    let heart = '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: 0.7rem;bottom:-1px"><b>❤️</b></i>';
+    const heart = '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: 0.7rem;bottom:-1px"><b>❤️</b></i>';
     document.getElementById("footer-text-blc").innerHTML = `Создал KovalYRS с ${heart}, специально для ZALUPA.ONLINE`;
     if (grecaptcha) {
         document.getElementById("re-badge-text").innerText = "This site uses Google ReCaptcha technology";
@@ -2098,12 +2098,12 @@ function finishLoad() {
 }
 
 function observerSystemTheme() {
-    let mode_list = ["dark", "light"];
-    let theme_switch = document
+    const mode_list = ["dark", "light"];
+    const theme_switch = document
         .querySelector('[data-bs-toggle="mode"]')
         .querySelector(".form-check-input");
 
-    let updateTheme = (mode) => {
+    const updateTheme = (mode) => {
         if (mode === "dark") {
             root.classList.add("dark-mode");
             theme_switch.checked = true;
@@ -2114,7 +2114,7 @@ function observerSystemTheme() {
     };
 
     for (let i = 0; i < mode_list.length; i++) {
-        let observer = window
+        const observer = window
             .matchMedia(`(prefers-color-scheme: ${mode_list[i]})`);
         observer.addEventListener("change", (e) => e.matches && updateTheme(mode_list[i]));
     }
@@ -2122,20 +2122,20 @@ function observerSystemTheme() {
 
 function callSucessPayModal(payment_id = 0) {
     let glob_func_payment_data;
-    let item_nm_payment_result = false;
+    const item_nm_payment_result = false;
 
-    let cart_dom = document
+    const cart_dom = document
         .getElementById("donate-cart-list-success");
-    let succ_text = document
+    const succ_text = document
         .getElementById("success-pay-text-js");
-    let cont_ok = document
+    const cont_ok = document
         .getElementById("only-ok-payment");
-    let title = document.querySelector(".modal-title");
+    const title = document.querySelector(".modal-title");
 
     donateSwitchContainer(true);
 
-    let item_type_ = (product_name) => {
-        let t = (product_name).toLowerCase();
+    const item_type_ = (product_name) => {
+        const t = (product_name).toLowerCase();
 
         if (t.includes("токен")) {
             return 1;
@@ -2144,13 +2144,13 @@ function callSucessPayModal(payment_id = 0) {
         }
     }
 
-    let update_pm_desc = () => {
-        let img_product = glob_func_payment_data.product.image;
-        let name_product = glob_func_payment_data.product.name;
+    const update_pm_desc = () => {
+        const img_product = glob_func_payment_data.product.image;
+        const name_product = glob_func_payment_data.product.name;
 
         if (img_product && img_product.length) {
             document.querySelector(".payment-sucess-vova").src = img_product;
-            let name_selector = document.querySelector(".item-name-payment-result");
+            const name_selector = document.querySelector(".item-name-payment-result");
             if (item_nm_payment_result) {
                 name_selector.innerText = name_product;
             } else {
@@ -2159,13 +2159,13 @@ function callSucessPayModal(payment_id = 0) {
         }
     }
 
-    let buildPayment = function(payment) {
+    const buildPayment = function(payment) {
         if (payment.status && payment_id == parseInt(payment.id)) {
             glob_func_payment_data = payment;
             succ_text.innerText = "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
             cont_ok.style.display = "";
 
-            let item_type = item_type_(payment.product.name);
+            const item_type = item_type_(payment.product.name);
 
             let system_template = `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -2218,7 +2218,7 @@ function callSucessPayModal(payment_id = 0) {
             if (!payment.created_at || !payment.created_at.length) {
                 payment.created_at = "Неизвестно";
             } else {
-                let parsed_time = new Date(payment.created_at);
+                const parsed_time = new Date(payment.created_at);
                 payment.created_at = `${parsed_time.toLocaleDateString()} ${parsed_time.toLocaleTimeString()}`;
             }
 
@@ -2258,7 +2258,7 @@ function callSucessPayModal(payment_id = 0) {
         }
     };
 
-    let enable_modal = function(payment) {
+    const enable_modal = function(payment) {
         buildPayment(payment);
         switch_modal_containers("success");
         modal_open_();
@@ -2278,8 +2278,8 @@ function callSucessPayModal(payment_id = 0) {
 }
 
 function successPay() {
-    let url = new URL(window.location.href).searchParams;
-    let payment_id = url.get("pg_order_id");
+    const url = new URL(window.location.href).searchParams;
+    const payment_id = url.get("pg_order_id");
 
     if (payment_id) {
         callSucessPayModal(payment_id);
@@ -2346,15 +2346,15 @@ function openAdminContact() {
                         </button>
                     `
             });
-            let max_len = 3000;
-            let textarea = document.getElementById("admin-message");
-            let label = document.querySelector('label[for="admin-message"]');
-            let space = "\x20";
+            const max_len = 3000;
+            const textarea = document.getElementById("admin-message");
+            const label = document.querySelector('label[for="admin-message"]');
+            const space = "\x20";
             if (textarea.value.includes(space.repeat(3))) {
                 textarea.value = textarea.value.trim();
             }
             textarea.maxLength = max_len;
-            let update_len_counter = () => {
+            const update_len_counter = () => {
                 label.innerText = `${textarea.value.length}/${max_len}`;
             }
             update_len_counter();
@@ -2376,7 +2376,7 @@ function adminsContactContainerHash() {
 }
 
 function observerContainerHash(hash_array, action) {
-    let updater = function() {
+    const updater = function() {
         if (hash_array.includes(linkHash())) {
             action();
         }
@@ -2390,7 +2390,7 @@ function observerContainerHash(hash_array, action) {
 function openTelegramAuthModal() {
     console.log("Telegram auth preparing...");
     // modal_close_();
-    let script_telegram_widget = document.createElement(
+    const script_telegram_widget = document.createElement(
         'script');
 
     script_telegram_widget.src = "https://telegram.org/js/telegram-widget.js?21";
@@ -2408,9 +2408,9 @@ function openTelegramAuthModal() {
         modal_open_();
     }
 
-    let content = document.getElementById("info-content-modal");
-    let container = document.createElement("div");
-    let text = document.createElement("p");
+    const content = document.getElementById("info-content-modal");
+    const container = document.createElement("div");
+    const text = document.createElement("p");
 
     content.innerHTML = "";
     content.appendChild(container);
@@ -2437,9 +2437,9 @@ function initJarallax() {
 }
 
 function initTooltip() {
-    let tooltipTriggerList = [].slice
+    const tooltipTriggerList = [].slice
         .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    let tooltipList = tooltipTriggerList
+    const tooltipList = tooltipTriggerList
         .map(function(tooltipTriggerEl) {
             tooltip_instance = new bootstrap
                 .Tooltip(tooltipTriggerEl, {
@@ -2460,10 +2460,10 @@ function initTooltip() {
 }
 
 function initSmoothScrollObserver() {
-    let scrollerObject = new SmoothScroll("section");
+    const scrollerObject = new SmoothScroll("section");
 
-    let callScroller = () => {
-        let identifier = linkHash().toLowerCase();
+    const callScroller = () => {
+        const identifier = linkHash().toLowerCase();
 
         if (!(identifier && identifier.length) || ([
             "private_rules"
@@ -2517,16 +2517,16 @@ const initCore = function() {
 
     autoAuthTelegramObserver();
 
-    let elem = document
+    const elem = document
         .getElementById("dark-perm-set-bv");
     elem.parentNode.removeChild(elem);
 
     window.onload = function() {
         if (!debug_lock_init) {
-            let preloader = document
+            const preloader = document
                 .querySelector(".page-loading");
-            let wait = 1500;
-            let move_wait = 100;
+            const wait = 1500;
+            const move_wait = 100;
             setTimeout(function() {
                 preloader
                     .classList
