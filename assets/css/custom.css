@@ -1119,7 +1119,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 
 .shadow-vertical-overlay-news {
   transition: background 0.6s !important;
-  background: linear-gradient(var(--shadow-position-swiper), rgb(255, 255, 255) 15%, transparent 100%);
+  background: linear-gradient(var(--shadow-position-swiper), rgb(255, 255, 255) 15%, transparent 100%) !important;
 }
 
 .dark-mode .shadow-vertical-overlay-news {
