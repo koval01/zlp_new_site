@@ -988,7 +988,7 @@ figure.news-figure
 
 .vertical-bottom-shadow
   --shadow-position-swiper: to top
-  top: 90.1%
+  top: 80.1%
 
 .vertical-top-shadow
   --shadow-position-swiper: to bottom
@@ -999,10 +999,10 @@ figure.news-figure
 
 .shadow-vertical-overlay-news
   transition: background .6s !important
-  --vertical-shadow-color: 255, 255, 255, 1 !important
+  background: linear-gradient(var(--shadow-position-swiper),rgba(255, 255, 255, 1) 15%,transparent 100%)
 
 .dark-mode .shadow-vertical-overlay-news
-  --vertical-shadow-color: 14, 14, 16, 1 !important
+  background: linear-gradient(var(--shadow-position-swiper),rgba(14, 14, 16, 1) 15%,transparent 100%) !important
 
 .transparent-vertical-shadow
   --vertical-shadow-color: 255, 255, 255, .3 !important
@@ -1013,10 +1013,10 @@ figure.news-figure
 .shadow-vertical-overlay
   position: absolute
   width: 100%
-  height: 10%
+  height: 20%
   z-index: 1000
   pointer-events: none
-  --vertical-shadow-color: 255, 255, 255, 1
+  --vertical-shadow-color: 14, 14, 16, 1
   transition: width .6s
 
   background: linear-gradient(var(--shadow-position-swiper), rgba(var(--vertical-shadow-color)) 10%, rgba(0, 0, 0, 0) 90%)
