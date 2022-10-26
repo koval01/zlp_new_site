@@ -504,7 +504,7 @@ const appendPostsNews = () => {
                     .padding = `${
                     fix_float_fs(parseFloat(
                         1.3 - font_size
-                    ), font_size, 0.22, 1.05)
+                    ), font_size, .22, 1.05)
                 }rem`;
 
                 const
@@ -1888,7 +1888,7 @@ const initComments = () => {
                     comment_text
                         .style
                         .transition =
-                        "height 0.8s cubic-bezier(1, -0.3, 0, 1.21) 0s";
+                        "height .8s cubic-bezier(1, -.3, 0, 1.21) 0s";
                     comment_text
                         .setAttribute(
                             "fullShowComment",
@@ -3161,7 +3161,7 @@ const finishLoad = () => {
     document.querySelector("footer")
         .setAttribute("style", "");
     const heart =
-        '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: 0.7rem;bottom:-1px"><b>❤️</b></i>';
+        '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: .7rem;bottom:-1px"><b>❤️</b></i>';
     document.getElementById(
         "footer-text-blc")
         .innerHTML =
@@ -3665,7 +3665,7 @@ const openTelegramAuthModal = () => {
 const initJarallax = () => {
     jarallax(document.querySelectorAll(
         '.jarallax'), {
-        speed: 0.15,
+        speed: .15,
         type: "scale-opacity"
     });
 }
