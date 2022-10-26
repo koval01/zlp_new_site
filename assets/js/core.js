@@ -1619,10 +1619,12 @@ function onTelegramAuth(user) {
 
 function getTelegramAuth(raw=false) {
     let cookie_field = Cookies.get(telegram_cookie_token);
-    if (raw) {
-        return cookie_field;
-    } else if (cookie_field) {
-        return JSON.parse(b64_to_utf8(cookie_field));
+    if (cookie_field) {
+        if (raw) {
+            return cookie_field;
+        } else if (cookie_field) {
+            return JSON.parse(b64_to_utf8(cookie_field));
+        }
     }
 }
 
@@ -2482,9 +2484,11 @@ function autoAuthTelegramObserver() {
     checkTelegramAuthData(function (success) {
         console.log(`Telegram auth check status : ${success}`);
         if (success) {
+            const button_contact_land = document.getElementById("contact-button-land");
             const button_auth = document.querySelector(".avatar-container");
 
             button_auth.removeAttribute("onclick");
+            button_contact_land.style.display = "";
         }
     })
 }
