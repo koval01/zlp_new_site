@@ -9,7 +9,7 @@
     "name": "CREXLIGHT",
     "head": "https://cravatar.eu/helmhead/CREXLIGHT/256.png",
     "desc": "Любит дудеть в рог",
-    "badges": ["admin", "old", "developer", "legend", "boy"]
+    "badges": ["admin", "old", "developer", "python", "legend", "boy"]
   },
   {
     "name": "MinDzoM",
@@ -27,7 +27,7 @@
     "name": "KovalYRS",
     "head": "https://cravatar.eu/helmhead/KovalYRS/256.png",
     "desc": "Веб-разработчик",
-    "badges": ["admin", "developer", "old"]
+    "badges": ["admin", "developer", "js-dev", "python", "designer", "old"]
   },
   {
     "name": "JelleyFish",
@@ -81,7 +81,7 @@
     "name": "hauzmaster",
     "head": "https://cravatar.eu/helmhead/hauzmaster/256.png",
     "desc": "Все дюпы стоят за ним",
-    "badges": ["rich"]
+    "badges": []
   },
   {
     "name": "N3P1X69",
@@ -99,7 +99,7 @@
     "name": "i5b",
     "head": "https://cravatar.eu/helmhead/i5b/256.png",
     "desc": "24/7 на Анархии",
-    "badges": ["old", "rich"]
+    "badges": ["old"]
   },
   {
     "name": "v0kky",
@@ -117,7 +117,7 @@
     "name": "DjyZott",
     "head": "https://cravatar.eu/helmhead/DjyZott/256.png",
     "desc": "Хуйлан c Анархии",
-    "badges": ["old", "rich"]
+    "badges": ["old"]
   },
   {
     "name": "SaiG4",
@@ -135,7 +135,7 @@
     "name": "_AppleTony_",
     "head": "https://cravatar.eu/helmhead/_AppleTony_/256.png",
     "desc": "Главный админ проекта",
-    "badges": ["admin", "developer", "old", "legend", "king"]
+    "badges": ["admin", "tech-admin", "developer", "old", "legend", "king"]
   },
   {
     "name": "Marin1337",
@@ -153,7 +153,7 @@
     "name": "R3fraction",
     "head": "https://cravatar.eu/helmhead/R3fraction/256.png",
     "desc": "Лучшая вертушка на сервере",
-    "badges": ["conflict", "traveler"]
+    "badges": ["conflict"]
   },
   {
     "name": "TaidaKN",
@@ -171,7 +171,7 @@
     "name": "laefye",
     "head": "https://cravatar.eu/helmhead/laefye/256.png",
     "desc": "Ценный кадр",
-    "badges": ["developer"]
+    "badges": ["developer", "java"]
   },
   {
     "name": "2p0y",
@@ -183,13 +183,13 @@
     "name": "masha2008",
     "head": "assets/images/players/Masha2008.png",
     "desc": "Фанатка границ мира",
-    "badges": ["girl", "old", "traveler", "legend"]
+    "badges": ["girl", "old", "legend"]
   },
   {
     "name": "Elon_Tusk",
     "head": "assets/images/players/Elon_Tusk.png",
     "desc": "Очень любит девушек",
-    "badges": ["old", "traveler", "legend", "boy", "helping"]
+    "badges": ["old", "legend", "boy", "helping"]
   },
   {
     "name": "d1xx1",
@@ -225,13 +225,13 @@
     "name": "Varleims",
     "head": "assets/images/players/Varleims.png",
     "desc": "Голос как у Хесуса",
-    "badges": ["traveler", "boy"]
+    "badges": ["boy"]
   },
   {
     "name": "IIoska",
     "head": "assets/images/players/IIoska.png",
     "desc": "Создатель клана Yakuza",
-    "badges": ["traveler", "rich"]
+    "badges": []
   },
   {
     "name": "bagdantixi",

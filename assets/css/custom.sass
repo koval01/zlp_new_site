@@ -1308,7 +1308,14 @@ figure.news-figure
   #server-hub-icon
     width: 30vw
 
+@media (max-width: 799px)
+  #server-hub-icon
+    width: 32%
+
 @media (max-width: 767px)
+  .server-private-island-mobile
+    display: block !important
+
   #server-hub-icon
     display: none !important
 
@@ -1355,3 +1362,7 @@ label[for="admin-message"]
 @media (max-width: 450px)
   #news_swiper_pagination
     display: none
+
+.server-private-island-mobile
+  display: none
+  height: calc(14vh + 4vw)

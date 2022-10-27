@@ -3,13 +3,29 @@
     "title": "Админ",
     "item": "admin"
   },
-  "traveler": {
-    "title": "Путешественник",
-    "item": "camping"
+  "tech-admin": {
+    "title": "Тех. админ",
+    "item": "../linux-logo"
   },
   "developer": {
     "title": "Разработчик",
     "item": "sloth"
+  },
+  "java": {
+    "title": "Java Developer",
+    "item": "../java-logo"
+  },
+  "python": {
+    "title": "Python Developer",
+    "item": "../python-logo"
+  },
+  "js-dev": {
+    "title": "JS Developer",
+    "item": "../js-logo"
+  },
+  "designer": {
+    "title": "Дизайнер",
+    "item": "design-emoji"
   },
   "old": {
     "title": "Олд",
@@ -26,10 +42,6 @@
   "conflict": {
     "title": "Конфликтный",
     "item": "orangutan"
-  },
-  "rich": {
-    "title": "Богатый",
-    "item": "money-bag"
   },
   "legend": {
     "title": "Легенда",
