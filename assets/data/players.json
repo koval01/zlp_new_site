@@ -168,6 +168,12 @@
     "badges": ["old"]
   },
   {
+    "name": "laefye",
+    "head": "https://cravatar.eu/helmhead/laefye/256.png",
+    "desc": "Ценный кадр",
+    "badges": ["developer"]
+  },
+  {
     "name": "2p0y",
     "head": "assets/images/players/2p0y.png",
     "desc": "Мега-кодер на JS",
