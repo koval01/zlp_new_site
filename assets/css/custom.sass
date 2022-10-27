@@ -879,7 +879,7 @@ a:hover
   margin: auto
   padding: 0 !important
   margin-bottom: 0 !important
-  box-shadow: 0 0 25px var($shadow-news-block) !important
+  box-shadow: 0 -1rem 25px var($shadow-news-block) !important
   transition: box-shadow 1s
   width: 90%
 
@@ -902,8 +902,8 @@ figure.news-figure
       background: $border-news-figure
       height: 100%
       overflow: hidden
-      backdrop-filter: blur(3px)
-      -webkit-backdrop-filter: blur(3px)
+      backdrop-filter: blur(1px)
+      -webkit-backdrop-filter: blur(1px)
 
       > .background-news-overlay-dark-mode
         background-color: rgba(0, 0, 0, 0)
@@ -988,7 +988,7 @@ figure.news-figure
 
 .vertical-bottom-shadow
   --shadow-position-swiper: to top
-  top: 90.1%
+  top: 80.1%
 
 .vertical-top-shadow
   --shadow-position-swiper: to bottom
@@ -997,8 +997,12 @@ figure.news-figure
 .dark-mode .shadow-vertical-overlay
   --vertical-shadow-color: 14, 14, 16, 1
 
-.shadow-vertical-overlay-dark
-  --vertical-shadow-color: 14, 14, 16, 1 !important
+.shadow-vertical-overlay-news
+  transition: background .6s !important
+  background: linear-gradient(var(--shadow-position-swiper),rgba(255, 255, 255, 1) 15%,transparent 100%) !important
+
+.dark-mode .shadow-vertical-overlay-news
+  background: linear-gradient(var(--shadow-position-swiper),rgba(14, 14, 16, 1) 15%,transparent 100%) !important
 
 .transparent-vertical-shadow
   --vertical-shadow-color: 255, 255, 255, .3 !important
@@ -1009,10 +1013,10 @@ figure.news-figure
 .shadow-vertical-overlay
   position: absolute
   width: 100%
-  height: 10%
+  height: 20%
   z-index: 1000
   pointer-events: none
-  --vertical-shadow-color: 255, 255, 255, 1
+  --vertical-shadow-color: 14, 14, 16, 1
   transition: width .6s
 
   background: linear-gradient(var(--shadow-position-swiper), rgba(var(--vertical-shadow-color)) 10%, rgba(0, 0, 0, 0) 90%)
@@ -1284,8 +1288,6 @@ figure.news-figure
     text-align: center !important
 
 #server-hub-icon
-  position: absolute !important
-  height: 22rem
   width: 22rem
   top: -1rem
   right: 1rem
@@ -1304,7 +1306,7 @@ figure.news-figure
 
 @media (max-width: 991px)
   #server-hub-icon
-    width: 32vw
+    width: 30vw
 
 @media (max-width: 767px)
   #server-hub-icon

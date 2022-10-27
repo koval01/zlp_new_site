@@ -7,7 +7,7 @@
           content="Залупа – это проект в Minecraft стримера Братишкина. Он создавался как экспериментальный, но довольно быстро набрал обороты и разросся до больших масштабов, превратившись из небольшого сервера для фанатов этого стримера в целый пероект, который посещают другие контент-мейкеры.">
     <meta name="keywords" content="Minecraft, Twitch, Stream, Bratishkin, Майнкрафт, Твич, Стрим, Братишкин">
     <meta name="author" content="Yaroslav Koval">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -87,7 +87,7 @@
                 <label class="form-check-label d-none d-sm-block" for="theme-mode">Светло</label>
                 <label class="form-check-label d-none d-sm-block" for="theme-mode">Темно</label>
             </div>
-            <div style="display:none" class="avatar-container" onclick="openTelegramAuthModal()"></div>
+            <div style="display:none" id="telegram-auth-avatar" class="avatar-container" onclick="openTelegramAuthModal()"></div>
         </div>
     </header>
     <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
@@ -265,7 +265,7 @@
                                class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide"
                                data-scroll data-scroll-offset="40">
                                 Играть</a>
-                            <a style="display:none" onclick="openAdminContact()" href="#contact"
+                            <a id="contact-button-land" onclick="openAdminContact()" style="display:none" href="#contact"
                                class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
                                 Обратная связь</a>
                             <button onclick="donateSwitchContainer()"
@@ -389,7 +389,7 @@
                     ">
                     <div class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-top-shadow"></div>
                     <div class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-bottom-shadow"></div>
-                    <div class="black-filter_sr_hs"></div>
+                    <div class="black-filter_sr_hs" style="z-index:-2"></div>
                     <div class="container">
                         <h2 class="h1 text-center text-sm-start mb-4">Большое начало в 2021-м году</h2>
                         <p class="pb-2 pb-lg-4 pb-xl-5 mb-3">
@@ -428,7 +428,7 @@
                         </p>
                     </div>
                     <div id="server-hub-icon" class="position-relative overflow-hidden rounded-3 col-md-4 col-lg-3 order-lg-2 mb-2"
-                         style="padding:.8rem 0;margin:0!important;display:none">
+                         style="padding:.8rem 0;margin:0!important">
                         <div class="private-server-hub item-levitaion-dec"></div>
                     </div>
                 </div>
