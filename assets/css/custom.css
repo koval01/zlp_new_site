@@ -1515,4 +1515,10 @@ label[for=admin-message] {
   background-image: url(../images/telegram-icon.webp);
 }
 
+@media (max-width: 450px) {
+  #news_swiper_pagination {
+    display: none;
+  }
+}
+
 /*# sourceMappingURL=custom.css.map */

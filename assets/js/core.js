@@ -605,7 +605,7 @@ const appendPostsNews = () => {
                                 "32vh";
 
                             if (font_size >
-                                16
+                                12
                             ) {
                                 selector_text
                                     .style
@@ -1776,7 +1776,10 @@ const modal_open_ = (onclick_lock =
     document.getElementsByTagName(
         "html")[0].style
         .overflowY =
-        "hidden"
+        "hidden";
+    try {
+        document.getElementById("private_gift_button_modal").remove()
+    } catch (_) {}
     const modal = document
         .getElementById(
             "donate_item_modal");
@@ -3688,6 +3691,11 @@ const callSucessPayModal = (payment_id =
                 .display =
                 "";
 
+            const private_gift_button = document.createElement("button");
+            private_gift_button.id = "private_gift_button_modal";
+            private_gift_button.setAttribute("class", "btn btn-primary shadow-primary btn-lg mb-2 btn-shadow-hide");
+            private_gift_button.innerText = "button::init";
+
             const item_type =
                 item_type_(
                     payment
@@ -3734,6 +3742,8 @@ const callSucessPayModal = (payment_id =
                             <strong class="text-primary">${payment.product.price} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
                         </li>
                     `;
+                    console.log(document.querySelector("div.modal-footer"));
+                    document.querySelector("div.modal-footer").prepend(private_gift_button);
                 }
             }
 
