@@ -2621,7 +2621,7 @@ const donate_cart = (product, count,
     const cart_parsed =
         get_cookie_cart();
     let product_count_in_cart = 0;
-    const max_item_count = 15000;
+    const max_item_count = 30000;
     const local_prm =
         '<span style="color: #a4a6ff">';
 
