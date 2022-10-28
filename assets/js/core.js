@@ -83,6 +83,12 @@ const b64_to_utf8 = (str) => {
             window.atob(str)));
 }
 
+const generateRandomHex = size =>
+    [...Array(size)]
+        .map(() => Math.floor(
+            Math.random() * 16
+        ).toString(16)).join('')
+
 const getAvatarColorIDforTG = (
     user_id) => {
     var result = 0;
@@ -1078,7 +1084,10 @@ const generateGiftLink = (callback,
                           payment_id) => {
     getCrypto((crypto_token) => {
         callback(
-            `${backend_host}/gift/private_server?payment_id=${payment_id}&crypto_token=${encodeURIComponent(crypto_token)}`
+            `${backend_host}/gift/private_server?`+
+            `payment_id=${payment_id}&`+
+            `crypto_token=${encodeURIComponent(crypto_token)}&`+
+            `sign=${generateRandomHex(24)}`
         )
     })
 }
