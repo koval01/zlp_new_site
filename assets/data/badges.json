@@ -23,6 +23,10 @@
     "title": "JS Developer",
     "item": "../js-logo"
   },
+  "web-dev": {
+    "title": "WEB Developer",
+    "item": "../web-logo"
+  },
   "designer": {
     "title": "Дизайнер",
     "item": "design-emoji"

@@ -27,7 +27,7 @@
     "name": "KovalYRS",
     "head": "https://cravatar.eu/helmhead/KovalYRS/256.png",
     "desc": "Веб-разработчик",
-    "badges": ["admin", "developer", "js-dev", "python", "designer", "old"]
+    "badges": ["admin", "developer", "web-dev", "designer", "old"]
   },
   {
     "name": "JelleyFish",
@@ -171,7 +171,7 @@
     "name": "laefye",
     "head": "https://cravatar.eu/helmhead/laefye/256.png",
     "desc": "Ценный кадр",
-    "badges": ["developer", "java"]
+    "badges": ["developer", "java", "boy"]
   },
   {
     "name": "2p0y",

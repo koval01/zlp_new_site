@@ -550,6 +550,15 @@ body.modal-open
   .imageContainer
     position: relative
     width: max-content
+    display: block
+    margin: auto
+
+    >div
+      width: 100px
+      height: 100px
+      background-position: center
+      background-repeat: no-repeat
+      background-size: contain
 
     .foregroundImg
       cursor: pointer
@@ -1274,6 +1283,9 @@ figure.news-figure
   background: linear-gradient(to right, #6a1fdd, #ae27cc, #e444fc) !important
   -webkit-background-clip: text !important
 
+#private-server-container
+  max-width: 950px
+
 .private-server-hub
   background-image: url(../images/private-server-hub.webp)
   background-size: contain
@@ -1288,25 +1300,8 @@ figure.news-figure
     text-align: center !important
 
 #server-hub-icon
-  width: 22rem
   top: -1rem
   right: 1rem
-
-@media (max-width: 1800px)
-  #server-hub-icon
-    width: 20vw
-
-@media (max-width: 1500px)
-  #server-hub-icon
-    width: 22vw
-
-@media (max-width: 1300px)
-  #server-hub-icon
-    width: 24vw
-
-@media (max-width: 991px)
-  #server-hub-icon
-    width: 30vw
 
 @media (max-width: 799px)
   #server-hub-icon
