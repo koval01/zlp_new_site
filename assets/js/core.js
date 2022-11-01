@@ -83,11 +83,10 @@ const b64_to_utf8 = (str) => {
             window.atob(str)));
 }
 
-const generateRandomHex = size =>
-    [...Array(size)]
-        .map(() => Math.floor(
-            Math.random() * 16
-        ).toString(16)).join('')
+const generateRandomHex = size => [...Array(size)]
+    .map(() => Math.floor(
+        Math.random() * 16
+    ).toString(16)).join('')
 
 const getAvatarColorIDforTG = (
     user_id) => {
@@ -1084,9 +1083,9 @@ const generateGiftLink = (callback,
                           payment_id) => {
     getCrypto((crypto_token) => {
         callback(
-            `${backend_host}/gift/private_server?`+
-            `payment_id=${payment_id}&`+
-            `crypto_token=${encodeURIComponent(crypto_token)}&`+
+            `${backend_host}/gift/private_server?` +
+            `payment_id=${payment_id}&` +
+            `crypto_token=${encodeURIComponent(crypto_token)}&` +
             `sign=${generateRandomHex(24)}`
         )
     })
@@ -1516,6 +1515,9 @@ const appendServices = () => {
                             ${button_title}
                         </button>`;
                 }
+                services[i].image = services[i].image
+                    .replace("https://", "//")
+                    .replaceAll(/\//g, "\\/");
 
                 sl.innerHTML =
                     sl
@@ -1526,12 +1528,14 @@ const appendServices = () => {
                             <div class="parent-image-shadow donate_item_hover" 
                                 id="donate_item_hover_${services[i].id}">
                                 <div class="imageContainer item-levitaion-dec">
-                                    <img src="${services[i].image}"
-                                     class="rounded-3 foregroundImg" alt="${services[i].name}" 
-                                     style="display: block; margin: auto; width: 100px" loading="lazy">
-                                    <img src="${services[i].image}"
-                                     class="rounded-3 backgroundImg" alt="${services[i].name}" 
-                                     style="display: block; margin: auto; width: 100px" loading="lazy">
+                                    <div 
+                                    class="foregroundImg" 
+                                    style="background-image: url(${services[i].image})"
+                                    ></div>
+                                    <div 
+                                    class="backgroundImg" 
+                                    style="background-image: url(${services[i].image})"
+                                    ></div>                               
                                  </div>
                             </div>
                             <div class="card-img-overlay d-flex flex-column align-items-center 
@@ -1788,7 +1792,8 @@ const modal_open_ = (onclick_lock =
         "hidden";
     try {
         document.getElementById("private_gift_button_modal").remove()
-    } catch (_) {}
+    } catch (_) {
+    }
     const modal = document
         .getElementById(
             "donate_item_modal");
@@ -3570,7 +3575,8 @@ const finishLoad = () => {
 
 const observerSystemTheme = () => {
     const mode_list = ["dark",
-        "light"];
+        "light"
+    ];
     const theme_switch = document
         .querySelector(
             '[data-bs-toggle="mode"]'
@@ -4207,6 +4213,21 @@ const initSmoothScrollObserver = () => {
         callScroller;
 }
 
+const privateServerModuleInit = () => {
+    const desc = document.getElementById("private-server-hub-description");
+
+    desc.innerHTML = `
+        Проект Zalupa.Online за период своего существования от единого сервера
+        Анархии перерос в проект с несколькими режимами, один из таких – приватный
+        сервер с ванильным выживанием. Особенность этого сервера, что туда попадают
+        только те, кто поддержал сервер финансово. Также единственный режим, где вы
+        можете быть на уровне с администрацией, ведь здесь можно играть только с
+        правами обычного игрока, никаких привилегий. Также не забудь
+        <a class="text-gradient-primary" href="#private_rules" onclick="rulesModalOpen()">
+            прочитать правила</a>.
+    `;
+}
+
 const autoAuthTelegramObserver = () => {
     checkTelegramAuthData((
         success) => {
@@ -4270,6 +4291,8 @@ const initCore = () => {
     donateContainerHash();
     rulesPrivateContainerHash();
     adminsContactContainerHash();
+
+    privateServerModuleInit();
 
     autoAuthTelegramObserver();
 
