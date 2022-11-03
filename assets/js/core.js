@@ -1684,34 +1684,41 @@ const redirect_ = (url) => {
 }
 
 const ytVideoSetter = (skip =
-                           false) => {
+                           false, only_iframe = true) => {
+    const load_iframe = (el, video_id, params) => {
+        el.innerHTML = `
+            <iframe src="https://www.youtube.com/embed/${video_id}" title="YouTube video player"
+                frameborder="0" class="video-container-yt"
+                allow="accelerometer; ${params.autoplay != null ? "autoplay" : ""}; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen="" loading="lazy"></iframe>
+        `;
+    }
     const set_video = (el,
                        video_id, params) => {
-        const video =
-            get_yt_video_(
-                (data) => {
-                    if (data &&
-                        data
-                            .video
-                            .x720
-                            .url &&
-                        !
-                            skip) {
-                        el.innerHTML = `
+        if (only_iframe) {
+            load_iframe(el, video_id, params);
+        } else {
+            const video =
+                get_yt_video_(
+                    (data) => {
+                        if (data &&
+                            data
+                                .video
+                                .x720
+                                .url &&
+                            !
+                                skip) {
+                            el.innerHTML = `
                     <video class="video-container" ${params.autoplay != null ? 'autoplay=""' : ""} ${params.muted != null ? 'muted=""' : ""} ${params.loop != null ? 'loop=""' : ""} ${params.controls != null ? 'controls=""' : ""} style="object-fit: contain">
                         <source src="${data.video.x720.url}" type="video/mp4">
                     </video>
                 `;
-                    } else {
-                        el.innerHTML = `
-                    <iframe src="https://www.youtube.com/embed/${video_id}" title="YouTube video player"
-                        frameborder="0" class="video-container-yt"
-                        allow="accelerometer; ${params.autoplay != null ? "autoplay" : ""}; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen="" loading="lazy"></iframe>
-                `;
-                    }
-                }, video_id,
-                skip);
+                        } else {
+                            load_iframe(el, video_id, params);
+                        }
+                    }, video_id,
+                    skip);
+        }
     };
 
     for (let el of Array.from(
@@ -3757,7 +3764,6 @@ const callSucessPayModal = (payment_id =
                             <strong class="text-primary">${payment.product.price} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
                         </li>
                     `;
-                    console.log(document.querySelector("div.modal-footer"));
                     document.querySelector("div.modal-footer").prepend(private_gift_button);
                 }
             }
@@ -4286,7 +4292,7 @@ const initCore = () => {
     initJarallax();
     finishLoad();
     successPay();
-    ytVideoSetter(true);
+    ytVideoSetter();
 
     donateContainerHash();
     rulesPrivateContainerHash();
