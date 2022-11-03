@@ -2090,7 +2090,7 @@ const initComments = () => {
                                 <blockquote id="comment_block_${i}" class="card-body mt-2 mb-2" 
                                             style="transition: .8s height">
                                     <p id="comment_text_${i}" class="fs-md mb-0">
-                                            &#171;${comment[i].text}&#187;</p>
+                                            «${comment[i].text}»</p>
                                     <span id="comment_show_${i}" onclick="comment_show_action(${i})" 
                                           class="pt-1 comment-show-button">
                                             Раскрыть</span>
