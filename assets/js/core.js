@@ -3757,7 +3757,6 @@ const callSucessPayModal = (payment_id =
                             <strong class="text-primary">${payment.product.price} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
                         </li>
                     `;
-                    console.log(document.querySelector("div.modal-footer"));
                     document.querySelector("div.modal-footer").prepend(private_gift_button);
                 }
             }
