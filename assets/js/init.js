@@ -158,6 +158,12 @@ if (!development_hosts.includes(window
     }
 }
 
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-VGRQSK1J7M');
+
 init_logo_splash();
 
 let script_re = document.createElement(
