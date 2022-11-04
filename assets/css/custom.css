@@ -1199,7 +1199,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 .underline-button {
   position: relative;
   cursor: pointer;
-  font-size: calc(2vw + 1.4vh);
+  font-size: 1.8rem;
   font-weight: 400;
   line-height: 100%;
   color: var(--contr-color-var);

@@ -1,5 +1,4 @@
 "use strict";
-
 const site_domains = {
     prod: domain_site,
     dev: development_hosts[0],
@@ -10,25 +9,22 @@ const channels = 2;
 const links_lt = [{
     name: "twitch",
     link: "https://www.twitch.tv/bratishkinoff",
-},
-    {
-        name: "youtube",
-        link: "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ",
-    },
-    {
-        name: "telegram",
-        link: "https://t.me/zalupaonline",
-    },
-    {
-        name: "discord",
-        link: "https://discord.gg/qEqbVbMeEx",
-    },
-];
+}, {
+    name: "youtube",
+    link: "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ",
+}, {
+    name: "telegram",
+    link: "https://t.me/zalupaonline",
+}, {
+    name: "discord",
+    link: "https://discord.gg/qEqbVbMeEx",
+},];
 const lock_of = true;
 const coins_sell_mode = true;
 var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
+var glob_events_status = false;
 var timer_notify;
 var swiper_comments;
 var payment_url_global;
@@ -46,248 +42,128 @@ var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
 var current_c_item = 0;
-var telegram_cookie_token =
-    "telegram_auth"
-
+var telegram_cookie_token = "telegram_auth"
 const initHost = () => {
-    const keys = Object.keys(
-        site_domains);
-    for (let i = 0; i < keys
-        .length; i++) {
-        if (site_domains[keys[
-                i]] ===
-            window.location.hostname
-        ) {
-            work_domain_v =
-                site_domains[keys[
-                    i]];
+    const keys = Object.keys(site_domains);
+    for (let i = 0; i < keys.length; i++) {
+        if (site_domains[keys[i]] === window.location.hostname) {
+            work_domain_v = site_domains[keys[i]];
         }
     }
 }
-
 const linkHash = () => {
-    return window.location.hash
-        .substring(1);
+    return window.location.hash.substring(1);
 }
-
 const utf8_to_b64 = (str) => {
-    return window.btoa(unescape(
-        encodeURIComponent(
-            str)
-    ));
+    return window.btoa(unescape(encodeURIComponent(str)));
 }
-
 const b64_to_utf8 = (str) => {
-    return decodeURIComponent(
-        escape(
-            window.atob(str)));
+    return decodeURIComponent(escape(window.atob(str)));
 }
-
-const generateRandomHex = size => [...Array(size)]
-    .map(() => Math.floor(
-        Math.random() * 16
-    ).toString(16)).join('')
-
-const getAvatarColorIDforTG = (
-    user_id) => {
+const generateRandomHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
+const getAvatarColorIDforTG = (user_id) => {
     var result = 0;
     var base = 1;
     while (user_id > 0) {
-        result += (user_id % 7) *
-            base;
+        result += (user_id % 7) * base;
         base *= 10;
-        user_id = Math.floor(
-            user_id /
-            7);
+        user_id = Math.floor(user_id / 7);
     }
-    return parseInt(result
-        .toString()
-        .slice(-1));
+    return parseInt(result.toString().slice(-1));
 }
-
 const getHash = (link) => {
-    const hash = window.location
-        .hash
-        .substr(1);
-    return Object.keys(hash.split(
-        "&")
-        .reduce((result,
-                 item) => {
-            const parts =
-                item
-                    .split("=");
-            result[parts[
-                0]] =
-                parts[1];
-            return result;
-        }, {}))[0];
+    const hash = window.location.hash.substr(1);
+    return Object.keys(hash.split("&").reduce((result, item) => {
+        const parts = item.split("=");
+        result[parts[0]] = parts[1];
+        return result;
+    }, {}))[0];
 }
-
 const re_check = (callback) => {
     grecaptcha.ready(() => {
-        grecaptcha
-            .execute(
-                re_token, {
-                    action: "submit",
-                })
-            .then((
-                token_update
-            ) => {
-                callback
-                (
-                    token_update
-                );
-            });
+        grecaptcha.execute(re_token, {
+            action: "submit",
+        }).then((token_update) => {
+            callback(token_update);
+        });
     });
 }
-
 const shuffle = (array) => {
     let currentIndex = array.length,
         randomIndex;
-
     while (currentIndex !== 0) {
-        randomIndex = Math.floor(
-            Math
-                .random() *
-            currentIndex
-        );
+        randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
-        [array[currentIndex], array[
-            randomIndex]] = [array[
-            randomIndex], array[
-            currentIndex],];
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex],];
     }
-
     return array;
 }
-
 const alternateSort = (list) => {
     let minIndex = 0;
     let minVal = 0;
-
-    for (let i = 0; i < list
-        .length; i++) {
+    for (let i = 0; i < list.length; i++) {
         minIndex = i;
         minVal = list[i];
-
-        for (let j = i + 1; j < list
-            .length; j++) {
+        for (let j = i + 1; j < list.length; j++) {
             if (list[j] < minVal) {
                 minVal = list[j];
                 minIndex = j;
             }
         }
-
         if (minVal < list[i]) {
             const temp = list[i];
-            list[i] = list[
-                minIndex];
+            list[i] = list[minIndex];
             list[minIndex] = temp;
         }
     }
 }
-
-const getImageLightness = (imageSrc,
-                           callback) => {
-    const img = document
-        .createElement(
-            "img");
+const getImageLightness = (imageSrc, callback) => {
+    const img = document.createElement("img");
     img.src = imageSrc;
     img.crossOrigin = "Anonymous";
     img.style.display = "none";
     document.body.appendChild(img);
-
     let colorSum = 0;
-
     img.onload = () => {
-        const canvas = document
-            .createElement(
-                "canvas");
-        canvas.width = this
-            .width;
-        canvas.height = this
-            .height;
-
-        const ctx = canvas
-            .getContext("2d");
-        ctx.drawImage(this, 0,
-            0);
-
-        const imageData = ctx
-            .getImageData(0, 0,
-                canvas.width,
-                canvas
-                    .height);
-        const data = imageData
-            .data;
+        const canvas = document.createElement("canvas");
+        canvas.width = this.width;
+        canvas.height = this.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
         let r, g, b, avg;
-
-        for (let x = 0, len =
-            data
-                .length; x <
-             len; x += 4) {
+        for (let x = 0, len = data.length; x < len; x += 4) {
             r = data[x];
             g = data[x + 1];
             b = data[x + 2];
-
-            avg = Math.floor((
-                    r +
-                    g + b) /
-                3);
+            avg = Math.floor((r + g + b) / 3);
             colorSum += avg;
         }
-
-        const brightness = Math
-            .floor(colorSum / (
-                this
-                    .width *
-                this
-                    .height));
+        const brightness = Math.floor(colorSum / (this.width * this.height));
         callback(brightness);
-
         img.remove();
     };
 }
-
 const validateEmail = (email) => {
-    return String(email)
-        .toLowerCase()
-        .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
+    return String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 }
-
-const url_builder_ = (base_url,
-                      submit_data_) => {
+const url_builder_ = (base_url, submit_data_) => {
     const url = new URL(base_url);
-
-    for (let i = 0; i < submit_data_
-        .length; i++) {
-        url.searchParams.set(
-            submit_data_[i]
-                .name,
-            submit_data_[i]
-                .value);
+    for (let i = 0; i < submit_data_.length; i++) {
+        url.searchParams.set(submit_data_[i].name, submit_data_[i].value);
     }
-
     return url.href;
 }
-
 const countProperties = (obj) => {
-    return Object.keys(obj)
-        .length;
+    return Object.keys(obj).length;
 }
-
-const getNoun = (number, one = "игрок",
-                 two = "игрока", five = "игроков"
-) => {
+const getNoun = (number, one = "игрок", two = "игрока", five = "игроков") => {
     let n = Math.abs(number);
-
     n %= 100;
     if (n >= 5 && n <= 20) {
         return five
     }
-
     n %= 10;
     if (n === 1) {
         return one
@@ -295,71 +171,37 @@ const getNoun = (number, one = "игрок",
     if (n >= 2 && n <= 4) {
         return two
     }
-
     return five;
 }
-
 const getCrypto = (callback) => {
     re_check((token_update) => {
-        requestCall((
-                r) => {
-                if (r
-                    .success
-                ) {
-                    callback
-                    (r
-                        .token
-                    );
-                } else {
-                    callback
-                    (
-                        ""
-                    );
-                }
-            },
-            `${backend_host}/crypto`,
-            "POST",
-            true, {
-                token: token_update,
-            });
+        requestCall((r) => {
+            if (r.success) {
+                callback(r.token);
+            } else {
+                callback("");
+            }
+        }, `${backend_host}/crypto`, "POST", true, {
+            token: token_update,
+        });
     });
 }
-
 const get_events_ = (callback) => {
     re_check((token_update) => {
-        requestCall((
-                r) => {
-                callback
-                (r
-                    .events
-                );
-            },
-            `${backend_host}/events`,
-            "POST",
-            true, {
-                token: token_update,
-            });
+        requestCall((r) => {
+            callback(r.events);
+        }, `${backend_host}/events`, "POST", true, {
+            token: token_update,
+        });
     });
 }
-
-const get_yt_video_ = (callback,
-                       video_id, skip = false) => {
+const get_yt_video_ = (callback, video_id, skip = false) => {
     if (!skip) {
-        re_check((
-            token_update
-        ) => {
+        re_check((token_update) => {
             requestCall(
-                (
-                    r
-                ) => {
-                    callback
-                    (r
-                        .body
-                    );
-                },
-                `${backend_host}/youtube_get`,
-                "POST",
-                true, {
+                (r) => {
+                    callback(r.body);
+                }, `${backend_host}/youtube_get`, "POST", true, {
                     token: token_update,
                     video_id: video_id,
                 });
@@ -368,89 +210,53 @@ const get_yt_video_ = (callback,
         callback(null);
     }
 }
-
-const get_news_ = (callback,
-                   source) => {
+const get_news_ = (callback, source) => {
     re_check((token_update) => {
-        requestCall((
-                r) => {
-                callback
-                (r
-                    .messages
-                );
-            },
-            `${backend_host}/channel_parse?choice=${source}`,
-            "POST",
-            true, {
-                token: token_update,
-            });
+        requestCall((r) => {
+            callback(r.messages);
+        }, `${backend_host}/channel_parse?choice=${source}`, "POST", true, {
+            token: token_update,
+        });
     });
 }
-
-const get_rules_private_server = (
-    callback) => {
+const get_rules_private_server = (callback) => {
     requestCall((r) => {
-            callback(r);
-        },
-        "assets/data/private_server_rules.json",
-        "GET", true);
+        callback(r);
+    }, "assets/data/private_server_rules.json", "GET", true);
 }
-
 const appendPostsNews = () => {
     const createSwiper = () => {
-        new Swiper(
-            "#news_swipe_container", {
-                spaceBetween: 12,
-                loop: true,
-                observer: true,
-                observeParents: true,
-                preventClicks: false,
-                preventClicksPropagation: false,
-                autoplay: {
-                    delay: 1000 *
-                        10,
-                },
-                pagination: {
-                    el: "#news_swiper_pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    prevEl: "#prev_news",
-                    nextEl: "#next_news",
-                },
-            });
+        new Swiper("#news_swipe_container", {
+            spaceBetween: 12,
+            loop: true,
+            observer: true,
+            observeParents: true,
+            preventClicks: false,
+            preventClicksPropagation: false,
+            autoplay: {
+                delay: 1000 * 10,
+            },
+            pagination: {
+                el: "#news_swiper_pagination",
+                clickable: true,
+            },
+            navigation: {
+                prevEl: "#prev_news",
+                nextEl: "#next_news",
+            },
+        });
     };
     const text_modify_enable = true;
-
-    const add_news_in_array = (
-        posts) => {
-        const array_ = document
-            .getElementById(
-                "news_swipe_array"
-            );
+    const add_news_in_array = (posts) => {
+        const array_ = document.getElementById("news_swipe_array");
         posts = posts.reverse();
-
-        for (let i = 0; i <
-        posts
-            .length; i++) {
-            const text = posts[
-                i]
-                .text;
-            const datetime =
-                new Date(posts[
-                    i]
-                    .datetime_utc
-                );
-
-            if (!posts[i]
-                .cover) {
-                posts[i].cover =
-                    "assets/images/spawn.webp";
+        for (let i = 0; i < posts.length; i++) {
+            const text = posts[i].text;
+            const datetime = new Date(posts[i].datetime_utc);
+            if (!posts[i].cover) {
+                posts[i].cover = "assets/images/spawn.webp";
             }
-
-            array_.innerHTML =
-                array_
-                    .innerHTML + `
+            array_.innerHTML = array_.innerHTML + `
                 <div class="swiper-slide h-auto px-2">
                     <figure class="card h-100 position-relative border-0 news-figure" id="news_figure_${i}">
                         <div class="background-news" id="background-news-${i}">
@@ -476,543 +282,207 @@ const appendPostsNews = () => {
                     <span class="news-date-text">
                         ${datetime.toLocaleDateString()} 
                         ${datetime.toLocaleTimeString("ru-RU", {
-                    hour: "2-digit", minute: "2-digit",
-                })}
+                hour: "2-digit", minute: "2-digit",
+            })}
                     </span>
                 </div>
             `;
-
-            const selector_bg =
-                document
-                    .getElementById(
-                        `background-news-${i}`
-                    );
-            selector_bg.style
-                .backgroundImage =
-                `url(${posts[i].cover})`;
-
-            if (
-                text_modify_enable
-            ) {
-                const
-                    selector_text =
-                        document
-                            .getElementById(
-                                `news_text_${i}`
-                            );
-
-                selector_text
-                    .style
-                    .width =
-                    "100%";
-                selector_text
-                    .classList
-                    .add(
-                        "text-light"
-                    );
-
-                const text_len =
-                    selector_text
-                        .innerText
-                        .length;
-                const
-                    text_split =
-                        selector_text
-                            .innerText
-                            .split(" ");
-
-                const
-                    font_size =
-                        ((
-                                text_len -
-                                -8
-                            ) *
-                            .4) /
-                        100;
-
-                const
-                    fix_float_fs =
-                        (
-                            float,
-                            font_size,
-                            correction_float =
-                                .32,
-                            correction_font =
-                                .26,
-                            max_val =
-                                .9
-                        ) => {
-                            float =
-                                float <
-                                correction_float ?
-                                    correction_float *
-                                    (font_size /
-                                        correction_font
-                                    ) :
-                                    float
-                            return max_val ?
-                                (float <
-                                    max_val ?
-                                        float :
-                                        max_val
-                                ) :
-                                float
-                        }
-
-                selector_text
-                    .style
-                    .fontSize = `calc(${
+            const selector_bg = document.getElementById(`background-news-${i}`);
+            selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
+            if (text_modify_enable) {
+                const selector_text = document.getElementById(`news_text_${i}`);
+                selector_text.style.width = "100%";
+                selector_text.classList.add("text-light");
+                const text_len = selector_text.innerText.length;
+                const text_split = selector_text.innerText.split(" ");
+                const font_size = ((text_len - -8) * .4) / 100;
+                const fix_float_fs = (float, font_size, correction_float = .32, correction_font = .26, max_val = .9) => {
+                    float = float < correction_float ? correction_float * (font_size / correction_font) : float
+                    return max_val ? (float < max_val ? float : max_val) : float
+                }
+                selector_text.style.fontSize = `calc(${
                     fix_float_fs(parseFloat(1.8 - font_size), font_size)
                 }vw + ${
                     fix_float_fs(parseFloat(1.8 - font_size), font_size)
                 }vh + ${
                     fix_float_fs(parseFloat(1.9 - font_size), font_size)
                 }vmin)`;
-
-                selector_text
-                    .style
-                    .padding = `${
+                selector_text.style.padding = `${
                     fix_float_fs(parseFloat(
                         1.3 - font_size
                     ), font_size, .22, 1.05)
                 }rem`;
-
-                const
-                    calculate_text_position =
-                        () => {
-                            // local init var
-                            const
-                                selector_text =
-                                    document
-                                        .getElementById(
-                                            `news_text_${i}`
-                                        );
-                            const
-                                font_size =
-                                    parseFloat(
-                                        window
-                                            .getComputedStyle(
-                                                selector_text,
-                                                null
-                                            )
-                                            .getPropertyValue(
-                                                'font-size'
-                                            )
-                                            .replace(
-                                                "px",
-                                                ""
-                                            )
-                                    );
-
-                            selector_text
-                                .style
-                                .maxHeight =
-                                "32vh";
-
-                            if (font_size >
-                                12
-                            ) {
-                                selector_text
-                                    .style
-                                    .position =
-                                    "absolute";
-                                selector_text
-                                    .style
-                                    .textAlign =
-                                    "center";
-                                selector_text
-                                    .style
-                                    .alignItems =
-                                    "center";
-                                // selector_text.style.height = "";
-                                selector_text
-                                    .style
-                                    .display =
-                                    "inline-block";
-                                selector_text
-                                    .style
-                                    .paddingBottom =
-                                    "5rem";
-                                selector_text
-                                    .style
-                                    .paddingRight =
-                                    "3rem";
-                            } else {
-                                selector_text
-                                    .style
-                                    .position =
-                                    "";
-                                selector_text
-                                    .style
-                                    .textAlign =
-                                    "";
-                                selector_text
-                                    .style
-                                    .alignItems =
-                                    "";
-                                // selector_text.style.height = "";
-                                selector_text
-                                    .style
-                                    .display =
-                                    "";
-                                selector_text
-                                    .style
-                                    .paddingBottom =
-                                    "";
-                                selector_text
-                                    .style
-                                    .paddingRight =
-                                    "";
-                            }
-                        }
-                addEventListener
-                (
-                    'resize',
-                    (
-                        event
-                    ) =>
-                        calculate_text_position()
-                );
-                setInterval(
-                    calculate_text_position,
-                    100);
+                const calculate_text_position = () => {
+                    // local init var
+                    const selector_text = document.getElementById(`news_text_${i}`);
+                    const font_size = parseFloat(window.getComputedStyle(selector_text, null).getPropertyValue('font-size').replace("px", ""));
+                    selector_text.style.maxHeight = "32vh";
+                    if (font_size > 12) {
+                        selector_text.style.position = "absolute";
+                        selector_text.style.textAlign = "center";
+                        selector_text.style.alignItems = "center";
+                        // selector_text.style.height = "";
+                        selector_text.style.display = "inline-block";
+                        selector_text.style.paddingBottom = "5rem";
+                        selector_text.style.paddingRight = "3rem";
+                    } else {
+                        selector_text.style.position = "";
+                        selector_text.style.textAlign = "";
+                        selector_text.style.alignItems = "";
+                        // selector_text.style.height = "";
+                        selector_text.style.display = "";
+                        selector_text.style.paddingBottom = "";
+                        selector_text.style.paddingRight = "";
+                    }
+                }
+                addEventListener('resize', (event) => calculate_text_position());
+                setInterval(calculate_text_position, 100);
             }
-            getImageLightness(
-                posts[
-                    i]
-                    .cover,
-                (
-                    brightness
-                ) => {
-                    const
-                        style_ = `#000000${
-                            (((parseFloat(brightness) / 255.0) * 100.0)
-                                .toFixed() + 64)
-                                .toString(16)
-                                .slice(0, 2)
-                        }`;
-                    document
-                        .getElementById(
-                            `news-overlay-${i}`
-                        )
-                        .style
-                        .background =
-                        style_;
-                });
+            getImageLightness(posts[i].cover, (brightness) => {
+                const style_ = `#000000${
+                    (((parseFloat(brightness) / 255.0) * 100.0)
+                        .toFixed() + 64)
+                        .toString(16)
+                        .slice(0, 2)
+                }`;
+                document.getElementById(`news-overlay-${i}`).style.background = style_;
+            });
         }
-        const loading_done =
-            () => {
-                setTimeout(
-                    () => {
-                        const
-                            sl =
-                                document
-                                    .getElementById(
-                                        "telegram_block_load"
-                                    );
-                        const
-                            container_news =
-                                document
-                                    .getElementById(
-                                        "news_zlp_buttons"
-                                    );
-
-                        try {
-                            sl.parentNode
-                                .removeChild(
-                                    sl
-                                );
-                            container_news
-                                .style
-                                .display =
-                                "";
-                        } catch (
-                            _
-                            ) {
-                        }
-                    }, 150);
-            };
+        const loading_done = () => {
+            setTimeout(
+                () => {
+                    const sl = document.getElementById("telegram_block_load");
+                    const container_news = document.getElementById("news_zlp_buttons");
+                    try {
+                        sl.parentNode.removeChild(sl);
+                        container_news.style.display = "";
+                    } catch (_) {
+                    }
+                }, 150);
+        };
         if (posts) {
             createSwiper();
             loading_done();
         }
     };
-
     get_news_((posts) => {
-        add_news_in_array(
-            posts);
+        add_news_in_array(posts);
     }, 1);
 }
-
-const donateSwitchContainer = (
-    display) => {
-    const container = document
-        .querySelector(
-            ".donate-global-container"
-        );
-
-    const update_zIndex = (
-        variable) => {
+const donateSwitchContainer = (display) => {
+    const container = document.querySelector(".donate-global-container");
+    const update_zIndex = (variable) => {
         setTimeout(() => {
-            container
-                .style
-                .zIndex =
-                variable;
+            container.style.zIndex = variable;
         }, 850);
     };
-
-    if (!donate_displayed ||
-        display) {
-        document.body.style
-            .overflowY =
-            "hidden";
+    if (!donate_displayed || display) {
+        document.body.style.overflowY = "hidden";
         window.scrollTo({
             top: 0,
             behavior: "smooth",
         });
-        container.style.minHeight =
-            "";
+        container.style.minHeight = "";
         update_zIndex("");
-
         donate_displayed = true;
         location.hash = "#donate";
     } else {
-        container.style.minHeight =
-            "0";
-        container.style.zIndex =
-            "-1";
-        document.body.style
-            .overflowY =
-            "";
-
+        container.style.minHeight = "0";
+        container.style.zIndex = "-1";
+        document.body.style.overflowY = "";
         donate_displayed = false;
         location.hash = "#";
     }
 }
-
-const get_game_server_data = (
-    callback) => {
-    const _data_error = (ok =
-                             false) => {
+const get_game_server_data = (callback) => {
+    const _data_error = (ok = false) => {
         let string_ = "";
-
         if (ok) {
             string_ = "";
         } else {
-            string_ =
-                "Не удается обновить информацию о сервере...";
+            string_ = "Не удается обновить информацию о сервере...";
         }
-
-        document.getElementById(
-            "error_get_server_status"
-        )
-            .innerText =
-            string_;
+        document.getElementById("error_get_server_status").innerText = string_;
     };
     if (crypto_token) {
         requestCall((r) => {
-                setTimeout(
-                    () => {
-                        freeze_monitoring
-                            =
-                            false;
-                    }, 800);
-                if (r.success) {
-                    callback(r
-                        .body
-                    );
-                } else {
-                    crypto_token
-                        =
-                        "";
-                }
-            },
-            `${backend_host}/server?crypto_token=${encodeURIComponent(crypto_token)}`,
-            "GET", true);
+            setTimeout(
+                () => {
+                    freeze_monitoring = false;
+                }, 800);
+            if (r.success) {
+                callback(r.body);
+            } else {
+                crypto_token = "";
+            }
+        }, `${backend_host}/server?crypto_token=${encodeURIComponent(crypto_token)}`, "GET", true);
     } else {
         initCrypto();
         freeze_monitoring = false;
     }
 }
-
-const monitoring_game_server_update =
-    () => {
-        if (!freeze_monitoring) {
-            freeze_monitoring = true;
-
-            get_game_server_data((
-                data) => {
-                if (data
-                    .online) {
-                    if (typeof gameServerUpdater_setter !==
-                        "undefined"
-                    ) {
-                        clearInterval
-                        (
-                            gameServerUpdater_setter
-                        );
-                    }
-                    const
-                        selector =
-                            document
-                                .getElementById(
-                                    "server_online_status"
-                                );
-                    selector
-                        .classList
-                        .remove(
-                            "loading-dots"
-                        );
-                    selector
-                        .innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span>
+const monitoring_game_server_update = () => {
+    if (!freeze_monitoring) {
+        freeze_monitoring = true;
+        get_game_server_data((data) => {
+            if (data.online) {
+                if (typeof gameServerUpdater_setter !== "undefined") {
+                    clearInterval(gameServerUpdater_setter);
+                }
+                const selector = document.getElementById("server_online_status");
+                selector.classList.remove("loading-dots");
+                selector.innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span>
             <i class="emoji male-emoji" style="margin-left: -.35rem!important;background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
             ${getNoun(data.online)}
             <i class="emoji male-emoji" style="background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>
             `;
-                }
-            });
-        }
+            }
+        });
     }
-
+}
 const gameServerUpdater = () => {
     monitoring_game_server_update();
-    gameServerUpdater_setter =
-        setInterval(
-            monitoring_game_server_update,
-            300);
-    setInterval(
-        monitoring_game_server_update,
-        6000);
+    gameServerUpdater_setter = setInterval(monitoring_game_server_update, 300);
+    setInterval(monitoring_game_server_update, 6000);
 }
-
 const initEventsList = () => {
-    const row_container = document
-        .getElementById(
-            "events-row-container");
-    const loader_ = document
-        .getElementById(
-            "events_block_load");
-    const switch_button_ = document
-        .getElementById(
-            "events-c-button");
-    const row_class = [
-        "row-cols-md-2",
-        "row-cols-lg-2",
-        "row-cols-xl-3"
-    ];
+    const row_container = document.getElementById("events-row-container");
+    const loader_ = document.getElementById("events_block_load");
+    const switch_button_ = document.getElementById("events-c-button");
+    const row_class = ["row-cols-md-2", "row-cols-lg-2", "row-cols-xl-3"];
 
     get_events_((data) => {
-        if (data && data
-            .length) {
-            events_block_load
-                .remove();
-
-            data.sort((
-                a, b
-            ) => {
-                const
-                    keyA =
-                        new Date(
-                            a
-                                .date_start
-                        ),
-                    keyB =
-                        new Date(
-                            b
-                                .date_start
-                        );
-                if (keyA <
-                    keyB
-                )
-                    return -
-                        1;
-                if (keyA >
-                    keyB
-                )
-                    return 1;
+        switch_button_.removeAttribute("disabled");
+        if (data && data.length) {
+            glob_events_status = true;
+            events_block_load.remove();
+            data.sort((a, b) => {
+                const keyA = new Date(a.date_start),
+                    keyB = new Date(b.date_start);
+                if (keyA < keyB) return -1;
+                if (keyA > keyB) return 1;
                 return 0;
             });
-
-            const
-                time_correction =
-                    (
-                        date
-                    ) => {
-                        const
-                            userTimezoneOffset = -
-                                    date
-                                        .getTimezoneOffset() *
-                                60000;
-                        return new Date(
-                            date
-                                .getTime() -
-                            userTimezoneOffset
-                        );
-                    };
-
-            for (let i =
-                0; i <
-                 data
-                     .length; i++
-            ) {
-                switch_button_
-                    .removeAttribute(
-                        "disabled"
-                    );
-                if (3 > i >
-                    0) {
-                    row_container
-                        .classList
-                        .add(
-                            row_class[
-                                i
-                                ]
-                        );
+            const time_correction = (date) => {
+                const userTimezoneOffset = -date.getTimezoneOffset() * 60000;
+                return new Date(date.getTime() - userTimezoneOffset);
+            };
+            for (let i = 0; i < data.length; i++) {
+                if (3 > i > 0) {
+                    row_container.classList.add(row_class[i]);
                 }
-                const
-                    st_date =
-                        time_correction(
-                            new Date(
-                                data[
-                                    i
-                                    ]
-                                    .date_start
-                            ));
-                const
-                    end_date =
-                        time_correction(
-                            new Date(
-                                data[
-                                    i
-                                    ]
-                                    .date_end
-                            ));
-                const
-                    time_in_moscow =
-                        new Date(
-                            new Date()
-                                .toLocaleString(
-                                    "en-US", {
-                                        timeZone: "Europe/Moscow",
-                                    }
-                                )
-                        );
-                let badge =
-                    "";
-                if (st_date >
-                    time_in_moscow
-                ) {
-                    badge =
-                        "Скоро";
-                } else if (
-                    time_in_moscow >
-                    end_date
-                ) {
-                    badge =
-                        "Завершено";
+                const st_date = time_correction(new Date(data[i].date_start));
+                const end_date = time_correction(new Date(data[i].date_end));
+                const time_in_moscow = new Date(new Date().toLocaleString("en-US", {
+                    timeZone: "Europe/Moscow",
+                }));
+                let badge = "";
+                if (st_date > time_in_moscow) {
+                    badge = "Скоро";
+                } else if (time_in_moscow > end_date) {
+                    badge = "Завершено";
                 }
-                const
-                    template_ = `
+                const template_ = `
                     <div class="col">
                         <div class="object-block-col">
                             <h1>${data[i].title}</h1>
@@ -1026,192 +496,100 @@ const initEventsList = () => {
                         </div>
                     </div>
                 `;
-                row_container
-                    .innerHTML =
-                    row_container
-                        .innerHTML +
-                    template_;
+                row_container.innerHTML = row_container.innerHTML + template_;
             }
         }
     });
 }
-
-const get_donate_services = (
-    callback) => {
+const get_donate_services = (callback) => {
     re_check((token_update) => {
-        requestCall((
-                r) => {
-                callback
-                (r
-                    .services
-                );
-            },
-            `${backend_host}/donate/services`,
-            "POST",
-            true, {
-                token: token_update,
-            });
+        requestCall((r) => {
+            callback(r.services);
+        }, `${backend_host}/donate/services`, "POST", true, {
+            token: token_update,
+        });
     });
 }
-
-const create_payment = (callback,
-                        customer, products, server_id,
-                        email = "", coupon = "") => {
+const create_payment = (callback, customer, products, server_id, email = "", coupon = "") => {
     re_check((token_update) => {
-        requestCall((
-                r) => {
-                callback
-                (r
-                    .payment
-                );
-            },
-            `${backend_host}/donate/payment/create`,
-            "POST",
-            true, {
-                customer: customer,
-                products: products,
-                email: email,
-                coupon: coupon,
-                token: token_update,
-                server_id: server_id,
-                success_url: `https://${work_domain_v}`,
-            });
+        requestCall((r) => {
+            callback(r.payment);
+        }, `${backend_host}/donate/payment/create`, "POST", true, {
+            customer: customer,
+            products: products,
+            email: email,
+            coupon: coupon,
+            token: token_update,
+            server_id: server_id,
+            success_url: `https://${work_domain_v}`,
+        });
     });
 }
-
-const generateGiftLink = (callback,
-                          payment_id) => {
+const generateGiftLink = (callback, payment_id) => {
     getCrypto((crypto_token) => {
-        callback(
-            `${backend_host}/gift/private_server?` +
-            `payment_id=${payment_id}&` +
-            `crypto_token=${encodeURIComponent(crypto_token)}&` +
-            `sign=${generateRandomHex(24)}`
-        )
+        callback(`${backend_host}/gift/private_server?` + `payment_id=${payment_id}&` + `crypto_token=${encodeURIComponent(crypto_token)}&` + `sign=${generateRandomHex(24)}`)
     })
 }
-
-const check_coupon = (callback,
-                      coupon) => {
+const check_coupon = (callback, coupon) => {
     re_check((token_update) => {
-        requestCall((
-                r) => {
-                if (r
-                        .coupon &&
-                    r
-                        .success
-                ) {
-                    callback
-                    (r
-                        .coupon
-                    );
-                } else {
-                    callback
-                    (
-                        null
-                    );
-                }
-            },
-            `${backend_host}/donate/coupon`,
-            "POST",
-            true, {
-                code: coupon,
-                token: token_update
-            });
+        requestCall((r) => {
+            if (r.coupon && r.success) {
+                callback(r.coupon);
+            } else {
+                callback(null);
+            }
+        }, `${backend_host}/donate/coupon`, "POST", true, {
+            code: coupon,
+            token: token_update
+        });
     });
 }
-
-const checkTelegramAuthData = (
-    callback) => {
-    const auth_data =
-        getTelegramAuth(
-            true);
+const checkTelegramAuthData = (callback) => {
+    const auth_data = getTelegramAuth(true);
     if (auth_data) {
         requestCall((r) => {
-                if (r) {
-                    callback(r
-                        .success
-                    );
-                } else {
-                    callback(
-                        false
-                    );
-                }
-            },
-            `${backend_host}/telegram/auth/check`,
-            "POST", true, {
-                tg_auth_data: auth_data
-            });
+            if (r) {
+                callback(r.success);
+            } else {
+                callback(false);
+            }
+        }, `${backend_host}/telegram/auth/check`, "POST", true, {
+            tg_auth_data: auth_data
+        });
     } else {
         callback(false);
     }
 }
-
-const checkFeedbackStatus = (
-    callback) => {
-    const auth_data =
-        getTelegramAuth(
-            true);
+const checkFeedbackStatus = (callback) => {
+    const auth_data = getTelegramAuth(true);
     if (auth_data) {
-        re_check((
-            token_update
-        ) => {
+        re_check((token_update) => {
             requestCall(
-                (
-                    r
-                ) => {
-                    if (
-                        r) {
-                        callback
-                        (r
-                            .success
-                        );
+                (r) => {
+                    if (r) {
+                        callback(r.success);
                     } else {
-                        callback
-                        (
-                            false
-                        );
+                        callback(false);
                     }
-                },
-                `${backend_host}/feedback/check`,
-                "POST",
-                true, {
+                }, `${backend_host}/feedback/check`, "POST", true, {
                     token: token_update,
                     tg_auth_data: auth_data
                 });
         });
     }
 }
-
-const sendFeedback = (callback,
-                      text) => {
-    const auth_data =
-        getTelegramAuth(
-            true);
+const sendFeedback = (callback, text) => {
+    const auth_data = getTelegramAuth(true);
     if (auth_data) {
-        re_check((
-            token_update
-        ) => {
+        re_check((token_update) => {
             requestCall(
-                (
-                    r
-                ) => {
-                    if (
-                        r) {
-                        callback
-                        (r
-                            .success
-                        );
+                (r) => {
+                    if (r) {
+                        callback(r.success);
                     } else {
-                        callback
-                        (
-                            false
-                        );
+                        callback(false);
                     }
-                },
-                `${backend_host}/feedback/send`,
-                "POST",
-                true, {
+                }, `${backend_host}/feedback/send`, "POST", true, {
                     text: text,
                     token: token_update,
                     tg_auth_data: auth_data
@@ -1219,198 +597,83 @@ const sendFeedback = (callback,
         });
     }
 }
-
 const sendFeedbackAction = () => {
-    const button = document
-        .getElementById(
-            "send-feedback-button");
-    const textarea = document
-        .getElementById(
-            "admin-message");
+    const button = document.getElementById("send-feedback-button");
+    const textarea = document.getElementById("admin-message");
     const text = textarea.value;
-
     if (text.length < 20) {
-        notify(
-            "Сообщение очень короткое!"
-        );
+        notify("Сообщение очень короткое!");
         return;
     }
-
-    const button_lock = (lock =
-                             true) => {
+    const button_lock = (lock = true) => {
         if (lock) {
-            button.setAttribute(
-                "disabled",
-                "");
+            button.setAttribute("disabled", "");
         } else {
-            button
-                .removeAttribute(
-                    "disabled");
+            button.removeAttribute("disabled");
         }
-        button.innerText =
-            lock ?
-                "Ожидайте..." :
-                "Отправить";
+        button.innerText = lock ? "Ожидайте..." : "Отправить";
     }
-
     button_lock();
-    checkFeedbackStatus((
-        check_data) => {
+    checkFeedbackStatus((check_data) => {
         if (check_data) {
             sendFeedback(
-                (
-                    send_data
-                ) => {
-                    if (
-                        send_data
-                    ) {
-                        notify
-                        (
-                            "Сообщение отправлено админам."
-                        );
+                (send_data) => {
+                    if (send_data) {
+                        notify("Сообщение отправлено админам.");
                     } else {
-                        notify
-                        (
-                            "Ошибка на стороне сервера, попробуйте позже."
-                        );
+                        notify("Ошибка на стороне сервера, попробуйте позже.");
                     }
-                    button_lock
-                    (
-                        false
-                    );
+                    button_lock(false);
                 }, text);
         } else {
-            button_lock(
-                false);
-            notify(
-                "Не удалось пройти проверку, попробуйте позже."
-            );
+            button_lock(false);
+            notify("Не удалось пройти проверку, попробуйте позже.");
         }
     });
 }
-
-const checkPayment = (callback,
-                      payment_id) => {
+const checkPayment = (callback, payment_id) => {
     re_check((token_update) => {
-        requestCall((
-                r) => {
-                callback
-                (r
-                    .payment
-                );
-            },
-            `${backend_host}/donate/payment_get`,
-            "POST",
-            true, {
-                payment_id: parseInt(
-                    payment_id
-                ),
-                token: token_update,
-                tokens_send: coins_sell_mode,
-            });
+        requestCall((r) => {
+            callback(r.payment);
+        }, `${backend_host}/donate/payment_get`, "POST", true, {
+            payment_id: parseInt(payment_id),
+            token: token_update,
+            tokens_send: coins_sell_mode,
+        });
     });
 }
-
 const appendServices = () => {
-    get_donate_services((
-        services) => {
-        donate_services_array
-            =
-            services;
-        const
-            size_classes = [
-                "row-cols-sm-2",
-                "row-cols-md-3",
-                "row-cols-lg-4"
-            ];
-        const sl = document
-            .getElementById(
-                "donate_items_list"
-            );
-
-        const
-            get_product_type =
-                (name,
-                 type) => {
-                    name = name
-                        .toLowerCase();
-                    type = type
-                        .toLowerCase();
-                    if (name
-                            .includes(
-                                "токен"
-                            ) &&
-                        type ===
-                        "currency"
-                    ) {
-                        return 1;
-                    } else if (
-                        name
-                            .includes(
-                                "проходка"
-                            ) &&
-                        type ===
-                        "other"
-                    ) {
-                        return 2;
-                    }
-                }
-
-        if (!services
-            .length) {
-            sl.innerHTML =
-                '<span class="text-center">Не удалось получить список товаров.</span>';
+    get_donate_services((services) => {
+        donate_services_array = services;
+        const size_classes = ["row-cols-sm-2", "row-cols-md-3", "row-cols-lg-4"];
+        const sl = document.getElementById("donate_items_list");
+        const get_product_type = (name, type) => {
+            name = name.toLowerCase();
+            type = type.toLowerCase();
+            if (name.includes("токен") && type === "currency") {
+                return 1;
+            } else if (name.includes("проходка") && type === "other") {
+                return 2;
+            }
+        }
+        if (!services.length) {
+            sl.innerHTML = '<span class="text-center">Не удалось получить список товаров.</span>';
         } else {
-            donate_check_services_cart
-            ();
-
-            for (let i =
-                0; i <
-                 services
-                     .length; i++
-            ) {
-                const
-                    click_data = {
-                        name: services[
-                            i
-                            ]
-                            .name,
-                        price: services[
-                            i
-                            ]
-                            .price,
-                        count: services[
-                            i
-                            ]
-                            .number,
-                        description: services[
-                            i
-                            ]
-                            .description,
-                        type: services[
-                            i
-                            ]
-                            .type,
-                        service_id: services[
-                            i
-                            ]
-                            .id,
-                        server_id: services[
-                            i
-                            ]
-                            .server_id,
-                    };
-                products_by_serverid
-                    .push(
-                        services[
-                            i
-                            ]
-                    );
-                let _name =
-                    "";
+            donate_check_services_cart();
+            for (let i = 0; i < services.length; i++) {
+                const click_data = {
+                    name: services[i].name,
+                    price: services[i].price,
+                    count: services[i].number,
+                    description: services[i].description,
+                    type: services[i].type,
+                    service_id: services[i].id,
+                    server_id: services[i].server_id,
+                };
+                products_by_serverid.push(services[i]);
+                let _name = "";
                 // const _desc = "";
-                let padding_desc =
-                    "p-3";
+                let padding_desc = "p-3";
                 let desc_template = `
                     <p class="mb-0">
                         ${services[i].price} 
@@ -1421,107 +684,44 @@ const appendServices = () => {
                     </p>
                     <p class="fs-sm mb-0">${services[i].description}</p>
                 `;
-                let item_butt_template =
-                    '';
-
-                if (i &&
-                    size_classes
-                        .length >=
-                    i
-                ) {
-                    sl.classList
-                        .add(
-                            size_classes[
-                            i -
-                            1
-                                ]
-                        );
+                let item_butt_template = '';
+                if (i && size_classes.length >= i) {
+                    sl.classList.add(size_classes[i - 1]);
                 }
-
-                let click_template =
-                    `onClick="donate_element_click(${JSON.stringify(click_data)})"`;
-
-                if (!
-                    coins_sell_mode
-                ) {
-                    _name =
-                        services[
-                            i
-                            ]
-                            .name;
+                let click_template = `onClick="donate_element_click(${JSON.stringify(click_data)})"`;
+                if (!coins_sell_mode) {
+                    _name = services[i].name;
                 } else {
-                    let button_title =
-                        "";
-                    if (services[
-                        i
-                        ]
-                        .name
-                        .toLowerCase()
-                        .includes(
-                            "токен"
-                        )) {
-                        _name
-                            =
-                            `${services[i].price} ${getNoun(services[i].price, "рубль", "рубля", "рублей")} = ${services[i].number} ${getNoun(services[i].number, "токен", "токена", "токенов")}`;
-                        padding_desc
-                            =
-                            "p-0";
-                        desc_template
-                            = `
+                    let button_title = "";
+                    if (services[i].name.toLowerCase().includes("токен")) {
+                        _name = `${services[i].price} ${getNoun(services[i].price, "рубль", "рубля", "рублей")} = ${services[i].number} ${getNoun(services[i].number, "токен", "токена", "токенов")}`;
+                        padding_desc = "p-0";
+                        desc_template = `
                         <p class="mb-0 token-description-dnt">
                             Игровая валюта, которую можно получить как в игре, так и за поддержку проекта.
                         </p>`;
-                        button_title
-                            =
-                            "Приобрести токены";
-
-                        click_template
-                            =
-                            "";
-                    } else if (
-                        services[
-                            i
-                            ]
-                            .name
-                            .toLowerCase()
-                            .includes(
-                                "проходка"
-                            )) {
-                        _name
-                            =
-                            `
+                        button_title = "Приобрести токены";
+                        click_template = "";
+                    } else if (services[i].name.toLowerCase().includes("проходка")) {
+                        _name = `
                         <span class="text-primary">${services[i].name}</span>,
                         ${services[i].price} ${getNoun(services[i].price, "рубль", "рубля", "рублей")}`;
-                        padding_desc
-                            =
-                            "p-0";
-                        desc_template
-                            = `
+                        padding_desc = "p-0";
+                        desc_template = `
                         <p class="mb-0 token-description-dnt">
                             За финансовую поддержку проекта ты получишь пропуск на приватный сервер.
                         </p>`;
-                        button_title
-                            =
-                            "Приобрести пропуск";
-
-                        click_template
-                            =
-                            "";
+                        button_title = "Приобрести пропуск";
+                        click_template = "";
                     }
-                    item_butt_template
-                        = `
+                    item_butt_template = `
                         <button class="btn btn-primary shadow-primary btn-shadow-hide btn-lg min-w-zl donate-item-butt-bottom" 
                             onclick="donateModalCall(${get_product_type(click_data.name, click_data.type)}, ${click_data.service_id})">
                             ${button_title}
                         </button>`;
                 }
-                services[i].image = services[i].image
-                    .replace("https://", "//")
-                    .replaceAll(/\//g, "\\/");
-
-                sl.innerHTML =
-                    sl
-                        .innerHTML + `
+                services[i].image = services[i].image.replace("https://", "//").replaceAll(/\//g, "\\/");
+                sl.innerHTML = sl.innerHTML + `
                     <div class="col" id="donate_item_${services[i].id}">
                         <div class="card border-0 bg-transparent" ${click_template}>
                           <div class="position-relative container-item-donate-n">
@@ -1552,139 +752,58 @@ const appendServices = () => {
                     </div>
                 `;
             }
-
             setTimeout(
                 () => {
-                    const
-                        elem =
-                            document
-                                .getElementById(
-                                    "donate_block_load"
-                                );
-                    const
-                        ids = [
-                            "donate_items_list",
-                            "donate-header-container",
-                            "donate-test-mode-enb",
-                            "donate-cart-container",
-                        ];
-
+                    const elem = document.getElementById("donate_block_load");
+                    const ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container",];
                     try {
-                        elem.parentNode
-                            .removeChild(
-                                elem
-                            );
-                    } catch (
-                        _
-                        ) {
+                        elem.parentNode.removeChild(elem);
+                    } catch (_) {
                     }
-
-
-                    for (
-                        let i =
-                            0; i <
-                        ids
-                            .length; i++
-                    ) {
+                    for (let i = 0; i < ids.length; i++) {
                         try {
-                            document
-                                .getElementById(
-                                    ids[
-                                        i
-                                        ]
-                                )
-                                .style
-                                .display =
-                                "";
-                        } catch (
-                            e
-                            ) {
-                            console
-                                .log(
-                                    `Donate block loader error. Details: ${e}`
-                                );
+                            document.getElementById(ids[i]).style.display = "";
+                        } catch (e) {
+                            console.log(`Donate block loader error. Details: ${e}`);
                         }
                     }
                 }, 100);
         }
     });
 }
-
-const switchEventsPages = (
-    button_name) => {
-    const news_page = document
-        .getElementById(
-            "news-c-container");
-    const events_page = document
-        .getElementById(
-            "events-c-container");
-
-    const news_button = document
-        .getElementById(
-            "news-c-button");
-    const events_button = document
-        .getElementById(
-            "events-c-button");
-
-    if (button_name !==
-        events_page_state) {
-        if (button_name ===
-            "events") {
-            news_page.style
-                .display =
-                "none";
-            events_page.style
-                .display =
-                "block";
-
-            news_button
-                .removeAttribute(
-                    "disabled");
-            events_button
-                .setAttribute(
-                    "disabled", "");
-
-            events_page.style.top =
-                "0";
-            news_page.style.top =
-                "-2rem";
-
-            events_page_state =
-                "events";
-        } else if (button_name ===
-            "news") {
-            news_page.style
-                .display =
-                "block";
-            events_page.style
-                .display =
-                "none";
-
-            news_button
-                .setAttribute(
-                    "disabled", "");
-            events_button
-                .removeAttribute(
-                    "disabled");
-
-            events_page.style.top =
-                "-2rem";
-            news_page.style.top =
-                "0";
-
-            events_page_state =
-                "news";
+const switchEventsPages = (button_name) => {
+    const news_page = document.getElementById("news-c-container");
+    const events_page = document.getElementById("events-c-container");
+    const news_button = document.getElementById("news-c-button");
+    const events_button = document.getElementById("events-c-button");
+    if (button_name !== events_page_state) {
+        if (button_name === "events") {
+            if (glob_events_status) {
+                news_page.style.display = "none";
+                events_page.style.display = "block";
+                news_button.removeAttribute("disabled");
+                events_button.setAttribute("disabled", "");
+                events_page.style.top = "0";
+                news_page.style.top = "-2rem";
+                events_page_state = "events";
+            } else {
+                notify("Сейчас ивентов нет, Марин отдыхает")
+            }
+        } else if (button_name === "news") {
+            news_page.style.display = "block";
+            events_page.style.display = "none";
+            news_button.setAttribute("disabled", "");
+            events_button.removeAttribute("disabled");
+            events_page.style.top = "-2rem";
+            news_page.style.top = "0";
+            events_page_state = "news";
         }
     }
 }
-
 const redirect_ = (url) => {
-    return window.location.replace(
-        url);
+    return window.location.replace(url);
 }
-
-const ytVideoSetter = (skip =
-                           false, only_iframe = true) => {
+const ytVideoSetter = (skip = false, only_iframe = true) => {
     const load_iframe = (el, video_id, params) => {
         el.innerHTML = `
             <iframe src="https://www.youtube.com/embed/${video_id}" title="YouTube video player"
@@ -1693,394 +812,202 @@ const ytVideoSetter = (skip =
                 allowfullscreen="" loading="lazy"></iframe>
         `;
     }
-    const set_video = (el,
-                       video_id, params) => {
+    const set_video = (el, video_id, params) => {
         if (only_iframe) {
             load_iframe(el, video_id, params);
         } else {
-            const video =
-                get_yt_video_(
-                    (data) => {
-                        if (data &&
-                            data
-                                .video
-                                .x720
-                                .url &&
-                            !
-                                skip) {
-                            el.innerHTML = `
+            const video = get_yt_video_(
+                (data) => {
+                    if (data && data.video.x720.url && !skip) {
+                        el.innerHTML = `
                     <video class="video-container" ${params.autoplay != null ? 'autoplay=""' : ""} ${params.muted != null ? 'muted=""' : ""} ${params.loop != null ? 'loop=""' : ""} ${params.controls != null ? 'controls=""' : ""} style="object-fit: contain">
                         <source src="${data.video.x720.url}" type="video/mp4">
                     </video>
                 `;
-                        } else {
-                            load_iframe(el, video_id, params);
-                        }
-                    }, video_id,
-                    skip);
+                    } else {
+                        load_iframe(el, video_id, params);
+                    }
+                }, video_id, skip);
         }
     };
-
-    for (let el of Array.from(
-        document
-            .getElementsByClassName(
-                "ytVideoSetter")
-    )) {
-        const video_id = el
-            .getAttribute(
-                "video_id");
-
-        if (video_id && video_id
-                .length && video_id
-                .length <
-            20) {
-            set_video(el, video_id,
-                (
-                    params = {
-                        autoplay: el
-                            .getAttribute(
-                                "autoplay"
-                            ),
-                        muted: el
-                            .getAttribute(
-                                "muted"
-                            ),
-                        loop: el
-                            .getAttribute(
-                                "loop"
-                            ),
-                        controls: el
-                            .getAttribute(
-                                "controls"
-                            ),
-                    }));
+    for (let el of Array.from(document.getElementsByClassName("ytVideoSetter"))) {
+        const video_id = el.getAttribute("video_id");
+        if (video_id && video_id.length && video_id.length < 20) {
+            set_video(el, video_id, (params = {
+                autoplay: el.getAttribute("autoplay"),
+                muted: el.getAttribute("muted"),
+                loop: el.getAttribute("loop"),
+                controls: el.getAttribute("controls"),
+            }));
         }
     }
 }
-
 const modal_close_ = () => {
     if (modal_displayed) {
-        document.body.classList
-            .remove(
-                "modal-open");
-        document.getElementById(
-            "scroll_butt_container"
-        )
-            .style.display = "";
-        document
-            .getElementsByTagName(
-                "html")[0].style
-            .overflowY = ""
-        const modal = document
-            .getElementById(
-                "donate_item_modal"
-            );
+        document.body.classList.remove("modal-open");
+        document.getElementById("scroll_butt_container").style.display = "";
+        document.getElementsByTagName("html")[0].style.overflowY = ""
+        const modal = document.getElementById("donate_item_modal");
         modal.style.opacity = 0;
         setTimeout(() => {
-            modal.style
-                .display =
-                "none";
+            modal.style.display = "none";
         }, 350);
         modal_displayed = false;
     }
 }
-
-const modal_open_ = (onclick_lock =
-                         false) => {
+const modal_open_ = (onclick_lock = false) => {
     modal_displayed = true;
-    document.body.classList.add(
-        "modal-open");
-    document.getElementById(
-        "scroll_butt_container")
-        .style.display = "none";
-    document.getElementsByTagName(
-        "html")[0].style
-        .overflowY =
-        "hidden";
+    document.body.classList.add("modal-open");
+    document.getElementById("scroll_butt_container").style.display = "none";
+    document.getElementsByTagName("html")[0].style.overflowY = "hidden";
     try {
         document.getElementById("private_gift_button_modal").remove()
     } catch (_) {
     }
-    const modal = document
-        .getElementById(
-            "donate_item_modal");
+    const modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
     setTimeout(() => {
-        modal.style
-            .opacity = 1;
+        modal.style.opacity = 1;
     }, 50);
-
     if (!onclick_lock) {
-        window.onclick = (
-            event) => {
-            if (event.target ===
-                modal) {
+        window.onclick = (event) => {
+            if (event.target === modal) {
                 modal_close_();
             }
         }
     }
 }
-
-const switch_modal_containers = (mode =
-                                     "service", info_params = {}
-) => {
-    const span = document
-        .getElementsByClassName(
-            "close_b")[0];
-    const info = document
-        .getElementById(
-            "modal-info-container-c"
-        );
-    const service = document
-        .getElementById(
-            "modal-donate-container-c"
-        );
-    const service_coins = document
-        .getElementById(
-            "modal-donate-finish-container-b"
-        );
-    const success = document
-        .getElementById(
-            "modal-donate-success-container"
-        );
-    const finish_donate = document
-        .getElementById(
-            "modal-donate-finish-container-c"
-        );
-    const title = document
-        .querySelector(
-            ".modal-title");
+const switch_modal_containers = (mode = "service", info_params = {}) => {
+    const span = document.getElementsByClassName("close_b")[0];
+    const info = document.getElementById("modal-info-container-c");
+    const service = document.getElementById("modal-donate-container-c");
+    const service_coins = document.getElementById("modal-donate-finish-container-b");
+    const success = document.getElementById("modal-donate-success-container");
+    const finish_donate = document.getElementById("modal-donate-finish-container-c");
+    const title = document.querySelector(".modal-title");
     const _array = [{
         name: "service",
         selector: service,
         title: "Товар",
-    },
-        {
-            name: "service_coins",
-            selector: service_coins,
-            title: "Оплата пожертвования",
-        },
-        {
-            name: "info",
-            selector: info,
-            title: "Сообщение",
-        },
-        {
-            name: "success",
-            selector: success,
-            title: "Чек",
-        },
-        {
-            name: "donate_finish",
-            selector: finish_donate,
-            title: "Корзина",
-        },
-    ];
-
-    for (let i = 0; i < _array
-        .length; i++) {
+    }, {
+        name: "service_coins",
+        selector: service_coins,
+        title: "Оплата пожертвования",
+    }, {
+        name: "info",
+        selector: info,
+        title: "Сообщение",
+    }, {
+        name: "success",
+        selector: success,
+        title: "Чек",
+    }, {
+        name: "donate_finish",
+        selector: finish_donate,
+        title: "Корзина",
+    },];
+    for (let i = 0; i < _array.length; i++) {
         let _mode = "none";
-
-        if (mode === _array[i]
-            .name) {
+        if (mode === _array[i].name) {
             _mode = "block";
-            title.innerText =
-                _array[i]
-                    .title;
+            title.innerText = _array[i].title;
         }
-
-        _array[i].selector.style
-            .display = _mode;
+        _array[i].selector.style.display = _mode;
     }
-
     if (mode === "info") {
-        title.innerText =
-            info_params
-                .title;
-        if (info_params.content
-            .length) {
-            document.getElementById(
-                "info-content-modal"
-            )
-                .innerHTML =
-                info_params
-                    .content;
+        title.innerText = info_params.title;
+        if (info_params.content.length) {
+            document.getElementById("info-content-modal").innerHTML = info_params.content;
         }
     }
-
     span.onclick = () => {
         modal_close_();
     };
 }
-
-const discount_calculate = (price,
-                            discount) => {
+const discount_calculate = (price, discount) => {
     discount = discount / 100;
-    return (price * discount)
-        .toFixed();
+    return (price * discount).toFixed();
 }
-
 const get_cookie_cart = () => {
     let cookie_cart = {};
-
     try {
-        cookie_cart = JSON.parse(
-            Cookies
-                .get(cart_cookie));
+        cookie_cart = JSON.parse(Cookies.get(cart_cookie));
     } catch (_) {
     }
-
     return cookie_cart;
 }
-
 const updateCartCount = () => {
-    document.getElementById(
-        "count_cart_items_dn")
-        .innerText =
-        countProperties(
-            get_cookie_cart());
+    document.getElementById("count_cart_items_dn").innerText = countProperties(get_cookie_cart());
 }
-
-const groupAlreadyInCart = (
-    user_cart) => {
-    const cart = Object.keys(
-        user_cart);
-
-    for (let i = 0; i <
-    donate_services_array
-        .length; i++) {
-        if (donate_services_array[i]
-            .type === "group") {
-            if (cart.includes(
-                donate_services_array[
-                    i].id
-                    .toString()
-            )) {
+const groupAlreadyInCart = (user_cart) => {
+    const cart = Object.keys(user_cart);
+    for (let i = 0; i < donate_services_array.length; i++) {
+        if (donate_services_array[i].type === "group") {
+            if (cart.includes(donate_services_array[i].id.toString())) {
                 return true;
             }
         }
     }
-
     return false;
 }
-
-const comment_show_action = (id, close =
-    false) => {
-    const comment_text = document
-        .getElementById(
-            `comment_text_${id}`);
-    const comment_show = document
-        .getElementById(
-            `comment_show_${id}`);
-
-    swiper_comments.on(
-        "slideChange",
-        () => {
-            comment_show_action(
-                id,
-                true);
-        });
-
-    if (close || comment_text
-            .getAttribute(
-                "fullShowComment") ===
-        "1") {
-        comment_text.style.height =
-            "100px";
-        comment_text.setAttribute(
-            "fullShowComment",
-            "0");
-        comment_show.innerText =
-            "Раскрыть";
+const comment_show_action = (id, close = false) => {
+    const comment_text = document.getElementById(`comment_text_${id}`);
+    const comment_show = document.getElementById(`comment_show_${id}`);
+    swiper_comments.on("slideChange", () => {
+        comment_show_action(id, true);
+    });
+    if (close || comment_text.getAttribute("fullShowComment") === "1") {
+        comment_text.style.height = "100px";
+        comment_text.setAttribute("fullShowComment", "0");
+        comment_show.innerText = "Раскрыть";
     } else {
-        comment_text.style.height =
-            "100%";
-        comment_text.setAttribute(
-            "fullShowComment",
-            "1");
-        comment_show.innerText =
-            "Скрыть";
+        comment_text.style.height = "100%";
+        comment_text.setAttribute("fullShowComment", "1");
+        comment_show.innerText = "Скрыть";
     }
 }
-
 const initComments = () => {
-    const array_ = document
-        .getElementById(
-            "comment_swipe_array");
-
+    const array_ = document.getElementById("comment_swipe_array");
     const createSwiper = () => {
-        swiper_comments =
-            new Swiper(
-                "#comment_swipe_container", {
-                    spaceBetween: 12,
-                    loop: true,
-                    observer: true,
-                    observeParents: true,
-                    preventClicks: false,
-                    preventClicksPropagation: false,
-                    autoplay: {
-                        delay: 8000,
-                    },
-                    pagination: {
-                        el: ".swiper-pagination",
-                        clickable: true,
-                    },
-                    navigation: {
-                        prevEl: "#prev_comment",
-                        nextEl: "#next_comment",
-                    },
-                });
-    };
-
-    const playersGet = (
-        callback) => {
-        requestCall((r) => {
-                callback(r);
+        swiper_comments = new Swiper("#comment_swipe_container", {
+            spaceBetween: 12,
+            loop: true,
+            observer: true,
+            observeParents: true,
+            preventClicks: false,
+            preventClicksPropagation: false,
+            autoplay: {
+                delay: 8000,
             },
-            "assets/data/players.json",
-            "GET", true);
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                prevEl: "#prev_comment",
+                nextEl: "#next_comment",
+            },
+        });
     };
-
-    const searchPlayer = (
-        players, name) => {
-        for (let i = 0; i <
-        players
-            .length; i++) {
-            if (players[i]
-                    .name ===
-                name) {
-                return players[
-                    i];
+    const playersGet = (callback) => {
+        requestCall((r) => {
+            callback(r);
+        }, "assets/data/players.json", "GET", true);
+    };
+    const searchPlayer = (players, name) => {
+        for (let i = 0; i < players.length; i++) {
+            if (players[i].name === name) {
+                return players[i];
             }
         }
     };
-
     requestCall((r) => {
             const comment = r;
             shuffle(comment);
-
-            playersGet((
-                players
-            ) => {
-                for (let i =
-                    0; i <
-                     comment
-                         .length; i++
-                ) {
-                    const
-                        player =
-                            searchPlayer(
-                                players,
-                                comment[
-                                    i
-                                    ]
-                                    .name
-                            );
-
-                    array_
-                        .innerHTML =
-                        array_
-                            .innerHTML + `
+            playersGet((players) => {
+                for (let i = 0; i < comment.length; i++) {
+                    const player = searchPlayer(players, comment[i].name);
+                    array_.innerHTML = array_.innerHTML + `
                         <div class="swiper-slide h-auto px-2">
                             <figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0">
                                 <span class="btn btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5 zlp-comment-icon">
