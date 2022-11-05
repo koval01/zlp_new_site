@@ -977,7 +977,7 @@ const initComments = () => {
             preventClicks: false,
             preventClicksPropagation: false,
             autoplay: {
-                delay: 8000,
+                delay: 3000,
             },
             pagination: {
                 el: ".swiper-pagination",
