@@ -692,7 +692,11 @@ const appendServices = () => {
                 if (!coins_sell_mode) {
                     _name = services[i].name;
                 } else {
-                    let button_title = "";
+                    let button_title = "Приобрести";
+                    let description_other = "Товар без описания.";
+                    if (services[i].description) {
+                        description_other = services[i].description
+                    }
                     if (services[i].name.toLowerCase().includes("токен")) {
                         _name = `${services[i].price} ${getNoun(services[i].price, "рубль", "рубля", "рублей")} = ${services[i].number} ${getNoun(services[i].number, "токен", "токена", "токенов")}`;
                         padding_desc = "p-0";
@@ -700,18 +704,16 @@ const appendServices = () => {
                         <p class="mb-0 token-description-dnt">
                             Игровая валюта, которую можно получить как в игре, так и за поддержку проекта.
                         </p>`;
-                        button_title = "Приобрести токены";
                         click_template = "";
-                    } else if (services[i].name.toLowerCase().includes("проходка")) {
+                    } else if (services[i].type = "other") {
                         _name = `
                         <span class="text-primary">${services[i].name}</span>,
                         ${services[i].price} ${getNoun(services[i].price, "рубль", "рубля", "рублей")}`;
                         padding_desc = "p-0";
                         desc_template = `
                         <p class="mb-0 token-description-dnt">
-                            За финансовую поддержку проекта ты получишь пропуск на приватный сервер.
+                            ${description_other}
                         </p>`;
-                        button_title = "Приобрести пропуск";
                         click_template = "";
                     }
                     item_butt_template = `
@@ -1984,8 +1986,11 @@ const generatePaymentLink = (type = 1,
         coupon = "";
     }
     if (coins_sell_mode) {
+        // products = JSON.parse(
+        //     `{"${donate_services_array[type - 1].id}": ${sum}}`
+        // );
         products = JSON.parse(
-            `{"${donate_services_array[type - 1].id}": ${sum}}`
+            `{"${current_c_item}": ${sum}}`
         );
     } else {
         products =
@@ -2580,8 +2585,7 @@ const callSucessPayModal = (payment_id =
         if (t.includes(
             "токен")) {
             return 1;
-        } else if (t.includes(
-            "проходка")) {
+        } else {
             return 2;
         }
     }
