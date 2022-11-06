@@ -2384,8 +2384,14 @@ const donateModalCall = (type_item,
                 "col-12");
         email_container_classL.add(
             "col-sm-6");
+        desc_get = get_data_service(current_c_item).description;
+        desc_get = desc_get ? desc_get : "";
         payment_text_form = `
             Форма оплаты пожертвования для игрового проекта Zalupa.Online
+            <br/>
+            <span class="text-gradient-primary">
+                ${get_data_service(current_c_item).description}
+            </span>
         `;
         item_name = current_c_item_name;
         customer_field
@@ -2397,7 +2403,7 @@ const donateModalCall = (type_item,
                     );
                 });
     }
-    modal_payment_text.innerText =
+    modal_payment_text.innerHTML =
         payment_text_form
             .replaceAll(
                 "\n", "");
