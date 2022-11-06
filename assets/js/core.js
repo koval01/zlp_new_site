@@ -42,6 +42,7 @@ var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
 var current_c_item = 0;
+var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth"
 const initHost = () => {
     const keys = Object.keys(site_domains);
@@ -1901,6 +1902,24 @@ const donate_enable_coupon = (enabled =
     }
 }
 
+const get_data_service = (
+    service_id) => {
+    for (let i = 0; i <
+    products_by_serverid
+        .length; i++) {
+        if (parseInt(
+                products_by_serverid[
+                    i].id
+            ) ===
+            parseInt(
+                service_id)
+        ) {
+            return products_by_serverid[
+                i];
+        }
+    }
+}
+
 const generatePaymentLink = (type = 1,
                              sum = 0) => {
     let selector_c = "";
@@ -2001,24 +2020,6 @@ const generatePaymentLink = (type = 1,
         "");
     button.innerText =
         "Проверяем данные...";
-
-    const get_data_service = (
-        service_id) => {
-        for (let i = 0; i <
-        products_by_serverid
-            .length; i++) {
-            if (parseInt(
-                    products_by_serverid[
-                        i].id
-                ) ===
-                parseInt(
-                    service_id)
-            ) {
-                return products_by_serverid[
-                    i];
-            }
-        }
-    }
 
     const _d_service =
         get_data_service(
@@ -2352,6 +2353,7 @@ const donateModalCall = (type_item,
     }
 
     current_c_item = item_id;
+    current_c_item_name = get_data_service(item_id).name;
 
     if (type_item === 1) {
         sum_container.style
@@ -2382,11 +2384,17 @@ const donateModalCall = (type_item,
                 "col-12");
         email_container_classL.add(
             "col-sm-6");
+        desc_get = get_data_service(current_c_item).description;
+        if (!desc_get) { desc_get = "" }
+
         payment_text_form = `
-            Вы можете совершить разовый платеж и получить пропуск на сезон к приватному серверу 
-            в качестве вознаграждения за финансовую поддержку проекта.
+            Форма оплаты пожертвования для игрового проекта Zalupa.Online
+            <br/>
+            <span class="text-gradient-primary">
+                ${desc_get}
+            </span>
         `;
-        item_name = "Пропуск";
+        item_name = current_c_item_name;
         customer_field
             .addEventListener(
                 "input",
@@ -2396,7 +2404,7 @@ const donateModalCall = (type_item,
                     );
                 });
     }
-    modal_payment_text.innerText =
+    modal_payment_text.innerHTML =
         payment_text_form
             .replaceAll(
                 "\n", "");
