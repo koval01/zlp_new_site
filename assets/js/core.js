@@ -2385,12 +2385,13 @@ const donateModalCall = (type_item,
         email_container_classL.add(
             "col-sm-6");
         desc_get = get_data_service(current_c_item).description;
-        desc_get = desc_get ? desc_get : "";
+        if (!desc_get) { desc_get = "" }
+
         payment_text_form = `
             Форма оплаты пожертвования для игрового проекта Zalupa.Online
             <br/>
             <span class="text-gradient-primary">
-                ${get_data_service(current_c_item).description}
+                ${desc_get}
             </span>
         `;
         item_name = current_c_item_name;
