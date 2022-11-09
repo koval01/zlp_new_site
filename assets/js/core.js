@@ -1698,6 +1698,7 @@ const onTelegramAuth = (user) => {
     notify(
         `Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name}</span>`
     );
+    autoAuthTelegramObserver();
 }
 
 const getTelegramAuth = (raw =
