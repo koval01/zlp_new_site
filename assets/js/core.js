@@ -1691,7 +1691,7 @@ const donateFlushCart = () => {
 const setAvatar = (user) => {
     if (user.photo_url) {
         document.getElementById("telegram-auth-avatar")
-            .style.backgroundImage = `url("${user.photo_url}")`
+            .style.backgroundImage = `url(${user.photo_url})`
     }
 }
 
