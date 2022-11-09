@@ -1707,7 +1707,6 @@ const onTelegramAuth = (user) => {
         `Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name}</span>`
     );
     autoAuthTelegramObserver();
-    setAvatar(user);
 }
 
 const getTelegramAuth = (raw =
@@ -3233,6 +3232,7 @@ const autoAuthTelegramObserver = () => {
                 .style
                 .display =
                 "";
+            setAvatar(getTelegramAuth());
         }
     })
 }
