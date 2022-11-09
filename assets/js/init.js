@@ -144,6 +144,7 @@ if (!development_hosts.includes(window
 } else {
     re_token =
         "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
+    telegram_bot_username = "zalupa_feedback_bot";
     if (window.location.hostname ===
         "localhost" && test_local) {
         backend_host =
