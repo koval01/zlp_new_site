@@ -1984,11 +1984,17 @@ const generatePaymentLink = (type = 1,
             "Ваш никнейм слишком длинный"
         );
         return;
+    } else if (customer.length < 3) {
+        notify(
+            "Ваш никнейм слишком короткий"
+        );
+        return;
     } else if (!/^[A-z\d_]+$/.test(
         customer)) {
         notify(
             "Никнейм не соотвествует формату"
         );
+        return;
     }
 
     if (!email.length) {
