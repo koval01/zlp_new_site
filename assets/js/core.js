@@ -1690,9 +1690,19 @@ const donateFlushCart = () => {
 }
 
 const setAvatar = (user) => {
+    const selector = document.getElementById("telegram-auth-avatar")
+        .style
     if (user.photo_url) {
-        document.getElementById("telegram-auth-avatar")
-            .style.backgroundImage = `url(${user.photo_url})`
+        selector.backgroundImage = `url(${user.photo_url})`
+    } else {
+        selector.background =
+            `linear-gradient(343deg, var(--telegram-bgcolor${
+            getAvatarColorIDforTG(user.id)
+        }-top) 0%, var(--telegram-bgcolor${
+            getAvatarColorIDforTG(user.id)
+        }-bottom) 100%)`
+        document.getElementById("tg-user-avatar-text").innerText =
+            `${user.first_name.slice(0, 1)}${user.last_name.slice(0, 1)}`.toUpperCase()
     }
 }
 
