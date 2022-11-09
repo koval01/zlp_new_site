@@ -1688,6 +1688,13 @@ const donateFlushCart = () => {
     notify("Корзина очищена");
 }
 
+const setAvatar = (user) => {
+    if (user.photo_url) {
+        document.getElementById("telegram-auth-avatar")
+            .style.backgroundImage = `url("${user.photo_url}")`
+    }
+}
+
 const onTelegramAuth = (user) => {
     Cookies.set(
         telegram_cookie_token,
