@@ -36,14 +36,15 @@ var events_page_state = "news";
 var donate_displayed = false;
 var modal_displayed = false;
 var freeze_crypto = false;
-var debug_lock_init = false;
 var freeze_monitoring = false;
 var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
 var current_c_item = 0;
 var current_c_item_name = "";
-var telegram_cookie_token = "telegram_auth"
+var telegram_cookie_token = "telegram_auth";
+const debug_lock_init = false;
+const telegram_auth_enabled = true;
 const initHost = () => {
     const keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
@@ -3190,6 +3191,10 @@ const privateServerModuleInit = () => {
 }
 
 const autoAuthTelegramObserver = () => {
+    if (telegram_auth_enabled) {
+        document.getElementById("telegram-auth-avatar")
+            .style.display = "";
+    }
     checkTelegramAuthData((
         success) => {
         console.log(
