@@ -3050,6 +3050,8 @@ const openTelegramAuthModal = () => {
         .setAttribute(
             "data-onauth",
             "onTelegramAuth(user)");
+    script_telegram_widget
+        .setAttribute("data-request-access", "write");
 
     script_telegram_widget.onload =
         () => {
