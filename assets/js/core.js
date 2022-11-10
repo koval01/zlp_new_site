@@ -44,7 +44,8 @@ var current_c_item = 0;
 var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth";
 const debug_lock_init = false;
-const telegram_auth_enabled = true;
+const telegram_auth_enabled = false;
+const feedback_module_enabled = false;
 const initHost = () => {
     const keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
@@ -3234,10 +3235,12 @@ const autoAuthTelegramObserver = () => {
                 .removeAttribute(
                     "onclick"
                 );
-            button_contact_land
-                .style
-                .display =
-                "";
+            if (feedback_module_enabled) {
+                button_contact_land
+                    .style
+                    .display =
+                    "";
+            }
             telegram_auth_avatar
                 .style
                 .display =

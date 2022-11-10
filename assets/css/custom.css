@@ -48,6 +48,7 @@ footer {
   display: block;
   margin: auto;
   font-weight: 900;
+  color: #fff !important;
 }
 
 input:-webkit-autofill, textarea:-webkit-autofill {
