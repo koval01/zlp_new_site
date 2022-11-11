@@ -51,11 +51,11 @@ footer {
   color: #fff !important;
 }
 
-input:-webkit-autofill, textarea:-webkit-autofill {
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   transition: background-color 99999s ease-in-out 0s;
   -webkit-text-fill-color: var(--contr-color-var) !important;
 }
-input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus, textarea:-webkit-autofill:active {
+input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active, textarea:-webkit-autofill:hover, textarea:-webkit-autofill:focus, textarea:-webkit-autofill:active, select:-webkit-autofill:hover, select:-webkit-autofill:focus, select:-webkit-autofill:active {
   transition: background-color 99999s ease-in-out 0s;
   -webkit-text-fill-color: var(--contr-color-var) !important;
 }
@@ -521,25 +521,25 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
   margin: 0;
 }
 
-input.form-control, textarea {
+input.form-control, textarea, select {
   border: 2px solid #e5e5e5 !important;
   background: #e5e5e5 !important;
 }
-input.form-control:focus, textarea:focus {
+input.form-control:focus, textarea:focus, select:focus {
   border: 2px solid #a970ff !important;
 }
-input.form-control:active, textarea:active {
+input.form-control:active, textarea:active, select:active {
   border: 2px solid #a970ff !important;
 }
 
-.dark-mode input.form-control, .dark-mode textarea {
+.dark-mode input.form-control, .dark-mode textarea, .dark-mode select {
   border: 2px solid #464649 !important;
   background: #464649 !important;
 }
-.dark-mode input.form-control:focus, .dark-mode textarea:focus {
+.dark-mode input.form-control:focus, .dark-mode textarea:focus, .dark-mode select:focus {
   border: 2px solid #a970ff !important;
 }
-.dark-mode input.form-control:active, .dark-mode textarea:active {
+.dark-mode input.form-control:active, .dark-mode textarea:active, .dark-mode select:active {
   border: 2px solid #a970ff !important;
 }
 
@@ -1440,8 +1440,14 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 
 #private-server-container {
   max-width: 950px;
+  padding: 0 0.8rem;
 }
 
+@media (max-width: 950px) {
+  #private-server-container {
+    border-radius: 0 !important;
+  }
+}
 .private-server-hub {
   background-image: url(../images/private-server-hub.webp);
   background-size: contain;

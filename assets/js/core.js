@@ -46,6 +46,7 @@ var telegram_cookie_token = "telegram_auth";
 const debug_lock_init = false;
 const telegram_auth_enabled = false;
 const feedback_module_enabled = false;
+const feedback_tg_auth_skip = true;
 const initHost = () => {
     const keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
@@ -1285,9 +1286,9 @@ const buildPlayersSwiper = () => {
                                         title="Подтвержденный"> ✔</i>
                                     ` : ""}
                                 </h3>
-                                <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
+                                <!-- <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
                                     ${player_badges_}
-                                </div>
+                                </div> -->
                                 <p class="fs-sm mb-0">${player[i].desc}</p>
                             </div>
                         </span>
@@ -2925,7 +2926,11 @@ const rulesPrivateContainerHash =
 const openAdminContact = () => {
     checkTelegramAuthData((
         data) => {
-        if (data) {
+        if (data || feedback_tg_auth_skip) {
+            if (!glob_players.length) {
+                glob_players = ["Player"];
+            }
+            shuffle(glob_players);
             switch_modal_containers
             ("info", {
                 title: "Обратная связь",
@@ -2934,6 +2939,21 @@ const openAdminContact = () => {
                             Это форма для предложений и жалоб, опишите пожалуйста кратко и 
                             ясно свою идею или предложение без воды.
                         </p>
+                        <div class="row mb-3">
+                            <div id="customer-tokens-container" class="col-md-6">
+                                <label for="feedback_nickname_init" class="form-label">Никнейм</label>
+                                <input type="text" class="form-control" id="feedback_nickname_init" placeholder="${glob_players[0]}" value="" required="">
+                            </div>
+                            <div id="customer-tokens-container" class="col-md-6">
+                                <label for="feedback_reason_init" class="form-label">Причина</label>
+                                <select name="feedback_reason_init" class="form-control" id="feedback_reason_init" value="game_question" required="">
+                                    <option value="tech_problem">Технические проблемы</option>
+                                    <option value="game_question">Вопрос по игре</option>
+                                    <option value="player_report">Жалоба на игрока</option>
+                                    <option value="offer">Предложение</option>
+                                </select>
+                            </div>
+                        </div>
                         <div id="contant-input-container">
                             <label for="admin-message">0/0</label>
                             <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
