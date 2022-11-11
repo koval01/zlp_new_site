@@ -36,14 +36,17 @@ var events_page_state = "news";
 var donate_displayed = false;
 var modal_displayed = false;
 var freeze_crypto = false;
-var debug_lock_init = false;
 var freeze_monitoring = false;
 var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
 var current_c_item = 0;
 var current_c_item_name = "";
-var telegram_cookie_token = "telegram_auth"
+var telegram_cookie_token = "telegram_auth";
+const debug_lock_init = false;
+const telegram_auth_enabled = false;
+const feedback_module_enabled = false;
+const feedback_tg_auth_skip = true;
 const initHost = () => {
     const keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
@@ -1283,9 +1286,9 @@ const buildPlayersSwiper = () => {
                                         title="Подтвержденный"> ✔</i>
                                     ` : ""}
                                 </h3>
-                                <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
+                                <!-- <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
                                     ${player_badges_}
-                                </div>
+                                </div> -->
                                 <p class="fs-sm mb-0">${player[i].desc}</p>
                             </div>
                         </span>
@@ -1688,6 +1691,23 @@ const donateFlushCart = () => {
     notify("Корзина очищена");
 }
 
+const setAvatar = (user) => {
+    const selector = document.getElementById("telegram-auth-avatar")
+        .style
+    if (user.photo_url) {
+        selector.backgroundImage = `url(${user.photo_url})`
+    } else {
+        selector.background =
+            `linear-gradient(343deg, var(--telegram-bgcolor${
+            getAvatarColorIDforTG(user.id)
+        }-top) 0%, var(--telegram-bgcolor${
+            getAvatarColorIDforTG(user.id)
+        }-bottom) 100%)`
+        document.getElementById("tg-user-avatar-text").innerText =
+            `${user.first_name.slice(0, 1)}${user.last_name.slice(0, 1)}`.toUpperCase()
+    }
+}
+
 const onTelegramAuth = (user) => {
     Cookies.set(
         telegram_cookie_token,
@@ -1698,6 +1718,7 @@ const onTelegramAuth = (user) => {
     notify(
         `Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name}</span>`
     );
+    autoAuthTelegramObserver();
 }
 
 const getTelegramAuth = (raw =
@@ -2905,7 +2926,11 @@ const rulesPrivateContainerHash =
 const openAdminContact = () => {
     checkTelegramAuthData((
         data) => {
-        if (data) {
+        if (data || feedback_tg_auth_skip) {
+            if (!glob_players.length) {
+                glob_players = ["Player"];
+            }
+            shuffle(glob_players);
             switch_modal_containers
             ("info", {
                 title: "Обратная связь",
@@ -2914,6 +2939,21 @@ const openAdminContact = () => {
                             Это форма для предложений и жалоб, опишите пожалуйста кратко и 
                             ясно свою идею или предложение без воды.
                         </p>
+                        <div class="row mb-3">
+                            <div id="customer-tokens-container" class="col-md-6">
+                                <label for="feedback_nickname_init" class="form-label">Никнейм</label>
+                                <input type="text" class="form-control" id="feedback_nickname_init" placeholder="${glob_players[0]}" value="" required="">
+                            </div>
+                            <div id="customer-tokens-container" class="col-md-6">
+                                <label for="feedback_reason_init" class="form-label">Причина</label>
+                                <select name="feedback_reason_init" class="form-control" id="feedback_reason_init" value="game_question" required="">
+                                    <option value="tech_problem">Технические проблемы</option>
+                                    <option value="game_question">Вопрос по игре</option>
+                                    <option value="player_report">Жалоба на игрока</option>
+                                    <option value="offer">Предложение</option>
+                                </select>
+                            </div>
+                        </div>
                         <div id="contant-input-container">
                             <label for="admin-message">0/0</label>
                             <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
@@ -3049,6 +3089,8 @@ const openTelegramAuthModal = () => {
         .setAttribute(
             "data-onauth",
             "onTelegramAuth(user)");
+    script_telegram_widget
+        .setAttribute("data-request-access", "write");
 
     script_telegram_widget.onload =
         () => {
@@ -3180,6 +3222,10 @@ const privateServerModuleInit = () => {
 }
 
 const autoAuthTelegramObserver = () => {
+    if (telegram_auth_enabled) {
+        document.getElementById("telegram-auth-avatar")
+            .style.display = "";
+    }
     checkTelegramAuthData((
         success) => {
         console.log(
@@ -3209,14 +3255,17 @@ const autoAuthTelegramObserver = () => {
                 .removeAttribute(
                     "onclick"
                 );
-            button_contact_land
-                .style
-                .display =
-                "";
+            if (feedback_module_enabled) {
+                button_contact_land
+                    .style
+                    .display =
+                    "";
+            }
             telegram_auth_avatar
                 .style
                 .display =
                 "";
+            setAvatar(getTelegramAuth());
         }
     })
 }

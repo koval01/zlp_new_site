@@ -43,7 +43,13 @@ html
 footer
   padding-top: 8rem
 
-input, textarea
+.tg-user-avatar-text
+  display: block
+  margin: auto
+  font-weight: 900
+  color: #fff !important
+
+input, textarea, select
   &:-webkit-autofill
     transition: background-color 99999s ease-in-out 0s
     -webkit-text-fill-color: var(--contr-color-var) !important
@@ -456,7 +462,7 @@ input
     -webkit-appearance: none
     margin: 0
 
-input.form-control, textarea
+input.form-control, textarea, select
   border: 2px solid #e5e5e5 !important
   background: #e5e5e5 !important
 
@@ -466,7 +472,7 @@ input.form-control, textarea
   &:active
     border: 2px solid #a970ff !important
 
-.dark-mode input.form-control, .dark-mode textarea
+.dark-mode input.form-control, .dark-mode textarea, .dark-mode select
   border: 2px solid #464649 !important
   background: #464649 !important
 
@@ -1285,6 +1291,11 @@ figure.news-figure
 
 #private-server-container
   max-width: 950px
+  padding: 0 .8rem
+
+@media (max-width: 950px)
+  #private-server-container
+    border-radius: 0 !important
 
 .private-server-hub
   background-image: url(../images/private-server-hub.webp)
