@@ -1702,10 +1702,10 @@ const setAvatar = (user) => {
     } else {
         selector.background =
             `linear-gradient(343deg, var(--telegram-bgcolor${
-            getAvatarColorIDforTG(user.id)
-        }-top) 0%, var(--telegram-bgcolor${
-            getAvatarColorIDforTG(user.id)
-        }-bottom) 100%)`
+                getAvatarColorIDforTG(user.id)
+            }-top) 0%, var(--telegram-bgcolor${
+                getAvatarColorIDforTG(user.id)
+            }-bottom) 100%)`
         document.getElementById("tg-user-avatar-text").innerText =
             `${user.first_name.slice(0, 1)}${user.last_name.slice(0, 1)}`.toUpperCase()
     }
@@ -2415,7 +2415,9 @@ const donateModalCall = (type_item,
         email_container_classL.add(
             "col-sm-6");
         desc_get = get_data_service(current_c_item).description;
-        if (!desc_get) { desc_get = "" }
+        if (!desc_get) {
+            desc_get = ""
+        }
 
         payment_text_form = `
             Форма оплаты пожертвования для игрового проекта Zalupa.Online
