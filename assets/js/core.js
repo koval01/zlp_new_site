@@ -11,14 +11,17 @@ const links_lt = [{
     link: "https://www.twitch.tv/bratishkinoff",
 }, {
     name: "youtube",
-    link: "https://www.youtube.com/channel/UCg2uAOEoY-la2d-95uMmLuQ",
+    link: "https://www.youtube.com/channel/UC_-kIftWIXsTrVXZy0lJdXQ",
 }, {
     name: "telegram",
     link: "https://t.me/zalupaonline",
 }, {
     name: "discord",
     link: "https://discord.gg/qEqbVbMeEx",
-},];
+}, {
+    name: "tiktok",
+    link: "https://www.tiktok.com/@nebratishkin"
+}];
 const lock_of = true;
 const coins_sell_mode = true;
 var donate_services_array = [];
