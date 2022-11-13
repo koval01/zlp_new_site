@@ -193,33 +193,35 @@ const alternateSort = (list) => {
         }
     }
 }
-const getImageLightness = (imageSrc, callback) => {
+const getImageLightness = (imageSrc, callback, calculate=true) => {
     const img = document.createElement("img");
     img.src = imageSrc;
     img.crossOrigin = "Anonymous";
     img.style.display = "none";
     document.body.appendChild(img);
     let colorSum = 0;
-    img.onload = () => {
-        const canvas = document.createElement("canvas");
-        canvas.width = this.width;
-        canvas.height = this.height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(this, 0, 0);
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-        let r, g, b, avg;
-        for (let x = 0, len = data.length; x < len; x += 4) {
-            r = data[x];
-            g = data[x + 1];
-            b = data[x + 2];
-            avg = Math.floor((r + g + b) / 3);
-            colorSum += avg;
-        }
-        const brightness = Math.floor(colorSum / (this.width * this.height));
-        callback(brightness);
-        img.remove();
-    };
+    if (calculate) {
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = this.width;
+            canvas.height = this.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(this, 0, 0);
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            let r, g, b, avg;
+            for (let x = 0, len = data.length; x < len; x += 4) {
+                r = data[x];
+                g = data[x + 1];
+                b = data[x + 2];
+                avg = Math.floor((r + g + b) / 3);
+                colorSum += avg;
+            }
+            const brightness = Math.floor(colorSum / (this.width * this.height));
+            callback(brightness);
+            img.remove();
+        };
+    }
 }
 const is_apple_platform = () => {
     const mac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
@@ -1541,6 +1543,10 @@ const setRandomStickerLand = () => {
     const setSticker = () => {
         const link = prepare_img_link(`assets/images/stickers/sticker${randDiaps(23)}.webp`);
         selector.style.backgroundImage = `url(${link})`;
+    }
+
+    for (let i = 0; i <= 23; i++) {
+        getImageLightness(`assets/images/stickers/sticker${i}.webp`, null, false);
     }
 
     setInterval(function () {
