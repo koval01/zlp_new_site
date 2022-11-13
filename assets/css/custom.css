@@ -777,7 +777,7 @@ iframe[id*=telegram-post] {
   top: 100px;
   left: 30px;
   opacity: 0.45;
-  transition: left 8s, top 8s, background 2s;
+  transition: left 8s, top 8s, background 2s, opacity 0.8s;
 }
 
 .player_badge {
@@ -1547,6 +1547,11 @@ label[for=admin-message] {
 @media (max-width: 450px) {
   #news_swiper_pagination {
     display: none;
+  }
+}
+@media (min-width: 860px) {
+  .payments-history-pagination {
+    display: block !important;
   }
 }
 .server-private-island-mobile {

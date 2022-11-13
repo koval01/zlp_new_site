@@ -463,6 +463,8 @@ const appendPostsNews = () => {
 }
 const donateSwitchContainer = (display) => {
     const container = document.querySelector(".donate-global-container");
+    const style_sticker = document.getElementById("super-klassniy-sticker-0").style;
+    style_sticker.opacity = 0;
     const update_zIndex = (variable) => {
         setTimeout(() => {
             container.style.zIndex = variable;
@@ -1551,10 +1553,14 @@ const setRandomStickerLand = () => {
     }
 
     setInterval(function () {
-        if (window.pageYOffset > 1600) {
-            selector.style.display = "none";
+        if (window.pageYOffset > 1600 || donate_displayed) {
+            selector.style.opacity = 0;
+        } else if (!donate_displayed && window.pageYOffset <= 1600) {
+            setTimeout(function () {
+                selector.style.opacity = .4;
+            }, 800);
         } else {
-            selector.style.display = "";
+            selector.style.opacity = .4;
         }
     }, 50);
 
