@@ -758,6 +758,8 @@ iframe[id*=telegram-post] {
   height: 155px;
   width: 100%;
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .player_badge_container {
@@ -1500,8 +1502,8 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 
 #admin-message {
   width: 100%;
-  min-height: 35vh;
-  max-height: 60vh;
+  height: 45vh;
+  resize: none;
 }
 
 #telegram-auth-container {

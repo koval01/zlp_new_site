@@ -61,6 +61,59 @@ const initHost = () => {
 const linkHash = () => {
     return window.location.hash.substring(1);
 }
+const time_correction = (date) => {
+    const userTimezoneOffset = -date.getTimezoneOffset() * 60000;
+    return new Date(date.getTime() - userTimezoneOffset);
+}
+const time_in_moscow_get = (date=null) => {
+    if (!date) {
+        date = new Date();
+    }
+    return new Date(date.toLocaleString("en-US", {
+        timeZone: "Europe/Moscow",
+    }));
+}
+const getOffset = (date, timezone) =>
+    -new Date(date).toLocaleString([], {
+        timeZone: timezone, timeZoneName: 'shortOffset'
+    }).match(/(?<=GMT|UTC).+/)[0]*60;
+const formatDate = (date, now=null) => {
+    let diff = new Date() - date;
+    if (now) {
+        diff = now - date;
+    }
+
+    if (diff < 1000) {
+        return 'прямо сейчас';
+    }
+
+    let sec = Math.floor(diff / 1000);
+
+    if (sec < 60) {
+        return sec + ` ${getNoun(sec, "секунду", "секунды", "секунд")} назад`;
+    }
+
+    let min = Math.floor(diff / (1000 * 60));
+    if (min < 60) {
+        return min + ` ${getNoun(min, "минуту", "минуты", "минут")} назад`;
+    }
+
+    let hour = Math.floor(diff / (1000 * 60 * 60));
+    if (hour < 24) {
+        return hour + ` ${getNoun(hour, "час", "часа", "часов")} назад`;
+    }
+
+    let d = date;
+    d = [
+        '0' + d.getDate(),
+        '0' + (d.getMonth() + 1),
+        '' + d.getFullYear(),
+        '0' + d.getHours(),
+        '0' + d.getMinutes()
+    ].map(component => component.slice(-2));
+
+    return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
+}
 const utf8_to_b64 = (str) => {
     return window.btoa(unescape(encodeURIComponent(str)));
 }
@@ -470,19 +523,13 @@ const initEventsList = () => {
                 if (keyA > keyB) return 1;
                 return 0;
             });
-            const time_correction = (date) => {
-                const userTimezoneOffset = -date.getTimezoneOffset() * 60000;
-                return new Date(date.getTime() - userTimezoneOffset);
-            };
             for (let i = 0; i < data.length; i++) {
                 if (3 > i > 0) {
                     row_container.classList.add(row_class[i]);
                 }
                 const st_date = time_correction(new Date(data[i].date_start));
                 const end_date = time_correction(new Date(data[i].date_end));
-                const time_in_moscow = new Date(new Date().toLocaleString("en-US", {
-                    timeZone: "Europe/Moscow",
-                }));
+                const time_in_moscow = time_in_moscow_get();
                 let badge = "";
                 if (st_date > time_in_moscow) {
                     badge = "Скоро";
@@ -646,6 +693,15 @@ const checkPayment = (callback, payment_id) => {
             payment_id: parseInt(payment_id),
             token: token_update,
             tokens_send: coins_sell_mode,
+        });
+    });
+}
+const getPaymentHistory = (callback) => {
+    re_check((token_update) => {
+        requestCall((r) => {
+            callback(r.payment);
+        }, `${backend_host}/donate/payment_history`, "POST", true, {
+            token: token_update
         });
     });
 }
@@ -1304,6 +1360,106 @@ const buildPlayersSwiper = () => {
             },
             "assets/data/players.json",
             "GET", true);
+    });
+}
+
+const buildDonateHistorySwiper = () => {
+    const array_ = document
+        .getElementById(
+            "payments-history-swiper-array");
+
+    const createSwiper = () => {
+        new Swiper(
+            "#payments_history_container", {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                autoplay: {
+                    delay: 1500,
+                },
+                loop: true,
+                observer: true,
+                observeParents: true,
+                preventClicks: false,
+                pagination: {
+                    el: ".payments-history-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 2,
+                    },
+                    600: {
+                        slidesPerView: 3,
+                    },
+                    920: {
+                        slidesPerView: 4,
+                    },
+                    1200: {
+                        slidesPerView: 5,
+                    },
+                    1600: {
+                        slidesPerView: 6,
+                    },
+                    1900: {
+                        slidesPerView: 7,
+                    },
+                    2100: {
+                        slidesPerView: 8,
+                    },
+                    2500: {
+                        slidesPerView: 9,
+                    },
+                },
+            });
+    };
+
+    const updateDonateTime = () => {
+        const selectors = document.querySelectorAll("#item-donate-history-desc>time");
+        for (let i = 0; i < selectors.length; i++) {
+            const select = selectors[i];
+            const time_ = select.getAttribute("datetime");
+
+            select.innerHTML = formatDate(new Date(time_), time_in_moscow_get());
+        }
+    }
+
+    getPaymentHistory(function (data) {
+        // console.log(data.length);
+        for (let i = 0; i <
+        data
+            .length; i++) {
+            const date = new Date(data[i].updated_at);
+            array_
+                .innerHTML =
+                array_
+                    .innerHTML + `
+                    <!-- use player template for donate history swiper -->
+                    <div class="swiper-slide text-center">
+                        <span class="d-block py-3">
+                            <div class="player_head_container">
+                                <div 
+                                    class="player-head d-block mx-auto" 
+                                    style="background-image: url(${data[i].product.image});height:65px!important"
+                                ></div>
+                            </div>
+                            <div class="card-body p-3">
+                                <h5 class="h5 fs-6 fw-semibold pt-1 mb-2">
+                                    ${data[i].product.name}
+                                </h5>
+                                <p class="fs-sm mb-0" id="item-donate-history-desc">
+                                    <span class="text-gradient-primary fw-bold">${data[i].customer}</span>
+                                    <br/>
+                                    <time datetime="${
+                                        date.toString()
+                                    }"></time>
+                                </p>
+                            </div>
+                        </span>
+                    </div>
+                `;
+        }
+        createSwiper();
+        setInterval(updateDonateTime, 1000);
     });
 }
 
@@ -3039,7 +3195,13 @@ const openAdminContact = () => {
         }
     });
 }
+const initSOptimizeGA = () => {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
+    gtag('config', 'G-VGRQSK1J7M');
+}
 const adminsContactContainerHash =
     () => {
         observerContainerHash([
@@ -3281,6 +3443,7 @@ const initCore = () => {
     initLanding();
     observerSystemTheme();
     buildPlayersSwiper();
+    buildDonateHistorySwiper();
     appendPostsNews();
     initComments();
     appendServices();
