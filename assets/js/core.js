@@ -1482,7 +1482,7 @@ const buildDonateHistorySwiper = () => {
 const setRandomStickerLand = () => {
     const selector = document.getElementById("super-klassniy-sticker-0");
     const setSticker = () => {
-        const link = prepare_img_link(`assets/images/stickers/sticker${randDiaps(17)}.webp`);
+        const link = prepare_img_link(`assets/images/stickers/sticker${randDiaps(23)}.webp`);
         selector.style.backgroundImage = `url(${link})`;
     }
 
