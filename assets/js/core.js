@@ -61,6 +61,9 @@ const initHost = () => {
 const linkHash = () => {
     return window.location.hash.substring(1);
 }
+const prepare_img_link = (img_link) => {
+    return img_link.replace("https://", "//").replaceAll(/\//g, "\\/");
+}
 const time_correction = (date) => {
     const userTimezoneOffset = -date.getTimezoneOffset() * 60000;
     return new Date(date.getTime() - userTimezoneOffset);
@@ -204,6 +207,12 @@ const getImageLightness = (imageSrc, callback) => {
         callback(brightness);
         img.remove();
     };
+}
+const is_apple_platform = () => {
+    const mac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+    if (mac) {
+        return true;
+    }
 }
 const validateEmail = (email) => {
     return String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
@@ -785,7 +794,7 @@ const appendServices = () => {
                             ${button_title}
                         </button>`;
                 }
-                services[i].image = services[i].image.replace("https://", "//").replaceAll(/\//g, "\\/");
+                services[i].image = prepare_img_link(services[i].image);
                 sl.innerHTML = sl.innerHTML + `
                     <div class="col" id="donate_item_${services[i].id}">
                         <div class="card border-0 bg-transparent" ${click_template}>
@@ -1189,6 +1198,9 @@ const buildPlayersSwiper = () => {
                     1600: {
                         slidesPerView: 5,
                     },
+                    2000: {
+                        slidesPerView: 6,
+                    }
                 },
             });
     };
@@ -1319,6 +1331,7 @@ const buildPlayersSwiper = () => {
                     const
                         player_clan =
                             getClan();
+                    player[i].head = prepare_img_link(player[i].head);
                     array_
                         .innerHTML =
                         array_
@@ -1429,6 +1442,7 @@ const buildDonateHistorySwiper = () => {
         data
             .length; i++) {
             const date = new Date(data[i].updated_at);
+            data[i].product.image = prepare_img_link(data[i].product.image);
             array_
                 .innerHTML =
                 array_
