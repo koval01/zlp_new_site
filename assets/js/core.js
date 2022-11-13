@@ -123,6 +123,9 @@ const utf8_to_b64 = (str) => {
 const b64_to_utf8 = (str) => {
     return decodeURIComponent(escape(window.atob(str)));
 }
+const randDiaps = (max=10) => {
+    return Math.floor(Math.random() * max) + 1;
+}
 const generateRandomHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
 const getAvatarColorIDforTG = (user_id) => {
     var result = 0;
@@ -1476,7 +1479,36 @@ const buildDonateHistorySwiper = () => {
         setInterval(updateDonateTime, 1000);
     });
 }
+const setRandomStickerLand = () => {
+    const selector = document.getElementById("super-klassniy-sticker-0");
+    const setSticker = () => {
+        const link = prepare_img_link(`assets/images/stickers/sticker${randDiaps(17)}.webp`);
+        selector.style.backgroundImage = `url(${link})`;
+    }
 
+    setInterval(function () {
+        if (window.pageYOffset > 1600) {
+            selector.style.display = "none";
+        } else {
+            selector.style.display = "";
+        }
+    }, 50);
+    
+    const updateStickerPosition = () => {
+        if (window.innerWidth >= 992) {
+            selector.style.top = `${randDiaps(85)}%`;
+            selector.style.left = `${randDiaps(85)}%`;
+        } else {
+            selector.style.top = `${randDiaps(50)}%`;
+            selector.style.left = `${randDiaps(75)}%`;
+        }
+    }
+
+    setSticker();
+    setInterval(setSticker, 6000);
+    updateStickerPosition();
+    setInterval(updateStickerPosition, 3000);
+}
 const donate_element_click = (
     product_data) => {
     switch_modal_containers(
@@ -3469,6 +3501,7 @@ const initCore = () => {
     finishLoad();
     successPay();
     ytVideoSetter();
+    setRandomStickerLand();
 
     donateContainerHash();
     rulesPrivateContainerHash();
