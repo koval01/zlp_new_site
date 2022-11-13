@@ -1539,13 +1539,14 @@ const buildDonateHistorySwiper = () => {
     });
 }
 const setRandomStickerLand = () => {
+    const stickers_count = 23;
     const selector = document.getElementById("super-klassniy-sticker-0");
     const setSticker = () => {
-        const link = prepare_img_link(`assets/images/stickers/sticker${randDiaps(23)}.webp`);
+        const link = prepare_img_link(`assets/images/stickers/sticker${randDiaps(stickers_count)}.webp`);
         selector.style.backgroundImage = `url(${link})`;
     }
 
-    for (let i = 0; i <= 23; i++) {
+    for (let i = 0; i <= stickers_count; i++) {
         getImageLightness(`assets/images/stickers/sticker${i}.webp`, null, false);
     }
 
