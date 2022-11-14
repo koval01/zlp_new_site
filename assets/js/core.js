@@ -1491,7 +1491,7 @@ const buildDonateHistorySwiper = () => {
     });
 }
 const setRandomStickerLand = () => {
-    const stickers_count = 23;
+    const stickers_count = 32;
     const selector = document.getElementById("super-klassniy-sticker-0");
     const setSticker = () => {
         const link = prepare_img_link(`assets/images/stickers/sticker${randDiaps(stickers_count)}.webp`);
