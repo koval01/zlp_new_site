@@ -2984,7 +2984,7 @@ const callSucessPayModal = (payment_id =
             let sum_template = `
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Сумма зачисления</span>
-                    <strong class="text-primary">${payment.enrolled} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
+                    <strong class="bottom-line-set bottom-line-set-zlp color-set-zlp">${payment.enrolled} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
                 </li>
             `;
 
@@ -2996,7 +2996,7 @@ const callSucessPayModal = (payment_id =
                         = `
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Сумма</span>
-                            <strong class="text-primary">${payment.enrolled} ${getNoun(payment.enrolled, "токен", "токена", "токенов")}</strong>
+                            <strong class="bottom-line-set bottom-line-set-zlp color-set-zlp">${payment.enrolled} ${getNoun(payment.enrolled, "токен", "токена", "токенов")}</strong>
                         </li>
                     `;
                 } else if (
@@ -3007,7 +3007,7 @@ const callSucessPayModal = (payment_id =
                         = `
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Сумма</span>
-                            <strong class="text-primary">${payment.product.price} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
+                            <strong class="bottom-line-set bottom-line-set-zlp color-set-zlp">${payment.product.price} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
                         </li>
                     `;
                     document.querySelector("div.modal-footer").prepend(private_gift_button);
@@ -3062,6 +3062,17 @@ const callSucessPayModal = (payment_id =
                     `${parsed_time.toLocaleDateString()} ${parsed_time.toLocaleTimeString()}`;
             }
 
+            let template_invite_link = "";
+            if (payment.private_invite) {
+                template_invite_link = `
+                    <li class="list-group-item d-flex justify-content-between lh-sm mb-2 mb-lg-3 mt-4 mt-lg-5">
+                        <a href="${payment.private_invite}" id="private-chat-button" target="_blank" style="margin:auto"
+                                   class="btn btn-primary shadow-primary btn-lg btn-shadow-hide">
+                                Приглашение в приватный чат <i class="ms-1 bx bxl-telegram"></i></a>
+                    </li>
+                `;
+            }
+
             cart_dom.innerHTML = `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
@@ -3089,6 +3100,7 @@ const callSucessPayModal = (payment_id =
                     <span>${payment.created_at}</span>
                 </li>
                 ${sum_template}
+                ${template_invite_link}
             `;
         } else {
             succ_text
