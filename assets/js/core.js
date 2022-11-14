@@ -6,11 +6,10 @@ const site_domains = {
 };
 const cart_cookie = "cart_box";
 const channels = 2;
-const links_lt = [
-    {
-        name: "twitch",
-        link: "https://www.twitch.tv/bratishkinoff",
-    },
+const links_lt = [{
+    name: "twitch",
+    link: "https://www.twitch.tv/bratishkinoff",
+},
     {
         name: "youtube",
         link: "https://www.youtube.com/channel/UC_-kIftWIXsTrVXZy0lJdXQ",
@@ -26,7 +25,8 @@ const links_lt = [
     {
         name: "tiktok",
         link: "https://www.tiktok.com/@nebratishkin"
-    }];
+    }
+];
 const lock_of = true;
 const coins_sell_mode = true;
 var donate_services_array = [];
@@ -77,17 +77,15 @@ const time_in_moscow_get = (date = null) => {
     if (!date) {
         date = new Date();
     }
-    return new Date(date.toLocaleString("en-US",
-        {
-            timeZone: "Europe/Moscow",
-        }));
+    return new Date(date.toLocaleString("en-US", {
+        timeZone: "Europe/Moscow",
+    }));
 }
 const getOffset = (date, timezone) =>
-    -new Date(date).toLocaleString([],
-        {
-            timeZone: timezone,
-            timeZoneName: 'shortOffset'
-        }).match(/(?<=GMT|UTC).+/)[0] * 60;
+    -new Date(date).toLocaleString([], {
+        timeZone: timezone,
+        timeZoneName: 'shortOffset'
+    }).match(/(?<=GMT|UTC).+/)[0] * 60;
 const formatDate = (date, now = null) => {
     let diff = new Date() - date;
     if (now) {
@@ -148,18 +146,16 @@ const getAvatarColorIDforTG = (user_id) => {
 const getHash = (link) => {
     const hash = window.location.hash.substr(1);
     return Object.keys(hash.split("&").reduce((result, item) => {
-            const parts = item.split("=");
-            result[parts[0]] = parts[1];
-            return result;
-        },
-        {}))[0];
+        const parts = item.split("=");
+        result[parts[0]] = parts[1];
+        return result;
+    }, {}))[0];
 }
 const re_check = (callback) => {
     grecaptcha.ready(() => {
-        grecaptcha.execute(re_token,
-            {
-                action: "submit",
-            }).then((token_update) => {
+        grecaptcha.execute(re_token, {
+            action: "submit",
+        }).then((token_update) => {
             callback(token_update);
         });
     });
@@ -170,7 +166,7 @@ const shuffle = (array) => {
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex],];
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex], ];
     }
     return array;
 }
@@ -193,7 +189,7 @@ const alternateSort = (list) => {
         }
     }
 }
-const getImageLightness = (imageSrc, callback, calculate=true) => {
+const getImageLightness = (imageSrc, callback, calculate = true) => {
     const img = document.createElement("img");
     img.src = imageSrc;
     img.crossOrigin = "Anonymous";
@@ -260,25 +256,23 @@ const getNoun = (number, one = "игрок", two = "игрока", five = "иг�
 const getCrypto = (callback) => {
     re_check((token_update) => {
         requestCall((r) => {
-                if (r.success) {
-                    callback(r.token);
-                } else {
-                    callback("");
-                }
-            }, `${backend_host}/crypto`, "POST", true,
-            {
-                token: token_update,
-            });
+            if (r.success) {
+                callback(r.token);
+            } else {
+                callback("");
+            }
+        }, `${backend_host}/crypto`, "POST", true, {
+            token: token_update,
+        });
     });
 }
 const get_events_ = (callback) => {
     re_check((token_update) => {
         requestCall((r) => {
-                callback(r.events);
-            }, `${backend_host}/events`, "POST", true,
-            {
-                token: token_update,
-            });
+            callback(r.events);
+        }, `${backend_host}/events`, "POST", true, {
+            token: token_update,
+        });
     });
 }
 const get_yt_video_ = (callback, video_id, skip = false) => {
@@ -287,8 +281,7 @@ const get_yt_video_ = (callback, video_id, skip = false) => {
             requestCall(
                 (r) => {
                     callback(r.body);
-                }, `${backend_host}/youtube_get`, "POST", true,
-                {
+                }, `${backend_host}/youtube_get`, "POST", true, {
                     token: token_update,
                     video_id: video_id,
                 });
@@ -300,11 +293,10 @@ const get_yt_video_ = (callback, video_id, skip = false) => {
 const get_news_ = (callback, source) => {
     re_check((token_update) => {
         requestCall((r) => {
-                callback(r.messages);
-            }, `${backend_host}/channel_parse?choice=${source}`, "POST", true,
-            {
-                token: token_update,
-            });
+            callback(r.messages);
+        }, `${backend_host}/channel_parse?choice=${source}`, "POST", true, {
+            token: token_update,
+        });
     });
 }
 const get_rules_private_server = (callback) => {
@@ -314,29 +306,25 @@ const get_rules_private_server = (callback) => {
 }
 const appendPostsNews = () => {
     const createSwiper = () => {
-        new Swiper("#news_swipe_container",
-            {
-                spaceBetween: 12,
-                loop: true,
-                observer: true,
-                observeParents: true,
-                preventClicks: false,
-                preventClicksPropagation: false,
-                autoplay:
-                    {
-                        delay: 1000 * 10,
-                    },
-                pagination:
-                    {
-                        el: "#news_swiper_pagination",
-                        clickable: true,
-                    },
-                navigation:
-                    {
-                        prevEl: "#prev_news",
-                        nextEl: "#next_news",
-                    },
-            });
+        new Swiper("#news_swipe_container", {
+            spaceBetween: 12,
+            loop: true,
+            observer: true,
+            observeParents: true,
+            preventClicks: false,
+            preventClicksPropagation: false,
+            autoplay: {
+                delay: 1000 * 10,
+            },
+            pagination: {
+                el: "#news_swiper_pagination",
+                clickable: true,
+            },
+            navigation: {
+                prevEl: "#prev_news",
+                nextEl: "#next_news",
+            },
+        });
     };
     const text_modify_enable = true;
     const add_news_in_array = (posts) => {
@@ -448,8 +436,7 @@ const appendPostsNews = () => {
                     try {
                         sl.parentNode.removeChild(sl);
                         container_news.style.display = "";
-                    } catch (_) {
-                    }
+                    } catch (_) {}
                 }, 150);
         };
         if (posts) {
@@ -472,11 +459,10 @@ const donateSwitchContainer = (display) => {
     };
     if (!donate_displayed || display) {
         document.body.style.overflowY = "hidden";
-        window.scrollTo(
-            {
-                top: 0,
-                behavior: "smooth",
-            });
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
         container.style.minHeight = "";
         update_zIndex("");
         donate_displayed = true;
@@ -593,27 +579,25 @@ const initEventsList = () => {
 const get_donate_services = (callback) => {
     re_check((token_update) => {
         requestCall((r) => {
-                callback(r.services);
-            }, `${backend_host}/donate/services`, "POST", true,
-            {
-                token: token_update,
-            });
+            callback(r.services);
+        }, `${backend_host}/donate/services`, "POST", true, {
+            token: token_update,
+        });
     });
 }
 const create_payment = (callback, customer, products, server_id, email = "", coupon = "") => {
     re_check((token_update) => {
         requestCall((r) => {
-                callback(r.payment);
-            }, `${backend_host}/donate/payment/create`, "POST", true,
-            {
-                customer: customer,
-                products: products,
-                email: email,
-                coupon: coupon,
-                token: token_update,
-                server_id: server_id,
-                success_url: `https://${work_domain_v}`,
-            });
+            callback(r.payment);
+        }, `${backend_host}/donate/payment/create`, "POST", true, {
+            customer: customer,
+            products: products,
+            email: email,
+            coupon: coupon,
+            token: token_update,
+            server_id: server_id,
+            success_url: `https://${work_domain_v}`,
+        });
     });
 }
 const generateGiftLink = (callback, payment_id) => {
@@ -624,31 +608,29 @@ const generateGiftLink = (callback, payment_id) => {
 const check_coupon = (callback, coupon) => {
     re_check((token_update) => {
         requestCall((r) => {
-                if (r.coupon && r.success) {
-                    callback(r.coupon);
-                } else {
-                    callback(null);
-                }
-            }, `${backend_host}/donate/coupon`, "POST", true,
-            {
-                code: coupon,
-                token: token_update
-            });
+            if (r.coupon && r.success) {
+                callback(r.coupon);
+            } else {
+                callback(null);
+            }
+        }, `${backend_host}/donate/coupon`, "POST", true, {
+            code: coupon,
+            token: token_update
+        });
     });
 }
 const checkTelegramAuthData = (callback) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
         requestCall((r) => {
-                if (r) {
-                    callback(r.success);
-                } else {
-                    callback(false);
-                }
-            }, `${backend_host}/telegram/auth/check`, "POST", true,
-            {
-                tg_auth_data: auth_data
-            });
+            if (r) {
+                callback(r.success);
+            } else {
+                callback(false);
+            }
+        }, `${backend_host}/telegram/auth/check`, "POST", true, {
+            tg_auth_data: auth_data
+        });
     } else {
         callback(false);
     }
@@ -664,8 +646,7 @@ const checkFeedbackStatus = (callback) => {
                     } else {
                         callback(false);
                     }
-                }, `${backend_host}/feedback/check`, "POST", true,
-                {
+                }, `${backend_host}/feedback/check`, "POST", true, {
                     token: token_update,
                     tg_auth_data: auth_data
                 });
@@ -683,8 +664,7 @@ const sendFeedback = (callback, text) => {
                     } else {
                         callback(false);
                     }
-                }, `${backend_host}/feedback/send`, "POST", true,
-                {
+                }, `${backend_host}/feedback/send`, "POST", true, {
                     text: text,
                     token: token_update,
                     tg_auth_data: auth_data
@@ -729,23 +709,21 @@ const sendFeedbackAction = () => {
 const checkPayment = (callback, payment_id) => {
     re_check((token_update) => {
         requestCall((r) => {
-                callback(r.payment);
-            }, `${backend_host}/donate/payment_get`, "POST", true,
-            {
-                payment_id: parseInt(payment_id),
-                token: token_update,
-                tokens_send: coins_sell_mode,
-            });
+            callback(r.payment);
+        }, `${backend_host}/donate/payment_get`, "POST", true, {
+            payment_id: parseInt(payment_id),
+            token: token_update,
+            tokens_send: coins_sell_mode,
+        });
     });
 }
 const getPaymentHistory = (callback) => {
     re_check((token_update) => {
         requestCall((r) => {
-                callback(r.payment);
-            }, `${backend_host}/donate/payment_history`, "POST", true,
-            {
-                token: token_update
-            });
+            callback(r.payment);
+        }, `${backend_host}/donate/payment_history`, "POST", true, {
+            token: token_update
+        });
     });
 }
 const appendServices = () => {
@@ -863,11 +841,10 @@ const appendServices = () => {
             setTimeout(
                 () => {
                     const elem = document.getElementById("donate_block_load");
-                    const ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container",];
+                    const ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container", ];
                     try {
                         elem.parentNode.removeChild(elem);
-                    } catch (_) {
-                    }
+                    } catch (_) {}
                     for (let i = 0; i < ids.length; i++) {
                         try {
                             document.getElementById(ids[i]).style.display = "";
@@ -970,8 +947,7 @@ const modal_open_ = (onclick_lock = false) => {
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
     try {
         document.getElementById("private_gift_button_modal").remove()
-    } catch (_) {
-    }
+    } catch (_) {}
     const modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
     setTimeout(() => {
@@ -993,12 +969,11 @@ const switch_modal_containers = (mode = "service", info_params = {}) => {
     const success = document.getElementById("modal-donate-success-container");
     const finish_donate = document.getElementById("modal-donate-finish-container-c");
     const title = document.querySelector(".modal-title");
-    const _array = [
-        {
-            name: "service",
-            selector: service,
-            title: "Товар",
-        },
+    const _array = [{
+        name: "service",
+        selector: service,
+        title: "Товар",
+    },
         {
             name: "service_coins",
             selector: service_coins,
@@ -1018,7 +993,8 @@ const switch_modal_containers = (mode = "service", info_params = {}) => {
             name: "donate_finish",
             selector: finish_donate,
             title: "Корзина",
-        },];
+        },
+    ];
     for (let i = 0; i < _array.length; i++) {
         let _mode = "none";
         if (mode === _array[i].name) {
@@ -1045,8 +1021,7 @@ const get_cookie_cart = () => {
     let cookie_cart = {};
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {
-    }
+    } catch (_) {}
     return cookie_cart;
 }
 const updateCartCount = () => {
@@ -1082,29 +1057,25 @@ const comment_show_action = (id, close = false) => {
 const initComments = () => {
     const array_ = document.getElementById("comment_swipe_array");
     const createSwiper = () => {
-        swiper_comments = new Swiper("#comment_swipe_container",
-            {
-                spaceBetween: 12,
-                loop: true,
-                observer: true,
-                observeParents: true,
-                preventClicks: false,
-                preventClicksPropagation: false,
-                autoplay:
-                    {
-                        delay: 3000,
-                    },
-                pagination:
-                    {
-                        el: ".swiper-pagination",
-                        clickable: true,
-                    },
-                navigation:
-                    {
-                        prevEl: "#prev_comment",
-                        nextEl: "#next_comment",
-                    },
-            });
+        swiper_comments = new Swiper("#comment_swipe_container", {
+            spaceBetween: 12,
+            loop: true,
+            observer: true,
+            observeParents: true,
+            preventClicks: false,
+            preventClicksPropagation: false,
+            autoplay: {
+                delay: 3000,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                prevEl: "#prev_comment",
+                nextEl: "#next_comment",
+            },
+        });
     };
     const playersGet = (callback) => {
         requestCall((r) => {
@@ -1214,46 +1185,37 @@ const buildPlayersSwiper = () => {
 
     const createSwiper = () => {
         new Swiper(
-            "#players_swipe_container",
-            {
+            "#players_swipe_container", {
                 slidesPerView: 1,
                 spaceBetween: 24,
-                autoplay:
-                    {
-                        delay: 2000,
-                    },
+                autoplay: {
+                    delay: 2000,
+                },
                 loop: true,
                 observer: true,
                 observeParents: true,
                 preventClicks: false,
-                pagination:
-                    {
-                        el: ".swiper-pagination",
-                        clickable: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    600: {
+                        slidesPerView: 2,
                     },
-                breakpoints:
-                    {
-                        600:
-                            {
-                                slidesPerView: 2,
-                            },
-                        920:
-                            {
-                                slidesPerView: 3,
-                            },
-                        1200:
-                            {
-                                slidesPerView: 4,
-                            },
-                        1600:
-                            {
-                                slidesPerView: 5,
-                            },
-                        2000:
-                            {
-                                slidesPerView: 6,
-                            }
+                    920: {
+                        slidesPerView: 3,
                     },
+                    1200: {
+                        slidesPerView: 4,
+                    },
+                    1600: {
+                        slidesPerView: 5,
+                    },
+                    2000: {
+                        slidesPerView: 6,
+                    }
+                },
             });
     };
 
@@ -1435,58 +1397,46 @@ const buildDonateHistorySwiper = () => {
 
     const createSwiper = () => {
         new Swiper(
-            "#payments_history_container",
-            {
+            "#payments_history_container", {
                 slidesPerView: 1,
                 spaceBetween: 24,
-                autoplay:
-                    {
-                        delay: 1500,
-                    },
+                autoplay: {
+                    delay: 1500,
+                },
                 loop: true,
                 observer: true,
                 observeParents: true,
                 preventClicks: false,
-                pagination:
-                    {
-                        el: ".payments-history-pagination",
-                        clickable: true,
+                pagination: {
+                    el: ".payments-history-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 2,
                     },
-                breakpoints:
-                    {
-                        320:
-                            {
-                                slidesPerView: 2,
-                            },
-                        600:
-                            {
-                                slidesPerView: 3,
-                            },
-                        920:
-                            {
-                                slidesPerView: 4,
-                            },
-                        1200:
-                            {
-                                slidesPerView: 5,
-                            },
-                        1600:
-                            {
-                                slidesPerView: 6,
-                            },
-                        1900:
-                            {
-                                slidesPerView: 7,
-                            },
-                        2100:
-                            {
-                                slidesPerView: 8,
-                            },
-                        2500:
-                            {
-                                slidesPerView: 9,
-                            },
+                    600: {
+                        slidesPerView: 3,
                     },
+                    920: {
+                        slidesPerView: 4,
+                    },
+                    1200: {
+                        slidesPerView: 5,
+                    },
+                    1600: {
+                        slidesPerView: 6,
+                    },
+                    1900: {
+                        slidesPerView: 7,
+                    },
+                    2100: {
+                        slidesPerView: 8,
+                    },
+                    2500: {
+                        slidesPerView: 9,
+                    },
+                },
             });
     };
 
@@ -1500,7 +1450,7 @@ const buildDonateHistorySwiper = () => {
         }
     }
 
-    getPaymentHistory(function (data) {
+    getPaymentHistory(function(data) {
         // console.log(data.length);
         for (let i = 0; i <
         data
@@ -1552,11 +1502,11 @@ const setRandomStickerLand = () => {
         getImageLightness(`assets/images/stickers/sticker${i}.webp`, null, false);
     }
 
-    setInterval(function () {
+    setInterval(function() {
         if (window.pageYOffset > 1600 || donate_displayed) {
             selector.style.opacity = 0;
         } else if (!donate_displayed && window.pageYOffset <= 1600) {
-            setTimeout(function () {
+            setTimeout(function() {
                 selector.style.opacity = .4;
             }, 800);
         } else {
@@ -1854,8 +1804,7 @@ const donate_cart = (product, count,
             product_count_in_cart
                 = +p;
         }
-    } catch (_) {
-    }
+    } catch (_) {}
 
     if (!Number.isInteger(
         product) || !
@@ -1879,8 +1828,7 @@ const donate_cart = (product, count,
     if (!cart) {
         Cookies.set(cart_cookie,
             JSON
-                .stringify(
-                    {}));
+                .stringify({}));
     }
 
     const els_ = JSON.parse(Cookies
@@ -1964,8 +1912,7 @@ const donate_cart_button = (
 
 const donateFlushCart = () => {
     Cookies.remove(cart_cookie);
-    donate_cart_button(
-        {});
+    donate_cart_button({});
     notify("Корзина очищена");
 }
 
@@ -2036,8 +1983,7 @@ const couponCheck = (coins = false) => {
     try {
         code = input.value.trim()
             .toUpperCase();
-    } catch (_) {
-    }
+    } catch (_) {}
 
     const coupon_notfd = () => {
         notify(
@@ -2247,8 +2193,7 @@ const generatePaymentLink = (type = 1,
     try {
         coupon = checked_coupon
             .trim();
-    } catch (_) {
-    }
+    } catch (_) {}
 
     if (type === 1) {
         if (!Number.isInteger(
@@ -2478,8 +2423,7 @@ const initDonate = () => {
         els = JSON.parse(Cookies
             .get(
                 cart_cookie));
-    } catch (_) {
-    }
+    } catch (_) {}
 
     donate_cart_button(els);
     donate_enable_coupon(true);
@@ -3193,8 +3137,7 @@ const rulesModalOpen = () => {
         }
         switch_modal_containers
         (
-            "info",
-            {
+            "info", {
                 title: "Правила приватного сервера",
                 content: `
                 <ul class="list-group mb-4 mb-lg-5">
@@ -3225,10 +3168,9 @@ const openAdminContact = () => {
             }
             shuffle(glob_players);
             switch_modal_containers
-            ("info",
-                {
-                    title: "Обратная связь",
-                    content: `
+            ("info", {
+                title: "Обратная связь",
+                content: `
                         <p class="mb-2 mb-lg-3 mb-xl-4 text-start">
                             Это форма для предложений и жалоб, опишите пожалуйста кратко и 
                             ясно свою идею или предложение без воды.
@@ -3257,7 +3199,7 @@ const openAdminContact = () => {
                             Отправить
                         </button>
                     `
-                });
+            });
             const max_len =
                 3000;
             const textarea =
@@ -3399,8 +3341,7 @@ const openTelegramAuthModal = () => {
     script_telegram_widget.onload =
         () => {
             switch_modal_containers(
-                "info",
-                {
+                "info", {
                     title: "",
                     content: ""
                 });
@@ -3439,12 +3380,11 @@ const openTelegramAuthModal = () => {
 
 const initJarallax = () => {
     jarallax(document
-            .querySelectorAll(
-                '.jarallax'),
-        {
-            speed: .15,
-            type: "scale-opacity"
-        });
+        .querySelectorAll(
+            '.jarallax'), {
+        speed: .15,
+        type: "scale-opacity"
+    });
 }
 
 const initTooltip = () => {
@@ -3462,8 +3402,7 @@ const initTooltip = () => {
                 tooltip_instance =
                     new bootstrap
                         .Tooltip(
-                            tooltipTriggerEl,
-                            {
+                            tooltipTriggerEl, {
                                 template: `
                                 <div class="tooltip" role="tooltip">
                                     <div class="tooltip-inner"></div>
@@ -3503,8 +3442,7 @@ const initSmoothScrollObserver = () => {
                 document
                     .querySelector(
                         `section[id="${identifier}"]`
-                    ), null,
-                {
+                    ), null, {
                     offset: 50
                 });
     }
@@ -3639,10 +3577,9 @@ const initCore = () => {
                             "";
                     }
                     window
-                        .scrollTo(
-                            {
-                                top: 0,
-                            });
+                        .scrollTo({
+                            top: 0,
+                        });
                 }, wait);
             setTimeout(
                 () => {
