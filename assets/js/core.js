@@ -726,6 +726,16 @@ const getPaymentHistory = (callback) => {
         });
     });
 }
+const getPlayersSkins = (callback, players) => {
+    re_check((token_update) => {
+        requestCall((r) => {
+            callback(r.skins);
+        }, `${backend_host}/profile/skins/get`, "POST", true, {
+            token: token_update,
+            players: players
+        });
+    });
+}
 const appendServices = () => {
     get_donate_services((services) => {
         donate_services_array = services;

@@ -7,7 +7,8 @@
           content="Залупа – это проект в Minecraft стримера Братишкина. Он создавался как экспериментальный, но довольно быстро набрал обороты и разросся до больших масштабов, превратившись из небольшого сервера для фанатов этого стримера в целый пероект, который посещают другие контент-мейкеры.">
     <meta name="keywords" content="Minecraft, Twitch, Stream, Bratishkin, Майнкрафт, Твич, Стрим, Братишкин">
     <meta name="author" content="Yaroslav Koval">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -22,13 +23,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
           integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.3/swiper-bundle.min.css"
-          integrity="sha512-uuenj2ro+QKfF5Ig2BYOy3s3BhYPODotv/9V8Ue1MHrrwsiYKY01WzNMNk45i0jRUMXZxEuGpUzyPahsKOMKTg=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="assets/css/libs/swiper-bundle.min.css"/>
     <link rel="stylesheet" media="screen" href="assets/css/theme.min.css">
     <link rel="stylesheet" media="screen" href="assets/css/custom.min.css">
     <link rel="stylesheet" media="screen" href="assets/css/loader.min.css">
-    <script src="https://browser.sentry-cdn.com/7.19.0/bundle.min.js"></script>
+    <script src="assets/js/libs/sentry-bundle.min.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VGRQSK1J7M"></script>
     <script src="assets/js/dark_init.min.js"></script>
     <script>
@@ -89,7 +88,8 @@
                 <label class="form-check-label d-none d-sm-block" for="theme-mode">Светло</label>
                 <label class="form-check-label d-none d-sm-block" for="theme-mode">Темно</label>
             </div>
-            <div style="display:none" id="telegram-auth-avatar" class="avatar-container" onclick="openTelegramAuthModal()">
+            <div style="display:none" id="telegram-auth-avatar" class="avatar-container"
+                 onclick="openTelegramAuthModal()">
                 <span id="tg-user-avatar-text" class="tg-user-avatar-text"></span></div>
         </div>
     </header>
@@ -189,7 +189,8 @@
                                        placeholder="eblan@mail.ru">
                             </div>
                             <div class="col-12">
-                                <label for="coupon" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
+                                <label for="coupon" class="form-label">Купон <span
+                                        class="text-muted">(Необязательно)</span>
                                 </label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="coupon-input" placeholder="BRFF"
@@ -282,7 +283,8 @@
                             <a href="https://t.me/zalupaonline_chat"
                                class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
                                 <i class="bx bxl-telegram"></i>&nbsp;Чат</a>
-                            <a id="contact-button-land" onclick="openAdminContact()" style="display:none" href="#contact"
+                            <a id="contact-button-land" onclick="openAdminContact()" style="display:none"
+                               href="#contact"
                                class="btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
                                 Обратная связь</a>
                             <button onclick="donateSwitchContainer()"
@@ -371,9 +373,9 @@
                             <div class="d-flex align-items-center">
                                 <div class="display-4 text-primary">3</div>
                                 <p class="ps-3 mb-0">Сервера: Лобби, Общение и <a href="#private_server"
-                                                                                           class="text-gradient-primary select-text-border"
-                                                                                           data-scroll
-                                                                                           data-scroll-offset="70">Приватный
+                                                                                  class="text-gradient-primary select-text-border"
+                                                                                  data-scroll
+                                                                                  data-scroll-offset="70">Приватный
                                     сервер</a></p>
                             </div>
                             <div class="d-flex align-items-center">
@@ -426,14 +428,17 @@
         </section>
         <section id="private_server" class="pt-5 py-2 pb-2 bg-theme-set position-relative">
             <!-- bg-secondary-adaptive -->
-            <div id="private-server-container" class="container py-2 pt-2 pt-lg-3 pb-1 mb-0 bg-secondary container-second-round">
+            <div id="private-server-container"
+                 class="container py-2 pt-2 pt-lg-3 pb-1 mb-0 bg-secondary container-second-round">
                 <h3 class="h1 text-center text-gradient-primary mb-lg-4">Приватный сервер</h3>
                 <div class="private-server-hub server-private-island-mobile item-levitaion-dec"></div>
                 <div class="row py-xl-3 g-2 pt-0" style="padding: 12px">
-                    <div id="server-hub-text" class="position-relative overflow-hidden rounded-3 col-md-8 col-lg-9 order-2 mb-2">
+                    <div id="server-hub-text"
+                         class="position-relative overflow-hidden rounded-3 col-md-8 col-lg-9 order-2 mb-2">
                         <p id="private-server-hub-description"></p>
                     </div>
-                    <div id="server-hub-icon" class="position-relative overflow-hidden rounded-3 col-md-4 col-lg-3 order-2 mb-2"
+                    <div id="server-hub-icon"
+                         class="position-relative overflow-hidden rounded-3 col-md-4 col-lg-3 order-2 mb-2"
                          style="padding:.8rem 0;margin:0!important">
                         <div class="private-server-hub item-levitaion-dec"></div>
                     </div>
@@ -579,24 +584,14 @@
         <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
     </a>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"
-        integrity="sha512-6UofPqm0QupIL0kzS/UIzekR73/luZdC6i/kXDbWnLOJoqwklBK6519iUnShaYceJ0y4FaiPtX/hRnV/X/xlUQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"
-        integrity="sha512-wT7uPE7tOP6w4o28u1DN775jYjHQApdBnib5Pho4RB0Pgd9y7eSkAV1BTqQydupYDB9GBhTcQQzyNMPMV3cAew=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="assets/js/libs/popper.min.js"></script>
+<script src="assets/js/libs/js.cookie.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"
         integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.polyfills.min.js"
-        integrity="sha512-LZ6YBzwuQvIG41twjliX3HUVeAd+ErnJ0UsqRnkI4firX2l71jxbKJoax/hu7XY2tiyLl0YA2kcnz/XEW+9O3g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.3/swiper-bundle.min.js"
-        integrity="sha512-4MIWP9ui3MVR0iuCnJ9l6b9DWrCspboU0BbX5DNXoSJ4ZQXjrY7+sPJEehrR0rAx88jVUT9f9Hoa7fawwB3jHg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/2.0.4/jarallax.min.js"
-        integrity="sha512-nvmYAfRcRhffFD47Bz2In79HI86Zw84cCPXs675EjUYqgLAkirq2N38LXI6U5r6UZ+vz2zqBWxRQaScpjPwF5A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="assets/js/libs/smooth-scroll.polyfills.min.js"></script>
+<script src="assets/js/libs/swiper-bundle.min.js"></script>
+<script src="assets/js/libs/jarallax.min.js"></script>
 <script src="assets/js/theme.min.js"></script>
 <script src="assets/js/init.min.js"></script>
 </body>
