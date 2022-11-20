@@ -496,7 +496,9 @@ const get_game_server_data = (callback) => {
             } else {
                 crypto_token = "";
             }
-        }, `${backend_host}/server?crypto_token=${encodeURIComponent(crypto_token)}`, "GET", true);
+        }, `${backend_host}/server`, "POST", true, {
+            crypto_token: crypto_token
+        });
     } else {
         initCrypto();
         freeze_monitoring = false;
