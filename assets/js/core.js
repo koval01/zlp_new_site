@@ -1250,152 +1250,166 @@ const buildPlayersSwiper = () => {
                     player
                 );
 
-                for (let i =
-                    0; i <
-                     player
-                         .length; i++
-                ) {
-                    // const ult_template = "";
+                let players_array = [];
+                for (let player_in of player) {
+                    players_array.push(player_in.name);
+                }
 
-                    const
-                        getBadges =
-                            () => {
-                                let result =
-                                    "";
-                                player
-                                    [i]
-                                    .badges
-                                    .sort();
-                                for (
-                                    let s =
-                                        0; s <
-                                    player[
-                                        i
-                                        ]
-                                        .badges
-                                        .length; s++
-                                ) {
-                                    const
-                                        badge_local =
-                                            player[
-                                                i
-                                                ]
-                                                .badges[
-                                                s
-                                                ];
-                                    if (badge_local &&
-                                        badge_local
-                                            .length &&
-                                        badge_local !==
-                                        "verified" &&
-                                        !
-                                            badge_local
-                                                .includes(
-                                                    "clan-"
-                                                )
-                                    ) {
-                                        result
-                                            =
-                                            result + `
-                                    <div class="player_badge" 
-                                        style="background-image: url(./assets/images/emoji/${badges_paste[badge_local].item}.png)"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom" 
-                                        title="${badges_paste[badge_local].title}">
-                                    </div>
-                                `;
-                                    }
-                                }
-                                return result;
+                getPlayersSkins(function (skins) {
+                    for (let i =
+                        0; i <
+                         player
+                             .length; i++
+                    ) {
+                        // const ult_template = "";
+
+                        for (let player_skin of skins) {
+                            if (player[i].name.toLowerCase() === player_skin["Nick"].toLowerCase()) {
+                                player[i].head = `https:${backend_host}/profile/head/?texture_hash=${
+                                    player_skin["Value"]}&crypto_token=${
+                                    encodeURIComponent(crypto_token)}`;
                             }
+                        }
 
-                    const
-                        getClan =
-                            () => {
-                                for (
-                                    let s =
-                                        0; s <
-                                    player[
-                                        i
-                                        ]
+                        const
+                            getBadges =
+                                () => {
+                                    let result =
+                                        "";
+                                    player
+                                        [i]
                                         .badges
-                                        .length; s++
-                                ) {
-                                    if (player[
-                                        i
-                                        ]
-                                        .badges[
-                                        s
-                                        ]
-                                        .includes(
-                                            "clan-"
-                                        )
+                                        .sort();
+                                    for (
+                                        let s =
+                                            0; s <
+                                        player[
+                                            i
+                                            ]
+                                            .badges
+                                            .length; s++
                                     ) {
-                                        return player[
+                                        const
+                                            badge_local =
+                                                player[
+                                                    i
+                                                    ]
+                                                    .badges[
+                                                    s
+                                                    ];
+                                        if (badge_local &&
+                                            badge_local
+                                                .length &&
+                                            badge_local !==
+                                            "verified" &&
+                                            !
+                                                badge_local
+                                                    .includes(
+                                                        "clan-"
+                                                    )
+                                        ) {
+                                            result
+                                                =
+                                                result + `
+                                        <div class="player_badge" 
+                                            style="background-image: url(./assets/images/emoji/${badges_paste[badge_local].item}.png)"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                            title="${badges_paste[badge_local].title}">
+                                        </div>
+                                    `;
+                                        }
+                                    }
+                                    return result;
+                                }
+
+                        const
+                            getClan =
+                                () => {
+                                    for (
+                                        let s =
+                                            0; s <
+                                        player[
+                                            i
+                                            ]
+                                            .badges
+                                            .length; s++
+                                    ) {
+                                        if (player[
                                             i
                                             ]
                                             .badges[
                                             s
                                             ]
-                                            .replace(
-                                                "clan-",
-                                                ""
-                                            );
+                                            .includes(
+                                                "clan-"
+                                            )
+                                        ) {
+                                            return player[
+                                                i
+                                                ]
+                                                .badges[
+                                                s
+                                                ]
+                                                .replace(
+                                                    "clan-",
+                                                    ""
+                                                );
+                                        }
                                     }
                                 }
-                            }
 
-                    glob_players
-                        .push(
-                            player[
-                                i
-                                ]
-                                .name
-                        );
-                    const
-                        player_badges_ =
-                            getBadges();
-                    const
-                        player_clan =
-                            getClan();
-                    player[i].head = prepare_img_link(player[i].head);
-                    array_
-                        .innerHTML =
+                        glob_players
+                            .push(
+                                player[
+                                    i
+                                    ]
+                                    .name
+                            );
+                        const
+                            player_badges_ =
+                                getBadges();
+                        const
+                            player_clan =
+                                getClan();
+                        player[i].head = prepare_img_link(player[i].head);
                         array_
-                            .innerHTML + `
-                    <div class="swiper-slide text-center">
-                        <span class="d-block py-3">
-                            <div class="player_head_container">
-                                ${player_clan ? `<div 
-                                    class="player_clan_badge"
-                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                    title="${player_clan}"
-                                ></div>` : ""}
-                                <div 
-                                    class="player-head d-block mx-auto" 
-                                    style="background-image: url(${player[i].head})"
-                                ></div>
-                            </div>
-                            <div class="card-body p-3">
-                                <h3 class="fs-lg fw-semibold pt-1 mb-2">
-                                    ${player[i].name}
-                                    ${player[i].badges.includes("verified") ? `
-                                        <i class="verified-icon"
+                            .innerHTML =
+                            array_
+                                .innerHTML + `
+                        <div class="swiper-slide text-center">
+                            <span class="d-block py-3">
+                                <div class="player_head_container">
+                                    ${player_clan ? `<div 
+                                        class="player_clan_badge"
                                         data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Подтвержденный"> ✔</i>
-                                    ` : ""}
-                                </h3>
-                                <!-- <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
-                                    ${player_badges_}
-                                </div> -->
-                                <p class="fs-sm mb-0">${player[i].desc}</p>
-                            </div>
-                        </span>
-                    </div>
-                `;
-                }
+                                        title="${player_clan}"
+                                    ></div>` : ""}
+                                    <div 
+                                        class="player-head d-block mx-auto" 
+                                        style="background-image: url(${player[i].head})"
+                                    ></div>
+                                </div>
+                                <div class="card-body p-3">
+                                    <h3 class="fs-lg fw-semibold pt-1 mb-2">
+                                        ${player[i].name}
+                                        ${player[i].badges.includes("verified") ? `
+                                            <i class="verified-icon"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Подтвержденный"> ✔</i>
+                                        ` : ""}
+                                    </h3>
+                                    <!-- <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
+                                        ${player_badges_}
+                                    </div> -->
+                                    <p class="fs-sm mb-0">${player[i].desc}</p>
+                                </div>
+                            </span>
+                        </div>
+                    `;
+                    }
 
-                createSwiper
-                ();
+                    createSwiper();
+                }, players_array);
             },
             "assets/data/players.json",
             "GET", true);
