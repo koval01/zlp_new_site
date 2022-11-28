@@ -9,19 +9,24 @@ const channels = 2;
 const links_lt = [{
     name: "twitch",
     link: "https://www.twitch.tv/bratishkinoff",
-}, {
-    name: "youtube",
-    link: "https://www.youtube.com/channel/UC_-kIftWIXsTrVXZy0lJdXQ",
-}, {
-    name: "telegram",
-    link: "https://t.me/zalupaonline",
-}, {
-    name: "discord",
-    link: "https://discord.gg/qEqbVbMeEx",
-}, {
-    name: "tiktok",
-    link: "https://www.tiktok.com/@nebratishkin"
-}];
+},
+    {
+        name: "youtube",
+        link: "https://www.youtube.com/channel/UC_-kIftWIXsTrVXZy0lJdXQ",
+    },
+    {
+        name: "telegram",
+        link: "https://t.me/zalupaonline",
+    },
+    {
+        name: "discord",
+        link: "https://discord.gg/qEqbVbMeEx",
+    },
+    {
+        name: "tiktok",
+        link: "https://www.tiktok.com/@nebratishkin"
+    }
+];
 const lock_of = true;
 const coins_sell_mode = true;
 var donate_services_array = [];
@@ -61,11 +66,71 @@ const initHost = () => {
 const linkHash = () => {
     return window.location.hash.substring(1);
 }
+const prepare_img_link = (img_link) => {
+    return img_link.replace("https://", "//").replaceAll(/\//g, "\\/");
+}
+const time_correction = (date) => {
+    const userTimezoneOffset = -date.getTimezoneOffset() * 60000;
+    return new Date(date.getTime() - userTimezoneOffset);
+}
+const time_in_moscow_get = (date = null) => {
+    if (!date) {
+        date = new Date();
+    }
+    return new Date(date.toLocaleString("en-US", {
+        timeZone: "Europe/Moscow",
+    }));
+}
+const getOffset = (date, timezone) =>
+    -new Date(date).toLocaleString([], {
+        timeZone: timezone,
+        timeZoneName: 'shortOffset'
+    }).match(/(?<=GMT|UTC).+/)[0] * 60;
+const formatDate = (date, now = null) => {
+    let diff = new Date() - date;
+    if (now) {
+        diff = now - date;
+    }
+
+    if (diff < 1000) {
+        return 'прямо сейчас';
+    }
+
+    let sec = Math.floor(diff / 1000);
+
+    if (sec < 60) {
+        return sec + ` ${getNoun(sec, "секунду", "секунды", "секунд")} назад`;
+    }
+
+    let min = Math.floor(diff / (1000 * 60));
+    if (min < 60) {
+        return min + ` ${getNoun(min, "минуту", "минуты", "минут")} назад`;
+    }
+
+    let hour = Math.floor(diff / (1000 * 60 * 60));
+    if (hour < 24) {
+        return hour + ` ${getNoun(hour, "час", "часа", "часов")} назад`;
+    }
+
+    let d = date;
+    d = [
+        '0' + d.getDate(),
+        '0' + (d.getMonth() + 1),
+        '' + d.getFullYear(),
+        '0' + d.getHours(),
+        '0' + d.getMinutes()
+    ].map(component => component.slice(-2));
+
+    return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
+}
 const utf8_to_b64 = (str) => {
     return window.btoa(unescape(encodeURIComponent(str)));
 }
 const b64_to_utf8 = (str) => {
     return decodeURIComponent(escape(window.atob(str)));
+}
+const randDiaps = (max = 10) => {
+    return Math.floor(Math.random() * max) + 1;
 }
 const generateRandomHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
 const getAvatarColorIDforTG = (user_id) => {
@@ -101,7 +166,7 @@ const shuffle = (array) => {
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex],];
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex], ];
     }
     return array;
 }
@@ -124,33 +189,41 @@ const alternateSort = (list) => {
         }
     }
 }
-const getImageLightness = (imageSrc, callback) => {
+const getImageLightness = (imageSrc, callback, calculate = true) => {
     const img = document.createElement("img");
     img.src = imageSrc;
     img.crossOrigin = "Anonymous";
     img.style.display = "none";
     document.body.appendChild(img);
     let colorSum = 0;
-    img.onload = () => {
-        const canvas = document.createElement("canvas");
-        canvas.width = this.width;
-        canvas.height = this.height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(this, 0, 0);
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-        let r, g, b, avg;
-        for (let x = 0, len = data.length; x < len; x += 4) {
-            r = data[x];
-            g = data[x + 1];
-            b = data[x + 2];
-            avg = Math.floor((r + g + b) / 3);
-            colorSum += avg;
-        }
-        const brightness = Math.floor(colorSum / (this.width * this.height));
-        callback(brightness);
-        img.remove();
-    };
+    if (calculate) {
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = this.width;
+            canvas.height = this.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(this, 0, 0);
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            let r, g, b, avg;
+            for (let x = 0, len = data.length; x < len; x += 4) {
+                r = data[x];
+                g = data[x + 1];
+                b = data[x + 2];
+                avg = Math.floor((r + g + b) / 3);
+                colorSum += avg;
+            }
+            const brightness = Math.floor(colorSum / (this.width * this.height));
+            callback(brightness);
+            img.remove();
+        };
+    }
+}
+const is_apple_platform = () => {
+    const mac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+    if (mac) {
+        return true;
+    }
 }
 const validateEmail = (email) => {
     return String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
@@ -363,8 +436,7 @@ const appendPostsNews = () => {
                     try {
                         sl.parentNode.removeChild(sl);
                         container_news.style.display = "";
-                    } catch (_) {
-                    }
+                    } catch (_) {}
                 }, 150);
         };
         if (posts) {
@@ -378,6 +450,8 @@ const appendPostsNews = () => {
 }
 const donateSwitchContainer = (display) => {
     const container = document.querySelector(".donate-global-container");
+    const style_sticker = document.getElementById("super-klassniy-sticker-0").style;
+    style_sticker.opacity = 0;
     const update_zIndex = (variable) => {
         setTimeout(() => {
             container.style.zIndex = variable;
@@ -422,7 +496,9 @@ const get_game_server_data = (callback) => {
             } else {
                 crypto_token = "";
             }
-        }, `${backend_host}/server?crypto_token=${encodeURIComponent(crypto_token)}`, "GET", true);
+        }, `${backend_host}/server`, "POST", true, {
+            crypto_token: crypto_token
+        });
     } else {
         initCrypto();
         freeze_monitoring = false;
@@ -470,19 +546,13 @@ const initEventsList = () => {
                 if (keyA > keyB) return 1;
                 return 0;
             });
-            const time_correction = (date) => {
-                const userTimezoneOffset = -date.getTimezoneOffset() * 60000;
-                return new Date(date.getTime() - userTimezoneOffset);
-            };
             for (let i = 0; i < data.length; i++) {
                 if (3 > i > 0) {
                     row_container.classList.add(row_class[i]);
                 }
                 const st_date = time_correction(new Date(data[i].date_start));
                 const end_date = time_correction(new Date(data[i].date_end));
-                const time_in_moscow = new Date(new Date().toLocaleString("en-US", {
-                    timeZone: "Europe/Moscow",
-                }));
+                const time_in_moscow = time_in_moscow_get();
                 let badge = "";
                 if (st_date > time_in_moscow) {
                     badge = "Скоро";
@@ -649,6 +719,25 @@ const checkPayment = (callback, payment_id) => {
         });
     });
 }
+const getPaymentHistory = (callback) => {
+    re_check((token_update) => {
+        requestCall((r) => {
+            callback(r.payment);
+        }, `${backend_host}/donate/payment_history`, "POST", true, {
+            token: token_update
+        });
+    });
+}
+const getPlayersSkins = (callback, players) => {
+    re_check((token_update) => {
+        requestCall((r) => {
+            callback(r.skins);
+        }, `${backend_host}/profile/skins/get`, "POST", true, {
+            token: token_update,
+            players: players
+        });
+    });
+}
 const appendServices = () => {
     get_donate_services((services) => {
         donate_services_array = services;
@@ -729,7 +818,7 @@ const appendServices = () => {
                             ${button_title}
                         </button>`;
                 }
-                services[i].image = services[i].image.replace("https://", "//").replaceAll(/\//g, "\\/");
+                services[i].image = prepare_img_link(services[i].image);
                 sl.innerHTML = sl.innerHTML + `
                     <div class="col" id="donate_item_${services[i].id}">
                         <div class="card border-0 bg-transparent" ${click_template}>
@@ -764,11 +853,10 @@ const appendServices = () => {
             setTimeout(
                 () => {
                     const elem = document.getElementById("donate_block_load");
-                    const ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container",];
+                    const ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container", ];
                     try {
                         elem.parentNode.removeChild(elem);
-                    } catch (_) {
-                    }
+                    } catch (_) {}
                     for (let i = 0; i < ids.length; i++) {
                         try {
                             document.getElementById(ids[i]).style.display = "";
@@ -871,8 +959,7 @@ const modal_open_ = (onclick_lock = false) => {
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
     try {
         document.getElementById("private_gift_button_modal").remove()
-    } catch (_) {
-    }
+    } catch (_) {}
     const modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
     setTimeout(() => {
@@ -898,23 +985,28 @@ const switch_modal_containers = (mode = "service", info_params = {}) => {
         name: "service",
         selector: service,
         title: "Товар",
-    }, {
-        name: "service_coins",
-        selector: service_coins,
-        title: "Оплата пожертвования",
-    }, {
-        name: "info",
-        selector: info,
-        title: "Сообщение",
-    }, {
-        name: "success",
-        selector: success,
-        title: "Чек",
-    }, {
-        name: "donate_finish",
-        selector: finish_donate,
-        title: "Корзина",
-    },];
+    },
+        {
+            name: "service_coins",
+            selector: service_coins,
+            title: "Оплата пожертвования",
+        },
+        {
+            name: "info",
+            selector: info,
+            title: "Сообщение",
+        },
+        {
+            name: "success",
+            selector: success,
+            title: "Чек",
+        },
+        {
+            name: "donate_finish",
+            selector: finish_donate,
+            title: "Корзина",
+        },
+    ];
     for (let i = 0; i < _array.length; i++) {
         let _mode = "none";
         if (mode === _array[i].name) {
@@ -941,8 +1033,7 @@ const get_cookie_cart = () => {
     let cookie_cart = {};
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {
-    }
+    } catch (_) {}
     return cookie_cart;
 }
 const updateCartCount = () => {
@@ -1133,6 +1224,9 @@ const buildPlayersSwiper = () => {
                     1600: {
                         slidesPerView: 5,
                     },
+                    2000: {
+                        slidesPerView: 6,
+                    }
                 },
             });
     };
@@ -1156,157 +1250,312 @@ const buildPlayersSwiper = () => {
                     player
                 );
 
-                for (let i =
-                    0; i <
-                     player
-                         .length; i++
-                ) {
-                    // const ult_template = "";
+                let players_array = [];
+                for (let player_in of player) {
+                    players_array.push(player_in.name);
+                }
 
-                    const
-                        getBadges =
-                            () => {
-                                let result =
-                                    "";
-                                player
-                                    [i]
-                                    .badges
-                                    .sort();
-                                for (
-                                    let s =
-                                        0; s <
-                                    player[
-                                        i
-                                        ]
+                getPlayersSkins(function (skins) {
+                    for (let i =
+                        0; i <
+                         player
+                             .length; i++
+                    ) {
+                        // const ult_template = "";
+
+                        // for (let player_skin of skins) {
+                        //     if (player[i].name.toLowerCase() === player_skin["Nick"].toLowerCase()) {
+                        //         player[i].head = `https:${backend_host}/profile/head/?texture_hash=${
+                        //             player_skin["Value"]}&crypto_token=${
+                        //             encodeURIComponent(crypto_token)}`;
+                        //     }
+                        // }
+
+                        const
+                            getBadges =
+                                () => {
+                                    let result =
+                                        "";
+                                    player
+                                        [i]
                                         .badges
-                                        .length; s++
-                                ) {
-                                    const
-                                        badge_local =
-                                            player[
-                                                i
-                                                ]
-                                                .badges[
-                                                s
-                                                ];
-                                    if (badge_local &&
-                                        badge_local
-                                            .length &&
-                                        badge_local !==
-                                        "verified" &&
-                                        !
+                                        .sort();
+                                    for (
+                                        let s =
+                                            0; s <
+                                        player[
+                                            i
+                                            ]
+                                            .badges
+                                            .length; s++
+                                    ) {
+                                        const
+                                            badge_local =
+                                                player[
+                                                    i
+                                                    ]
+                                                    .badges[
+                                                    s
+                                                    ];
+                                        if (badge_local &&
                                             badge_local
-                                                .includes(
-                                                    "clan-"
-                                                )
-                                    ) {
-                                        result
-                                            =
-                                            result + `
-                                    <div class="player_badge" 
-                                        style="background-image: url(./assets/images/emoji/${badges_paste[badge_local].item}.png)"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom" 
-                                        title="${badges_paste[badge_local].title}">
-                                    </div>
-                                `;
+                                                .length &&
+                                            badge_local !==
+                                            "verified" &&
+                                            !
+                                                badge_local
+                                                    .includes(
+                                                        "clan-"
+                                                    )
+                                        ) {
+                                            result
+                                                =
+                                                result + `
+                                        <div class="player_badge" 
+                                            style="background-image: url(./assets/images/emoji/${badges_paste[badge_local].item}.png)"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                            title="${badges_paste[badge_local].title}">
+                                        </div>
+                                    `;
+                                        }
                                     }
+                                    return result;
                                 }
-                                return result;
-                            }
 
-                    const
-                        getClan =
-                            () => {
-                                for (
-                                    let s =
-                                        0; s <
-                                    player[
-                                        i
-                                        ]
-                                        .badges
-                                        .length; s++
-                                ) {
-                                    if (player[
-                                        i
-                                        ]
-                                        .badges[
-                                        s
-                                        ]
-                                        .includes(
-                                            "clan-"
-                                        )
+                        const
+                            getClan =
+                                () => {
+                                    for (
+                                        let s =
+                                            0; s <
+                                        player[
+                                            i
+                                            ]
+                                            .badges
+                                            .length; s++
                                     ) {
-                                        return player[
+                                        if (player[
                                             i
                                             ]
                                             .badges[
                                             s
                                             ]
-                                            .replace(
-                                                "clan-",
-                                                ""
-                                            );
+                                            .includes(
+                                                "clan-"
+                                            )
+                                        ) {
+                                            return player[
+                                                i
+                                                ]
+                                                .badges[
+                                                s
+                                                ]
+                                                .replace(
+                                                    "clan-",
+                                                    ""
+                                                );
+                                        }
                                     }
                                 }
-                            }
 
-                    glob_players
-                        .push(
-                            player[
-                                i
-                                ]
-                                .name
-                        );
-                    const
-                        player_badges_ =
-                            getBadges();
-                    const
-                        player_clan =
-                            getClan();
-                    array_
-                        .innerHTML =
+                        glob_players
+                            .push(
+                                player[
+                                    i
+                                    ]
+                                    .name
+                            );
+                        const
+                            player_badges_ =
+                                getBadges();
+                        const
+                            player_clan =
+                                getClan();
+                        player[i].head = prepare_img_link(player[i].head);
                         array_
-                            .innerHTML + `
-                    <div class="swiper-slide text-center">
-                        <span class="d-block py-3">
-                            <div class="player_head_container">
-                                ${player_clan ? `<div 
-                                    class="player_clan_badge"
-                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                    title="${player_clan}"
-                                ></div>` : ""}
-                                <div 
-                                    class="player-head d-block mx-auto" 
-                                    style="background-image: url(${player[i].head})"
-                                ></div>
-                            </div>
-                            <div class="card-body p-3">
-                                <h3 class="fs-lg fw-semibold pt-1 mb-2">
-                                    ${player[i].name}
-                                    ${player[i].badges.includes("verified") ? `
-                                        <i class="verified-icon"
+                            .innerHTML =
+                            array_
+                                .innerHTML + `
+                        <div class="swiper-slide text-center">
+                            <span class="d-block py-3">
+                                <div class="player_head_container">
+                                    ${player_clan ? `<div 
+                                        class="player_clan_badge"
                                         data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="Подтвержденный"> ✔</i>
-                                    ` : ""}
-                                </h3>
-                                <!-- <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
-                                    ${player_badges_}
-                                </div> -->
-                                <p class="fs-sm mb-0">${player[i].desc}</p>
-                            </div>
-                        </span>
-                    </div>
-                `;
-                }
+                                        title="${player_clan}"
+                                    ></div>` : ""}
+                                    <div 
+                                        class="player-head d-block mx-auto" 
+                                        style="background-image: url(${player[i].head})"
+                                    ></div>
+                                </div>
+                                <div class="card-body p-3">
+                                    <h3 class="fs-lg fw-semibold pt-1 mb-2">
+                                        ${player[i].name}
+                                        ${player[i].badges.includes("verified") ? `
+                                            <i class="verified-icon"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Подтвержденный"> ✔</i>
+                                        ` : ""}
+                                    </h3>
+                                    <!-- <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
+                                        ${player_badges_}
+                                    </div> -->
+                                    <p class="fs-sm mb-0">${player[i].desc}</p>
+                                </div>
+                            </span>
+                        </div>
+                    `;
+                    }
 
-                createSwiper
-                ();
+                    createSwiper();
+                }, players_array);
             },
             "assets/data/players.json",
             "GET", true);
     });
 }
 
+const buildDonateHistorySwiper = () => {
+    const array_ = document
+        .getElementById(
+            "payments-history-swiper-array");
+
+    const createSwiper = () => {
+        new Swiper(
+            "#payments_history_container", {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                autoplay: {
+                    delay: 1500,
+                },
+                loop: true,
+                observer: true,
+                observeParents: true,
+                preventClicks: false,
+                pagination: {
+                    el: ".payments-history-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 2,
+                    },
+                    600: {
+                        slidesPerView: 3,
+                    },
+                    920: {
+                        slidesPerView: 4,
+                    },
+                    1200: {
+                        slidesPerView: 5,
+                    },
+                    1600: {
+                        slidesPerView: 6,
+                    },
+                    1900: {
+                        slidesPerView: 7,
+                    },
+                    2100: {
+                        slidesPerView: 8,
+                    },
+                    2500: {
+                        slidesPerView: 9,
+                    },
+                },
+            });
+    };
+
+    const updateDonateTime = () => {
+        const selectors = document.querySelectorAll("#item-donate-history-desc>time");
+        for (let i = 0; i < selectors.length; i++) {
+            const select = selectors[i];
+            const time_ = select.getAttribute("datetime");
+
+            select.innerHTML = formatDate(new Date(time_), time_in_moscow_get());
+        }
+    }
+
+    getPaymentHistory(function(data) {
+        // console.log(data.length);
+        for (let i = 0; i <
+        data
+            .length; i++) {
+            const date = new Date(data[i].updated_at);
+            data[i].product.image = prepare_img_link(data[i].product.image);
+            array_
+                .innerHTML =
+                array_
+                    .innerHTML + `
+                    <!-- use player template for donate history swiper -->
+                    <div class="swiper-slide text-center">
+                        <span class="d-block py-3">
+                            <div class="player_head_container">
+                                <div 
+                                    class="player-head d-block mx-auto" 
+                                    style="background-image: url(${data[i].product.image});height:65px!important"
+                                ></div>
+                            </div>
+                            <div class="card-body p-3">
+                                <h5 class="h5 fs-6 fw-semibold pt-1 mb-2">
+                                    ${data[i].product.name}
+                                </h5>
+                                <p class="fs-sm mb-0" id="item-donate-history-desc">
+                                    <span class="text-gradient-primary fw-bold">${data[i].customer}</span>
+                                    <br/>
+                                    <time datetime="${
+                    date.toString()
+                }"></time>
+                                </p>
+                            </div>
+                        </span>
+                    </div>
+                `;
+        }
+        createSwiper();
+        setInterval(updateDonateTime, 1000);
+    });
+}
+const setRandomStickerLand = () => {
+    const stickers_count = 32;
+    const selector = document.getElementById("super-klassniy-sticker-0");
+    const setSticker = () => {
+        const link = prepare_img_link(`assets/images/stickers/sticker${randDiaps(stickers_count)}.webp`);
+        selector.style.backgroundImage = `url(${link})`;
+    }
+
+    for (let i = 0; i <= stickers_count; i++) {
+        getImageLightness(`assets/images/stickers/sticker${i}.webp`, null, false);
+    }
+
+    setInterval(function() {
+        if (window.pageYOffset > 1600 || donate_displayed) {
+            selector.style.opacity = 0;
+        } else if (!donate_displayed && window.pageYOffset <= 1600) {
+            setTimeout(function() {
+                selector.style.opacity = .4;
+            }, 800);
+        } else {
+            selector.style.opacity = .4;
+        }
+    }, 50);
+
+    const updateStickerPosition = () => {
+        if (window.innerWidth >= 992) {
+            selector.style.top = `${randDiaps(85)}%`;
+            selector.style.left = `${randDiaps(85)}%`;
+        } else {
+            selector.style.top = `${randDiaps(50)}%`;
+            selector.style.left = `${randDiaps(75)}%`;
+        }
+    }
+
+    setSticker();
+    setInterval(setSticker, 6000);
+
+    updateStickerPosition();
+    setInterval(updateStickerPosition, 3000);
+}
 const donate_element_click = (
     product_data) => {
     switch_modal_containers(
@@ -1581,8 +1830,7 @@ const donate_cart = (product, count,
             product_count_in_cart
                 = +p;
         }
-    } catch (_) {
-    }
+    } catch (_) {}
 
     if (!Number.isInteger(
         product) || !
@@ -1761,8 +2009,7 @@ const couponCheck = (coins = false) => {
     try {
         code = input.value.trim()
             .toUpperCase();
-    } catch (_) {
-    }
+    } catch (_) {}
 
     const coupon_notfd = () => {
         notify(
@@ -1972,8 +2219,7 @@ const generatePaymentLink = (type = 1,
     try {
         coupon = checked_coupon
             .trim();
-    } catch (_) {
-    }
+    } catch (_) {}
 
     if (type === 1) {
         if (!Number.isInteger(
@@ -2203,8 +2449,7 @@ const initDonate = () => {
         els = JSON.parse(Cookies
             .get(
                 cart_cookie));
-    } catch (_) {
-    }
+    } catch (_) {}
 
     donate_cart_button(els);
     donate_enable_coupon(true);
@@ -2709,7 +2954,7 @@ const callSucessPayModal = (payment_id =
             let sum_template = `
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Сумма зачисления</span>
-                    <strong class="text-primary">${payment.enrolled} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
+                    <strong class="bottom-line-set bottom-line-set-zlp color-set-zlp">${payment.enrolled} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
                 </li>
             `;
 
@@ -2721,7 +2966,7 @@ const callSucessPayModal = (payment_id =
                         = `
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Сумма</span>
-                            <strong class="text-primary">${payment.enrolled} ${getNoun(payment.enrolled, "токен", "токена", "токенов")}</strong>
+                            <strong class="bottom-line-set bottom-line-set-zlp color-set-zlp">${payment.enrolled} ${getNoun(payment.enrolled, "токен", "токена", "токенов")}</strong>
                         </li>
                     `;
                 } else if (
@@ -2732,7 +2977,7 @@ const callSucessPayModal = (payment_id =
                         = `
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Сумма</span>
-                            <strong class="text-primary">${payment.product.price} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
+                            <strong class="bottom-line-set bottom-line-set-zlp color-set-zlp">${payment.product.price} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
                         </li>
                     `;
                     document.querySelector("div.modal-footer").prepend(private_gift_button);
@@ -2787,6 +3032,17 @@ const callSucessPayModal = (payment_id =
                     `${parsed_time.toLocaleDateString()} ${parsed_time.toLocaleTimeString()}`;
             }
 
+            let template_invite_link = "";
+            if (payment.private_invite) {
+                template_invite_link = `
+                    <li class="list-group-item d-flex justify-content-between lh-sm mb-2 mb-lg-3 mt-4 mt-lg-5">
+                        <a href="${payment.private_invite}" id="private-chat-button" target="_blank" style="margin:auto"
+                                   class="btn btn-primary shadow-primary btn-lg btn-shadow-hide">
+                                Приглашение в приватный чат <i class="ms-1 bx bxl-telegram"></i></a>
+                    </li>
+                `;
+            }
+
             cart_dom.innerHTML = `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
@@ -2814,6 +3070,7 @@ const callSucessPayModal = (payment_id =
                     <span>${payment.created_at}</span>
                 </li>
                 ${sum_template}
+                ${template_invite_link}
             `;
         } else {
             succ_text
@@ -3039,7 +3296,17 @@ const openAdminContact = () => {
         }
     });
 }
+const initSOptimizeGA = () => {
+    window.dataLayer = window.dataLayer || [];
 
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-VGRQSK1J7M');
+}
 const adminsContactContainerHash =
     () => {
         observerContainerHash([
@@ -3226,6 +3493,25 @@ const privateServerModuleInit = () => {
     `;
 }
 
+const tonyComeBack = () => {
+    const selector = document.getElementById("AppleTony_comeback_days");
+
+    const update_days = (days_count) => {
+        selector.innerText = `${days_count} ${getNoun(
+            days_count, "день", "дня", "дней"
+        )}`;
+    }
+
+    const date1 = new Date();
+    const date2 = new Date("11/30/2023");
+
+    const differenceInTime = date2.getTime() - date1.getTime();
+    const differenceInDays = parseInt(differenceInTime / (1000 * 3600 * 24));
+
+    update_days(differenceInDays);
+    setInterval(function () {update_days(differenceInDays)}, 9999);
+}
+
 const autoAuthTelegramObserver = () => {
     if (telegram_auth_enabled) {
         document.getElementById("telegram-auth-avatar")
@@ -3281,6 +3567,7 @@ const initCore = () => {
     initLanding();
     observerSystemTheme();
     buildPlayersSwiper();
+    buildDonateHistorySwiper();
     appendPostsNews();
     initComments();
     appendServices();
@@ -3292,6 +3579,7 @@ const initCore = () => {
     finishLoad();
     successPay();
     ytVideoSetter();
+    setRandomStickerLand();
 
     donateContainerHash();
     rulesPrivateContainerHash();
@@ -3300,6 +3588,8 @@ const initCore = () => {
     privateServerModuleInit();
 
     autoAuthTelegramObserver();
+
+    tonyComeBack();
 
     const elem = document
         .getElementById(

@@ -758,10 +758,27 @@ iframe[id*=telegram-post] {
   height: 155px;
   width: 100%;
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(2px 4px 12px rgba(0, 0, 0, 0.6));
 }
 
 .player_badge_container {
   display: inline-flex;
+}
+
+.super-klassniy-sticker {
+  height: 150px;
+  width: 150px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 0.7rem;
+  position: fixed !important;
+  top: 100px;
+  left: 30px;
+  opacity: 0.45;
+  transition: left 8s, top 8s, background 2s, opacity 0.8s;
 }
 
 .player_badge {
@@ -1500,8 +1517,8 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 
 #admin-message {
   width: 100%;
-  min-height: 35vh;
-  max-height: 60vh;
+  height: 45vh;
+  resize: none;
 }
 
 #telegram-auth-container {
@@ -1533,9 +1550,44 @@ label[for=admin-message] {
     display: none;
   }
 }
+@media (min-width: 860px) {
+  .payments-history-pagination {
+    display: block !important;
+  }
+}
 .server-private-island-mobile {
   display: none;
   height: calc(14vh + 4vw);
+}
+
+.bottom-line-set {
+  border-bottom: 2px solid var(--theme-default-color);
+}
+
+.bottom-line-set-zlp {
+  border-color: #a568ff !important;
+}
+
+.color-set-theme {
+  color: var(--theme-default-color) !important;
+}
+
+.color-set-zlp {
+  color: #a568ff !important;
+}
+
+#private-chat-button {
+  font-size: calc(0.7vh + 1.4vw);
+  padding: 0.65rem !important;
+}
+
+@media (min-width: 760px) {
+  #private-chat-button {
+    font-size: 1rem;
+  }
+}
+#AppleTony_comeback {
+  font-size: 1.15rem !important;
 }
 
 /*# sourceMappingURL=custom.css.map */
