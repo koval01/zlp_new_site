@@ -1263,13 +1263,13 @@ const buildPlayersSwiper = () => {
                     ) {
                         // const ult_template = "";
 
-                        for (let player_skin of skins) {
-                            if (player[i].name.toLowerCase() === player_skin["Nick"].toLowerCase()) {
-                                player[i].head = `https:${backend_host}/profile/head/?texture_hash=${
-                                    player_skin["Value"]}&crypto_token=${
-                                    encodeURIComponent(crypto_token)}`;
-                            }
-                        }
+                        // for (let player_skin of skins) {
+                        //     if (player[i].name.toLowerCase() === player_skin["Nick"].toLowerCase()) {
+                        //         player[i].head = `https:${backend_host}/profile/head/?texture_hash=${
+                        //             player_skin["Value"]}&crypto_token=${
+                        //             encodeURIComponent(crypto_token)}`;
+                        //     }
+                        // }
 
                         const
                             getBadges =
@@ -3493,6 +3493,25 @@ const privateServerModuleInit = () => {
     `;
 }
 
+const tonyComeBack = () => {
+    const selector = document.getElementById("AppleTony_comeback_days");
+
+    const update_days = (days_count) => {
+        selector.innerText = `${days_count} ${getNoun(
+            days_count, "день", "дня", "дней"
+        )}`;
+    }
+
+    const date1 = new Date();
+    const date2 = new Date("11/30/2023");
+
+    const differenceInTime = date2.getTime() - date1.getTime();
+    const differenceInDays = parseInt(differenceInTime / (1000 * 3600 * 24));
+
+    update_days(differenceInDays);
+    setInterval(function () {update_days(differenceInDays)}, 9999);
+}
+
 const autoAuthTelegramObserver = () => {
     if (telegram_auth_enabled) {
         document.getElementById("telegram-auth-avatar")
@@ -3569,6 +3588,8 @@ const initCore = () => {
     privateServerModuleInit();
 
     autoAuthTelegramObserver();
+
+    tonyComeBack();
 
     const elem = document
         .getElementById(
