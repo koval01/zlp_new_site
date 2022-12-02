@@ -904,7 +904,7 @@ const ytVideoSetter = (skip = false, only_iframe = true) => {
     const load_iframe = (el, video_id, params) => {
         el.innerHTML = `
             <iframe src="https://www.youtube.com/embed/${video_id}" title="YouTube video player"
-                frameborder="0" class="video-container-yt"
+                frameborder="0" class="video-container-yt" id="ytframe_${video_id}"
                 allow="accelerometer; ${params.autoplay != null ? "autoplay" : ""}; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen="" loading="lazy"></iframe>
         `;
@@ -936,6 +936,9 @@ const ytVideoSetter = (skip = false, only_iframe = true) => {
                 loop: el.getAttribute("loop"),
                 controls: el.getAttribute("controls"),
             }));
+            if (el.getAttribute("bottomzero")) {
+                document.getElementById(`ytframe_${video_id}`).style.marginBottom = "0";
+            }
         }
     }
 }
