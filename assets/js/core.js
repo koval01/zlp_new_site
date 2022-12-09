@@ -2271,7 +2271,10 @@ const generatePaymentLink = (type = 1,
     }
 
     if (!email.length) {
-        email = "";
+        notify(
+            "Введите пожалуйста ваш email"
+        );
+        return;
     } else if (!validateEmail(
         email)) {
         notify(
