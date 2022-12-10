@@ -2215,7 +2215,7 @@ const generatePaymentLink = (type = 1,
             selector_c)
         .value.trim();
     let coupon = "";
-    const max_sum = 15000;
+    const max_sum = 30000;
     const local_prm =
         '<span style="color: #a4a6ff">';
 
