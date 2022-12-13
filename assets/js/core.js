@@ -45,6 +45,7 @@ var donate_displayed = false;
 var modal_displayed = false;
 var freeze_crypto = false;
 var freeze_monitoring = false;
+var lock_sticker_switch = false;
 var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
@@ -1519,16 +1520,23 @@ const buildDonateHistorySwiper = () => {
         setInterval(updateDonateTime, 1000);
     });
 }
+
+const setSticker = (stickers_count=0, id=0, custom_path=null) => {
+    let path = `assets/images/stickers/sticker${randDiaps(stickers_count)}.webp`;
+    if (custom_path) {
+        path = custom_path;
+    } else if (lock_sticker_switch) {
+        return;
+    }
+    const link = prepare_img_link(path);
+    document.getElementById(`super-klassniy-sticker-${id}`).style.backgroundImage = `url(${link})`;
+}
 const setRandomStickerLand = () => {
     const stickers_count = 32;
     const selector = document.getElementById("super-klassniy-sticker-0");
-    const setSticker = () => {
-        const link = prepare_img_link(`assets/images/stickers/sticker${randDiaps(stickers_count)}.webp`);
-        selector.style.backgroundImage = `url(${link})`;
-    }
 
     for (let i = 0; i <= stickers_count; i++) {
-        getImageLightness(`assets/images/stickers/sticker${i}.webp`, null, false);
+        getImageLightness(`assets/images/stickers/sticker${i}.webp`, undefined, false);
     }
 
     setInterval(function() {
@@ -1541,7 +1549,7 @@ const setRandomStickerLand = () => {
         } else {
             selector.style.opacity = .4;
         }
-    }, 50);
+    }, 30);
 
     const updateStickerPosition = () => {
         if (window.innerWidth >= 992) {
@@ -1553,11 +1561,13 @@ const setRandomStickerLand = () => {
         }
     }
 
-    setSticker();
+    setSticker(stickers_count);
     setInterval(setSticker, 6000);
 
     updateStickerPosition();
     setInterval(updateStickerPosition, 3000);
+
+    spClownLoad();
 }
 const donate_element_click = (
     product_data) => {
@@ -3133,6 +3143,27 @@ const successPay = () => {
         callSucessPayModal(
             payment_id);
     }
+}
+
+const spClownLoad = () => {
+    const buttons = document.getElementById("zlp_land_buttons");
+    const button_template = `
+        <button onclick="spClownShow()" 
+                class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
+            Я люблю СП
+        </button>
+    `;
+
+    getImageLightness("assets/images/Clown-Face.gif", undefined, false);
+    buttons.innerHTML = buttons.innerHTML + button_template;
+}
+
+const spClownShow = () => {
+    lock_sticker_switch = true;
+    setTimeout(function () { lock_sticker_switch = false }, 3500);
+
+    setSticker(0, 0, "assets/images/emoji/clown-face.png");
+    notify("На хуй отсюда иди тогда");
 }
 
 const donateContainerHash = () => {
