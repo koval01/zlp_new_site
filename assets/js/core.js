@@ -82,11 +82,17 @@ const time_in_moscow_get = (date = null) => {
         timeZone: "Europe/Moscow",
     }));
 }
-const getOffset = (date, timezone) =>
-    -new Date(date).toLocaleString([], {
-        timeZone: timezone,
-        timeZoneName: 'shortOffset'
-    }).match(/(?<=GMT|UTC).+/)[0] * 60;
+const getOffset = (date, timezone) => {
+    try {
+        -new Date(date).toLocaleString([], {
+            timeZone: timezone,
+            timeZoneName: 'shortOffset'
+        }).match(/(?:GMT|UTC).+/)[0] * 60;
+    } catch (e) {
+        console.error(`getOffset : ${e}`);
+        return 0;
+    }
+}
 const formatDate = (date, now = null) => {
     let diff = new Date() - date;
     if (now) {
@@ -931,12 +937,12 @@ const ytVideoSetter = (skip = false, only_iframe = true) => {
     for (let el of Array.from(document.getElementsByClassName("ytVideoSetter"))) {
         const video_id = el.getAttribute("video_id");
         if (video_id && video_id.length && video_id.length < 20) {
-            set_video(el, video_id, (params = {
+            set_video(el, video_id, {
                 autoplay: el.getAttribute("autoplay"),
                 muted: el.getAttribute("muted"),
                 loop: el.getAttribute("loop"),
                 controls: el.getAttribute("controls"),
-            }));
+            });
             if (el.getAttribute("bottomzero")) {
                 document.getElementById(`ytframe_${video_id}`).style.marginBottom = "0";
             }
