@@ -1,3 +1,7 @@
+/**
+ * @suppress {uselessCode}
+ */
+
 "use strict";
 const site_domains = {
     prod: domain_site,
