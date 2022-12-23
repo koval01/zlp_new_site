@@ -57,7 +57,7 @@ var current_c_item = 0;
 var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth";
 const debug_lock_init = false;
-const telegram_auth_enabled = false;
+const telegram_auth_enabled = true;
 const feedback_module_enabled = false;
 const feedback_tg_auth_skip = true;
 const initHost = () => {
