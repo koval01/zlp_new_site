@@ -469,15 +469,21 @@ const donateSwitchContainer = (display) => {
         }, 850);
     };
     if (!donate_displayed || display) {
-        document.body.style.overflowY = "hidden";
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
+        checkTelegramAuthData(function (tg_success) {
+            if (tg_success) {
+                document.body.style.overflowY = "hidden";
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+                container.style.minHeight = "";
+                update_zIndex("");
+                donate_displayed = true;
+                location.hash = "#donate";
+            } else {
+                openTelegramAuthModal();
+            }
         });
-        container.style.minHeight = "";
-        update_zIndex("");
-        donate_displayed = true;
-        location.hash = "#donate";
     } else {
         container.style.minHeight = "0";
         container.style.zIndex = "-1";
