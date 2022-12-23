@@ -471,6 +471,7 @@ const donateSwitchContainer = (display) => {
     if (!donate_displayed || display) {
         const button = document.getElementById("donateButtonLandingTop");
         button.setAttribute("disabled", "");
+        notify("Проверка авторизации...");
         checkTelegramAuthData(function (tg_success) {
             button.removeAttribute("disabled");
             if (tg_success) {
