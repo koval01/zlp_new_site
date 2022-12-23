@@ -481,7 +481,7 @@ const donateSwitchContainer = (display) => {
                 donate_displayed = true;
                 location.hash = "#donate";
             } else {
-                openTelegramAuthModal();
+                openTelegramAuthModal(true);
             }
         });
     } else {
@@ -3386,75 +3386,79 @@ const observerContainerHash = (
             updater());
 }
 
-const openTelegramAuthModal = () => {
-    console.log(
-        "Telegram auth preparing..."
-    );
-    // modal_close_();
-    const script_telegram_widget =
-        document.createElement(
-            'script');
+const openTelegramAuthModal = (skip_check=false) => {
+    checkTelegramAuthData(function (tg_success) {
+        if (tg_success) {
+            console.log(
+                "Telegram auth preparing..."
+            );
+            // modal_close_();
+            const script_telegram_widget =
+                document.createElement(
+                    'script');
 
-    script_telegram_widget.src =
-        "https://telegram.org/js/telegram-widget.js?21";
-    script_telegram_widget
-        .setAttribute(
-            "async", "");
-    script_telegram_widget
-        .setAttribute(
-            "data-telegram-login",
-            telegram_bot_username);
-    script_telegram_widget
-        .setAttribute(
-            "data-size", "large");
-    script_telegram_widget
-        .setAttribute(
-            "data-radius", "8");
-    script_telegram_widget
-        .setAttribute(
-            "data-onauth",
-            "onTelegramAuth(user)");
-    script_telegram_widget
-        .setAttribute("data-request-access", "write");
+            script_telegram_widget.src =
+                "https://telegram.org/js/telegram-widget.js?21";
+            script_telegram_widget
+                .setAttribute(
+                    "async", "");
+            script_telegram_widget
+                .setAttribute(
+                    "data-telegram-login",
+                    telegram_bot_username);
+            script_telegram_widget
+                .setAttribute(
+                    "data-size", "large");
+            script_telegram_widget
+                .setAttribute(
+                    "data-radius", "8");
+            script_telegram_widget
+                .setAttribute(
+                    "data-onauth",
+                    "onTelegramAuth(user)");
+            script_telegram_widget
+                .setAttribute("data-request-access", "write");
 
-    script_telegram_widget.onload =
-        () => {
-            switch_modal_containers(
-                "info", {
-                    title: "",
-                    content: ""
-                });
-            modal_open_();
+            script_telegram_widget.onload =
+                () => {
+                    switch_modal_containers(
+                        "info", {
+                            title: "",
+                            content: ""
+                        });
+                    modal_open_();
+                }
+
+            const content = document
+                .getElementById(
+                    "info-content-modal");
+            const container = document
+                .createElement("div");
+            const text = document
+                .createElement(
+                    "p");
+
+            content.innerHTML = "";
+            content.appendChild(container);
+            content.appendChild(text);
+            text.innerText = `
+                Для некоторых функций на этом сайте необходимо авторизироваться. 
+                Мы не получим никаких конфиденциальных данных о вас, например, 
+                ваш номер или локацию, это нужно только для того, чтобы Telegram 
+                подтвердил, что вы являетесь владельцем своего аккаунта. Также 
+                не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
+                в нашем боте.
+            `.replaceAll("\n", "");
+
+            text.setAttribute("class",
+                "text-start px-3 pt-1 pt-lg-2"
+            );
+            container.id =
+                "telegram-auth-container";
+            container.appendChild(
+                script_telegram_widget);
         }
-
-    const content = document
-        .getElementById(
-            "info-content-modal");
-    const container = document
-        .createElement("div");
-    const text = document
-        .createElement(
-            "p");
-
-    content.innerHTML = "";
-    content.appendChild(container);
-    content.appendChild(text);
-    text.innerText = `
-        Для некоторых функций на этом сайте необходимо авторизироваться. 
-        Мы не получим никаких конфиденциальных данных о вас, например, 
-        ваш номер или локацию, это нужно только для того, чтобы Telegram 
-        подтвердил, что вы являетесь владельцем своего аккаунта. Также 
-        не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
-        в нашем боте.
-    `.replaceAll("\n", "");
-
-    text.setAttribute("class",
-        "text-start px-3 pt-1 pt-lg-2"
-    );
-    container.id =
-        "telegram-auth-container";
-    container.appendChild(
-        script_telegram_widget);
+    });
 }
 
 const initJarallax = () => {
