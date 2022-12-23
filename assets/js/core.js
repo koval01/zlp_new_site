@@ -469,7 +469,10 @@ const donateSwitchContainer = (display) => {
         }, 850);
     };
     if (!donate_displayed || display) {
+        const button = document.getElementById("donateButtonLandingTop");
+        button.setAttribute("disabled", "");
         checkTelegramAuthData(function (tg_success) {
+            button.removeAttribute("disabled");
             if (tg_success) {
                 document.body.style.overflowY = "hidden";
                 window.scrollTo({
@@ -638,18 +641,22 @@ const check_coupon = (callback, coupon) => {
         });
     });
 }
-const checkTelegramAuthData = (callback) => {
+const checkTelegramAuthData = (callback, skip=false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
-        requestCall((r) => {
-            if (r) {
-                callback(r.success);
-            } else {
-                callback(false);
-            }
-        }, `${backend_host}/telegram/auth/check`, "POST", true, {
-            tg_auth_data: auth_data
-        });
+        if (!skip) {
+            requestCall((r) => {
+                if (r) {
+                    callback(r.success);
+                } else {
+                    callback(false);
+                }
+            }, `${backend_host}/telegram/auth/check`, "POST", true, {
+                tg_auth_data: auth_data
+            });
+        } else {
+            callback(true);
+        }
     } else {
         callback(false);
     }
@@ -3458,7 +3465,7 @@ const openTelegramAuthModal = (skip_check=false) => {
             container.appendChild(
                 script_telegram_widget);
         }
-    });
+    }, true);
 }
 
 const initJarallax = () => {
