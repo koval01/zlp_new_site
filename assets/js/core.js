@@ -427,7 +427,7 @@ const appendPostsNews = () => {
                     }
                 }
                 addEventListener('resize', (event) => calculate_text_position());
-                setInterval(calculate_text_position, 100);
+                setInterval(calculate_text_position, 50);
             }
             getImageLightness(posts[i].cover, (brightness) => {
                 const style_ = `#000000${
@@ -471,7 +471,8 @@ const donateSwitchContainer = (display) => {
     if (!donate_displayed || display) {
         const button = document.getElementById("donateButtonLandingTop");
         button.setAttribute("disabled", "");
-        notify("Проверка авторизации...");
+        notify("Переходим к донату...");
+
         checkTelegramAuthData(function (tg_success) {
             button.removeAttribute("disabled");
             if (tg_success) {
@@ -3455,7 +3456,7 @@ const openTelegramAuthModal = (skip_check=false) => {
                 ваш номер или локацию, это нужно только для того, чтобы Telegram 
                 подтвердил, что вы являетесь владельцем своего аккаунта. Также 
                 не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
-                в нашем боте.
+                в <a href="https://t.me/ZalupaSocialBot" target="_blank" class="text-primary">нашем боте</a>.
             `.replaceAll("\n", "");
 
             text.setAttribute("class",
