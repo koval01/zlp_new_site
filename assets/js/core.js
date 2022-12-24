@@ -3467,7 +3467,7 @@ const openTelegramAuthModal = (skip_check=false) => {
             container.appendChild(
                 script_telegram_widget);
         }
-    }, true);
+    }, skip_check);
 }
 
 const initJarallax = () => {
