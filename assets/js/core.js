@@ -2267,7 +2267,7 @@ const generatePaymentLink = (type = 1,
         .getElementById(
             "payment-button-donate" +
             selector_c);
-    const customer = document
+    let customer = document
         .getElementById(
             "donate_customer" +
             selector_c)
@@ -2278,6 +2278,7 @@ const generatePaymentLink = (type = 1,
             selector_c)
         .value.trim();
     let coupon = "";
+    customer = glob_auth_player_data.NICKNAME;
     const max_sum = 30000;
     const local_prm =
         '<span style="color: #a4a6ff">';
@@ -2790,10 +2791,6 @@ const donateModalCall = (type_item,
             fldSelect.value = glob_auth_player_data.NICKNAME;
             fldSelect
                 .setAttribute("disabled", "");
-            
-            setTimeout(function () {
-                fldSelect.value = glob_auth_player_data.NICKNAME;
-            }, 150);
         }
     }
 
