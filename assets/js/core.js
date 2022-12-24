@@ -1987,9 +1987,10 @@ const donateFlushCart = () => {
 }
 
 const setAvatar = (user) => {
+    const photoTG = false;
     const selector = document.getElementById("telegram-auth-avatar")
         .style
-    if (user.photo_url) {
+    if (user.photo_url && photoTG) {
         selector.backgroundImage = `url(${user.photo_url})`
     } else {
         selector.background =
