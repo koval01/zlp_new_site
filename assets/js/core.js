@@ -623,6 +623,7 @@ const create_payment = (callback, customer, products, server_id, email = "", cou
             token: token_update,
             server_id: server_id,
             success_url: `https://${work_domain_v}`,
+            tg_auth_data: getTelegramAuth(true)
         });
     });
 }
