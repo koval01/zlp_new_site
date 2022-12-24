@@ -53,6 +53,7 @@ var lock_sticker_switch = false;
 var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
+var glob_auth_player_data = [];
 var current_c_item = 0;
 var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth";
@@ -668,11 +669,12 @@ const checkTelegramAuthData = (callback, skip=false) => {
                         openLoginHint();
                         callback(false);
                     } else {
-                        callback(r.success);
+                        glob_auth_player_data = r.player_data;
                         const orderedData = getTelegramAuth();
                         if (orderedData.player_data) {
                             loadPlayerAvatar(orderedData.player_data.SKIN);
                         }
+                        callback(r.success);
                     }
                 } else {
                     callback(false);
@@ -2769,14 +2771,24 @@ const donateModalCall = (type_item,
     modal_open_();
 
     if (nickname_update) {
-        shuffle(glob_players);
-        document
-            .querySelector(
-                "input#donate_customer_c"
-            )
-            .setAttribute(
-                "placeholder",
-                glob_players[0]);
+        const randomNick = false;
+        const fldSelect = document.querySelector("input#donate_customer_c");
+        if (randomNick) {
+            shuffle(glob_players);
+            fldSelect
+                .setAttribute(
+                    "placeholder",
+                    glob_players[0]
+                );
+        } else {
+            fldSelect
+                .setAttribute(
+                    "placeholder",
+                    glob_auth_player_data.NICKNAME
+                );
+            fldSelect
+                .setAttribute("disabled", "");
+        }
     }
 
     donateResetPaymentState(
