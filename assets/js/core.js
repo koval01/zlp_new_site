@@ -3450,14 +3450,14 @@ const openTelegramAuthModal = (skip_check=false) => {
             content.innerHTML = "";
             content.appendChild(container);
             content.appendChild(text);
-            text.innerText = `
+            text.innerHTML = `
                 Для некоторых функций на этом сайте необходимо авторизироваться. 
                 Мы не получим никаких конфиденциальных данных о вас, например, 
                 ваш номер или локацию, это нужно только для того, чтобы Telegram 
                 подтвердил, что вы являетесь владельцем своего аккаунта. Также 
                 не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
                 в <a href="https://t.me/ZalupaSocialBot" target="_blank" class="text-primary">нашем боте</a>.
-            `.replaceAll("\n", "");
+            `;
 
             text.setAttribute("class",
                 "text-start px-3 pt-1 pt-lg-2"
