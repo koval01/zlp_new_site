@@ -648,7 +648,11 @@ const loadPlayerAvatar = (avatar) => {
     document.getElementById("tg-user-avatar-text").innerText = "";
     const selector = document.getElementById("telegram-auth-avatar").style;
     const link = prepare_img_link(`${
-        backend_host}/profile/avatar/?texture_hash=${avatar}&crypto_token=${encodeURIComponent(crypto_token)
+        backend_host
+    }/profile/avatar/?texture_hash=${avatar}&crypto_token=${
+        encodeURIComponent(crypto_token)
+    }&tg_auth=${
+        encodeURIComponent(getTelegramAuth(true))
     }`);
     selector.backgroundImage = `url("${link}")`;
 }
