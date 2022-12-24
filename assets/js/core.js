@@ -650,7 +650,12 @@ const checkTelegramAuthData = (callback, skip=false) => {
         if (!skip) {
             requestCall((r) => {
                 if (r) {
-                    callback(r.success);
+                    if (!r.success || !r.data) {
+                        location.href = telegram_social_bot;
+                        callback(false);
+                    } else {
+                        callback(r.success);
+                    }
                 } else {
                     callback(false);
                 }
@@ -671,12 +676,7 @@ const checkFeedbackStatus = (callback) => {
             requestCall(
                 (r) => {
                     if (r) {
-                        if (!r.success || !r.data) {
-                            location.href = telegram_social_bot;
-                            callback(false);
-                        } else {
-                            callback(r.success);
-                        }
+                        callback(r.success);
                     } else {
                         callback(false);
                     }
