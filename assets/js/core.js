@@ -56,6 +56,7 @@ var products_by_serverid = [];
 var current_c_item = 0;
 var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth";
+const telegram_social_bot = "https://t.me/ZalupaSocialBot";
 const debug_lock_init = false;
 const telegram_auth_enabled = true;
 const feedback_module_enabled = false;
@@ -663,18 +664,6 @@ const checkTelegramAuthData = (callback, skip=false) => {
         callback(false);
     }
 }
-const testTelegramAuthData = (callback, skip=false) => {
-    const auth_data = getTelegramAuth(true);
-    if (auth_data) {
-        requestCall((r) => {
-            callback(r);
-        }, `${backend_host}/telegram/auth/test_data`, "POST", true, {
-            tg_auth_data: auth_data
-        });
-    } else {
-        callback({});
-    }
-}
 const checkFeedbackStatus = (callback) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
@@ -682,7 +671,12 @@ const checkFeedbackStatus = (callback) => {
             requestCall(
                 (r) => {
                     if (r) {
-                        callback(r.success);
+                        if (!r.success || !r.data) {
+                            location.href = telegram_social_bot;
+                            callback(false);
+                        } else {
+                            callback(r.success);
+                        }
                     } else {
                         callback(false);
                     }
@@ -3468,7 +3462,7 @@ const openTelegramAuthModal = (skip_check=false) => {
                 ваш номер или локацию, это нужно только для того, чтобы Telegram 
                 подтвердил, что вы являетесь владельцем своего аккаунта. Также 
                 не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
-                в <a href="https://t.me/ZalupaSocialBot" target="_blank" class="text-primary">нашем боте</a>.
+                в <a href="${telegram_social_bot}" target="_blank" class="text-primary">нашем боте</a>.
             `;
 
             text.setAttribute("class",
