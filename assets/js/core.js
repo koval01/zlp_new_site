@@ -663,6 +663,18 @@ const checkTelegramAuthData = (callback, skip=false) => {
         callback(false);
     }
 }
+const testTelegramAuthData = (callback, skip=false) => {
+    const auth_data = getTelegramAuth(true);
+    if (auth_data) {
+        requestCall((r) => {
+            callback(r);
+        }, `${backend_host}/telegram/auth/test_data`, "POST", true, {
+            tg_auth_data: auth_data
+        });
+    } else {
+        callback({});
+    }
+}
 const checkFeedbackStatus = (callback) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
