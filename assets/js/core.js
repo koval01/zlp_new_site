@@ -2786,8 +2786,7 @@ const donateModalCall = (type_item,
                     "placeholder",
                     glob_auth_player_data.NICKNAME
                 );
-            fldSelect
-                .value = glob_auth_player_data.NICKNAME;
+            fldSelect.value = glob_auth_player_data.NICKNAME;
             fldSelect
                 .setAttribute("disabled", "");
         }
