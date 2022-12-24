@@ -651,7 +651,8 @@ const checkTelegramAuthData = (callback, skip=false) => {
             requestCall((r) => {
                 if (r) {
                     if (!r.success || !r.data) {
-                        location.href = telegram_social_bot;
+                        // location.href = telegram_social_bot;
+                        console.log("Redirect to " + telegram_social_bot)
                         callback(false);
                     } else {
                         callback(r.success);
