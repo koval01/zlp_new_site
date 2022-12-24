@@ -652,7 +652,8 @@ const checkTelegramAuthData = (callback, skip=false) => {
                 if (r) {
                     if (!r.success) {
                         // location.href = telegram_social_bot;
-                        console.log("Redirect to " + telegram_social_bot)
+                        // console.log("Redirect to " + telegram_social_bot);
+                        openLoginHint();
                         callback(false);
                     } else {
                         callback(r.success);
@@ -3476,6 +3477,44 @@ const openTelegramAuthModal = (skip_check=false) => {
                 script_telegram_widget);
         }
     }, skip_check);
+}
+
+const openLoginHint = () => {
+    const content = document
+        .getElementById(
+            "info-content-modal");
+    const container = document
+        .createElement("div");
+    const text = document
+        .createElement(
+            "p");
+
+    content.innerHTML = "";
+    content.appendChild(container);
+    content.appendChild(text);
+    text.innerHTML = `
+                Похоже что ты не прочитал текст в первом окне авторизации,
+                повторим процедуру. Чтобы завершить авторизацию на сайте - тебе нужно 
+                связать свой Telegram с своим игровым аккаунтов в&nbsp;
+                <a href="${telegram_social_bot}" target="_blank" class="text-primary">нашем боте</a>.
+            `;
+
+    text.setAttribute("class",
+        "text-start px-3 pt-1 pt-lg-2"
+    );
+    container.id =
+        "telegram-auth-hint";
+
+    notify(
+        "Прочитай внимательно инструкцию!"
+    );
+
+    switch_modal_containers(
+        "info", {
+            title: "Помощь авторизации",
+            content: ""
+        });
+    modal_open_();
 }
 
 const initJarallax = () => {
