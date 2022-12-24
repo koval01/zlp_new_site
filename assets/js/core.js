@@ -486,7 +486,7 @@ const donateSwitchContainer = (display) => {
                 donate_displayed = true;
                 location.hash = "#donate";
             } else {
-                openTelegramAuthModal();
+                openTelegramAuthModal(true);
             }
         });
     } else {
@@ -643,18 +643,22 @@ const check_coupon = (callback, coupon) => {
         });
     });
 }
-const checkTelegramAuthData = (callback) => {
+const checkTelegramAuthData = (callback, skip=false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
-        requestCall((r) => {
-            if (r) {
-                callback(r.success);
-            } else {
-                callback(false);
-            }
-        }, `${backend_host}/telegram/auth/check`, "POST", true, {
-            tg_auth_data: auth_data
-        });
+        if (!skip) {
+            requestCall((r) => {
+                if (r) {
+                    callback(r.success);
+                } else {
+                    callback(false);
+                }
+            }, `${backend_host}/telegram/auth/check`, "POST", true, {
+                tg_auth_data: auth_data
+            });
+        } else {
+            callback(true);
+        }
     } else {
         callback(false);
     }
@@ -3391,9 +3395,9 @@ const observerContainerHash = (
             updater());
 }
 
-const openTelegramAuthModal = () => {
+const openTelegramAuthModal = (skip_check=false) => {
     checkTelegramAuthData(function (tg_success) {
-        if (tg_success) {
+        if (!tg_success) {
             console.log(
                 "Telegram auth preparing..."
             );
@@ -3463,7 +3467,7 @@ const openTelegramAuthModal = () => {
             container.appendChild(
                 script_telegram_widget);
         }
-    });
+    }, skip_check);
 }
 
 const initJarallax = () => {
