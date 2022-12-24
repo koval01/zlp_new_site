@@ -2790,6 +2790,10 @@ const donateModalCall = (type_item,
             fldSelect.value = glob_auth_player_data.NICKNAME;
             fldSelect
                 .setAttribute("disabled", "");
+            
+            setTimeout(function () {
+                fldSelect.value = glob_auth_player_data.NICKNAME;
+            }, 150);
         }
     }
 
