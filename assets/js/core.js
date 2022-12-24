@@ -644,6 +644,13 @@ const check_coupon = (callback, coupon) => {
         });
     });
 }
+const loadPlayerAvatar = (avatar) => {
+    const selector = document.getElementById("telegram-auth-avatar").style;
+    const link = prepare_img_link(`${
+        backend_host}/profile/avatar/?texture_hash=${avatar}&crypto_token=${encodeURIComponent(crypto_token)
+    }`);
+    selector.backgroundImage = `url("${link}")`;
+}
 const checkTelegramAuthData = (callback, skip=false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
@@ -657,6 +664,10 @@ const checkTelegramAuthData = (callback, skip=false) => {
                         callback(false);
                     } else {
                         callback(r.success);
+                        const orderedData = getTelegramAuth();
+                        if (orderedData.player_data) {
+                            loadPlayerAvatar(orderedData.player_data.SKIN);
+                        }
                     }
                 } else {
                     callback(false);
