@@ -3495,7 +3495,7 @@ const openLoginHint = () => {
     text.innerHTML = `
                 Похоже что ты не прочитал текст в первом окне авторизации,
                 повторим процедуру. Чтобы завершить авторизацию на сайте - тебе нужно 
-                связать свой Telegram с своим игровым аккаунтов в&nbsp;
+                связать свой Telegram с своим игровым аккаунтом в&nbsp;
                 <a href="${telegram_social_bot}" target="_blank" class="text-primary">нашем боте</a>.
             `;
 
