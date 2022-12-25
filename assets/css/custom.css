@@ -52,7 +52,7 @@ footer {
 }
 
 .avatar-container:hover {
-  border-radius: 0 !important;
+  border-radius: 0.1rem !important;
 }
 
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
