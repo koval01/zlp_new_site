@@ -695,11 +695,20 @@ const checkTelegramAuthData = (callback, skip=false, raw=false) => {
                             callback(false);
                         } else {
                             const avatar = document.getElementById("telegram-auth-avatar");
+                            /*
+                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="TITLE_TEXT"
+                            */
                             glob_auth_player_data = r.player_data;
                             // const orderedData = getTelegramAuth();
                             if (r.player_data) {
-                                const skin = r.player_data.SKIN;
+                                const player = r.player_data;
+                                const skin = player.SKIN;
                                 loadPlayerAvatar(skin);
+
+                                avatar.setAttribute("data-bs-toggle", "tooltip");
+                                avatar.setAttribute("data-bs-placement", "bottom");
+                                avatar.setAttribute("title", player["NICKNAME"]);
 
                                 setInterval(function () {
                                     if (!avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1) {
