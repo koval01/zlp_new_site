@@ -657,8 +657,10 @@ const loadPlayerAvatar = (avatar) => {
         encodeURIComponent(getTelegramAuth(true))
     }`);
     selector.backgroundImage = `url("${link}")`;
+    selector.backgroundPosition = "center";
+    selector.borderRadius = ".35em";
 }
-const checkTelegramAuthData = (callback, skip=false) => {
+const checkTelegramAuthData = (callback, skip=false, raw=false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
         if (!skip) {
@@ -671,11 +673,11 @@ const checkTelegramAuthData = (callback, skip=false) => {
                         callback(false);
                     } else {
                         glob_auth_player_data = r.player_data;
-                        const orderedData = getTelegramAuth();
-                        if (orderedData.player_data) {
-                            loadPlayerAvatar(orderedData.player_data.SKIN);
+                        // const orderedData = getTelegramAuth();
+                        if (r.player_data) {
+                            loadPlayerAvatar(r.player_data.SKIN);
                         }
-                        callback(r.success);
+                        callback(raw ? r : r.success);
                     }
                 } else {
                     callback(false);
