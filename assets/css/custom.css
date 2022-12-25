@@ -1542,7 +1542,8 @@ label[for=admin-message] {
   width: 2.25rem;
   height: 2.25rem;
   margin-left: 1rem;
-  border-radius: 0.7rem;
+  transition: 0.4s all;
+  border-radius: 0.35rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

@@ -663,9 +663,9 @@ const loadPlayerAvatar = (avatar) => {
         encodeURIComponent(getTelegramAuth(true))
     }`);
 
-    avatar_style.transition = "all .4s";
-    avatar_style.backgroundPosition = "center";
-    avatar_style.borderRadius = ".35em";
+    // avatar_style.transition = "all .4s";
+    // avatar_style.backgroundPosition = "center";
+    // avatar_style.borderRadius = ".35em";
     avatar_style.backgroundImage = `url(${link})`;
 }
 const checkTelegramAuthData = (callback, skip=false, raw=false) => {
