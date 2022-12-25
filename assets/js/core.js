@@ -679,10 +679,17 @@ const checkTelegramAuthData = (callback, skip=false, raw=false) => {
                         openLoginHint();
                         callback(false);
                     } else {
+                        const avatar = document.getElementById("telegram-auth-avatar");
                         glob_auth_player_data = r.player_data;
                         // const orderedData = getTelegramAuth();
                         if (r.player_data) {
                             loadPlayerAvatar(r.player_data.SKIN);
+
+                            setInterval(function () {
+                                if (!avatar.style.backgroundImage) {
+                                    loadPlayerAvatar(r.player_data.SKIN);
+                                }
+                            }, 300);
                         }
                         callback(raw ? r : r.success);
                     }
