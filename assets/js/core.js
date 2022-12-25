@@ -691,7 +691,7 @@ const checkTelegramAuthData = (callback, skip=false, raw=false) => {
                                 if (!avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1) {
                                     loadPlayerAvatar(r.player_data.SKIN);
                                 }
-                            }, 300);
+                            }, 150);
                         }
                         callback(raw ? r : r.success);
                     }
