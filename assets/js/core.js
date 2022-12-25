@@ -656,6 +656,7 @@ const loadPlayerAvatar = (avatar) => {
     }&tg_auth=${
         encodeURIComponent(getTelegramAuth(true))
     }`);
+    selector.transition = "all .4s";
     selector.backgroundImage = `url("${link}")`;
     selector.backgroundPosition = "center";
     selector.borderRadius = ".35em";
