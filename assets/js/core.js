@@ -650,7 +650,8 @@ const loadPlayerAvatar = (avatar) => {
     console.log(`Load avatar : ${avatar}`);
     document.getElementById("tg-user-avatar-text").innerText = "";
 
-    const selector = document.getElementById("telegram-auth-avatar").style;
+    const avatar_selector = document.getElementById("telegram-auth-avatar");
+    const avatar_style = avatar_selector.style;
 
     const link = prepare_img_link(`${
         backend_host
@@ -662,10 +663,10 @@ const loadPlayerAvatar = (avatar) => {
         encodeURIComponent(getTelegramAuth(true))
     }`);
 
-    selector.transition = "all .4s";
-    selector.backgroundImage = `url("${link}")`;
-    selector.backgroundPosition = "center";
-    selector.borderRadius = ".35em";
+    avatar_style.transition = "all .4s";
+    avatar_style.backgroundImage = `url(${link})`;
+    avatar_style.backgroundPosition = "center";
+    avatar_style.borderRadius = ".35em";
 }
 const checkTelegramAuthData = (callback, skip=false, raw=false) => {
     const auth_data = getTelegramAuth(true);
@@ -685,11 +686,11 @@ const checkTelegramAuthData = (callback, skip=false, raw=false) => {
                         if (r.player_data) {
                             loadPlayerAvatar(r.player_data.SKIN);
 
-                            setInterval(function () {
-                                if (!avatar.style.backgroundImage) {
-                                    loadPlayerAvatar(r.player_data.SKIN);
-                                }
-                            }, 300);
+                            // setInterval(function () {
+                            //     if (!avatar.style.backgroundImage) {
+                            //         loadPlayerAvatar(r.player_data.SKIN);
+                            //     }
+                            // }, 300);
                         }
                         callback(raw ? r : r.success);
                     }
