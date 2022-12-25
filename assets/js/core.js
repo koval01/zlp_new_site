@@ -53,11 +53,13 @@ var lock_sticker_switch = false;
 var gameServerUpdater_setter;
 var work_domain_v = "zalupa.online";
 var products_by_serverid = [];
+var glob_auth_player_data = [];
 var current_c_item = 0;
 var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth";
+const telegram_social_bot = "https://t.me/ZalupaSocialBot";
 const debug_lock_init = false;
-const telegram_auth_enabled = false;
+const telegram_auth_enabled = true;
 const feedback_module_enabled = false;
 const feedback_tg_auth_skip = true;
 const initHost = () => {
@@ -427,7 +429,7 @@ const appendPostsNews = () => {
                     }
                 }
                 addEventListener('resize', (event) => calculate_text_position());
-                setInterval(calculate_text_position, 100);
+                setInterval(calculate_text_position, 50);
             }
             getImageLightness(posts[i].cover, (brightness) => {
                 const style_ = `#000000${
@@ -469,15 +471,26 @@ const donateSwitchContainer = (display) => {
         }, 850);
     };
     if (!donate_displayed || display) {
-        document.body.style.overflowY = "hidden";
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
+        const button = document.getElementById("donateButtonLandingTop");
+        button.setAttribute("disabled", "");
+        notify("Переходим к донату...");
+
+        checkTelegramAuthData(function (tg_success) {
+            button.removeAttribute("disabled");
+            if (tg_success) {
+                document.body.style.overflowY = "hidden";
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+                container.style.minHeight = "";
+                update_zIndex("");
+                donate_displayed = true;
+                location.hash = "#donate";
+            } else {
+                openTelegramAuthModal(true);
+            }
         });
-        container.style.minHeight = "";
-        update_zIndex("");
-        donate_displayed = true;
-        location.hash = "#donate";
     } else {
         container.style.minHeight = "0";
         container.style.zIndex = "-1";
@@ -610,6 +623,7 @@ const create_payment = (callback, customer, products, server_id, email = "", cou
             token: token_update,
             server_id: server_id,
             success_url: `https://${work_domain_v}`,
+            tg_auth_data: getTelegramAuth(true)
         });
     });
 }
@@ -632,18 +646,89 @@ const check_coupon = (callback, coupon) => {
         });
     });
 }
-const checkTelegramAuthData = (callback) => {
+const testImage = (url) => {
+    const tester = new Image();
+    // tester.addEventListener('load', TSimageFound);
+    tester.addEventListener('error', reInitTelegramAuth);
+    tester.src = url;
+}
+const loadPlayerAvatar = (avatar) => {
+    console.log(`Load avatar : ${avatar}`);
+    document.getElementById("tg-user-avatar-text").innerText = "";
+
+    const avatar_selector = document.getElementById("telegram-auth-avatar");
+    const avatar_style = avatar_selector.style;
+
+    const raw_link = `${
+        backend_host
+    }/profile/avatar/?texture_hash=${
+        avatar
+    }&crypto_token=${
+        encodeURIComponent(crypto_token)
+    }&tg_auth=${
+        encodeURIComponent(getTelegramAuth(true))
+    }`;
+    const link = prepare_img_link(raw_link);
+
+    // avatar_style.transition = "all .4s";
+    // avatar_style.backgroundPosition = "center";
+    // avatar_style.borderRadius = ".35em";
+    // avatar_style.backgroundImage = `url(${link})`;
+
+    testImage(raw_link);
+    avatar_selector.setAttribute("style",`background-image: url("${link}");`);
+}
+const reInitTelegramAuth = () => {
+    checkTelegramAuthData(function (_) {});
+}
+const checkTelegramAuthData = (callback, skip=false, raw=false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
-        requestCall((r) => {
-            if (r) {
-                callback(r.success);
-            } else {
-                callback(false);
-            }
-        }, `${backend_host}/telegram/auth/check`, "POST", true, {
-            tg_auth_data: auth_data
-        });
+        if (!skip) {
+            re_check((token_update) => {
+                requestCall((r) => {
+                    if (r) {
+                        if (!r.success) {
+                            // location.href = telegram_social_bot;
+                            // console.log("Redirect to " + telegram_social_bot);
+                            openLoginHint();
+                            callback(false);
+                        } else {
+                            const avatar = document.getElementById("telegram-auth-avatar");
+                            /*
+                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="TITLE_TEXT"
+                            */
+                            glob_auth_player_data = r.player_data;
+                            // const orderedData = getTelegramAuth();
+                            if (r.player_data) {
+                                const player = r.player_data;
+                                const skin = player.SKIN;
+                                loadPlayerAvatar(skin);
+
+                                avatar.setAttribute("data-bs-toggle", "tooltip");
+                                avatar.setAttribute("data-bs-placement", "bottom");
+                                avatar.setAttribute("title", player["NICKNAME"]);
+
+                                setInterval(function () {
+                                    if (!avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1) {
+                                        loadPlayerAvatar(skin);
+                                    }
+                                }, 150);
+                            }
+                            callback(raw ? r : r.success);
+                        }
+                    } else {
+                        callback(false);
+                    }
+                }, `${backend_host}/telegram/auth/check`, "POST", true, {
+                    token: token_update,
+                    tg_auth_data: auth_data
+                });
+            });
+        } else {
+            callback(true);
+        }
     } else {
         callback(false);
     }
@@ -1966,9 +2051,10 @@ const donateFlushCart = () => {
 }
 
 const setAvatar = (user) => {
+    const photoTG = false;
     const selector = document.getElementById("telegram-auth-avatar")
         .style
-    if (user.photo_url) {
+    if (user.photo_url && photoTG) {
         selector.backgroundImage = `url(${user.photo_url})`
     } else {
         selector.background =
@@ -2224,7 +2310,7 @@ const generatePaymentLink = (type = 1,
         .getElementById(
             "payment-button-donate" +
             selector_c);
-    const customer = document
+    let customer = document
         .getElementById(
             "donate_customer" +
             selector_c)
@@ -2235,6 +2321,7 @@ const generatePaymentLink = (type = 1,
             selector_c)
         .value.trim();
     let coupon = "";
+    customer = glob_auth_player_data.NICKNAME;
     const max_sum = 30000;
     const local_prm =
         '<span style="color: #a4a6ff">';
@@ -2729,14 +2816,25 @@ const donateModalCall = (type_item,
     modal_open_();
 
     if (nickname_update) {
-        shuffle(glob_players);
-        document
-            .querySelector(
-                "input#donate_customer_c"
-            )
-            .setAttribute(
-                "placeholder",
-                glob_players[0]);
+        const randomNick = false;
+        const fldSelect = document.querySelector("input#donate_customer_c");
+        if (randomNick) {
+            shuffle(glob_players);
+            fldSelect
+                .setAttribute(
+                    "placeholder",
+                    glob_players[0]
+                );
+        } else {
+            fldSelect
+                .setAttribute(
+                    "placeholder",
+                    glob_auth_player_data.NICKNAME
+                );
+            fldSelect.value = glob_auth_player_data.NICKNAME;
+            fldSelect
+                .setAttribute("disabled", "");
+        }
     }
 
     donateResetPaymentState(
@@ -3380,47 +3478,82 @@ const observerContainerHash = (
             updater());
 }
 
-const openTelegramAuthModal = () => {
-    console.log(
-        "Telegram auth preparing..."
-    );
-    // modal_close_();
-    const script_telegram_widget =
-        document.createElement(
-            'script');
+const openTelegramAuthModal = (skip_check=false) => {
+    checkTelegramAuthData(function (tg_success) {
+        if (!tg_success) {
+            console.log(
+                "Telegram auth preparing..."
+            );
+            // modal_close_();
+            const script_telegram_widget =
+                document.createElement(
+                    'script');
 
-    script_telegram_widget.src =
-        "https://telegram.org/js/telegram-widget.js?21";
-    script_telegram_widget
-        .setAttribute(
-            "async", "");
-    script_telegram_widget
-        .setAttribute(
-            "data-telegram-login",
-            telegram_bot_username);
-    script_telegram_widget
-        .setAttribute(
-            "data-size", "large");
-    script_telegram_widget
-        .setAttribute(
-            "data-radius", "8");
-    script_telegram_widget
-        .setAttribute(
-            "data-onauth",
-            "onTelegramAuth(user)");
-    script_telegram_widget
-        .setAttribute("data-request-access", "write");
+            script_telegram_widget.src =
+                "https://telegram.org/js/telegram-widget.js?21";
+            script_telegram_widget
+                .setAttribute(
+                    "async", "");
+            script_telegram_widget
+                .setAttribute(
+                    "data-telegram-login",
+                    telegram_bot_username);
+            script_telegram_widget
+                .setAttribute(
+                    "data-size", "large");
+            script_telegram_widget
+                .setAttribute(
+                    "data-radius", "8");
+            script_telegram_widget
+                .setAttribute(
+                    "data-onauth",
+                    "onTelegramAuth(user)");
+            script_telegram_widget
+                .setAttribute("data-request-access", "write");
 
-    script_telegram_widget.onload =
-        () => {
-            switch_modal_containers(
-                "info", {
-                    title: "",
-                    content: ""
-                });
-            modal_open_();
+            script_telegram_widget.onload =
+                () => {
+                    switch_modal_containers(
+                        "info", {
+                            title: "",
+                            content: ""
+                        });
+                    modal_open_();
+                }
+
+            const content = document
+                .getElementById(
+                    "info-content-modal");
+            const container = document
+                .createElement("div");
+            const text = document
+                .createElement(
+                    "p");
+
+            content.innerHTML = "";
+            content.appendChild(container);
+            content.appendChild(text);
+            text.innerHTML = `
+                Для некоторых функций на этом сайте необходимо авторизироваться. 
+                Мы не получим никаких конфиденциальных данных о вас, например, 
+                ваш номер или локацию, это нужно только для того, чтобы Telegram 
+                подтвердил, что вы являетесь владельцем своего аккаунта. Также 
+                не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
+                в <a href="${telegram_social_bot}" target="_blank" class="text-primary">нашем боте</a>.
+            `;
+
+            text.setAttribute("class",
+                "text-start px-3 pt-1 pt-lg-2"
+            );
+            container.id =
+                "telegram-auth-container";
+            container.appendChild(
+                script_telegram_widget);
         }
+    }, skip_check);
+}
 
+const openLoginHint = () => {
     const content = document
         .getElementById(
             "info-content-modal");
@@ -3433,22 +3566,29 @@ const openTelegramAuthModal = () => {
     content.innerHTML = "";
     content.appendChild(container);
     content.appendChild(text);
-    text.innerText = `
-        Для некоторых функций на этом сайте необходимо авторизироваться. 
-        Мы не получим никаких конфиденциальных данных о вас, например, 
-        ваш номер или локацию, это нужно только для того, чтобы Telegram 
-        подтвердил, что вы являетесь владельцем своего аккаунта. Также 
-        не забудьте связать свой аккаунт Telegram с игровым аккаунтом 
-        в нашем боте.
-    `.replaceAll("\n", "");
+    text.innerHTML = `
+                Похоже что ты не прочитал текст в первом окне авторизации,
+                повторим процедуру. Чтобы завершить авторизацию на сайте - тебе нужно 
+                связать свой Telegram с своим игровым аккаунтом в&nbsp;
+                <a href="${telegram_social_bot}" target="_blank" class="text-primary">нашем боте</a>.
+            `;
 
     text.setAttribute("class",
         "text-start px-3 pt-1 pt-lg-2"
     );
     container.id =
-        "telegram-auth-container";
-    container.appendChild(
-        script_telegram_widget);
+        "telegram-auth-hint";
+
+    notify(
+        "Прочитай внимательно инструкцию!"
+    );
+
+    switch_modal_containers(
+        "info", {
+            title: "Помощь авторизации",
+            content: ""
+        });
+    modal_open_();
 }
 
 const initJarallax = () => {
