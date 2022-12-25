@@ -682,35 +682,38 @@ const checkTelegramAuthData = (callback, skip=false, raw=false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
         if (!skip) {
-            requestCall((r) => {
-                if (r) {
-                    if (!r.success) {
-                        // location.href = telegram_social_bot;
-                        // console.log("Redirect to " + telegram_social_bot);
-                        openLoginHint();
-                        callback(false);
-                    } else {
-                        const avatar = document.getElementById("telegram-auth-avatar");
-                        glob_auth_player_data = r.player_data;
-                        // const orderedData = getTelegramAuth();
-                        if (r.player_data) {
-                            const skin = r.player_data.SKIN;
-                            loadPlayerAvatar(skin);
-                            testImage(skin);
+            re_check((token_update) => {
+                requestCall((r) => {
+                    if (r) {
+                        if (!r.success) {
+                            // location.href = telegram_social_bot;
+                            // console.log("Redirect to " + telegram_social_bot);
+                            openLoginHint();
+                            callback(false);
+                        } else {
+                            const avatar = document.getElementById("telegram-auth-avatar");
+                            glob_auth_player_data = r.player_data;
+                            // const orderedData = getTelegramAuth();
+                            if (r.player_data) {
+                                const skin = r.player_data.SKIN;
+                                loadPlayerAvatar(skin);
+                                testImage(skin);
 
-                            setInterval(function () {
-                                if (!avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1) {
-                                    loadPlayerAvatar(skin);
-                                }
-                            }, 150);
+                                setInterval(function () {
+                                    if (!avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1) {
+                                        loadPlayerAvatar(skin);
+                                    }
+                                }, 150);
+                            }
+                            callback(raw ? r : r.success);
                         }
-                        callback(raw ? r : r.success);
+                    } else {
+                        callback(false);
                     }
-                } else {
-                    callback(false);
-                }
-            }, `${backend_host}/telegram/auth/check`, "POST", true, {
-                tg_auth_data: auth_data
+                }, `${backend_host}/telegram/auth/check`, "POST", true, {
+                    token: token_update,
+                    tg_auth_data: auth_data
+                });
             });
         } else {
             callback(true);
