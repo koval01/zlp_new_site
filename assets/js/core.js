@@ -646,6 +646,12 @@ const check_coupon = (callback, coupon) => {
         });
     });
 }
+const testImage = (url) => {
+    const tester = new Image();
+    // tester.addEventListener('load', TSimageFound);
+    tester.addEventListener('error', reInitTelegramAuth);
+    tester.src = url;
+}
 const loadPlayerAvatar = (avatar) => {
     console.log(`Load avatar : ${avatar}`);
     document.getElementById("tg-user-avatar-text").innerText = "";
@@ -669,6 +675,9 @@ const loadPlayerAvatar = (avatar) => {
     // avatar_style.backgroundImage = `url(${link})`;
     avatar_selector.setAttribute("style",`background-image: url("${link}");`);
 }
+const reInitTelegramAuth = () => {
+    checkTelegramAuthData(function (_) {});
+}
 const checkTelegramAuthData = (callback, skip=false, raw=false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
@@ -685,11 +694,13 @@ const checkTelegramAuthData = (callback, skip=false, raw=false) => {
                         glob_auth_player_data = r.player_data;
                         // const orderedData = getTelegramAuth();
                         if (r.player_data) {
-                            loadPlayerAvatar(r.player_data.SKIN);
+                            const skin = r.player_data.SKIN;
+                            loadPlayerAvatar(skin);
+                            testImage(skin);
 
                             setInterval(function () {
                                 if (!avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1) {
-                                    loadPlayerAvatar(r.player_data.SKIN);
+                                    loadPlayerAvatar(skin);
                                 }
                             }, 150);
                         }
