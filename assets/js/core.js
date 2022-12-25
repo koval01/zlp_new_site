@@ -687,11 +687,11 @@ const checkTelegramAuthData = (callback, skip=false, raw=false) => {
                         if (r.player_data) {
                             loadPlayerAvatar(r.player_data.SKIN);
 
-                            // setInterval(function () {
-                            //     if (!avatar.style.backgroundImage) {
-                            //         loadPlayerAvatar(r.player_data.SKIN);
-                            //     }
-                            // }, 300);
+                            setInterval(function () {
+                                if (!avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1) {
+                                    loadPlayerAvatar(r.player_data.SKIN);
+                                }
+                            }, 300);
                         }
                         callback(raw ? r : r.success);
                     }
