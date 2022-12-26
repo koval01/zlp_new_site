@@ -676,7 +676,7 @@ const loadPlayerAvatar = (avatar) => {
     // avatar_style.backgroundImage = `url(${link})`;
 
     testImage(raw_link);
-    avatar_selector.setAttribute("style",`background-image: url("${link}");`);
+    avatar_selector.setAttribute("style",`background-image: url("${link}");border-radius:.3rem;`);
 }
 const reInitTelegramAuth = () => {
     checkTelegramAuthData(function (_) {});

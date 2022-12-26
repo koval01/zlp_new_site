@@ -52,7 +52,7 @@ footer {
 }
 
 .avatar-container:hover {
-  border-radius: 0.1rem !important;
+  border-radius: 0.15rem !important;
 }
 
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
@@ -1542,8 +1542,8 @@ label[for=admin-message] {
   width: 2.25rem;
   height: 2.25rem;
   margin-left: 1rem;
-  transition: 0.4s all;
-  border-radius: 0.35rem;
+  transition: 0.5s all;
+  border-radius: 0.5rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
