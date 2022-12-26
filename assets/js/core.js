@@ -1182,6 +1182,7 @@ const checkPrivateServerBuy = () => {
         const stop_key = "Проходка";
 
         for (let item in donate_services_array) {
+            console.debug(`checkPrivateServerBuy : item = ${item.name} / id = ${item.id}`);
             if (item.name === stop_key) {
                 const selector_button = document.querySelector(`#donate_item_${item.id}>div>div.card-body>button`);
 
