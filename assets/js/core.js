@@ -411,10 +411,12 @@ const appendPostsNews = () => {
                         return;
                     }
                     // local init var
-                    const selector_text = document.getElementById(`news_text_${i}`);
+                    const identifier_sl = `news_text_${i}`;
+                    const switch_val = 12;
+                    const selector_text = document.getElementById(identifier_sl);
                     const font_size = parseFloat(window.getComputedStyle(selector_text, null).getPropertyValue('font-size').replace("px", ""));
                     selector_text.style.maxHeight = "32vh";
-                    if (font_size > 12) {
+                    if (font_size > switch_val) {
                         selector_text.style.position = "absolute";
                         selector_text.style.textAlign = "center";
                         selector_text.style.alignItems = "center";
@@ -431,6 +433,11 @@ const appendPostsNews = () => {
                         selector_text.style.paddingBottom = "";
                         selector_text.style.paddingRight = "";
                     }
+                    console.log({
+                        identifier: identifier_sl,
+                        font_size: font_size,
+                        adaptive: font_size > switch_val
+                    });
                 }
                 addEventListener('resize', (event) => calculate_text_position());
                 setInterval(calculate_text_position, 50);
