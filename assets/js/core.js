@@ -957,6 +957,7 @@ const appendServices = () => {
                     </div>
                 `;
             }
+            checkPrivateServerBuy();
             setTimeout(
                 () => {
                     const elem = document.getElementById("donate_block_load");
@@ -1175,6 +1176,24 @@ const comment_show_action = (id, close = false) => {
         comment_text.setAttribute("fullShowComment", "1");
         comment_show.innerText = "Скрыть";
     }
+}
+const checkPrivateServerBuy = () => {
+    const checkFunction = () => {
+        const stop_key = "Проходка";
+
+        for (let item in donate_services_array) {
+            if (item.name === stop_key) {
+                const selector_button = document.querySelector(`#donate_item_${item.id}>div>div.card-body>button`);
+
+                selector_button.innerText = "Куплено";
+                selector_button.setAttribute("disabled", "");
+                selector_button.removeAttribute("onclick");
+            }
+        }
+    }
+
+    checkFunction();
+    setInterval(checkFunction, 300);
 }
 const initComments = () => {
     const array_ = document.getElementById("comment_swipe_array");
