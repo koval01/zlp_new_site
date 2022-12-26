@@ -341,6 +341,7 @@ const appendPostsNews = () => {
     };
     const text_modify_enable = true;
     const add_news_in_array = (posts) => {
+        const adaptive_news_text = false;
         const array_ = document.getElementById("news_swipe_array");
         posts = posts.reverse();
         for (let i = 0; i < posts.length; i++) {
@@ -406,12 +407,14 @@ const appendPostsNews = () => {
                     ), font_size, .22, 1.05)
                 }rem`;
                 const calculate_text_position = () => {
-                    const adaptive_news_text = false; // disaple adaptive
+                    if (!adaptive_news_text) {
+                        return;
+                    }
                     // local init var
                     const selector_text = document.getElementById(`news_text_${i}`);
                     const font_size = parseFloat(window.getComputedStyle(selector_text, null).getPropertyValue('font-size').replace("px", ""));
                     selector_text.style.maxHeight = "32vh";
-                    if (font_size > 12 || adaptive_news_text) {
+                    if (font_size > 12) {
                         selector_text.style.position = "absolute";
                         selector_text.style.textAlign = "center";
                         selector_text.style.alignItems = "center";
