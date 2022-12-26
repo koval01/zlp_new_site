@@ -406,11 +406,12 @@ const appendPostsNews = () => {
                     ), font_size, .22, 1.05)
                 }rem`;
                 const calculate_text_position = () => {
+                    const adaptive_news_text = false; // disaple adaptive
                     // local init var
                     const selector_text = document.getElementById(`news_text_${i}`);
                     const font_size = parseFloat(window.getComputedStyle(selector_text, null).getPropertyValue('font-size').replace("px", ""));
                     selector_text.style.maxHeight = "32vh";
-                    if (font_size > 12) {
+                    if (font_size > 12 || adaptive_news_text) {
                         selector_text.style.position = "absolute";
                         selector_text.style.textAlign = "center";
                         selector_text.style.alignItems = "center";
