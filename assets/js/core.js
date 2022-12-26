@@ -433,11 +433,11 @@ const appendPostsNews = () => {
                         selector_text.style.paddingBottom = "";
                         selector_text.style.paddingRight = "";
                     }
-                    console.log({
-                        identifier: identifier_sl,
-                        font_size: font_size,
-                        adaptive: font_size > switch_val
-                    });
+                    // console.log({
+                    //     identifier: identifier_sl,
+                    //     font_size: font_size,
+                    //     adaptive: font_size > switch_val
+                    // });
                 }
                 addEventListener('resize', (event) => calculate_text_position());
                 setInterval(calculate_text_position, 50);
