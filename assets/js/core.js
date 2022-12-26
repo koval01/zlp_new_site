@@ -341,7 +341,7 @@ const appendPostsNews = () => {
     };
     const text_modify_enable = true;
     const add_news_in_array = (posts) => {
-        const adaptive_news_text = false;
+        const adaptive_news_text = true;
         const array_ = document.getElementById("news_swipe_array");
         posts = posts.reverse();
         for (let i = 0; i < posts.length; i++) {
