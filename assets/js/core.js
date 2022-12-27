@@ -1181,9 +1181,9 @@ const checkPrivateServerBuy = () => {
     const checkFunction = () => {
         const stop_key = "Проходка";
 
-        for (let item in donate_services_array) {
-            console.debug(`checkPrivateServerBuy : item = ${item.name} / id = ${item.id}`);
-            if (item.name === stop_key) {
+        for (let item of donate_services_array) {
+            // console.debug(`checkPrivateServerBuy : item = ${item.name} / id = ${item.id}`);
+            if (item.name === stop_key && glob_auth_player_data.PRIVATE_SERVER) {
                 const selector_button = document.querySelector(`#donate_item_${item.id}>div>div.card-body>button`);
 
                 selector_button.innerText = "Куплено";
