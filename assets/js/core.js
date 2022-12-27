@@ -1189,6 +1189,7 @@ const checkPrivateServerBuy = () => {
                 selector_button.innerText = "Куплено";
                 selector_button.setAttribute("disabled", "");
                 selector_button.removeAttribute("onclick");
+                // открывать чек об оплате (если есть)
             }
         }
     }
