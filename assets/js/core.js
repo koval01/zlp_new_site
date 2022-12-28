@@ -1683,7 +1683,7 @@ const setRandomStickerLand = () => {
             selector.style.top = `${randDiaps(85)}%`;
             selector.style.left = `${randDiaps(85)}%`;
         } else {
-            selector.style.top = `${randDiaps(50)}%`;
+            selector.style.top = `${randDiaps(100)}%`;
             selector.style.left = `${randDiaps(75)}%`;
         }
     }
@@ -2111,6 +2111,10 @@ const onTelegramAuth = (user) => {
         `Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name}</span>`
     );
     autoAuthTelegramObserver();
+}
+
+const debugWriteTelegramAuth = (data) => {
+    Cookies.set(telegram_cookie_token, data);
 }
 
 const getTelegramAuth = (raw =

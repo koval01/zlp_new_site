@@ -44,6 +44,10 @@ footer {
   padding-top: 8rem;
 }
 
+#head-container {
+  height: 100vh !important;
+}
+
 .tg-user-avatar-text {
   display: block;
   margin: auto;
@@ -447,10 +451,17 @@ iframe {
   -webkit-filter: invert(1);
 }
 
+#exit-button-container-donate {
+  min-height: 12vh;
+}
+
 @media (max-width: 992px) {
   .loading-dots {
     text-align: left;
     margin-left: 10%;
+  }
+  #zlp_land_buttons {
+    margin-left: 1rem !important;
   }
 }
 @media (min-width: 992px) {
