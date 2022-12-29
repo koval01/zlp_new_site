@@ -480,6 +480,7 @@ const closeButtonDonateAdaptive = () => {
 const donateSwitchContainer = (display) => {
     const container = document.querySelector(".donate-global-container");
     const style_sticker = document.getElementById("super-klassniy-sticker-0").style;
+    const style_main = document.querySelector("main").style;
     style_sticker.opacity = 0;
     const update_zIndex = (variable) => {
         setTimeout(() => {
@@ -505,6 +506,7 @@ const donateSwitchContainer = (display) => {
                 update_zIndex("");
                 donate_displayed = true;
                 location.hash = "#donate";
+                style_main.paddingTop = "50px";
             } else {
                 openTelegramAuthModal(true);
             }
@@ -515,6 +517,7 @@ const donateSwitchContainer = (display) => {
         document.body.style.overflowY = "";
         donate_displayed = false;
         location.hash = "#";
+        style_main.paddingTop = "0";
     }
 }
 const get_game_server_data = (callback) => {
