@@ -44,6 +44,15 @@ footer {
   padding-top: 8rem;
 }
 
+main {
+  transition: 0.8s padding-top;
+  padding-top: 0;
+}
+
+header {
+  flex-wrap: wrap !important;
+}
+
 #head-container {
   height: 100vh !important;
 }
@@ -347,6 +356,14 @@ iframe {
   text-align: center;
 }
 
+.underline-decoration {
+  text-decoration: underline;
+}
+
+.promotion-var ::selection {
+  background: #fff;
+}
+
 .noselect {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -452,6 +469,7 @@ iframe {
 }
 
 #exit-button-container-donate {
+  transition: 0.6s all;
   min-height: 13.5vh;
 }
 
@@ -519,6 +537,14 @@ iframe {
   padding: 6px;
   border-radius: 5px;
   outline: 0;
+}
+
+.promotion-header {
+  width: 100vw;
+  min-height: 0;
+  transition: 0.8s min-height, 0.8s height;
+  background-color: #9047ff;
+  display: block;
 }
 
 .swiper-pagination-bullet-active {

@@ -472,6 +472,11 @@ const appendPostsNews = () => {
         add_news_in_array(posts);
     }, 1);
 }
+const closeButtonDonateAdaptive = () => {
+    if (!is_apple_platform()) {
+        document.getElementById("exit-button-container-donate").style.minHeight = "100%";
+    }
+}
 const donateSwitchContainer = (display) => {
     const container = document.querySelector(".donate-global-container");
     const style_sticker = document.getElementById("super-klassniy-sticker-0").style;
@@ -485,6 +490,8 @@ const donateSwitchContainer = (display) => {
         const button = document.getElementById("donateButtonLandingTop");
         button.setAttribute("disabled", "");
         notify("Переходим к донату...");
+
+        closeButtonDonateAdaptive();
 
         checkTelegramAuthData(function (tg_success) {
             button.removeAttribute("disabled");
@@ -3288,7 +3295,48 @@ const successPay = () => {
             payment_id);
     }
 }
+const displayPromotion = () => {
+    const selector = document.querySelector("div.promotion-header");
+    const main = document.querySelector("main");
 
+    requestCall((promotion) => {
+        if (promotion.active) {
+            const text = promotion.text;
+
+            selector.style.minHeight = "40px";
+            selector.style.height = "100%";
+            selector.setAttribute(
+                "onclick",
+                `clipboardFunc("input.promotionInput", "Промокод <span class=\\"text-gradient-primary\\">${promotion.var}</span> скопирован в буфер обмена.")`
+            );
+            selector.innerHTML = `
+                <p class="text-center" style="color:#fff!important;line-height:200%">${text}</p>
+                <input class="promotionInput" value="${promotion.var}" style="display:none">
+            `;
+
+            const s_text = document.querySelector("div.promotion-header>p").style;
+            s_text.marginBottom = "0";
+            s_text.paddingRight = "1.25rem";
+            s_text.paddingLeft = "1.25rem";
+
+            main.style.paddingTop = "50px";
+        }
+    },
+        "assets/data/promotion.json",
+        "GET", true
+    );
+}
+const clipboardFunc = (field_selector, notify_text) => {
+    const copyText = document.querySelector(field_selector);
+
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+
+    navigator.clipboard.writeText(copyText.value);
+
+    notify(notify_text)
+    return copyText.value;
+}
 const spClownLoad = () => {
     const buttons = document.getElementById("zlp_land_buttons");
     const button_template = `
@@ -3813,6 +3861,7 @@ const initCore = () => {
     autoAuthTelegramObserver();
 
     tonyComeBack();
+    displayPromotion();
 
     const elem = document
         .getElementById(
