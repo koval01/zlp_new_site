@@ -3319,7 +3319,7 @@ const displayPromotion = () => {
             s_text.paddingRight = "1.25rem";
             s_text.paddingLeft = "1.25rem";
 
-            main.style.paddingTop = "50px";
+            // main.style.paddingTop = "50px";
         }
     },
         "assets/data/promotion.json",
