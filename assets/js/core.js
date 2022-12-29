@@ -57,7 +57,7 @@ var glob_auth_player_data = [];
 var current_c_item = 0;
 var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth";
-const telegram_social_bot = "https://t.me/ZalupaSocialBot";
+const telegram_social_bot = "https://t.me/ZalupaScBot";
 const debug_lock_init = false;
 const telegram_auth_enabled = true;
 const feedback_module_enabled = false;
@@ -341,6 +341,7 @@ const appendPostsNews = () => {
     };
     const text_modify_enable = true;
     const add_news_in_array = (posts) => {
+        const adaptive_news_text = true;
         const array_ = document.getElementById("news_swipe_array");
         posts = posts.reverse();
         for (let i = 0; i < posts.length; i++) {
@@ -406,11 +407,16 @@ const appendPostsNews = () => {
                     ), font_size, .22, 1.05)
                 }rem`;
                 const calculate_text_position = () => {
+                    if (!adaptive_news_text) {
+                        return;
+                    }
                     // local init var
-                    const selector_text = document.getElementById(`news_text_${i}`);
+                    const identifier_sl = `news_text_${i}`;
+                    const switch_val = 12;
+                    const selector_text = document.getElementById(identifier_sl);
                     const font_size = parseFloat(window.getComputedStyle(selector_text, null).getPropertyValue('font-size').replace("px", ""));
                     selector_text.style.maxHeight = "32vh";
-                    if (font_size > 12) {
+                    if (font_size > switch_val) {
                         selector_text.style.position = "absolute";
                         selector_text.style.textAlign = "center";
                         selector_text.style.alignItems = "center";
@@ -427,6 +433,11 @@ const appendPostsNews = () => {
                         selector_text.style.paddingBottom = "";
                         selector_text.style.paddingRight = "";
                     }
+                    // console.log({
+                    //     identifier: identifier_sl,
+                    //     font_size: font_size,
+                    //     adaptive: font_size > switch_val
+                    // });
                 }
                 addEventListener('resize', (event) => calculate_text_position());
                 setInterval(calculate_text_position, 50);
@@ -461,6 +472,11 @@ const appendPostsNews = () => {
         add_news_in_array(posts);
     }, 1);
 }
+const closeButtonDonateAdaptive = () => {
+    if (!is_apple_platform()) {
+        document.getElementById("exit-button-container-donate").style.minHeight = "100%";
+    }
+}
 const donateSwitchContainer = (display) => {
     const container = document.querySelector(".donate-global-container");
     const style_sticker = document.getElementById("super-klassniy-sticker-0").style;
@@ -474,6 +490,8 @@ const donateSwitchContainer = (display) => {
         const button = document.getElementById("donateButtonLandingTop");
         button.setAttribute("disabled", "");
         notify("Переходим к донату...");
+
+        closeButtonDonateAdaptive();
 
         checkTelegramAuthData(function (tg_success) {
             button.removeAttribute("disabled");
@@ -676,7 +694,7 @@ const loadPlayerAvatar = (avatar) => {
     // avatar_style.backgroundImage = `url(${link})`;
 
     testImage(raw_link);
-    avatar_selector.setAttribute("style",`background-image: url("${link}");`);
+    avatar_selector.setAttribute("style",`background-image: url("${link}");border-radius:.15rem;`);
 }
 const reInitTelegramAuth = () => {
     checkTelegramAuthData(function (_) {});
@@ -946,6 +964,7 @@ const appendServices = () => {
                     </div>
                 `;
             }
+            checkPrivateServerBuy();
             setTimeout(
                 () => {
                     const elem = document.getElementById("donate_block_load");
@@ -1164,6 +1183,26 @@ const comment_show_action = (id, close = false) => {
         comment_text.setAttribute("fullShowComment", "1");
         comment_show.innerText = "Скрыть";
     }
+}
+const checkPrivateServerBuy = () => {
+    const checkFunction = () => {
+        const stop_key = "Проходка";
+
+        for (let item of donate_services_array) {
+            // console.debug(`checkPrivateServerBuy : item = ${item.name} / id = ${item.id}`);
+            if (item.name === stop_key && glob_auth_player_data.PRIVATE_SERVER) {
+                const selector_button = document.querySelector(`#donate_item_${item.id}>div>div.card-body>button`);
+
+                selector_button.innerText = "Куплено";
+                selector_button.setAttribute("disabled", "");
+                selector_button.removeAttribute("onclick");
+                // открывать чек об оплате (если есть)
+            }
+        }
+    }
+
+    checkFunction();
+    setInterval(checkFunction, 300);
 }
 const initComments = () => {
     const array_ = document.getElementById("comment_swipe_array");
@@ -1651,7 +1690,7 @@ const setRandomStickerLand = () => {
             selector.style.top = `${randDiaps(85)}%`;
             selector.style.left = `${randDiaps(85)}%`;
         } else {
-            selector.style.top = `${randDiaps(50)}%`;
+            selector.style.top = `${randDiaps(100)}%`;
             selector.style.left = `${randDiaps(75)}%`;
         }
     }
@@ -2079,6 +2118,10 @@ const onTelegramAuth = (user) => {
         `Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name}</span>`
     );
     autoAuthTelegramObserver();
+}
+
+const debugWriteTelegramAuth = (data) => {
+    Cookies.set(telegram_cookie_token, data);
 }
 
 const getTelegramAuth = (raw =
@@ -3252,7 +3295,48 @@ const successPay = () => {
             payment_id);
     }
 }
+const displayPromotion = () => {
+    const selector = document.querySelector("div.promotion-header");
+    const main = document.querySelector("main");
 
+    requestCall((promotion) => {
+        if (promotion.active) {
+            const text = promotion.text;
+
+            selector.style.minHeight = "40px";
+            selector.style.height = "100%";
+            selector.setAttribute(
+                "onclick",
+                `clipboardFunc("input.promotionInput", "Промокод <span class=\\"text-gradient-primary\\">${promotion.var}</span> скопирован в буфер обмена.")`
+            );
+            selector.innerHTML = `
+                <p class="text-center" style="color:#fff!important;line-height:200%">${text}</p>
+                <input class="promotionInput" value="${promotion.var}" style="display:none">
+            `;
+
+            const s_text = document.querySelector("div.promotion-header>p").style;
+            s_text.marginBottom = "0";
+            s_text.paddingRight = "1.25rem";
+            s_text.paddingLeft = "1.25rem";
+
+            main.style.paddingTop = "50px";
+        }
+    },
+        "assets/data/promotion.json",
+        "GET", true
+    );
+}
+const clipboardFunc = (field_selector, notify_text) => {
+    const copyText = document.querySelector(field_selector);
+
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+
+    navigator.clipboard.writeText(copyText.value);
+
+    notify(notify_text)
+    return copyText.value;
+}
 const spClownLoad = () => {
     const buttons = document.getElementById("zlp_land_buttons");
     const button_template = `
@@ -3777,6 +3861,7 @@ const initCore = () => {
     autoAuthTelegramObserver();
 
     tonyComeBack();
+    displayPromotion();
 
     const elem = document
         .getElementById(

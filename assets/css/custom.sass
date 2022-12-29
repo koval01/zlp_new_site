@@ -43,6 +43,16 @@ html
 footer
   padding-top: 8rem
 
+main
+  transition: .8s padding-top
+  padding-top: 0
+
+header
+  flex-wrap: wrap !important
+
+#head-container
+  height: 100vh !important
+
 .tg-user-avatar-text
   display: block
   margin: auto
@@ -50,7 +60,7 @@ footer
   color: #fff !important
 
 .avatar-container:hover
-  border-radius: .1rem !important
+  border-radius: .28rem !important
 
 input, textarea, select
   &:-webkit-autofill
@@ -303,6 +313,13 @@ iframe
   display: block
   text-align: center
 
+.underline-decoration
+  text-decoration: underline
+
+.promotion-var
+  ::selection
+    background: #fff
+
 .noselect
   -webkit-touch-callout: none
   -webkit-user-select: none
@@ -393,10 +410,17 @@ iframe
   filter: invert(1)
   -webkit-filter: invert(1)
 
+#exit-button-container-donate
+  transition: .6s all
+  min-height: 13.5vh
+
 @media (max-width: 992px)
   .loading-dots
     text-align: left
     margin-left: 10%
+
+  #zlp_land_buttons
+    margin-left: 1rem !important
 
 @media (min-width: 992px)
   .mt-lg-4-first
@@ -451,6 +475,13 @@ iframe
   padding: 6px
   border-radius: 5px
   outline: 0
+
+.promotion-header
+  width: 100vw
+  min-height: 0
+  transition: .8s min-height, .8s height
+  background-color: #9047ff
+  display: block
 
 .swiper-pagination-bullet-active
   background-color: #772ce8
@@ -1382,8 +1413,8 @@ label[for="admin-message"]
   width: 2.25rem
   height: 2.25rem
   margin-left: 1rem
-  transition: .4s all
-  border-radius: .35rem
+  transition: .5s all
+  border-radius: .65rem
   background-size: contain
   background-repeat: no-repeat
   background-position: center
