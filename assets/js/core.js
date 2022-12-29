@@ -3312,7 +3312,7 @@ const displayPromotion = () => {
             selector.style.height = "100%";
             selector.setAttribute(
                 "onclick",
-                `clipboardFunc("input.promotionInput", "Промокод <span class=\\"text-gradient-primary\\">${promotion.var}</span> скопирован в буфер обмена.")`
+                `clipboardFunc("input.promotionInput", "Промокод <span class=\\"text-primary\\" style=\\"font-weight:800\\">${promotion.var}</span> скопирован в буфер обмена.")`
             );
             selector.innerHTML = `
                 <p class="text-center" style="color:#fff!important;line-height:200%">${text}</p>
