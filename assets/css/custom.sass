@@ -51,7 +51,7 @@ header
   flex-wrap: wrap !important
 
 #head-container
-  height: 100vh !important
+  height: 100vh
 
 .tg-user-avatar-text
   display: block
@@ -313,6 +313,14 @@ iframe
   display: block
   text-align: center
 
+.bg-promotion
+  background: #9047ff
+  color: #fff
+  border-radius: .5em
+  padding-left: .28em
+  padding-right: .28em
+  padding-bottom: .08em
+
 .underline-decoration
   text-decoration: underline
 
@@ -442,6 +450,7 @@ iframe
 
   .vova-bg-landing, .vova-bg-landing-mask
     position: absolute
+    transition: .7s all
     height: 100vh
     background-image: url(../images/vova-background.webp)
     background-repeat: no-repeat
@@ -480,7 +489,7 @@ iframe
   width: 100vw
   min-height: 0
   transition: .8s min-height, .8s height
-  background-color: #9047ff
+  background-color: #000
   display: block
 
 .swiper-pagination-bullet-active

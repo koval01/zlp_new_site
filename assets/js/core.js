@@ -57,6 +57,8 @@ var glob_auth_player_data = [];
 var current_c_item = 0;
 var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth";
+var first_init_head_adapt = 0;
+var first_init_head_adapt_vova = 0;
 const telegram_social_bot = "https://t.me/ZalupaScBot";
 const debug_lock_init = false;
 const telegram_auth_enabled = true;
@@ -3321,6 +3323,7 @@ const displayPromotion = () => {
             s_text.marginBottom = "0";
             s_text.paddingRight = "1.25rem";
             s_text.paddingLeft = "1.25rem";
+            s_text.paddingTop = ".18rem";
 
             // main.style.paddingTop = "50px";
         }
@@ -3328,6 +3331,29 @@ const displayPromotion = () => {
         "assets/data/promotion.json",
         "GET", true
     );
+}
+const adaptiveDisplayLand = () => {
+    const updater = () => {
+        const header_height = document.querySelector("header").offsetHeight;
+        // const d_h = header_height / 2;
+        const container = document.getElementById("head-container");
+
+        const vova_pc_version = document.querySelector("div.vova-bg-landing");
+        const vova_pc_version_mask = document.querySelector("div.vova-bg-landing-mask");
+
+        if (first_init_head_adapt === 0 && first_init_head_adapt_vova === 0) {
+            first_init_head_adapt = container.offsetHeight;
+            first_init_head_adapt_vova = vova_pc_version.offsetHeight;
+        }
+
+        container.style.height = `${first_init_head_adapt - header_height}px`;
+        vova_pc_version.style.height = `${first_init_head_adapt_vova - header_height}px`;
+        vova_pc_version_mask.style.height = `${first_init_head_adapt_vova - header_height}px`;
+        container.style.marginTop = `${header_height}px`;
+    }
+
+    updater();
+    setInterval(updater, 100);
 }
 const clipboardFunc = (field_selector, notify_text) => {
     const copyText = document.querySelector(field_selector);
@@ -3865,6 +3891,7 @@ const initCore = () => {
 
     tonyComeBack();
     displayPromotion();
+    adaptiveDisplayLand();
 
     const elem = document
         .getElementById(
