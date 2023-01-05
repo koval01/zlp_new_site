@@ -164,6 +164,7 @@ a:hover
 .btn
   --si-carousel-nav-btn-hover-bg: rgb(119, 44, 232)
   --si-carousel-nav-btn-hover-box-shadow: 0 .4rem 1.125rem -.5rem rgba(119, 44, 232, 0.95)
+  border-radius: .8em !important
 
 .btn-shadow-hide
   &:active, :focus :target
@@ -403,8 +404,8 @@ iframe
   background-size: contain
   background-position: right 25% bottom 28px
   z-index: 0
-  filter: drop-shadow(0 0 25px #392568)
-  -webkit-filter: drop-shadow(0 0 25px #392568)
+  filter: drop-shadow(0 0 25px rgba(0, 0, 0, 0.5))
+  -webkit-filter: drop-shadow(0 0 25px rgba(0, 0, 0, 0.5))
 
 .news-button-view
   margin-right: 0 !important
@@ -461,8 +462,8 @@ iframe
     -webkit-filter: brightness(0.95)
 
   .vova-bg-landing-mask
-    filter: drop-shadow(0 0 35px #291d4c)
-    -webkit-filter: drop-shadow(0 0 35px #291d4c)
+    filter: drop-shadow(0 0 35px rgba(0, 0, 0, 0.5))
+    -webkit-filter: drop-shadow(0 0 35px rgba(0, 0, 0, 0.5))
 
   .landing-head-text
     background-position: -9px
@@ -649,11 +650,14 @@ iframe[id*='telegram-post']
     text-decoration-style: solid
 
 .hero-bg-st
-  background: linear-gradient(315deg, rgba(145, 71, 255, 0.05), rgba(145, 71, 255, 0.2), rgba(145, 71, 255, 0.05))
-  background-size: 100% 600%
-  animation: HerokuGradientBack 8s ease infinite
+  //background: linear-gradient(315deg, rgba(145, 71, 255, 0.05), rgba(145, 71, 255, 0.2), rgba(145, 71, 255, 0.05))
+  //background-size: 100% 600%
+  //animation: HerokuGradientBack 8s ease infinite
   height: 100%
   width: 100%
+
+  background-image: url(../images/gradient-back.webp)
+  background-position-x: -6em
 
 .frame_badge_adaptive
   font-size: 0.9rem !important
@@ -1347,6 +1351,7 @@ figure.news-figure
   background: linear-gradient(to right, #bb90de, #b254ff, #c6a0e4) !important
   -webkit-background-clip: text !important
   -webkit-text-fill-color: transparent
+  font-weight: 700 !important
 
 .dark-mode .text-gradient-primary
   background: linear-gradient(to right, #6a1fdd, #ae27cc, #e444fc) !important
