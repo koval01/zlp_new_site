@@ -154,8 +154,10 @@ if (!development_hosts.includes(window
         backend_host =
             "http://127.0.0.1:8000";
     } else {
+        // backend_host =
+        //     "https://backend.zalupa.world";
         backend_host =
-            "https://backend.zalupa.world";
+            "https://zlp-api-sxeopwcz8tgxd1gyu5ie4n.herokuapp.com";
     }
     if (window.location.hostname !==
         "localhost") {

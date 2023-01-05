@@ -1339,6 +1339,7 @@ const buildPlayersSwiper = () => {
             "players-swiper-array");
 
     const createSwiper = () => {
+        document.getElementById("players_block_load").style.display = "none";
         new Swiper(
             "#players_swipe_container", {
                 slidesPerView: 1,
@@ -1706,7 +1707,7 @@ const setRandomStickerLand = () => {
     updateStickerPosition();
     setInterval(updateStickerPosition, 3000);
 
-    spClownLoad();
+    // spClownLoad();
 }
 const donate_element_click = (
     product_data) => {
