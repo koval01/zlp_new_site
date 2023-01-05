@@ -1339,7 +1339,7 @@ const buildPlayersSwiper = () => {
             "players-swiper-array");
 
     const createSwiper = () => {
-        document.getElementById("players_block_load").style.display = "none";
+        document.getElementById("players_block_load").remove();
         new Swiper(
             "#players_swipe_container", {
                 slidesPerView: 1,
