@@ -2077,32 +2077,22 @@ const donate_cart_button = (
         return;
     }
 
-    for (let i = 0; i < selector_
-        .length; i++) {
-        const sl = selector_[i]
-            .style;
+    for (let i = 0; i < selector_.length; i++) {
+        const sl = selector_[i].style;
 
         if (countProperties(els)) {
             sl.display = "flex";
             setTimeout(() => {
-                sl.opacity =
-                    1;
-                sl.marginTop =
-                    "15px";
-                selector_[i]
-                    .removeAttribute(
-                        "disabled"
-                    );
+                sl.opacity = 1;
+                sl.marginTop = "15px";
+                selector_[i].removeAttribute("disabled");
             }, 50);
         } else {
-            selector_[i]
-                .setAttribute(
-                    "disabled", "");
+            selector_[i].setAttribute("disabled", "");
             sl.opacity = 0;
             sl.marginTop = "-50px";
             setTimeout(() => {
-                sl.display =
-                    "none";
+                sl.display = "none";
             }, 350);
         }
     }
