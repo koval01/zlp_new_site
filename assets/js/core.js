@@ -218,7 +218,7 @@ const getImageLightness = (imageSrc, callback, calculate = true) => {
             canvas.width = this.width;
             canvas.height = this.height;
             const ctx = canvas.getContext("2d");
-            ctx.drawImage(this, 0, 0);
+            try {ctx.drawImage(this, 0, 0)} catch (_) {}
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const data = imageData.data;
             let r, g, b, avg;
@@ -1356,7 +1356,9 @@ const buildPlayersSwiper = () => {
             "players-swiper-array");
 
     const createSwiper = () => {
-        document.getElementById("players_block_load").remove();
+        try {
+            document.getElementById("players_block_load").remove();
+        } catch (_) {}
         new Swiper(
             "#players_swipe_container", {
                 slidesPerView: 1,
@@ -2075,32 +2077,22 @@ const donate_cart_button = (
         return;
     }
 
-    for (let i = 0; i < selector_
-        .length; i++) {
-        const sl = selector_[i]
-            .style;
+    for (let i = 0; i < selector_.length; i++) {
+        const sl = selector_[i].style;
 
         if (countProperties(els)) {
             sl.display = "flex";
             setTimeout(() => {
-                sl.opacity =
-                    1;
-                sl.marginTop =
-                    "15px";
-                selector_[i]
-                    .removeAttribute(
-                        "disabled"
-                    );
+                sl.opacity = 1;
+                sl.marginTop = "15px";
+                selector_[i].removeAttribute("disabled");
             }, 50);
         } else {
-            selector_[i]
-                .setAttribute(
-                    "disabled", "");
+            selector_[i].setAttribute("disabled", "");
             sl.opacity = 0;
             sl.marginTop = "-50px";
             setTimeout(() => {
-                sl.display =
-                    "none";
+                sl.display = "none";
             }, 350);
         }
     }
@@ -2114,19 +2106,25 @@ const donateFlushCart = () => {
 
 const setAvatar = (user) => {
     const photoTG = false;
-    const selector = document.getElementById("telegram-auth-avatar")
-        .style
+    const selector = document.getElementById(
+        "telegram-auth-avatar").style;
     if (user.photo_url && photoTG) {
-        selector.backgroundImage = `url(${user.photo_url})`
+        selector.backgroundImage = `url(${user.photo_url})`;
     } else {
         selector.background =
             `linear-gradient(343deg, var(--telegram-bgcolor${
                 getAvatarColorIDforTG(user.id)
             }-top) 0%, var(--telegram-bgcolor${
                 getAvatarColorIDforTG(user.id)
-            }-bottom) 100%)`
-        document.getElementById("tg-user-avatar-text").innerText =
-            `${user.first_name.slice(0, 1)}${user.last_name ? user.last_name.slice(0, 1) : ""}`.toUpperCase()
+            }-bottom) 100%)`;
+        const avatarSelector = document.getElementById("tg-user-avatar-text");
+        try {
+            avatarSelector.innerText =
+                `${user.first_name.slice(0, 1)}${user.last_name ? user.last_name.slice(0, 1) : ""}`
+                    .toUpperCase();
+        } catch (_) {
+            avatarSelector.innerHTML = "N/A";
+        }
     }
 }
 

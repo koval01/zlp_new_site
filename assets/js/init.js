@@ -1,5 +1,5 @@
 const development_hosts = [
-    "zalupa.world", "localhost"];
+    "koval01.github.io", "localhost"];
 const container_dev_splash = document
     .querySelector(
         ".is-dev-site-splash");
