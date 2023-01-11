@@ -59,6 +59,7 @@ var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth";
 var first_init_head_adapt = 0;
 var first_init_head_adapt_vova = 0;
+var client_ip = "";
 const telegram_social_bot = "https://t.me/ZalupaScBot";
 const debug_lock_init = false;
 const telegram_auth_enabled = true;
@@ -676,6 +677,11 @@ const testImage = (url) => {
     tester.src = url;
 }
 const loadPlayerAvatar = (avatar) => {
+    if (!crypto_token || !crypto_token.length) {
+        initCrypto();
+        return;
+    }
+
     console.log(`Load avatar : ${avatar}`);
     document.getElementById("tg-user-avatar-text").innerText = "";
 
@@ -755,6 +761,17 @@ const checkTelegramAuthData = (callback, skip=false, raw=false) => {
     } else {
         callback(false);
     }
+}
+const getIPClient = (callback) => {
+    requestCall(
+        (r) => {
+            if (r && r.success) {
+                client_ip = r.ip;
+                callback(r.ip);
+            } else {
+                callback(null);
+            }
+        }, `${backend_host}/ip`, "GET", true);
 }
 const checkFeedbackStatus = (callback) => {
     const auth_data = getTelegramAuth(true);
@@ -2109,8 +2126,16 @@ const setAvatar = (user) => {
                 getAvatarColorIDforTG(user.id)
             }-bottom) 100%)`
         document.getElementById("tg-user-avatar-text").innerText =
-            `${user.first_name.slice(0, 1)}${user.last_name.slice(0, 1)}`.toUpperCase()
+            `${user.first_name.slice(0, 1)}${user.last_name ? user.last_name.slice(0, 1) : ""}`.toUpperCase()
     }
+}
+
+const checkAuthAndDisplayDonate = () => {
+    checkTelegramAuthData(function (response) {
+        if (response.player_data.NICKNAME) {
+            donateSwitchContainer();
+        }
+    }, false, true);
 }
 
 const onTelegramAuth = (user) => {
@@ -2121,9 +2146,11 @@ const onTelegramAuth = (user) => {
                 user)));
     modal_close_();
     notify(
-        `Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name}</span>`
+        `Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name ? user.last_name : ""}</span>`
     );
+
     autoAuthTelegramObserver();
+    // checkAuthAndDisplayDonate();
 }
 
 const debugWriteTelegramAuth = (data) => {
@@ -2968,6 +2995,10 @@ const finishLoad = () => {
             .innerText =
             "This site uses Google ReCaptcha technology";
     }
+}
+
+const buildSignCN = () => {
+
 }
 
 const observerSystemTheme = () => {
@@ -3865,6 +3896,7 @@ const autoAuthTelegramObserver = () => {
 const initCore = () => {
     initHost();
     initCrypto();
+    getIPClient();
     initLanding();
     observerSystemTheme();
     buildPlayersSwiper();
