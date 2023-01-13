@@ -60,6 +60,9 @@ var telegram_cookie_token = "telegram_auth";
 var first_init_head_adapt = 0;
 var first_init_head_adapt_vova = 0;
 var client_ip = "";
+var telegram_glob_session = {
+    auth_data: null, response: null
+};
 const telegram_social_bot = "https://t.me/ZalupaScBot";
 const debug_lock_init = false;
 const telegram_auth_enabled = true;
@@ -713,10 +716,15 @@ const reInitTelegramAuth = () => {
 const checkTelegramAuthData = (callback, skip=false, raw=false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
+        if (telegram_glob_session.auth_data === auth_data) {
+            callback(telegram_glob_session.response.success);
+            return;
+        }
         if (!skip) {
             re_check((token_update) => {
                 requestCall((r) => {
                     if (r) {
+                        console.debug(r);
                         if (!r.success) {
                             // location.href = telegram_social_bot;
                             // console.log("Redirect to " + telegram_social_bot);
@@ -745,6 +753,10 @@ const checkTelegramAuthData = (callback, skip=false, raw=false) => {
                                     }
                                 }, 150);
                             }
+                            telegram_glob_session = {
+                                auth_data: auth_data,
+                                response: r
+                            };
                             callback(raw ? r : r.success);
                         }
                     } else {
@@ -1675,6 +1687,7 @@ const buildDonateHistorySwiper = () => {
                     </div>
                 `;
         }
+        document.getElementById("last_donate_block_load").remove();
         createSwiper();
         setInterval(updateDonateTime, 1000);
     });
@@ -1721,12 +1734,10 @@ const setRandomStickerLand = () => {
     }
 
     setSticker(stickers_count);
-    setInterval(setSticker, 6000);
+    setInterval(setSticker, 6000, stickers_count);
 
     updateStickerPosition();
     setInterval(updateStickerPosition, 3000);
-
-    // spClownLoad();
 }
 const donate_element_click = (
     product_data) => {
