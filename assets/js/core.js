@@ -2865,7 +2865,7 @@ const donateModalCall = (type_item,
         payment_text_form = `
             Форма оплаты пожертвования для игрового проекта Zalupa.Online
             <br/>
-            <span class="text-gradient-primary">
+            <span class="text-primary">
                 ${desc_get}
             </span>
         `;
