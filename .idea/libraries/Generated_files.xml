@@ -4,31 +4,19 @@
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/assets/js/core.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/dark_init.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/dark_init.min.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/init.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/libs/jarallax.min.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/libs/js.cookie.min.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/libs/popper.min.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/libs/sentry-bundle.min.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/libs/smooth-scroll.polyfills.min.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/libs/swiper-bundle.min.min.js" />
         <item url="file://$PROJECT_DIR$/assets/js/theme.min.js" />
-        <item url="file://$PROJECT_DIR$/assets/js/theme.min.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/core.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/core.min.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/assets/js/core.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/dark_init.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/dark_init.min.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/init.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/libs/jarallax.min.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/libs/js.cookie.min.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/libs/popper.min.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/libs/sentry-bundle.min.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/libs/smooth-scroll.polyfills.min.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/libs/swiper-bundle.min.min.js" />
       <root url="file://$PROJECT_DIR$/assets/js/theme.min.js" />
-      <root url="file://$PROJECT_DIR$/assets/js/theme.min.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/core.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/core.min.min.js" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
