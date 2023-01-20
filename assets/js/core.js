@@ -166,10 +166,17 @@ const getPlatform = () => {
     }
     return "windows";
 }
+const isChrome = () => {
+    return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+}
 const downloadLauncher = () => {
     const link = launcher_platforms[getPlatform()];
     window.location = link;
     console.debug(`Init downloading file from url : ${link}`);
+
+    if (!isChrome()) {
+        notify(`Сейчас тебе скачаем файл <span class="text-gradient-primary">${link.split("/").slice(-1)[0]}</span>`);
+    }
 }
 const generateRandomHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
 const getAvatarColorIDforTG = (user_id) => {
