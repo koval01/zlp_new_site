@@ -478,6 +478,145 @@ iframe {
   -webkit-filter: invert(1);
 }
 
+.balance-container {
+  margin-left: 1em;
+  display: flex;
+}
+.balance-container > .balance-value {
+  font-weight: 900 !important;
+  line-height: 2.15em !important;
+}
+.balance-container > .tokens-icon {
+  width: 36px;
+  height: 36px;
+  background-image: url("/assets/images/tokens.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.card-zalupa {
+  width: 100%;
+  max-width: 550px;
+  position: relative;
+  color: #fff;
+  transition: 0.3s ease all;
+  transform: rotateY(0deg);
+  transform-style: preserve-3d;
+  z-index: 2;
+  border-radius: 1.35rem;
+  margin: 2.5em auto auto;
+  background-position: center;
+  background-size: auto;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5), -1 -1 2px #aaa, 1 1 2px #555;
+  backdrop-filter: blur(0.65rem);
+  -webkit-backdrop-filter: blur(0.65rem);
+}
+.card-zalupa.active {
+  transform: rotateY(180deg);
+}
+.card-zalupa > div {
+  padding: 2em;
+  border-radius: 1.35em;
+  min-height: 315px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-shadow: 0 0 50px 10px rgba(0, 0, 0, 0.06);
+}
+.card-zalupa .front-card {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(17, 17, 17, 0.95) 100%);
+}
+
+.card-zalupa-brand {
+  position: absolute;
+  right: 1.6em;
+  top: 0.6em;
+}
+.card-zalupa-brand .brand-text-card {
+  font-weight: 700;
+  font-size: 2em;
+}
+
+.card-holder-zalupa {
+  font-weight: 900;
+  font-size: 1.65em;
+  line-height: 0.8em;
+}
+
+.number-card-zalupa {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.25em;
+  line-height: 1em;
+}
+
+.balance-value-card {
+  font-weight: 800;
+  font-size: 1.2em;
+  line-height: 0.8em;
+}
+
+.front-card .card-avatar {
+  text-align: right;
+  min-height: 50px;
+}
+.front-card .card-avatar div {
+  width: 4em;
+  height: 4em;
+  border-radius: 0.4em;
+  background-image: url(https://i.ibb.co/QvR6Hh7/download.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.front-card .group .label {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 5px;
+}
+.front-card .flexbox {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.front-card .group .number,
+.front-card .group .name,
+.front-card .group .expiration {
+  color: #000;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.container-btn-zalupa-card .btn-open-form-zalupa-card {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 20px;
+  background: #9047ff;
+  color: #fff;
+  position: relative;
+  top: -25px;
+  z-index: 3;
+  border-radius: 100%;
+  box-shadow: -5px 4px 8px rgba(101, 0, 255, 0.33);
+  padding: 5px;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  margin: auto;
+  display: block;
+}
+.container-btn-zalupa-card .btn-open-form-zalupa-card:hover {
+  background: #5923b2;
+}
+.container-btn-zalupa-card .btn-open-form-zalupa-card > i {
+  font-size: 1.6em;
+  margin-left: -0.12em;
+}
+
 #exit-button-container-donate {
   transition: 0.6s all;
   min-height: 13.5vh;

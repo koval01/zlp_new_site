@@ -31,6 +31,11 @@ const links_lt = [{
         link: "https://www.tiktok.com/@nebratishkin"
     }
 ];
+const launcher_platforms = {
+    mac: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.5/ZalupaLauncher_1.0.5_x64.dmg",
+    linux: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.5/zalupa-launcher_1.0.5_amd64.deb",
+    windows: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.5/ZalupaLauncher_1.0.5_x64_en-US.msi"
+}
 const lock_of = true;
 const coins_sell_mode = true;
 var donate_services_array = [];
@@ -68,6 +73,7 @@ const debug_lock_init = false;
 const telegram_auth_enabled = true;
 const feedback_module_enabled = false;
 const feedback_tg_auth_skip = true;
+const tokens_system_enabled = false;
 const initHost = () => {
     const keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
@@ -151,6 +157,20 @@ const b64_to_utf8 = (str) => {
 const randDiaps = (max = 10) => {
     return Math.floor(Math.random() * max) + 1;
 }
+const getPlatform = () => {
+    if (navigator.platform.indexOf("Mac") === 0 || navigator.platform === "iPhone") {
+        return "mac";
+    }
+    if (navigator.platform.indexOf("Linux") === 0) {
+        return "linux";
+    }
+    return "windows";
+}
+const downloadLauncher = () => {
+    const link = launcher_platforms[getPlatform()];
+    window.location = link;
+    console.debug(`Init downloading file from url : ${link}`);
+}
 const generateRandomHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
 const getAvatarColorIDforTG = (user_id) => {
     var result = 0;
@@ -185,7 +205,7 @@ const shuffle = (array) => {
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex], ];
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex],];
     }
     return array;
 }
@@ -221,8 +241,13 @@ const getImageLightness = (imageSrc, callback, calculate = true) => {
             canvas.width = this.width;
             canvas.height = this.height;
             const ctx = canvas.getContext("2d");
-            try {ctx.drawImage(this, 0, 0)} catch (_) {}
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            try {
+                ctx.drawImage(this, 0, 0);
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            } catch (_) {
+                callback(null);
+                return;
+            }
             const data = imageData.data;
             let r, g, b, avg;
             for (let x = 0, len = data.length; x < len; x += 4) {
@@ -466,7 +491,8 @@ const appendPostsNews = () => {
                     try {
                         sl.parentNode.removeChild(sl);
                         container_news.style.display = "";
-                    } catch (_) {}
+                    } catch (_) {
+                    }
                 }, 150);
         };
         if (posts) {
@@ -685,7 +711,7 @@ const loadPlayerAvatar = (avatar) => {
         return;
     }
 
-    console.log(`Load avatar : ${avatar}`);
+    console.debug(`Load avatar : ${avatar}`);
     document.getElementById("tg-user-avatar-text").innerText = "";
 
     const avatar_selector = document.getElementById("telegram-auth-avatar");
@@ -708,12 +734,13 @@ const loadPlayerAvatar = (avatar) => {
     // avatar_style.backgroundImage = `url(${link})`;
 
     testImage(raw_link);
-    avatar_selector.setAttribute("style",`background-image: url("${link}");border-radius:.15rem;`);
+    avatar_selector.setAttribute("style", `background-image: url("${link}");border-radius:.15rem;`);
 }
 const reInitTelegramAuth = () => {
-    checkTelegramAuthData(function (_) {});
+    checkTelegramAuthData(function (_) {
+    });
 }
-const checkTelegramAuthData = (callback, skip=false, raw=false) => {
+const checkTelegramAuthData = (callback, skip = false, raw = false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
         if (telegram_glob_session.auth_data === auth_data) {
@@ -870,13 +897,22 @@ const checkPayment = (callback, payment_id) => {
 const getPaymentHistory = (callback) => {
     re_check((token_update) => {
         requestCall((r) => {
-            callback(r.payment);
+            try {
+                callback(r.payment);
+            } catch (_) {
+                callback(null);
+                return;
+            }
         }, `${backend_host}/donate/payment_history`, "POST", true, {
             token: token_update
         });
     });
 }
-const getPlayersSkins = (callback, players) => {
+const getPlayersSkins = (callback, players, enabled=false) => {
+    if (!enabled) {
+        callback(null);
+        return;
+    }
     re_check((token_update) => {
         requestCall((r) => {
             callback(r.skins);
@@ -1002,10 +1038,11 @@ const appendServices = () => {
             setTimeout(
                 () => {
                     const elem = document.getElementById("donate_block_load");
-                    const ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container", ];
+                    const ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container",];
                     try {
                         elem.parentNode.removeChild(elem);
-                    } catch (_) {}
+                    } catch (_) {
+                    }
                     for (let i = 0; i < ids.length; i++) {
                         try {
                             document.getElementById(ids[i]).style.display = "";
@@ -1111,7 +1148,8 @@ const modal_open_ = (onclick_lock = false) => {
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
     try {
         document.getElementById("private_gift_button_modal").remove()
-    } catch (_) {}
+    } catch (_) {
+    }
     const modal = document.getElementById("donate_item_modal");
     modal.style.display = "block";
     setTimeout(() => {
@@ -1185,7 +1223,8 @@ const get_cookie_cart = () => {
     let cookie_cart = {};
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {}
+    } catch (_) {
+    }
     return cookie_cart;
 }
 const updateCartCount = () => {
@@ -1201,6 +1240,75 @@ const groupAlreadyInCart = (user_cart) => {
         }
     }
     return false;
+}
+
+const displayTokens = (v2=true) => {
+    const balance = glob_auth_player_data["BALANCE"];
+
+    if (!tokens_system_enabled) {
+        return;
+    }
+    document.querySelector(".zalupa-card-container").style.display = "";
+
+    if (balance) {
+        if (!v2) {
+            const base_selector = document.querySelector(".balance-container");
+            const balance_value = document.querySelector(".balance-value");
+
+            base_selector.style.display = "";
+            balance_value.innerText = balance;
+        } else {
+            const balance_number = document.querySelector(".number-card-zalupa");
+            const card_holder = document.querySelector(".card-holder-zalupa");
+            const balance_value_card = document.querySelector(".balance-value-card");
+
+            balance_number.innerText = glob_auth_player_data["UUID"];
+            card_holder.innerText = glob_auth_player_data["NICKNAME"];
+            balance_value_card.innerHTML =
+                `<span class="text-primary">${balance}</span> ${
+                getNoun(balance, "токен", "токена", "токенов")
+            }`;
+
+            document.getElementById("card-zalupa").style.backgroundImage =
+                `url("${select_card_skin(balance)}")`;
+        }
+    }
+}
+const select_card_skin = (balance) => {
+    const skins = {
+        0: "grass",
+        100: "clay",
+        200: "red_mashroom",
+        300: "tube_coral",
+        400: "gray_glazed_terracotta",
+        500: "bee_nest",
+        750: "bamboo",
+        1000: "",
+        1200: "gilded_blackstone",
+        1500: "raw_gold",
+        2000: "nether_wart",
+        3000: "sculk_crystal",
+        4000: "rainforced_deepslate",
+        4500: "tinted_glass",
+        5000: "chiseled_quartz",
+        5001: "tnt",
+        5002: "warped_stem",
+        5003: "respawn_anchor",
+        5004: "dark_prismarine",
+        8000: "nether",
+        10000: "netherite"
+    };
+    let keys = Object.keys(skins);
+    keys = keys.reverse();
+    const path = "/assets/images/card_skins";
+    for (let i = 0; i < keys.length; i++) {
+        const selector = skins[keys[i]];
+        if (balance >= parseInt(keys[i])) {
+            console.debug(selector);
+            return prepare_img_link(`${path}/${selector}.png`);
+        }
+    }
+    return prepare_img_link(`${path}/grass.png`);
 }
 const comment_show_action = (id, close = false) => {
     const comment_text = document.getElementById(`comment_text_${id}`);
@@ -1370,7 +1478,8 @@ const buildPlayersSwiper = () => {
     const createSwiper = () => {
         try {
             document.getElementById("players_block_load").remove();
-        } catch (_) {}
+        } catch (_) {
+        }
         new Swiper(
             "#players_swipe_container", {
                 slidesPerView: 1,
@@ -1651,11 +1760,11 @@ const buildDonateHistorySwiper = () => {
         }
     }
 
-    getPaymentHistory(function(data) {
-        // console.log(data.length);
-        for (let i = 0; i <
-        data
-            .length; i++) {
+    getPaymentHistory(function (data) {
+        if (!data || !data.length) {
+            return;
+        }
+        for (let i = 0; i < data.length; i++) {
             const date = new Date(data[i].updated_at);
             data[i].product.image = prepare_img_link(data[i].product.image);
             array_
@@ -1693,7 +1802,7 @@ const buildDonateHistorySwiper = () => {
     });
 }
 
-const setSticker = (stickers_count=0, id=0, custom_path=null) => {
+const setSticker = (stickers_count = 0, id = 0, custom_path = null) => {
     let path = `assets/images/stickers/sticker${randDiaps(stickers_count)}.webp`;
     if (custom_path) {
         path = custom_path;
@@ -1711,11 +1820,11 @@ const setRandomStickerLand = () => {
         getImageLightness(`assets/images/stickers/sticker${i}.webp`, undefined, false);
     }
 
-    setInterval(function() {
+    setInterval(function () {
         if (window.pageYOffset > 1600 || donate_displayed) {
             selector.style.opacity = 0;
         } else if (!donate_displayed && window.pageYOffset <= 1600) {
-            setTimeout(function() {
+            setTimeout(function () {
                 selector.style.opacity = .4;
             }, 800);
         } else {
@@ -2013,7 +2122,8 @@ const donate_cart = (product, count,
             product_count_in_cart
                 = +p;
         }
-    } catch (_) {}
+    } catch (_) {
+    }
 
     if (!Number.isInteger(
         product) || !
@@ -2203,7 +2313,8 @@ const couponCheck = (coins = false) => {
     try {
         code = input.value.trim()
             .toUpperCase();
-    } catch (_) {}
+    } catch (_) {
+    }
 
     const coupon_notfd = () => {
         notify(
@@ -2414,7 +2525,8 @@ const generatePaymentLink = (type = 1,
     try {
         coupon = checked_coupon
             .trim();
-    } catch (_) {}
+    } catch (_) {
+    }
 
     if (type === 1) {
         if (!Number.isInteger(
@@ -2647,7 +2759,8 @@ const initDonate = () => {
         els = JSON.parse(Cookies
             .get(
                 cart_cookie));
-    } catch (_) {}
+    } catch (_) {
+    }
 
     donate_cart_button(els);
     donate_enable_coupon(true);
@@ -3346,29 +3459,29 @@ const displayPromotion = () => {
     const main = document.querySelector("main");
 
     requestCall((promotion) => {
-        if (promotion.active) {
-            const text = promotion.text;
+            if (promotion.active) {
+                const text = promotion.text;
 
-            selector.style.minHeight = "40px";
-            selector.style.height = "100%";
-            selector.setAttribute(
-                "onclick",
-                `clipboardFunc("input.promotionInput", "Промокод <span class=\\"text-primary\\" style=\\"font-weight:800\\">${promotion.var}</span> скопирован в буфер обмена.")`
-            );
-            selector.innerHTML = `
+                selector.style.minHeight = "40px";
+                selector.style.height = "100%";
+                selector.setAttribute(
+                    "onclick",
+                    `clipboardFunc("input.promotionInput", "Промокод <span class=\\"text-primary\\" style=\\"font-weight:800\\">${promotion.var}</span> скопирован в буфер обмена.")`
+                );
+                selector.innerHTML = `
                 <p class="text-center" style="color:#fff!important;line-height:200%">${text}</p>
                 <input class="promotionInput" value="${promotion.var}" style="display:none">
             `;
 
-            const s_text = document.querySelector("div.promotion-header>p").style;
-            s_text.marginBottom = "0";
-            s_text.paddingRight = "1.25rem";
-            s_text.paddingLeft = "1.25rem";
-            s_text.paddingTop = ".18rem";
+                const s_text = document.querySelector("div.promotion-header>p").style;
+                s_text.marginBottom = "0";
+                s_text.paddingRight = "1.25rem";
+                s_text.paddingLeft = "1.25rem";
+                s_text.paddingTop = ".18rem";
 
-            // main.style.paddingTop = "50px";
-        }
-    },
+                // main.style.paddingTop = "50px";
+            }
+        },
         "assets/data/promotion.json",
         "GET", true
     );
@@ -3422,7 +3535,9 @@ const spClownLoad = () => {
 
 const spClownShow = () => {
     lock_sticker_switch = true;
-    setTimeout(function () { lock_sticker_switch = false }, 3500);
+    setTimeout(function () {
+        lock_sticker_switch = false
+    }, 3500);
 
     setSticker(0, 0, "assets/images/emoji/clown-face.png");
     notify("На хуй отсюда иди тогда");
@@ -3632,7 +3747,7 @@ const observerContainerHash = (
             updater());
 }
 
-const openTelegramAuthModal = (skip_check=false) => {
+const openTelegramAuthModal = (skip_check = false) => {
     checkTelegramAuthData(function (tg_success) {
         if (!tg_success) {
             console.log(
@@ -3804,14 +3919,13 @@ const initSmoothScrollObserver = () => {
             return;
         }
 
-        scrollerObject
-            .animateScroll(
-                document
-                    .querySelector(
-                        `section[id="${identifier}"]`
-                    ), null, {
-                    offset: 50
-                });
+        try {
+            scrollerObject.animateScroll(
+                document.querySelector(`section[id="${identifier}"]`
+                ), null, {offset: 50});
+        } catch (_) {
+            return;
+        }
     }
 
     callScroller();
@@ -3850,7 +3964,9 @@ const tonyComeBack = () => {
     const differenceInDays = parseInt(differenceInTime / (1000 * 3600 * 24));
 
     update_days(differenceInDays);
-    setInterval(function () {update_days(differenceInDays)}, 9999);
+    setInterval(function () {
+        update_days(differenceInDays)
+    }, 9999);
 }
 
 const autoAuthTelegramObserver = () => {
@@ -3860,7 +3976,7 @@ const autoAuthTelegramObserver = () => {
     }
     checkTelegramAuthData((
         success) => {
-        console.log(
+        console.debug(
             `Telegram auth check status : ${success}`
         );
         if (success) {
@@ -3899,13 +4015,14 @@ const autoAuthTelegramObserver = () => {
                 "";
             setAvatar(getTelegramAuth());
         }
-    })
+    });
+    setInterval(displayTokens, 300);
 }
 
 const initCore = () => {
     initHost();
     initCrypto();
-    getIPClient();
+    getIPClient(function () {});
     initLanding();
     observerSystemTheme();
     buildPlayersSwiper();

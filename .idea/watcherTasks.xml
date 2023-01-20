@@ -61,7 +61,7 @@
       <option name="workingDir" value="$FileDir$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="false">
+    <TaskOptions isEnabled="true">
       <option name="arguments" value="$FilePathRelativeToProjectRoot$ --out-dir dist --source-maps --presets @babel/env" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
@@ -74,7 +74,7 @@
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="program" value="$ProjectFileDir$/node_modules/.bin/babel" />
+      <option name="program" value="/opt/homebrew/bin/babel" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="false" />
