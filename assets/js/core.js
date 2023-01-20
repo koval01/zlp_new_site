@@ -173,7 +173,7 @@ const downloadLauncher = () => {
     const link = launcher_platforms[getPlatform()];
     window.location = link;
     console.debug(`Init downloading file from url : ${link}`);
-    //
+
     if (!isChrome()) {
         notify(`Сейчас тебе скачаем файл <span class="text-gradient-primary">${link.split("/").slice(-1)[0]}</span>`);
     }
