@@ -32,9 +32,9 @@ const links_lt = [{
     }
 ];
 const launcher_platforms = {
-    mac: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.5/ZalupaLauncher_1.0.5_x64.dmg",
-    linux: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.5/zalupa-launcher_1.0.5_amd64.deb",
-    windows: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.5/ZalupaLauncher_1.0.5_x64_en-US.msi"
+    mac: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/ZalupaLauncher_1.0.6_x64.dmg",
+    linux: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/zalupa-launcher_1.0.6_amd64.deb",
+    windows: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/ZalupaLauncher_1.0.6_x64_en-US.msi"
 }
 const lock_of = true;
 const coins_sell_mode = true;
