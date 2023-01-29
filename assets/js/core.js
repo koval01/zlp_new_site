@@ -31,10 +31,15 @@ const links_lt = [{
         link: "https://www.tiktok.com/@nebratishkin"
     }
 ];
+// const launcher_platforms = {
+//     mac: "dmg",
+//     linux: "deb",
+//     windows: "msi"
+// }
 const launcher_platforms = {
-    mac: "dmg",
-    linux: "deb",
-    windows: "msi"
+    mac: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/ZalupaLauncher_1.0.6_x64.dmg",
+    linux: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/zalupa-launcher_1.0.6_amd64.deb",
+    windows: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/ZalupaLauncher_1.0.6_x64_en-US.msi"
 }
 const gitOwner = "Zalupa-Online";
 const gitLauncherRepo = "launcher-releases";
