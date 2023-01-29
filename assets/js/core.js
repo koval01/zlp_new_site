@@ -32,10 +32,12 @@ const links_lt = [{
     }
 ];
 const launcher_platforms = {
-    mac: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/ZalupaLauncher_1.0.6_x64.dmg",
-    linux: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/zalupa-launcher_1.0.6_amd64.deb",
-    windows: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/ZalupaLauncher_1.0.6_x64_en-US.msi"
+    mac: "dmg",
+    linux: "deb",
+    windows: "msi"
 }
+const gitOwner = "Zalupa-Online";
+const gitLauncherRepo = "launcher-releases";
 const lock_of = true;
 const coins_sell_mode = true;
 var donate_services_array = [];
@@ -73,7 +75,7 @@ const debug_lock_init = false;
 const telegram_auth_enabled = true;
 const feedback_module_enabled = false;
 const feedback_tg_auth_skip = true;
-const tokens_system_enabled = false;
+const tokens_system_enabled = true;
 const initHost = () => {
     const keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
@@ -175,10 +177,14 @@ const downloadLauncher = () => {
     console.debug(`Init downloading file from url : ${link}`);
 
     if (!isChrome()) {
-        notify(`Сейчас тебе скачаем файл <span class="text-gradient-primary">${link.split("/").slice(-1)[0]}</span>`);
+        notify(`Сейчас тебе скачаем файл <span class="text-gradient-primary">${
+            link.split("/").slice(-1)[0]
+        }</span>`);
     }
 }
-const generateRandomHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
+const generateRandomHex = size => [...Array(size)].map(
+    () => Math.floor(Math.random() * 16).toString(16)
+).join('');
 const getAvatarColorIDforTG = (user_id) => {
     var result = 0;
     var base = 1;
@@ -428,20 +434,25 @@ const appendPostsNews = () => {
                 const text_len = selector_text.innerText.length;
                 const text_split = selector_text.innerText.split(" ");
                 const font_size = ((text_len - -8) * .4) / 100;
-                const fix_float_fs = (float, font_size, correction_float = .32, correction_font = .26, max_val = .9) => {
-                    float = float < correction_float ? correction_float * (font_size / correction_font) : float
+                const fix_float_fs = (
+                    float, font_size, correction_float = .55,
+                    correction_font = .26, max_val = .94
+                ) => {
+                    float = float < correction_float ? correction_float * (
+                        font_size / correction_font
+                    ) : float
                     return max_val ? (float < max_val ? float : max_val) : float
                 }
                 selector_text.style.fontSize = `calc(${
-                    fix_float_fs(parseFloat(1.8 - font_size), font_size)
+                    fix_float_fs(parseFloat(1.96 - font_size), font_size)
                 }vw + ${
-                    fix_float_fs(parseFloat(1.8 - font_size), font_size)
+                    fix_float_fs(parseFloat(2.16 - font_size), font_size)
                 }vh + ${
-                    fix_float_fs(parseFloat(1.9 - font_size), font_size)
+                    fix_float_fs(parseFloat(2 - font_size), font_size)
                 }vmin)`;
                 selector_text.style.padding = `${
                     fix_float_fs(parseFloat(
-                        1.3 - font_size
+                        1.45 - font_size
                     ), font_size, .22, 1.05)
                 }rem`;
                 const calculate_text_position = () => {
@@ -450,32 +461,25 @@ const appendPostsNews = () => {
                     }
                     // local init var
                     const identifier_sl = `news_text_${i}`;
-                    const switch_val = 12;
+                    const switch_val = 10;
                     const selector_text = document.getElementById(identifier_sl);
-                    const font_size = parseFloat(window.getComputedStyle(selector_text, null).getPropertyValue('font-size').replace("px", ""));
+                    const font_size = parseFloat(
+                        window.getComputedStyle(selector_text, null)
+                            .getPropertyValue('font-size')
+                            .replace("px", "")
+                    );
                     selector_text.style.maxHeight = "32vh";
                     if (font_size > switch_val) {
                         selector_text.style.position = "absolute";
-                        selector_text.style.textAlign = "center";
-                        selector_text.style.alignItems = "center";
-                        // selector_text.style.height = "";
                         selector_text.style.display = "inline-block";
                         selector_text.style.paddingBottom = "5rem";
                         selector_text.style.paddingRight = "3rem";
                     } else {
                         selector_text.style.position = "";
-                        selector_text.style.textAlign = "";
-                        selector_text.style.alignItems = "";
-                        // selector_text.style.height = "";
                         selector_text.style.display = "";
                         selector_text.style.paddingBottom = "";
                         selector_text.style.paddingRight = "";
                     }
-                    // console.log({
-                    //     identifier: identifier_sl,
-                    //     font_size: font_size,
-                    //     adaptive: font_size > switch_val
-                    // });
                 }
                 addEventListener('resize', (event) => calculate_text_position());
                 setInterval(calculate_text_position, 50);
@@ -610,7 +614,7 @@ const monitoring_game_server_update = () => {
 const gameServerUpdater = () => {
     monitoring_game_server_update();
     gameServerUpdater_setter = setInterval(monitoring_game_server_update, 300);
-    setInterval(monitoring_game_server_update, 6000);
+    setInterval(monitoring_game_server_update, 1500);
 }
 const initEventsList = () => {
     const row_container = document.getElementById("events-row-container");
@@ -649,9 +653,13 @@ const initEventsList = () => {
                             <h1>${data[i].title}</h1>
                             <h4 class="text-primary" style="margin-top: -1.2rem">${badge}</h4>
                             <h6 style="margin-top: -1rem">С <span class="text-primary">
-                                ${st_date.toLocaleDateString("ru-RU")} ${("0" + st_date.getHours()).slice(-2)}:${("0" + st_date.getMinutes()).slice(-2)}
+                                ${st_date.toLocaleDateString("ru-RU")} ${
+                                    ("0" + st_date.getHours()).slice(-2)}:${
+                                        ("0" + st_date.getMinutes()).slice(-2)}
                                 </span> по <span class="text-primary">
-                                ${end_date.toLocaleDateString("ru-RU")} ${("0" + end_date.getHours()).slice(-2)}:${("0" + end_date.getMinutes()).slice(-2)}
+                                ${end_date.toLocaleDateString("ru-RU")} ${
+                                    ("0" + end_date.getHours()).slice(-2)}:${
+                                        ("0" + end_date.getMinutes()).slice(-2)}
                                 </span></h6>
                             <p>${data[i].text}</p>
                         </div>
@@ -689,7 +697,8 @@ const create_payment = (callback, customer, products, server_id, email = "", cou
 }
 const generateGiftLink = (callback, payment_id) => {
     getCrypto((crypto_token) => {
-        callback(`${backend_host}/gift/private_server?` + `payment_id=${payment_id}&` + `crypto_token=${encodeURIComponent(crypto_token)}&` + `sign=${generateRandomHex(24)}`)
+        callback(`${backend_host}/gift/private_server?` + `payment_id=${payment_id}&` + `crypto_token=${
+            encodeURIComponent(crypto_token)}&` + `sign=${generateRandomHex(24)}`);
     })
 }
 const check_coupon = (callback, coupon) => {
@@ -741,7 +750,9 @@ const loadPlayerAvatar = (avatar) => {
     // avatar_style.backgroundImage = `url(${link})`;
 
     testImage(raw_link);
-    avatar_selector.setAttribute("style", `background-image: url("${link}");border-radius:.15rem;`);
+    avatar_selector.setAttribute(
+        "style", `background-image: url("${link}");border-radius:.15rem;`
+    );
 }
 const reInitTelegramAuth = () => {
     checkTelegramAuthData(function (_) {
@@ -782,7 +793,9 @@ const checkTelegramAuthData = (callback, skip = false, raw = false) => {
                                 avatar.setAttribute("title", player["NICKNAME"]);
 
                                 setInterval(function () {
-                                    if (!avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1) {
+                                    if (
+                                        !avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1
+                                    ) {
                                         loadPlayerAvatar(skin);
                                     }
                                 }, 150);
@@ -818,6 +831,22 @@ const getIPClient = (callback) => {
                 callback(null);
             }
         }, `${backend_host}/ip`, "GET", true);
+}
+const getGitLauncherReleases = (callback) => {
+    requestCall(
+        (r) => {
+            if (
+                r && r.id && r.target_commitish === "main" &&
+                r.author.login === "hevav" &&
+                !r.draft && r.assets.length
+            ) {
+                callback(r.assets);
+            } else {
+                callback([]);
+            }
+        }, `https://api.github.com/repos/${gitOwner}/${gitLauncherRepo}/releases/latest`,
+        "GET", true
+    );
 }
 const checkFeedbackStatus = (callback) => {
     const auth_data = getTelegramAuth(true);
@@ -985,7 +1014,11 @@ const appendServices = () => {
                         description_other = services[i].description
                     }
                     if (services[i].name.toLowerCase().includes("токен")) {
-                        _name = `${services[i].price} ${getNoun(services[i].price, "рубль", "рубля", "рублей")} = ${services[i].number} ${getNoun(services[i].number, "токен", "токена", "токенов")}`;
+                        _name = `${services[i].price} ${
+                            getNoun(services[i].price, "рубль", "рубля", "рублей")
+                        } = ${services[i].number} ${
+                            getNoun(services[i].number, "токен", "токена", "токенов")
+                        }`;
                         padding_desc = "p-0";
                         desc_template = `
                         <p class="mb-0 token-description-dnt">
@@ -995,7 +1028,9 @@ const appendServices = () => {
                     } else if (services[i].type = "other") {
                         _name = `
                         <span class="text-primary">${services[i].name}</span>,
-                        ${services[i].price} ${getNoun(services[i].price, "рубль", "рубля", "рублей")}`;
+                        ${services[i].price} ${
+                            getNoun(services[i].price, "рубль", "рубля", "рублей")
+                        }`;
                         padding_desc = "p-0";
                         desc_template = `
                         <p class="mb-0 token-description-dnt">
@@ -1005,7 +1040,9 @@ const appendServices = () => {
                     }
                     item_butt_template = `
                         <button class="btn btn-primary shadow-primary btn-shadow-hide btn-lg min-w-zl donate-item-butt-bottom" 
-                            onclick="donateModalCall(${get_product_type(click_data.name, click_data.type)}, ${click_data.service_id})">
+                            onclick="donateModalCall(
+                                ${get_product_type(click_data.name, click_data.type)}, ${click_data.service_id}
+                            )">
                             ${button_title}
                         </button>`;
                 }
@@ -1045,7 +1082,10 @@ const appendServices = () => {
             setTimeout(
                 () => {
                     const elem = document.getElementById("donate_block_load");
-                    const ids = ["donate_items_list", "donate-header-container", "donate-test-mode-enb", "donate-cart-container",];
+                    const ids = [
+                        "donate_items_list", "donate-header-container",
+                        "donate-test-mode-enb", "donate-cart-container"
+                    ];
                     try {
                         elem.parentNode.removeChild(elem);
                     } catch (_) {
@@ -1098,7 +1138,9 @@ const ytVideoSetter = (skip = false, only_iframe = true) => {
         el.innerHTML = `
             <iframe src="https://www.youtube.com/embed/${video_id}" title="YouTube video player"
                 frameborder="0" class="video-container-yt" id="ytframe_${video_id}"
-                allow="accelerometer; ${params.autoplay != null ? "autoplay" : ""}; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; ${
+                    params.autoplay != null ? "autoplay" : ""
+                }; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen="" loading="lazy"></iframe>
         `;
     }
@@ -1110,7 +1152,15 @@ const ytVideoSetter = (skip = false, only_iframe = true) => {
                 (data) => {
                     if (data && data.video.x720.url && !skip) {
                         el.innerHTML = `
-                    <video class="video-container" ${params.autoplay != null ? 'autoplay=""' : ""} ${params.muted != null ? 'muted=""' : ""} ${params.loop != null ? 'loop=""' : ""} ${params.controls != null ? 'controls=""' : ""} style="object-fit: contain">
+                    <video class="video-container" ${
+                            params.autoplay != null ? 'autoplay=""' : ""
+                        } ${
+                            params.muted != null ? 'muted=""' : ""
+                        } ${
+                            params.loop != null ? 'loop=""' : ""
+                        } ${
+                            params.controls != null ? 'controls=""' : ""
+                        } style="object-fit: contain">
                         <source src="${data.video.x720.url}" type="video/mp4">
                     </video>
                 `;
@@ -1235,7 +1285,8 @@ const get_cookie_cart = () => {
     return cookie_cart;
 }
 const updateCartCount = () => {
-    document.getElementById("count_cart_items_dn").innerText = countProperties(get_cookie_cart());
+    document.getElementById("count_cart_items_dn").innerText =
+        countProperties(get_cookie_cart());
 }
 const groupAlreadyInCart = (user_cart) => {
     const cart = Object.keys(user_cart);
@@ -1257,7 +1308,7 @@ const displayTokens = (v2=true) => {
     }
     document.querySelector(".zalupa-card-container").style.display = "";
 
-    if (balance) {
+    if (Number.isInteger(balance)) {
         if (!v2) {
             const base_selector = document.querySelector(".balance-container");
             const balance_value = document.querySelector(".balance-value");
@@ -1265,10 +1316,28 @@ const displayTokens = (v2=true) => {
             base_selector.style.display = "";
             balance_value.innerText = balance;
         } else {
+            const container_number = document.getElementById("numberZalupaCard");
+
+            if (!document.querySelector(".ZalupaCardInput")) {
+                container_number.innerHTML = container_number.innerHTML + `
+                    <input class="ZalupaCardInput" style="display:none" value="${glob_auth_player_data["UUID"]}">
+                `;
+            }
+
             const balance_number = document.querySelector(".number-card-zalupa");
             const card_holder = document.querySelector(".card-holder-zalupa");
             const balance_value_card = document.querySelector(".balance-value-card");
+            const cardSelector = "input.ZalupaCardInput";
 
+            balance_number.setAttribute(
+                "onclick",
+                `clipboardFunc(
+                    "${cardSelector}", 
+                    "Номер твоей <span class=\\"text-primary\\" style=\\"font-weight:800\\">ZalupaCard</span> скопирован в буфер обмена."
+                )`
+            );
+
+            document.querySelector(cardSelector).value = glob_auth_player_data["UUID"];
             balance_number.innerText = glob_auth_player_data["UUID"];
             card_holder.innerText = glob_auth_player_data["NICKNAME"];
             balance_value_card.innerHTML =
@@ -1283,27 +1352,25 @@ const displayTokens = (v2=true) => {
 }
 const select_card_skin = (balance) => {
     const skins = {
-        0: "grass",
-        100: "clay",
-        200: "red_mashroom",
-        300: "tube_coral",
-        400: "gray_glazed_terracotta",
-        500: "bee_nest",
-        750: "bamboo",
-        1000: "",
-        1200: "gilded_blackstone",
-        1500: "raw_gold",
-        2000: "nether_wart",
-        3000: "sculk_crystal",
-        4000: "rainforced_deepslate",
-        4500: "tinted_glass",
-        5000: "chiseled_quartz",
-        5001: "tnt",
-        5002: "warped_stem",
-        5003: "respawn_anchor",
-        5004: "dark_prismarine",
-        8000: "nether",
-        10000: "netherite"
+        0: "clay",
+        50: "red_mashroom",
+        100: "tube_coral",
+        150: "gray_glazed_terracotta",
+        200: "bee_nest",
+        350: "bamboo",
+        500: "gilded_blackstone",
+        750: "raw_gold",
+        1000: "nether_wart",
+        1500: "sculk_crystal",
+        2000: "rainforced_deepslate",
+        3000: "tinted_glass",
+        4000: "chiseled_quartz",
+        5000: "tnt",
+        6500: "warped_stem",
+        8000: "respawn_anchor",
+        10000: "dark_prismarine",
+        12000: "nether",
+        15000: "netherite"
     };
     let keys = Object.keys(skins);
     keys = keys.reverse();
@@ -1315,7 +1382,29 @@ const select_card_skin = (balance) => {
             return prepare_img_link(`${path}/${selector}.png`);
         }
     }
-    return prepare_img_link(`${path}/grass.png`);
+    return prepare_img_link(`${path}/clay.png`);
+}
+const sendTokensModalOpen = () => {
+    notify("Э брат, не завезли пока. Кнопочку не трож");
+}
+const getLauncherLinks = (callback) => {
+    getGitLauncherReleases(function (git_data) {
+        if (!git_data.length) {
+            callback(null);
+            return;
+        }
+        const platforms_keys = Object.keys(launcher_platforms);
+        let result = {};
+        for (let i = 0; i < git_data.length; i++) {
+            for (let s = 0; s < platforms_keys.length; s++) {
+                const link = git_data[i].browser_download_url;
+                if (`.${launcher_platforms[platforms_keys[s]]}` === link.slice(-4)) {
+                    result[platforms_keys[s]] = link;
+                }
+            }
+        }
+        callback(result);
+    })
 }
 const comment_show_action = (id, close = false) => {
     const comment_text = document.getElementById(`comment_text_${id}`);
@@ -1340,7 +1429,8 @@ const checkPrivateServerBuy = () => {
         for (let item of donate_services_array) {
             // console.debug(`checkPrivateServerBuy : item = ${item.name} / id = ${item.id}`);
             if (item.name === stop_key && glob_auth_player_data.PRIVATE_SERVER) {
-                const selector_button = document.querySelector(`#donate_item_${item.id}>div>div.card-body>button`);
+                const selector_button = document.querySelector(
+                    `#donate_item_${item.id}>div>div.card-body>button`);
 
                 selector_button.innerText = "Куплено";
                 selector_button.setAttribute("disabled", "");
@@ -1552,56 +1642,19 @@ const buildPlayersSwiper = () => {
                          player
                              .length; i++
                     ) {
-                        // const ult_template = "";
-
-                        // for (let player_skin of skins) {
-                        //     if (player[i].name.toLowerCase() === player_skin["Nick"].toLowerCase()) {
-                        //         player[i].head = `https:${backend_host}/profile/head/?texture_hash=${
-                        //             player_skin["Value"]}&crypto_token=${
-                        //             encodeURIComponent(crypto_token)}`;
-                        //     }
-                        // }
-
                         const
                             getBadges =
                                 () => {
-                                    let result =
-                                        "";
-                                    player
-                                        [i]
-                                        .badges
-                                        .sort();
-                                    for (
-                                        let s =
-                                            0; s <
-                                        player[
-                                            i
-                                            ]
-                                            .badges
-                                            .length; s++
-                                    ) {
-                                        const
-                                            badge_local =
-                                                player[
-                                                    i
-                                                    ]
-                                                    .badges[
-                                                    s
-                                                    ];
-                                        if (badge_local &&
-                                            badge_local
-                                                .length &&
-                                            badge_local !==
-                                            "verified" &&
-                                            !
-                                                badge_local
-                                                    .includes(
-                                                        "clan-"
-                                                    )
+                                    let result = "";
+                                    player[i].badges.sort();
+                                    for (let s = 0; s < player[i].badges.length; s++) {
+                                        const badge_local = player[i].badges[s];
+                                        if (
+                                            badge_local && badge_local.length &&
+                                            badge_local !== "verified" &&
+                                            !badge_local.includes("clan-")
                                         ) {
-                                            result
-                                                =
-                                                result + `
+                                            result = result + `
                                         <div class="player_badge" 
                                             style="background-image: url(./assets/images/emoji/${badges_paste[badge_local].item}.png)"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom" 
@@ -1616,57 +1669,27 @@ const buildPlayersSwiper = () => {
                         const
                             getClan =
                                 () => {
-                                    for (
-                                        let s =
-                                            0; s <
-                                        player[
-                                            i
-                                            ]
-                                            .badges
-                                            .length; s++
-                                    ) {
-                                        if (player[
-                                            i
-                                            ]
-                                            .badges[
-                                            s
-                                            ]
-                                            .includes(
-                                                "clan-"
-                                            )
+                                    for (let s = 0; s < player[i].badges.length; s++) {
+                                        if (
+                                            player[i].badges[s]
+                                            .includes("clan-")
                                         ) {
-                                            return player[
-                                                i
-                                                ]
-                                                .badges[
-                                                s
-                                                ]
+                                            return player[i].badges[s]
                                                 .replace(
-                                                    "clan-",
-                                                    ""
+                                                    "clan-", ""
                                                 );
                                         }
                                     }
                                 }
 
-                        glob_players
-                            .push(
-                                player[
-                                    i
-                                    ]
-                                    .name
-                            );
-                        const
-                            player_badges_ =
-                                getBadges();
-                        const
-                            player_clan =
-                                getClan();
+                        glob_players.push(player[i].name);
+
+                        const player_badges_ = getBadges();
+                        const player_clan = getClan();
+
                         player[i].head = prepare_img_link(player[i].head);
-                        array_
-                            .innerHTML =
-                            array_
-                                .innerHTML + `
+
+                        array_.innerHTML = array_.innerHTML + `
                         <div class="swiper-slide text-center">
                             <span class="d-block py-3">
                                 <div class="player_head_container">
@@ -2272,7 +2295,8 @@ const onTelegramAuth = (user) => {
                 user)));
     modal_close_();
     notify(
-        `Вы успешно авторизовались как <span class="text-gradient-primary">${user.first_name} ${user.last_name ? user.last_name : ""}</span>`
+        `Вы успешно авторизовались как <span class="text-gradient-primary">${
+            user.first_name} ${user.last_name ? user.last_name : ""}</span>`
     );
 
     autoAuthTelegramObserver();
@@ -2598,9 +2622,6 @@ const generatePaymentLink = (type = 1,
         coupon = "";
     }
     if (coins_sell_mode) {
-        // products = JSON.parse(
-        //     `{"${donate_services_array[type - 1].id}": ${sum}}`
-        // );
         products = JSON.parse(
             `{"${current_c_item}": ${sum}}`
         );
@@ -3113,7 +3134,8 @@ const finishLoad = () => {
     document.querySelector("footer")
         .setAttribute("style", "");
     const heart =
-        '<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');font-size: .7rem;bottom:-1px"><b>❤️</b></i>';
+        `<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');`+
+        `font-size: .7rem;bottom:-1px"><b>❤️</b></i>`;
     document.getElementById(
         "footer-text-blc")
         .innerHTML =
@@ -3126,14 +3148,8 @@ const finishLoad = () => {
     }
 }
 
-const buildSignCN = () => {
-
-}
-
 const observerSystemTheme = () => {
-    const mode_list = ["dark",
-        "light"
-    ];
+    const mode_list = ["dark", "light"];
     const theme_switch = document
         .querySelector(
             '[data-bs-toggle="mode"]'
@@ -3143,19 +3159,14 @@ const observerSystemTheme = () => {
 
     const updateTheme = (mode) => {
         if (mode === "dark") {
-            root.classList.add(
-                "dark-mode");
-            theme_switch
-                .checked =
-                true;
+            root.classList.add("dark-mode");
+            theme_switch.checked = true;
         } else {
             root.classList
                 .remove(
                     "dark-mode"
                 );
-            theme_switch
-                .checked =
-                false;
+            theme_switch.checked = false;
         }
     };
 
@@ -3173,11 +3184,9 @@ const observerSystemTheme = () => {
     }
 }
 
-const callSucessPayModal = (payment_id =
-                                0) => {
+const callSucessPayModal = (payment_id = 0) => {
     let glob_func_payment_data;
-    const item_nm_payment_result =
-        false;
+    const item_nm_payment_result = false;
 
     const cart_dom = document
         .getElementById(
@@ -3195,13 +3204,10 @@ const callSucessPayModal = (payment_id =
 
     donateSwitchContainer(true);
 
-    const item_type_ = (
-        product_name) => {
-        const t = (product_name)
-            .toLowerCase();
+    const item_type_ = (product_name) => {
+        const t = (product_name).toLowerCase();
 
-        if (t.includes(
-            "токен")) {
+        if (t.includes("токен")) {
             return 1;
         } else {
             return 2;
@@ -3219,29 +3225,15 @@ const callSucessPayModal = (payment_id =
         if (img_product &&
             img_product.length
         ) {
-            document
-                .querySelector(
-                    ".payment-sucess-vova"
-                )
-                .src =
-                img_product;
+            document.querySelector(
+                    ".payment-sucess-vova").src = img_product;
             const
-                name_selector =
-                    document
-                        .querySelector(
-                            ".item-name-payment-result"
-                        );
-            if (
-                item_nm_payment_result
-            ) {
-                name_selector
-                    .innerText =
-                    name_product;
+                name_selector = document.querySelector(
+                            ".item-name-payment-result");
+            if (item_nm_payment_result) {
+                name_selector.innerText = name_product;
             } else {
-                name_selector
-                    .style
-                    .marginBottom =
-                    "4vh";
+                name_selector.style.marginBottom = "4vh";
             }
         }
     }
@@ -3249,18 +3241,11 @@ const callSucessPayModal = (payment_id =
     const buildPayment = (
         payment) => {
         if (payment.status &&
-            payment_id ==
-            parseInt(
-                payment.id)) {
-            glob_func_payment_data
-                =
-                payment;
-            succ_text
-                .innerText =
+            payment_id == parseInt(payment.id)) {
+            glob_func_payment_data = payment;
+            succ_text.innerText =
                 "Оплата прошла успешно, Шеф доволен, спасибо тебе.";
-            cont_ok.style
-                .display =
-                "";
+            cont_ok.style.display = "";
 
             const private_gift_button = document.createElement("button");
             private_gift_button.id = "private_gift_button_modal";
@@ -3268,10 +3253,7 @@ const callSucessPayModal = (payment_id =
             private_gift_button.innerText = "button::init";
 
             const item_type =
-                item_type_(
-                    payment
-                        .product
-                        .name);
+                item_type_(payment.product.name);
 
             let system_template = `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -3293,21 +3275,15 @@ const callSucessPayModal = (payment_id =
 
             if (
                 coins_sell_mode) {
-                if (item_type ===
-                    1) {
-                    sum_template
-                        = `
+                if (item_type === 1) {
+                    sum_template = `
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Сумма</span>
                             <strong class="bottom-line-set bottom-line-set-zlp color-set-zlp">${payment.enrolled} ${getNoun(payment.enrolled, "токен", "токена", "токенов")}</strong>
                         </li>
                     `;
-                } else if (
-                    item_type ===
-                    2
-                ) {
-                    sum_template
-                        = `
+                } else if (item_type === 2) {
+                    sum_template = `
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Сумма</span>
                             <strong class="bottom-line-set bottom-line-set-zlp color-set-zlp">${payment.product.price} ${getNoun(payment.enrolled, "рубль", "рубля", "рублей")}</strong>
@@ -3317,51 +3293,22 @@ const callSucessPayModal = (payment_id =
                 }
             }
 
-            if (!payment
-                    .enrolled ||
-                payment
-                    .enrolled < 1
-            ) {
+            if (!payment.enrolled || payment.enrolled < 1) {
                 sum_template =
                     "";
             }
-            if (!payment.email
-                    .length ||
-                payment
-                    .email.match(
-                    "undefined")
-            ) {
-                payment.email =
-                    "Ну указано";
+            if (!payment.email.length || payment.email.match("undefined")) {
+                payment.email = "Ну указано";
             }
-            if (!payment
-                    .payment_system ||
-                payment
-                    .payment_system
-                    .match(
-                        "undefined")
-            ) {
-                system_template
-                    =
-                    "";
+            if (!payment.payment_system ||
+                payment.payment_system.match("undefined")) {
+                system_template = "";
             }
-            if (!payment
-                .created_at || !
-                payment
-                    .created_at
-                    .length) {
-                payment
-                    .created_at =
-                    "Неизвестно";
+            if (!payment.created_at || !payment.created_at.length) {
+                payment.created_at = "Неизвестно";
             } else {
-                const
-                    parsed_time =
-                        new Date(
-                            payment
-                                .created_at
-                        );
-                payment
-                    .created_at =
+                const parsed_time = new Date(payment.created_at);
+                payment.created_at =
                     `${parsed_time.toLocaleDateString()} ${parsed_time.toLocaleTimeString()}`;
             }
 
@@ -3406,8 +3353,7 @@ const callSucessPayModal = (payment_id =
                 ${template_invite_link}
             `;
         } else {
-            succ_text
-                .innerText =
+            succ_text.innerText =
                 "Чек неоплачен, Шеф недоволен.";
             document
                 .querySelector(
@@ -3659,33 +3605,17 @@ const openAdminContact = () => {
                     .querySelector(
                         'label[for="admin-message"]'
                     );
-            const space =
-                " ";
-            if (textarea
-                .value
-                .includes(
-                    space
-                        .repeat(
-                            3))
-            ) {
-                textarea
-                    .value =
-                    textarea
-                        .value
-                        .trim();
+            const space = " ";
+            if (textarea.value.includes(space.repeat(3))) {
+                textarea.value = textarea.value.trim();
             }
-            textarea
-                .maxLength =
-                max_len;
-            const
-                update_len_counter =
+            textarea.maxLength = max_len;
+            const update_len_counter =
                     () => {
-                        label
-                            .innerText =
+                        label.innerText =
                             `${textarea.value.length}/${max_len}`;
                     }
-            update_len_counter
-            ();
+            update_len_counter();
             addEventListener
             (
                 "keydown",
@@ -3709,8 +3639,7 @@ const openAdminContact = () => {
             console.log(
                 "Error check Telegram auth"
             );
-            openTelegramAuthModal
-            ();
+            openTelegramAuthModal();
             notify(
                 "Вам необходимо авторизоватся для этой функции"
             );
