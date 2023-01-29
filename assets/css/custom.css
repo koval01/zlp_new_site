@@ -957,6 +957,11 @@ iframe[id*=telegram-post] {
   display: inline-flex;
 }
 
+#inlineVanillaMap {
+  width: 100% !important;
+  height: 60vh;
+}
+
 .super-klassniy-sticker {
   height: 150px;
   width: 150px;
@@ -1216,20 +1221,19 @@ a:hover .emoji > b {
 }
 
 figure.news-figure {
-  border-radius: calc(0.6vh + 0.8vw);
+  border-radius: 1.45em 1.45em 0 0;
 }
 figure.news-figure > .background-news {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-color: #222;
-  border-radius: calc(0.6vh + 0.8vw);
+  border-radius: 1.45em 1.45em 0 0;
   height: 100%;
 }
 figure.news-figure > .background-news > .background-news-overlay {
   position: relative;
-  border-radius: calc(0.6vh + 0.6vw);
-  background: calc(0.6vh + 0.8vw);
+  border-radius: 1.6em 1.6em 0 0;
   height: 100%;
   overflow: hidden;
   backdrop-filter: blur(1px);
@@ -1239,7 +1243,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   background-color: rgba(0, 0, 0, 0);
   transition: background-color 1.4s;
   height: 100%;
-  border-radius: calc(0.6vh + 0.8vw);
+  border-radius: 1.6em 1.6em 0 0;
   overflow: hidden;
 }
 
@@ -1253,6 +1257,8 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 }
 .news-text-container > .news-text {
   text-shadow: 0 0 16px #000;
+  font-weight: 500;
+  text-align: left !important;
 }
 .news-text-container > .news-bottom-container {
   position: absolute;

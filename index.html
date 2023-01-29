@@ -243,7 +243,7 @@
                         </div>
                         <img src="" class="chip">
                         <div class="details-card">
-                            <div class="group" id="number">
+                            <div class="group" id="numberZalupaCard">
                                 <p class="label">Номер счета</p>
                                 <p class="number-card-zalupa" style="cursor:pointer">-</p>
                             </div>
@@ -261,7 +261,8 @@
                     </div>
                 </section>
                 <div class="container-btn-zalupa-card">
-                    <button class="btn-open-form-zalupa-card" id="btn-open-form-zalupa-card">
+                    <button class="btn-open-form-zalupa-card" id="btn-open-form-zalupa-card"
+                            onclick="sendTokensModalOpen()">
                         <i class="bx bxl-telegram"></i>
                     </button>
                 </div>
@@ -492,13 +493,18 @@
                     </div>
                 </div>
                 <div class="d-flex">
-                    <a href="#donate_block" style="display: block;margin: auto;margin-right: 1em;" id="donate-private-butt"
+                    <a href="#donate_block" style="display:block;margin:auto" id="donate-private-butt"
                        class="btn btn-primary shadow-primary btn-lg mb-3 btn-shadow-hide">
                         Погнали</a>
-                    <a href="https://vanilla.zalupa.online/" style="display: block;margin: auto;margin-left: 1em;" target="_blank"
+                    <!-- <a href="https://vanilla.zalupa.online/" style="display: block;margin: auto;margin-left: 1em;" target="_blank"
                        class="btn btn-primary shadow-primary btn-lg mb-3 btn-shadow-hide">
-                        Карта</a>
+                        Карта</a> -->
                 </div>
+                <h3 class="text-center pt-3" style="font-size: 1.5em">Предлагаем вам рассмотреть мир приватной Залупы</h3>
+                <iframe id="inlineVanillaMap"
+                        title="Карта приватной Залупы"
+                        src="https://vanilla.zalupa.online">
+                </iframe>
             </div>
         </section>
         <section id="comments" class="mb-5 mt-5 position-relative bg-theme-set">
@@ -533,7 +539,7 @@
                     <p class="fs-lg text-muted text-center mb-0">
                         <span class="text-primary">Автоматическая</span> установка клиента и модов
                     </p>
-                    <div class="col-lg-12 order-lg-2 mb-4 justify-content-center text-center">
+                    <div class="col-lg-12 order-lg-2 mb-4 justify-content-center text-center" id="zalupa-launcher-links">
                         <a href="https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.5/ZalupaLauncher_1.0.5_x64_en-US.msi"
                            class="btn btn-primary shadow-primary mt-3 m-1" download="">
                             Windows</a>
@@ -542,10 +548,7 @@
                             MacOS</a>
                         <a href="https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.5/zalupa-launcher_1.0.5_amd64.deb"
                            class="btn btn-primary shadow-primary mt-3 m-1" download="">
-                            Debian</a>
-                        <a href="https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.5/zalupa-launcher_1.0.5_amd64.AppImage"
-                           class="btn btn-primary shadow-primary mt-3 m-1" download="">
-                            Ubuntu</a>
+                            Linux</a>
                     </div>
                 </div>
                 <p class="fs-lg text-muted text-center mb-0">

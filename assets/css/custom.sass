@@ -860,6 +860,10 @@ iframe[id*='telegram-post']
 .player_badge_container
   display: inline-flex
 
+#inlineVanillaMap
+  width: 100% !important
+  height: 60vh
+
 .super-klassniy-sticker
   height: 150px
   width: 150px
@@ -1101,22 +1105,19 @@ a:hover
   width: 90%
 
 figure.news-figure
-  $border-news-figure: calc(.6vh + .8vw)
-
-  border-radius: $border-news-figure
+  border-radius: 1.45em 1.45em 0 0
 
   > .background-news
     background-size: cover
     background-repeat: no-repeat
     background-position: center
     background-color: #222
-    border-radius: $border-news-figure
+    border-radius: 1.45em 1.45em 0 0
     height: 100%
 
     > .background-news-overlay
       position: relative
-      border-radius: calc(.6vh + .6vw)
-      background: $border-news-figure
+      border-radius: 1.6em 1.6em 0 0
       height: 100%
       overflow: hidden
       backdrop-filter: blur(1px)
@@ -1126,7 +1127,7 @@ figure.news-figure
         background-color: rgba(0, 0, 0, 0)
         transition: background-color 1.4s
         height: 100%
-        border-radius: $border-news-figure
+        border-radius: 1.6em 1.6em 0 0
         overflow: hidden
 
 .dark-mode .background-news-overlay-dark-mode
@@ -1138,6 +1139,8 @@ figure.news-figure
 
   > .news-text
     text-shadow: 0 0 16px #000
+    font-weight: 500
+    text-align: left !important
 
   > .news-bottom-container
     position: absolute
