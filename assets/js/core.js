@@ -1872,6 +1872,13 @@ const buildDonateHistorySwiper = () => {
     });
 }
 
+const donate_bg_preload = () => {
+    const bg_ls = ["emoji-background-donate-light", "emoji-background-donate"];
+    for (let i = 0; i <= bg_ls; i++) {
+        getImageLightness(`assets/images/${i}.png`, undefined, false);
+    }
+}
+
 const setSticker = (stickers_count = 0, id = 0, custom_path = null) => {
     let path = `assets/images/stickers/sticker${randDiaps(stickers_count)}.webp`;
     if (custom_path) {
@@ -4098,6 +4105,7 @@ const initCore = () => {
                     ();
                 }, wait +
                 move_wait);
+            donate_bg_preload();
             setInterval(() => {
                 checkTelegramAuthData(function (_) {}, false, false, true);
             }, 10*1000);
