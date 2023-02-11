@@ -800,12 +800,13 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
                                 const player = r.player_data;
                                 const skin = player.SKIN;
                                 const avatar_init = () => {
-                                    // if (avatar_loaded) {
-                                    //     return;
-                                    // }
-                                    loadPlayerAvatar(skin);
-                                    loadPlayerAvatar(skin, "card-avatar-object");
-                                    avatar_loaded = true;
+                                    if (
+                                        !avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1
+                                    ) {
+                                        loadPlayerAvatar(skin);
+                                        loadPlayerAvatar(skin, "card-avatar-object");
+                                        avatar_loaded = true;
+                                    }
                                 }
 
                                 avatar_init();
@@ -814,11 +815,7 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
                                 avatar.setAttribute("title", player["NICKNAME"]);
 
                                 setInterval(function () {
-                                    if (
-                                        !avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1
-                                    ) {
-                                        avatar_init();
-                                    }
+                                    avatar_init();
                                 }, 150);
                             }
                             telegram_glob_session = {
