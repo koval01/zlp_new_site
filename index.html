@@ -100,7 +100,7 @@
         </div>
     </header>
     <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
-        <div class="modal-content rounded-4 shadow" style="text-align: center">
+        <div class="modal-content rounded-4 shadow" style="text-align: center;transition: all .8s;margin-top:2em">
             <div class="modal-header border-bottom-0">
                 <h5 class="modal-title"></h5>
             </div>
@@ -142,6 +142,22 @@
                     <span id="donate-text-span" class="text-start mb-4" style="display: block"></span>
                     <ul id="donate-coins-payment" class="list-group mb-3"></ul>
                     <form class="needs-validation" novalidate="">
+                        <div class="row g-3 pb-4">
+                            <div class="col-sm-5" style="margin: auto" id="customer-donate-method-container">
+                                <label for="donate_email_c" class="form-label">Способ оплаты</label>
+                                <select class="form-select" id="donate-pay-method" onchange="{donatePayMethodSelector();donateResetPaymentState(current_item_type);}" aria-label="Способ оплаты">
+                                    <option value="1">easydonate.ru</option>
+                                    <option value="2">Zalupa Pay</option>
+                                </select>
+                                <div id="tokens-balance-choice-dnt-container"
+                                        class="modal-int-container mb-2" style="opacity:0;margin-top:-1.8em;pointer-events:none">
+                                    <p id="tokens-balance-choice-dnt"></p>
+                                </div>
+                                <div id="donate-sum-pay-container" class="modal-int-container" style="display:none">
+                                    <p id="donate-sum-pay-text"></p>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row g-3">
                             <div class="col-sm-6" id="sum-tokens-container">
                                 <label for="donate_sum" class="form-label">Сумма</label>
@@ -154,7 +170,7 @@
                                 <input type="text" class="form-control" id="donate_customer_c"
                                        placeholder="Blackflexxy" value="" required="">
                             </div>
-                            <div class="col-12" id="customer-email-tokens-container">
+                            <div class="col-sm-6" id="customer-email-tokens-container">
                                 <label for="donate_email_c" class="form-label">Почта</label>
                                 <input type="email" class="form-control" id="donate_email_c"
                                        placeholder="eblan@mail.ru">
