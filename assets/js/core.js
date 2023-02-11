@@ -1329,6 +1329,10 @@ const donatePayMethodSelector = () => {
     if (choice == 2) {
         balance.style.marginTop = "1em";
         balance.style.opacity = 1;
+        document.getElementById("donate-coins-payment").innerHTML = "";
+
+        checked_coupon = "";
+        failed_coupon = "";
     } else {
         balance.style.marginTop = "-1.8em";
         balance.style.opacity = 0;
