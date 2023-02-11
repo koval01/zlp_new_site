@@ -1411,7 +1411,7 @@ const select_card_skin = (balance) => {
     };
     let keys = Object.keys(skins);
     keys = keys.reverse();
-    const path = "/assets/images/card_skins";
+    const path = "./assets/images/card_skins";
     for (let i = 0; i < keys.length; i++) {
         const selector = skins[keys[i]];
         if (balance >= parseInt(keys[i])) {
