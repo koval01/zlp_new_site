@@ -74,6 +74,7 @@ var first_init_head_adapt = 0;
 var first_init_head_adapt_vova = 0;
 var current_item_type = 0;
 var client_ip = "";
+var avatar_loaded = false;
 var telegram_glob_session = {
     auth_data: null, response: null
 };
@@ -799,8 +800,12 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
                                 const player = r.player_data;
                                 const skin = player.SKIN;
                                 const avatar_init = () => {
+                                    if (avatar_loaded) {
+                                        return;
+                                    }
                                     loadPlayerAvatar(skin);
                                     loadPlayerAvatar(skin, "card-avatar-object");
+                                    avatar_loaded = true;
                                 }
 
                                 avatar_init();
