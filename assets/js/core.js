@@ -45,6 +45,7 @@ const gitOwner = "Zalupa-Online";
 const gitLauncherRepo = "launcher-releases";
 const lock_of = true;
 const coins_sell_mode = true;
+var selector_card_skin_displayed = "";
 var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
@@ -71,6 +72,7 @@ var current_c_item_name = "";
 var telegram_cookie_token = "telegram_auth";
 var first_init_head_adapt = 0;
 var first_init_head_adapt_vova = 0;
+var current_item_type = 0;
 var client_ip = "";
 var telegram_glob_session = {
     auth_data: null, response: null
@@ -692,9 +694,10 @@ const create_payment = (callback, customer, products, server_id, email = "", cou
             customer: customer,
             products: products,
             email: email,
-            coupon: coupon,
+            coupon: coupon ? (donatePayMethodSelector() !== 2) : null,
             token: token_update,
             server_id: server_id,
+            pay_method: donatePayMethodSelector(),
             success_url: `https://${work_domain_v}`,
             tg_auth_data: getTelegramAuth(true)
         });
@@ -716,7 +719,8 @@ const check_coupon = (callback, coupon) => {
             }
         }, `${backend_host}/donate/coupon`, "POST", true, {
             code: coupon,
-            token: token_update
+            token: token_update,
+            pay_method: donatePayMethodSelector()
         });
     });
 }
@@ -726,7 +730,7 @@ const testImage = (url) => {
     tester.addEventListener('error', reInitTelegramAuth);
     tester.src = url;
 }
-const loadPlayerAvatar = (avatar) => {
+const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar") => {
     if (!crypto_token || !crypto_token.length) {
         initCrypto();
         return;
@@ -735,7 +739,7 @@ const loadPlayerAvatar = (avatar) => {
     console.debug(`Load avatar : ${avatar}`);
     document.getElementById("tg-user-avatar-text").innerText = "";
 
-    const avatar_selector = document.getElementById("telegram-auth-avatar");
+    const avatar_selector = document.getElementById(def_selector);
     const avatar_style = avatar_selector.style;
 
     const raw_link = `${
@@ -756,20 +760,22 @@ const loadPlayerAvatar = (avatar) => {
 
     testImage(raw_link);
     avatar_selector.setAttribute(
-        "style", `background-image: url("${link}");border-radius:.15rem;`
+        "style", `background-image: url("${link}");border-radius:.${
+            def_selector.includes("card-avatar") ? 35 : 15}rem;`
     );
 }
 const reInitTelegramAuth = () => {
     checkTelegramAuthData(function (_) {
     });
 }
-const checkTelegramAuthData = (callback, skip = false, raw = false) => {
+const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache = false) => {
     const auth_data = getTelegramAuth(true);
     if (auth_data) {
-        if (telegram_glob_session.auth_data === auth_data) {
+        if (telegram_glob_session.auth_data === auth_data && !skip_cache) {
             callback(telegram_glob_session.response.success);
             return;
         }
+        console.debug(`skip pos : ${skip}`);
         if (!skip) {
             re_check((token_update) => {
                 requestCall((r) => {
@@ -787,12 +793,17 @@ const checkTelegramAuthData = (callback, skip = false, raw = false) => {
                                 title="TITLE_TEXT"
                             */
                             glob_auth_player_data = r.player_data;
+                            console.debug(r);
                             // const orderedData = getTelegramAuth();
                             if (r.player_data) {
                                 const player = r.player_data;
                                 const skin = player.SKIN;
-                                loadPlayerAvatar(skin);
+                                const avatar_init = () => {
+                                    loadPlayerAvatar(skin);
+                                    loadPlayerAvatar(skin, "card-avatar-object");
+                                }
 
+                                avatar_init();
                                 avatar.setAttribute("data-bs-toggle", "tooltip");
                                 avatar.setAttribute("data-bs-placement", "bottom");
                                 avatar.setAttribute("title", player["NICKNAME"]);
@@ -801,7 +812,7 @@ const checkTelegramAuthData = (callback, skip = false, raw = false) => {
                                     if (
                                         !avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1
                                     ) {
-                                        loadPlayerAvatar(skin);
+                                        avatar_init();
                                     }
                                 }, 150);
                             }
@@ -1194,7 +1205,10 @@ const modal_close_ = () => {
     if (modal_displayed) {
         document.body.classList.remove("modal-open");
         document.getElementById("scroll_butt_container").style.display = "";
-        document.getElementsByTagName("html")[0].style.overflowY = ""
+        document.getElementsByTagName("html")[0].style.overflowY = "";
+        const cont = document.querySelector(".modal-content");
+        cont.classList.remove("emoji-pay-back");
+        cont.style.marginTop = "2em";
         const modal = document.getElementById("donate_item_modal");
         modal.style.opacity = 0;
         setTimeout(() => {
@@ -1216,6 +1230,7 @@ const modal_open_ = (onclick_lock = false) => {
     modal.style.display = "block";
     setTimeout(() => {
         modal.style.opacity = 1;
+        document.querySelector(".modal-content").style.marginTop = 0;
     }, 50);
     if (!onclick_lock) {
         window.onclick = (event) => {
@@ -1305,6 +1320,20 @@ const groupAlreadyInCart = (user_cart) => {
     return false;
 }
 
+const donatePayMethodSelector = () => {
+    const choice = parseInt(document.getElementById("donate-pay-method").value);
+    const balance = document.getElementById("tokens-balance-choice-dnt-container");
+
+    if (choice == 2) {
+        balance.style.marginTop = "1em";
+        balance.style.opacity = 1;
+    } else {
+        balance.style.marginTop = "-1.8em";
+        balance.style.opacity = 0;
+    }
+    return choice;
+}
+
 const displayTokens = (v2=true) => {
     const balance = glob_auth_player_data["BALANCE"];
 
@@ -1332,7 +1361,13 @@ const displayTokens = (v2=true) => {
             const balance_number = document.querySelector(".number-card-zalupa");
             const card_holder = document.querySelector(".card-holder-zalupa");
             const balance_value_card = document.querySelector(".balance-value-card");
+            const balance_choice = document.getElementById("tokens-balance-choice-dnt");
             const cardSelector = "input.ZalupaCardInput";
+
+            const template_tokens = `<span class="text-primary">${balance}</span> ${
+                getNoun(balance, "токен", "токена", "токенов")}`;
+
+            balance_choice.innerHTML = `У тебя ${template_tokens}`;
 
             balance_number.setAttribute(
                 "onclick",
@@ -1345,10 +1380,7 @@ const displayTokens = (v2=true) => {
             document.querySelector(cardSelector).value = glob_auth_player_data["UUID"];
             balance_number.innerText = glob_auth_player_data["UUID"];
             card_holder.innerText = glob_auth_player_data["NICKNAME"];
-            balance_value_card.innerHTML =
-                `<span class="text-primary">${balance}</span> ${
-                getNoun(balance, "токен", "токена", "токенов")
-            }`;
+            balance_value_card.innerHTML = template_tokens;
 
             document.getElementById("card-zalupa").style.backgroundImage =
                 `url("${select_card_skin(balance)}")`;
@@ -1383,7 +1415,10 @@ const select_card_skin = (balance) => {
     for (let i = 0; i < keys.length; i++) {
         const selector = skins[keys[i]];
         if (balance >= parseInt(keys[i])) {
-            console.debug(selector);
+            if (selector_card_skin_displayed !== selector) {
+                console.debug(selector);
+                selector_card_skin_displayed = selector;
+            }
             return prepare_img_link(`${path}/${selector}.png`);
         }
     }
@@ -2088,7 +2123,8 @@ const donateResetPaymentState = (type =
         "donate_sum",
         "donate_customer_c",
         "donate_email_c",
-        "coupon-input-c"
+        "coupon-input-c",
+        "donate-pay-method"
     ]
     let sl = "_c";
     let vl = document
@@ -2105,21 +2141,14 @@ const donateResetPaymentState = (type =
             sl
         );
     const update_inputs = () => {
-        for (let i = 0; i <
-        inputs
-            .length; i++) {
-            if (inputs[i]
-                    .includes(
-                        "coupon") &&
-                !
-                    coupon_reset) {
+        for (let i = 0; i < inputs.length; i++) {
+            const sl = document.getElementById(inputs[i]);
+            if (inputs[i].includes("coupon") && !coupon_reset) {
                 // pass
+            } else if (inputs[i].includes("method")) {
+                sl.value = 1;
             } else {
-                document
-                    .getElementById(
-                        inputs[
-                            i])
-                    .value = "";
+                sl.value = "";
             }
         }
     }
@@ -2425,40 +2454,39 @@ const couponCheck = (coins = false) => {
     };
 
     input_lock(true);
-    check_coupon((r) => {
-        // console.log(`check_coupon = ${typeof r}`);
-        if (r) {
-            const call =
-                () => {
-                    checked_coupon
-                        =
-                        code;
-                    notify(
-                        `Купон <span class="text-primary fw-semibold">${code}</span> действительный`
-                    );
-                };
-            if (!
-                coins_sell_mode
-            ) {
-                call();
-                donateCartCall
-                (
-                    code,
-                    false
-                );
-            } else if (
-                check_coupon_valid(
-                    r
-                        .products,
-                    current_c_item
-                )) {
-                call();
-                const sl =
-                    document
-                        .getElementById(
-                            "donate-coins-payment"
+    if (donatePayMethodSelector() !== 2) {
+        check_coupon((r) => {
+            // console.log(`check_coupon = ${typeof r}`);
+            if (r) {
+                const call =
+                    () => {
+                        checked_coupon
+                            =
+                            code;
+                        notify(
+                            `Купон <span class="text-primary fw-semibold">${code}</span> действительный`
                         );
-                sl.innerHTML = `<li class="list-group-item d-flex justify-content-between bg-light">
+                    };
+                if (!coins_sell_mode) {
+                    call();
+                    donateCartCall
+                    (
+                        code,
+                        false
+                    );
+                } else if (
+                    check_coupon_valid(
+                        r
+                            .products,
+                        current_c_item
+                    )) {
+                    call();
+                    const sl =
+                        document
+                            .getElementById(
+                                "donate-coins-payment"
+                            );
+                    sl.innerHTML = `<li class="list-group-item d-flex justify-content-between bg-light">
                         <div class="text-primary">
                             <h6 class="my-0 text-start">Купон</h6>
                             <small class="text-start" style="float: left">${code}</small>
@@ -2466,19 +2494,23 @@ const couponCheck = (coins = false) => {
                         <span class="text-muted text-end" style="width: 30%">
                             ${r.discount}%</span>
                     </li>`;
+                } else {
+                    notify(
+                        "Этот купон недействительный"
+                    );
+                }
             } else {
-                notify(
-                    "Этот купон недействительный"
-                );
+                failed_coupon =
+                    code;
+                coupon_notfd();
             }
-        } else {
-            failed_coupon =
-                code;
-            coupon_notfd();
-        }
 
+            input_lock();
+        }, code);
+    } else {
+        notify("Купон недоступен для Zalupa Pay");
         input_lock();
-    }, code);
+    }
 }
 
 const donate_enable_coupon = (enabled =
@@ -2646,22 +2678,17 @@ const generatePaymentLink = (type = 1,
     create_payment((
             callback_data) => {
             if (callback_data) {
-                button
-                    .removeAttribute(
-                        "disabled"
-                    );
-                button
-                    .innerText =
-                    "Оплатить";
-                payment_url_global
-                    =
-                    callback_data
-                        .url;
-                button
-                    .setAttribute(
+                button.removeAttribute("disabled");
+                button.innerText = "Оплатить";
+                if (callback_data.zalupa_pay) {
+                    zalupa_pay_finish_modal();
+                } else {
+                    payment_url_global = callback_data.url;
+                    button.setAttribute(
                         "onClick",
                         "payment_action_bt()"
                     );
+                }
             } else {
                 notify(
                     "Ошибка, не удалось сформировать чек для оплаты"
@@ -2676,6 +2703,36 @@ const generatePaymentLink = (type = 1,
         email,
         coupon);
 }
+
+const zalupa_pay_finish_modal = () => {
+    const container = document.getElementById("only-ok-payment");
+
+    container.innerHTML = `
+    <div style="
+        background: rgb(28 28 28 / 15%);
+        padding: 1.15em;
+        border-radius: 0.72em;
+        backdrop-filter: blur(1.35em);
+        -webkit-backdrop-filter: blur(1.35em);
+    ">
+            <p style="
+                font-weight: 800;
+                margin-bottom: 0;
+            ">Спасибо что воспользовались ZalupaPay!</p>                
+    </div>
+    `;
+
+    enable_modal_result_sc();
+    checkTelegramAuthData(function (_) {}, false, false, true);
+    document.querySelector(".modal-title").innerText = "";
+    document.querySelector(".modal-content").classList.add("emoji-pay-back");
+}
+
+const enable_modal_result_sc = () => {
+    switch_modal_containers("success");
+    modal_open_();
+    donateResetPaymentState();
+};
 
 const payment_action_bt = () => {
     window.open(payment_url_global,
@@ -2730,17 +2787,9 @@ const payment_action_bt = () => {
             }
         };
 
-    const enable_modal = () => {
-        switch_modal_containers(
-            "success");
-        modal_open_();
-        build_modal_wind();
-        donateResetPaymentState
-        ();
-        flush_inputs_donate();
-    };
-
-    enable_modal();
+    enable_modal_result_sc();
+    flush_inputs_donate();
+    build_modal_wind();
 }
 
 const donate_check_services_cart =
@@ -2924,6 +2973,8 @@ const donateCoinsPay = (type = 1) => {
 const donateModalCall = (type_item,
                          item_id, nickname_update = true
 ) => {
+    current_item_type = type_item;
+
     const sum = document
         .getElementById(
             "donate_sum");
@@ -2942,6 +2993,8 @@ const donateModalCall = (type_item,
         document
             .getElementById(
                 "donate-text-span");
+    const selector_method_pay =
+        document.getElementById("donate-pay-method");
     let payment_text_form;
     const selectors_payment = [
         document
@@ -2974,7 +3027,11 @@ const donateModalCall = (type_item,
     current_c_item = item_id;
     current_c_item_name = get_data_service(item_id).name;
 
+    selector_method_pay.value = 1;
+    donatePayMethodSelector();
+
     if (type_item === 1) {
+        selector_method_pay.setAttribute("disabled", "");
         sum_container.style
             .display =
             "";
@@ -2995,6 +3052,7 @@ const donateModalCall = (type_item,
                 ();
             });
     } else if (type_item === 2) {
+        selector_method_pay.removeAttribute("disabled");
         sum_container.style
             .display =
             "none";
@@ -3030,9 +3088,7 @@ const donateModalCall = (type_item,
             .replaceAll(
                 "\n", "");
 
-    for (let i = 0; i <
-    selectors_payment
-        .length; i++) {
+    for (let i = 0; i < selectors_payment.length; i++) {
         selectors_payment[i]
             .addEventListener(
                 "input",
@@ -4042,6 +4098,9 @@ const initCore = () => {
                     ();
                 }, wait +
                 move_wait);
+            setInterval(() => {
+                checkTelegramAuthData(function (_) {}, false, false, true);
+            }, 10*1000);
         }
     };
 };

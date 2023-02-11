@@ -17,6 +17,7 @@ html {
   --second-bg-theme: #fefefe;
   --contr-color-var: #000;
   --si-primary: rgb(144, 72, 255) !important;
+  --donate-container-border-color: #bdbdbd;
   --telegram-bgcolor0: #e17076;
   --telegram-bgcolor1: #faa774;
   --telegram-bgcolor2: #a695e7;
@@ -98,6 +99,7 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   --si-body-bg: #0e0e10;
   --second-bg-theme: #18181b;
   --contr-color-var: #fff;
+  --donate-container-border-color: #333333;
 }
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
   background-color: rgba(24, 24, 27, 0.65) !important;
@@ -529,6 +531,33 @@ iframe {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(17, 17, 17, 0.95) 100%);
 }
 
+.emoji-pay-back {
+  background-image: url(/assets/images/emoji-background-donate-light.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+}
+
+.dark-mode .emoji-pay-back {
+  background-image: url(/assets/images/emoji-background-donate.png) !important;
+}
+
+.modal-int-container {
+  background-color: rgba(66, 66, 66, 0.0901960784);
+  width: 100%;
+  padding: 0.75em;
+  border-radius: 0.65em;
+  border: 1px solid var(--donate-container-border-color);
+}
+
+#tokens-balance-choice-dnt-container {
+  transition: margin-top 0.6s, opacity 0.2s;
+}
+
+#tokens-balance-choice-dnt {
+  margin: 0 !important;
+}
+
 .card-zalupa-brand {
   position: absolute;
   right: 1.6em;
@@ -566,7 +595,7 @@ iframe {
   width: 4em;
   height: 4em;
   border-radius: 0.4em;
-  background-image: url(https://i.ibb.co/QvR6Hh7/download.png);
+  background-image: url(/assets/images/players/2d/steve.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
