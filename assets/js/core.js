@@ -695,7 +695,7 @@ const create_payment = (callback, customer, products, server_id, email = "", cou
             customer: customer,
             products: products,
             email: email,
-            coupon: coupon ? (donatePayMethodSelector() !== 2) : null,
+            coupon: ((donatePayMethodSelector() !== 2) ? coupon : null),
             token: token_update,
             server_id: server_id,
             pay_method: donatePayMethodSelector(),
