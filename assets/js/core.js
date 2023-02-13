@@ -31,15 +31,10 @@ const links_lt = [{
         link: "https://www.tiktok.com/@nebratishkin"
     }
 ];
-// const launcher_platforms = {
-//     mac: "dmg",
-//     linux: "deb",
-//     windows: "msi"
-// }
 const launcher_platforms = {
-    mac: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/ZalupaLauncher_1.0.6_x64.dmg",
-    linux: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/zalupa-launcher_1.0.6_amd64.deb",
-    windows: "https://github.com/Zalupa-Online/launcher-releases/releases/download/1.0.6/ZalupaLauncher_1.0.6_x64_en-US.msi"
+    mac: "dmg",
+    linux: "deb",
+    windows: "msi"
 }
 const gitOwner = "Zalupa-Online";
 const gitLauncherRepo = "launcher-releases";
@@ -180,15 +175,18 @@ const isChrome = () => {
     return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 }
 const downloadLauncher = () => {
-    const link = launcher_platforms[getPlatform()];
-    window.location = link;
-    console.debug(`Init downloading file from url : ${link}`);
+    getGitLauncherReleases(function(links_) {
+        const link = links_[getPlatform()];
 
-    if (!isChrome()) {
-        notify(`Сейчас тебе скачаем файл <span class="text-gradient-primary">${
-            link.split("/").slice(-1)[0]
-        }</span>`);
-    }
+        window.location = link;
+        console.debug(`Init downloading file from url : ${link}`);
+
+        if (!isChrome()) {
+            notify(`Сейчас тебе скачаем файл <span class="text-gradient-primary">${
+                link.split("/").slice(-1)[0]
+            }</span>`);
+        }
+    });
 }
 const generateRandomHex = size => [...Array(size)].map(
     () => Math.floor(Math.random() * 16).toString(16)
@@ -858,13 +856,36 @@ const getGitLauncherReleases = (callback) => {
                 r.author.login === "hevav" &&
                 !r.draft && r.assets.length
             ) {
-                callback(r.assets);
+                let links = {};
+                for (let p of Object.keys(launcher_platforms)) {
+                    for (let a of r.assets) {
+                        if (a.name.split(".").slice(-1)[0] === launcher_platforms[p]) {
+                            links[p] = a.browser_download_url;
+                        }
+                    }
+                }
+                callback(links);
             } else {
                 callback([]);
             }
         }, `https://api.github.com/repos/${gitOwner}/${gitLauncherRepo}/releases/latest`,
         "GET", true
     );
+}
+const setLauncherLinks = () => {
+    const button_template = (link, name) => {return `
+        <a href="${link}" style="text-transform:capitalize"
+           class="btn btn-primary shadow-primary mt-3 m-1" download="">
+        ${name.toLowerCase()}</a>
+    `};
+    const selector = document.getElementById("zalupa-launcher-links");
+
+    getGitLauncherReleases(function (d_links) {
+        const keys = Object.keys(d_links);
+        for (let k of keys) {
+            selector.innerHTML = selector.innerHTML + button_template(d_links[k], k);
+        }
+    });
 }
 const checkFeedbackStatus = (callback) => {
     const auth_data = getTelegramAuth(true);
@@ -1432,25 +1453,6 @@ const select_card_skin = (balance) => {
 }
 const sendTokensModalOpen = () => {
     notify("Э брат, не завезли пока. Кнопочку не трож");
-}
-const getLauncherLinks = (callback) => {
-    getGitLauncherReleases(function (git_data) {
-        if (!git_data.length) {
-            callback(null);
-            return;
-        }
-        const platforms_keys = Object.keys(launcher_platforms);
-        let result = {};
-        for (let i = 0; i < git_data.length; i++) {
-            for (let s = 0; s < platforms_keys.length; s++) {
-                const link = git_data[i].browser_download_url;
-                if (`.${launcher_platforms[platforms_keys[s]]}` === link.slice(-4)) {
-                    result[platforms_keys[s]] = link;
-                }
-            }
-        }
-        callback(result);
-    })
 }
 const comment_show_action = (id, close = false) => {
     const comment_text = document.getElementById(`comment_text_${id}`);
@@ -4062,6 +4064,9 @@ const initCore = () => {
     displayPromotion();
     adaptiveDisplayLand();
 
+    setLauncherLinks();
+    donate_bg_preload();
+
     const elem = document
         .getElementById(
             "dark-perm-set-bv");
@@ -4111,7 +4116,6 @@ const initCore = () => {
                     ();
                 }, wait +
                 move_wait);
-            donate_bg_preload();
             setInterval(() => {
                 checkTelegramAuthData(function (_) {}, false, false, true);
             }, 10*1000);
