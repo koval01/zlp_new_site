@@ -390,18 +390,22 @@ const appendPostsNews = () => {
         });
     };
     const text_modify_enable = true;
+    const text_size_static = true;
     const add_news_in_array = (posts) => {
         const adaptive_news_text = true;
         const array_ = document.getElementById("news_swipe_array");
         posts = posts.reverse();
         for (let i = 0; i < posts.length; i++) {
             const text = posts[i].text;
+            const text_els = text.split(" ");
             const datetime = new Date(posts[i].datetime_utc);
             if (!posts[i].cover) {
                 posts[i].cover = "assets/images/spawn.webp";
             }
             array_.innerHTML = array_.innerHTML + `
-                <div class="swiper-slide h-auto px-2">
+                <div class="swiper-slide h-auto px-2" style="max-height: 40vh !important;display: ${
+                text_els.length >= 5 ? 'block' : 'none'
+            }">
                     <figure class="card h-100 position-relative border-0 news-figure" id="news_figure_${i}">
                         <div class="background-news" id="background-news-${i}">
                             <div class="background-news-overlay" id="news-overlay-${i}">
@@ -437,58 +441,62 @@ const appendPostsNews = () => {
                 const selector_text = document.getElementById(`news_text_${i}`);
                 selector_text.style.width = "100%";
                 selector_text.classList.add("text-light");
-                const text_len = selector_text.innerText.length;
-                const text_split = selector_text.innerText.split(" ");
-                const font_size = ((text_len - -8) * .4) / 100;
-                const fix_float_fs = (
-                    float, font_size, correction_float = .55,
-                    correction_font = .26, max_val = .94
-                ) => {
-                    float = float < correction_float ? correction_float * (
-                        font_size / correction_font
-                    ) : float
-                    return max_val ? (float < max_val ? float : max_val) : float
-                }
-                selector_text.style.fontSize = `calc(${
-                    fix_float_fs(parseFloat(1.96 - font_size), font_size)
-                }vw + ${
-                    fix_float_fs(parseFloat(2.16 - font_size), font_size)
-                }vh + ${
-                    fix_float_fs(parseFloat(2 - font_size), font_size)
-                }vmin)`;
-                selector_text.style.padding = `${
-                    fix_float_fs(parseFloat(
-                        1.45 - font_size
-                    ), font_size, .22, 1.05)
-                }rem`;
-                const calculate_text_position = () => {
-                    if (!adaptive_news_text) {
-                        return;
+                if (text_size_static) {
+                    selector_text.style.fontSize = 'calc(1.35vw + .75vh)';
+                } else {
+                    const text_len = selector_text.innerText.length;
+                    const text_split = selector_text.innerText.split(" ");
+                    const font_size = ((text_len - -8) * .4) / 100;
+                    const fix_float_fs = (
+                        float, font_size, correction_float = .55,
+                        correction_font = .26, max_val = .94
+                    ) => {
+                        float = float < correction_float ? correction_float * (
+                            font_size / correction_font
+                        ) : float
+                        return max_val ? (float < max_val ? float : max_val) : float
                     }
-                    // local init var
-                    const identifier_sl = `news_text_${i}`;
-                    const switch_val = 10;
-                    const selector_text = document.getElementById(identifier_sl);
-                    const font_size = parseFloat(
-                        window.getComputedStyle(selector_text, null)
-                            .getPropertyValue('font-size')
-                            .replace("px", "")
-                    );
-                    selector_text.style.maxHeight = "32vh";
-                    if (font_size > switch_val) {
-                        selector_text.style.position = "absolute";
-                        selector_text.style.display = "inline-block";
-                        selector_text.style.paddingBottom = "5rem";
-                        selector_text.style.paddingRight = "3rem";
-                    } else {
-                        selector_text.style.position = "";
-                        selector_text.style.display = "";
-                        selector_text.style.paddingBottom = "";
-                        selector_text.style.paddingRight = "";
+                    selector_text.style.fontSize = `calc(${
+                        fix_float_fs(parseFloat(1.96 - font_size), font_size)
+                    }vw + ${
+                        fix_float_fs(parseFloat(2.16 - font_size), font_size)
+                    }vh + ${
+                        fix_float_fs(parseFloat(2 - font_size), font_size)
+                    }vmin)`;
+                    selector_text.style.padding = `${
+                        fix_float_fs(parseFloat(
+                            1.45 - font_size
+                        ), font_size, .22, 1.05)
+                    }rem`;
+                    const calculate_text_position = () => {
+                        if (!adaptive_news_text) {
+                            return;
+                        }
+                        // local init var
+                        const identifier_sl = `news_text_${i}`;
+                        const switch_val = 10;
+                        const selector_text = document.getElementById(identifier_sl);
+                        const font_size = parseFloat(
+                            window.getComputedStyle(selector_text, null)
+                                .getPropertyValue('font-size')
+                                .replace("px", "")
+                        );
+                        selector_text.style.maxHeight = "32vh";
+                        if (font_size > switch_val) {
+                            selector_text.style.position = "absolute";
+                            selector_text.style.display = "inline-block";
+                            selector_text.style.paddingBottom = "5rem";
+                            selector_text.style.paddingRight = "3rem";
+                        } else {
+                            selector_text.style.position = "";
+                            selector_text.style.display = "";
+                            selector_text.style.paddingBottom = "";
+                            selector_text.style.paddingRight = "";
+                        }
                     }
+                    addEventListener('resize', (event) => calculate_text_position());
+                    setInterval(calculate_text_position, 50);
                 }
-                addEventListener('resize', (event) => calculate_text_position());
-                setInterval(calculate_text_position, 50);
             }
             getImageLightness(posts[i].cover, (brightness) => {
                 const style_ = `#000000${
@@ -1005,8 +1013,15 @@ const appendServices = () => {
         const get_product_type = (name, type) => {
             name = name.toLowerCase();
             type = type.toLowerCase();
+            /*
+                1 - токены
+                2 - проходка
+                3 - слоты
+            */
             if (name.includes("токен") && type === "currency") {
                 return 1;
+            } else if (name.includes("слот") && type === "currency") {
+                return 3;
             } else if (name.includes("проходка") && type === "other") {
                 return 2;
             }
@@ -1055,13 +1070,25 @@ const appendServices = () => {
                     if (services[i].name.toLowerCase().includes("токен")) {
                         _name = `${services[i].price} ${
                             getNoun(services[i].price, "рубль", "рубля", "рублей")
-                        } = ${services[i].number} ${
+                        } = <span class="text-primary">${services[i].number} ${
                             getNoun(services[i].number, "токен", "токена", "токенов")
-                        }`;
+                        }</span>`;
                         padding_desc = "p-0";
                         desc_template = `
                         <p class="mb-0 token-description-dnt">
                             Игровая валюта, которую можно получить как в игре, так и за поддержку проекта.
+                        </p>`;
+                        click_template = "";
+                    } else if (services[i].name.toLowerCase().includes("слот")) {
+                        _name = `${services[i].price} ${
+                            getNoun(services[i].price, "рубль", "рубля", "рублей")
+                        } = <span class="text-primary">${services[i].number} ${
+                            getNoun(services[i].number, "слот", "слота", "слотов")
+                        }</span>`;
+                        padding_desc = "p-0";
+                        desc_template = `
+                        <p class="mb-0 token-description-dnt">
+                            ${description_other}
                         </p>`;
                         click_template = "";
                     } else if (services[i].type = "other") {
@@ -3045,7 +3072,7 @@ const donateModalCall = (type_item,
     selector_method_pay.value = 1;
     donatePayMethodSelector();
 
-    if (type_item === 1) {
+    if (type_item === 1 || type_item === 3) {
         selector_method_pay.setAttribute("disabled", "");
         sum_container.style
             .display =
@@ -3055,17 +3082,38 @@ const donateModalCall = (type_item,
                 "col-sm-6");
         email_container_classL.add(
             "col-12");
-        payment_text_form = `
-            Воспользовавшись этой формой, вы можете поддержать проект финансово.
-            За поддержку вы получите вознаграждение – за каждый рубль по одному игровому токену.
-        `;
-        item_name = "Токены";
-        sum.addEventListener(
-            "input",
-            (_) => {
-                donateCoinsPay
-                ();
-            });
+        const donate_sum_title = document.getElementById("donate-sum-title");
+        if (type_item === 1) {
+            payment_text_form = `
+                Воспользовавшись этой формой, вы можете поддержать проект финансово.
+                За поддержку вы получите вознаграждение – за каждый рубль по одному игровому токену.
+            `;
+            item_name = "Токены";
+            donate_sum_title.innerText = "Сумма";
+            // except
+            sum.addEventListener(
+                "input",
+                (_) => {
+                    donateCoinsPay
+                    ();
+                });
+        } else if (type_item === 3) {
+            payment_text_form = `
+                Воспользовавшись этой формой, вы можете поддержать проект финансово.
+                За поддержку вы получите вознаграждение – за каждые 50 рублей отправленые через эту форму
+                вы получите по одному дополнительному слоту в вашем клане.
+            `;
+            item_name = "Слоты";
+            donate_sum_title.innerText = "Количество";
+            customer_field
+                .addEventListener(
+                    "input",
+                    (_) => {
+                        donateCoinsPay(
+                            type_item
+                        );
+                    });
+        }
     } else if (type_item === 2) {
         selector_method_pay.removeAttribute("disabled");
         sum_container.style
