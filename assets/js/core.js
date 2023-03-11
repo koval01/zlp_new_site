@@ -4002,7 +4002,7 @@ const privateServerModuleInit = () => {
         только те, кто поддержал сервер финансово. Также единственный режим, где вы
         можете быть на уровне с администрацией, ведь здесь можно играть только с
         правами обычного игрока, никаких привилегий. Также не забудь
-        <a class="text-gradient-primary" href="#private_rules" onclick="rulesModalOpen()">
+        <a class="text-gradient-primary" href="https://www.notion.so/zaluparules/zalupa-online-1e6269506d084d6ba9549cbb7d40e3a4">
             прочитать правила</a>.
     `;
 }
