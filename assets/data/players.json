@@ -1,278 +1,230 @@
 [
   {
     "name": "Blackflexxy",
-    "head": "https://cravatar.eu/helmhead/Blackflexxy/400.png",
+    "head": "https://minotar.net/armor/bust/Blackflexxy/192.png",
     "desc": "Подельник Илона Туска",
     "badges": ["old", "legend"]
   },
   {
     "name": "CREXLIGHT",
-    "head": "https://cravatar.eu/helmhead/CREXLIGHT/400.png",
+    "head": "https://minotar.net/armor/bust/CREXLIGHT/192.png",
     "desc": "Любит дудеть в рог",
     "badges": ["admin", "old", "developer", "python", "legend"]
   },
   {
     "name": "K_o_T_",
-    "head": "https://cravatar.eu/helmhead/K_o_T_/400.png",
+    "head": "https://minotar.net/armor/bust/K_o_T_/192.png",
     "desc": "Пожилой строитель",
     "badges": ["old", "boy"]
   },
   {
     "name": "MinDzoM",
-    "head": "https://cravatar.eu/helmhead/MinDzoM/400.png",
+    "head": "https://minotar.net/armor/bust/MinDzoM/192.png",
     "desc": "Немного агент, немного пиздабол",
     "badges": ["old"]
   },
   {
     "name": "D3st0ny",
-    "head": "https://cravatar.eu/helmhead/D3st0ny/400.png",
+    "head": "https://minotar.net/armor/bust/D3st0ny/192.png",
     "desc": "Просто админ которого уволили",
     "badges": ["old", "legend"]
   },
   {
     "name": "KovalYRS",
-    "head": "https://cravatar.eu/helmhead/KovalYRS/400.png",
+    "head": "https://minotar.net/armor/bust/KovalYRS/192.png",
     "desc": "Веб-разработчик",
     "badges": ["admin", "developer", "web-dev", "designer", "old"]
   },
   {
     "name": "JelleyFish",
-    "head": "https://cravatar.eu/helmhead/JelleyFish/400.png",
+    "head": "https://minotar.net/armor/bust/JelleyFish/192.png",
     "desc": "Нуб с кристаллами",
     "badges": []
   },
   {
     "name": "lomaka",
-    "head": "https://cravatar.eu/helmhead/lomaka/400.png",
+    "head": "https://minotar.net/armor/bust/lomaka/192.png",
     "desc": "Стример, что тут ещё говорить",
     "badges": ["streamer", "admin", "old"]
   },
   {
     "name": "sadwaiter",
-    "head": "https://cravatar.eu/helmhead/sadwaiter/400.png",
+    "head": "https://minotar.net/armor/bust/sadwaiter/192.png",
     "desc": "Авторитет для Илона Туска",
     "badges": []
   },
   {
-    "name": "0vva",
-    "head": "https://cravatar.eu/helmhead/0vva/400.png",
-    "desc": "Краш Илона Туска",
-    "badges": []
-  },
-  {
     "name": "teen_wave_",
-    "head": "https://cravatar.eu/helmhead/teen_wave_/400.png",
+    "head": "https://minotar.net/armor/bust/teen_wave_/192.png",
     "desc": "Поддержка проекта",
     "badges": ["admin", "old", "legend"]
   },
   {
-    "name": "vani5677",
-    "head": "https://cravatar.eu/helmhead/vani5677/400.png",
-    "desc": "Создатель клана Пенис",
-    "badges": []
-  },
-  {
-    "name": "Nopeka",
-    "head": "https://cravatar.eu/helmhead/Nopeka/400.png",
-    "desc": "Мега-кодер на Java",
-    "badges": []
-  },
-  {
-    "name": "exxtazyyy_ez",
-    "head": "https://cravatar.eu/helmhead/exxtazyyy_ez/400.png",
-    "desc": "Юморист, душа компании",
-    "badges": ["conflict"]
-  },
-  {
-    "name": "hauzmaster",
-    "head": "https://cravatar.eu/helmhead/hauzmaster/400.png",
-    "desc": "Все дюпы стоят за ним",
-    "badges": []
-  },
-  {
     "name": "N3P1X69",
-    "head": "https://cravatar.eu/helmhead/N3P1X69/400.png",
+    "head": "https://minotar.net/armor/bust/N3P1X69/192.png",
     "desc": "Был билдером на общении",
     "badges": []
   },
   {
-    "name": "DarkNetFox",
-    "head": "https://cravatar.eu/helmhead/DarkNetFox/400.png",
-    "desc": "Известен своим хобби - умирать",
-    "badges": []
-  },
-  {
     "name": "i5b",
-    "head": "https://cravatar.eu/helmhead/i5b/400.png",
+    "head": "https://minotar.net/armor/bust/i5b/192.png",
     "desc": "24/7 на Анархии",
     "badges": ["old"]
   },
   {
     "name": "v0kky",
-    "head": "https://cravatar.eu/helmhead/v0kky/400.png",
+    "head": "https://minotar.net/armor/bust/v0kky/192.png",
     "desc": "Избранник Маши2008",
     "badges": ["admin", "old", "legend", "boy"]
   },
   {
-    "name": "rsimson",
-    "head": "https://cravatar.eu/helmhead/rsimson/400.png",
-    "desc": "Главный шизик сервера",
-    "badges": ["conflict"]
-  },
-  {
     "name": "DjyZott",
-    "head": "https://cravatar.eu/helmhead/DjyZott/400.png",
+    "head": "https://minotar.net/armor/bust/DjyZott/192.png",
     "desc": "Хуйлан c Анархии",
     "badges": ["old"]
   },
   {
     "name": "SaiG4",
-    "head": "https://cravatar.eu/helmhead/SaiG4/400.png",
+    "head": "https://minotar.net/armor/bust/SaiG4/192.png",
     "desc": "Создатель клана STIK",
     "badges": []
   },
   {
     "name": "Parijanin",
-    "head": "https://cravatar.eu/helmhead/Parijanin/400.png",
+    "head": "https://minotar.net/armor/bust/Parijanin/192.png",
     "desc": "Главная списка на сервере",
     "badges": ["conflict", "old", "legend"]
   },
   {
     "name": "_AppleTony_",
-    "head": "https://cravatar.eu/helmhead/_AppleTony_/400.png",
+    "head": "https://minotar.net/armor/bust/_AppleTony_/192.png",
     "desc": "Главный админ проекта",
     "badges": ["admin", "tech-admin", "developer", "old", "legend", "king"]
   },
   {
     "name": "Marin1337",
-    "head": "https://cravatar.eu/helmhead/Marin1337/400.png",
+    "head": "https://minotar.net/armor/bust/Marin1337/192.png",
     "desc": "Дядя Марин",
     "badges": ["admin"]
   },
   {
     "name": "Qusarc",
-    "head": "https://cravatar.eu/helmhead/Qusarc/400.png",
+    "head": "https://minotar.net/armor/bust/Qusarc/192.png",
     "desc": "Любовник Туска",
     "badges": ["old"]
   },
   {
-    "name": "R3fraction",
-    "head": "https://cravatar.eu/helmhead/R3fraction/400.png",
-    "desc": "Лучшая вертушка на сервере",
-    "badges": ["conflict"]
-  },
-  {
     "name": "Taidash",
-    "head": "https://cravatar.eu/helmhead/Taidash/400.png",
+    "head": "https://minotar.net/armor/bust/Taidash/192.png",
     "desc": "НН-чик с сервера общения",
     "badges": []
   },
   {
     "name": "Scleroz",
-    "head": "https://cravatar.eu/helmhead/Scleroz/400.png",
+    "head": "https://minotar.net/armor/bust/Scleroz/192.png",
     "desc": "Охранница Общения",
     "badges": []
   },
   {
     "name": "lucky367",
-    "head": "https://cravatar.eu/helmhead/lucky367/400.png",
+    "head": "https://minotar.net/armor/bust/lucky367/192.png",
     "desc": "Главный плеер Общения",
     "badges": ["old"]
   },
   {
     "name": "laefye",
-    "head": "https://cravatar.eu/helmhead/laefye/400.png",
+    "head": "https://minotar.net/armor/bust/laefye/192.png",
     "desc": "Ценный кадр",
     "badges": ["developer", "java", "boy"]
   },
   {
-    "name": "2p0y",
-    "head": "assets/images/players/2p0y.png",
-    "desc": "Мега-кодер на JS",
+    "name": "typical_mouse",
+    "head": "https://minotar.net/armor/bust/typical_mouse/192.png",
+    "desc": "Первая женщина-президент Приватки",
     "badges": []
   },
   {
+    "name": "Zamanbek",
+    "head": "https://minotar.net/armor/bust/Zamanbek/192.png",
+    "desc": "Тот самый Володя",
+    "badges": []
+  },
+  {
+    "name": "Rutich",
+    "head": "https://minotar.net/armor/bust/Rutich/192.png",
+    "desc": "Пожилая администрация",
+    "badges": []
+  },
+  {
+    "name": "Elon_Tusk",
+    "head": "https://minotar.net/armor/bust/technoblade/192.png",
+    "desc": "Очень любит девушек",
+    "badges": []
+  },
+  {
+    "name": "Varleims",
+    "head": "https://minotar.net/armor/bust/Varleims/192.png",
+    "desc": "Голос как у Хесуса",
+    "badges": ["boy"]
+  },
+  {
+    "name": "ytenok86",
+    "head": "https://minotar.net/armor/bust/ytenok86/192.png",
+    "desc": "Очень активная вумэн",
+    "badges": ["girl", "old"]
+  },
+  {
     "name": "masha2008",
-    "head": "assets/images/players/Masha2008.png",
+    "head": "https://minotar.net/armor/bust/Masha2008/192.png",
     "desc": "Фанатка границ мира",
     "badges": ["girl", "old", "legend"]
   },
   {
-    "name": "Elon_Tusk",
-    "head": "assets/images/players/Elon_Tusk.png",
-    "desc": "Очень любит девушек",
-    "badges": ["old", "legend", "boy", "helping"]
-  },
-  {
     "name": "d1xx1",
-    "head": "assets/images/players/d1xx1.png",
+    "head": "https://minotar.net/armor/bust/d1xx1/192.png",
     "desc": "Любит хрюшек",
     "badges": ["girl"]
   },
   {
     "name": "Rmpl-FFF",
-    "head": "assets/images/players/Rmpl-FFF.png",
+    "head": "https://minotar.net/armor/bust/Rmpl-FFF/192.png",
     "desc": "Билдер на сервере общения",
     "badges": ["old"]
   },
   {
-    "name": "dangl1",
-    "head": "assets/images/players/dangl1.png",
-    "desc": "Местный репер",
-    "badges": []
-  },
-  {
     "name": "Sunflower",
-    "head": "assets/images/players/Sunflower.png",
+    "head": "https://minotar.net/armor/bust/Sunflower/192.png",
     "desc": "Очередная женщина сервера",
     "badges": ["girl"]
   },
   {
     "name": "EXPlaned",
-    "head": "assets/images/players/EXPlaned.png",
+    "head": "https://minotar.net/armor/bust/EXPlaned/192.png",
     "desc": "Создатель клана SWAT",
     "badges": ["old", "legend"]
   },
   {
-    "name": "Varleims",
-    "head": "assets/images/players/Varleims.png",
-    "desc": "Голос как у Хесуса",
-    "badges": ["boy"]
-  },
-  {
-    "name": "IIoska",
-    "head": "assets/images/players/IIoska.png",
-    "desc": "Создатель клана Yakuza",
-    "badges": []
-  },
-  {
-    "name": "bagdantixi",
-    "head": "assets/images/players/bagdantixi.png",
-    "desc": "Очень крутой школьник",
-    "badges": ["conflict"]
-  },
-  {
     "name": "Rikumashi",
-    "head": "assets/images/players/Rikumashi.png",
+    "head": "https://minotar.net/armor/bust/Rikumashi/192.png",
     "desc": "100 рублей час",
     "badges": ["girl"]
   },
   {
-    "name": "Frey228007",
-    "head": "assets/images/players/Frey228007.png",
-    "desc": "Скучает по СССР",
-    "badges": ["old"]
+    "name": "reiharri",
+    "head": "https://minotar.net/armor/bust/reiharri/192.png",
+    "desc": "Мент-кошатник",
+    "badges": []
   },
   {
-    "name": "ytenok86",
-    "head": "assets/images/players/ytenok86.png",
-    "desc": "Очень активная вумэн",
-    "badges": ["girl", "old"]
+    "name": "reneseanse",
+    "head": "https://minotar.net/armor/bust/reneseanse/192.png",
+    "desc": "Лесбиянка в форме мента",
+    "badges": []
   },
   {
-    "name": "adamoovv",
-    "head": "assets/images/players/adamoovv.png",
-    "desc": "Главный клоун",
-    "badges": ["old", "legend", "boy", "adamoovv"]
+    "name": "Qiqie",
+    "head": "https://minotar.net/armor/bust/Qiqie/192.png",
+    "desc": "Дебошир",
+    "badges": []
   }
 ]

@@ -147,17 +147,17 @@ if (!development_hosts.includes(window
         `https://${domain_back}`;
 } else {
     re_token =
-        "6LfoCqYhAAAAAOLwNkJt45YPE-cCGCZ9ZSqI5Na_";
+        "6LdXKSMlAAAAABS0gPaoKaoeWlSJBc-vfV4e5Pib";
     telegram_bot_username = "zalupa_feedback_bot";
     if (window.location.hostname ===
         "localhost" && test_local) {
         backend_host =
             "http://127.0.0.1:8000";
     } else {
-        // backend_host =
-        //     "https://backend.zalupa.world";
         backend_host =
-            "https://zlp-api-sxeopwcz8tgxd1gyu5ie4n.herokuapp.com";
+            "https://api.zalupa.online";
+        // backend_host =
+        //     "https://zlp-api-sxeopwcz8tgxd1gyu5ie4n.herokuapp.com";
     }
     if (window.location.hostname !==
         "localhost") {
