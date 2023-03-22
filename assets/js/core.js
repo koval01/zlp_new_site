@@ -367,167 +367,194 @@ const get_rules_private_server = (callback) => {
         callback(r);
     }, "assets/data/private_server_rules.json", "GET", true);
 }
-const appendPostsNews = () => {
-    const createSwiper = () => {
-        new Swiper("#news_swipe_container", {
-            spaceBetween: 12,
-            loop: true,
-            observer: true,
-            observeParents: true,
-            preventClicks: false,
-            preventClicksPropagation: false,
-            autoplay: {
-                delay: 1000 * 10,
-            },
-            pagination: {
-                el: "#news_swiper_pagination",
-                clickable: true,
-            },
-            navigation: {
-                prevEl: "#prev_news",
-                nextEl: "#next_news",
-            },
-        });
-    };
-    const text_modify_enable = true;
-    const text_size_static = true;
-    const add_news_in_array = (posts) => {
-        const adaptive_news_text = true;
-        const array_ = document.getElementById("news_swipe_array");
-        posts = posts.reverse();
-        for (let i = 0; i < posts.length; i++) {
-            const text = posts[i].text;
-            const text_els = text.split(" ");
-            const datetime = new Date(posts[i].datetime_utc);
-            if (!posts[i].cover) {
-                posts[i].cover = "assets/images/spawn.webp";
-            }
-            array_.innerHTML = array_.innerHTML + `
-                <div class="swiper-slide h-auto px-2" style="max-height: 40vh !important;display: ${
-                text_els.length >= 5 ? 'block' : 'none'
-            }">
-                    <figure class="card h-100 position-relative border-0 news-figure" id="news_figure_${i}">
-                        <div class="background-news" id="background-news-${i}">
-                            <div class="background-news-overlay" id="news-overlay-${i}">
-                                <div class="background-news-overlay-dark-mode">
-                                    <div 
-                                    style="z-index:6;top:35.1%;height:65%"
-                                    class="shadow-vertical-overlay shadow-vertical-overlay-news vertical-bottom-shadow"
-                                    ></div>
-                                    <blockquote class="card-body mt-2 mb-3 news-text-container">
-                                        <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family:sans-serif">
-                                                ${text}</p>
-                                        <div class="news-bottom-container" style="z-index:8">
-                                            <a class="btn btn-primary shadow-primary btn-lg news-button-view"
-                                               href="${posts[i].link}" target="_blank">
-                                                    Подробнее</a>
-                                        </div>
-                                    </blockquote>
-                                </div>
-                            </div> 
-                        </div>
-                    </figure>
-                    <span class="news-date-text">
-                        ${datetime.toLocaleDateString()} 
-                        ${datetime.toLocaleTimeString("ru-RU", {
-                hour: "2-digit", minute: "2-digit",
-            })}
-                    </span>
-                </div>
-            `;
-            const selector_bg = document.getElementById(`background-news-${i}`);
-            selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
-            if (text_modify_enable) {
-                const selector_text = document.getElementById(`news_text_${i}`);
-                selector_text.style.width = "100%";
-                selector_text.classList.add("text-light");
-                if (text_size_static) {
-                    selector_text.style.fontSize = 'calc(1.35vw + .75vh)';
-                } else {
-                    const text_len = selector_text.innerText.length;
-                    const text_split = selector_text.innerText.split(" ");
-                    const font_size = ((text_len - -8) * .4) / 100;
-                    const fix_float_fs = (
-                        float, font_size, correction_float = .55,
-                        correction_font = .26, max_val = .94
-                    ) => {
-                        float = float < correction_float ? correction_float * (
-                            font_size / correction_font
-                        ) : float
-                        return max_val ? (float < max_val ? float : max_val) : float
-                    }
-                    selector_text.style.fontSize = `calc(${
-                        fix_float_fs(parseFloat(1.96 - font_size), font_size)
-                    }vw + ${
-                        fix_float_fs(parseFloat(2.16 - font_size), font_size)
-                    }vh + ${
-                        fix_float_fs(parseFloat(2 - font_size), font_size)
-                    }vmin)`;
-                    selector_text.style.padding = `${
-                        fix_float_fs(parseFloat(
-                            1.45 - font_size
-                        ), font_size, .22, 1.05)
-                    }rem`;
-                    const calculate_text_position = () => {
-                        if (!adaptive_news_text) {
-                            return;
-                        }
-                        // local init var
-                        const identifier_sl = `news_text_${i}`;
-                        const switch_val = 10;
-                        const selector_text = document.getElementById(identifier_sl);
-                        const font_size = parseFloat(
-                            window.getComputedStyle(selector_text, null)
-                                .getPropertyValue('font-size')
-                                .replace("px", "")
-                        );
-                        selector_text.style.maxHeight = "32vh";
-                        if (font_size > switch_val) {
-                            selector_text.style.position = "absolute";
-                            selector_text.style.display = "inline-block";
-                            selector_text.style.paddingBottom = "5rem";
-                            selector_text.style.paddingRight = "3rem";
-                        } else {
-                            selector_text.style.position = "";
-                            selector_text.style.display = "";
-                            selector_text.style.paddingBottom = "";
-                            selector_text.style.paddingRight = "";
-                        }
-                    }
-                    addEventListener('resize', (event) => calculate_text_position());
-                    setInterval(calculate_text_position, 50);
+const appendPostsNews = (iframe=true) => {
+    const loading_done = () => {
+        setTimeout(
+            () => {
+                const sl = document.getElementById("telegram_block_load");
+                const container_news = document.getElementById("news_zlp_buttons");
+                try {
+                    sl.parentNode.removeChild(sl);
+                    container_news.style.display = "";
+                } catch (_) {
                 }
-            }
-            getImageLightness(posts[i].cover, (brightness) => {
-                const style_ = `#000000${
-                    (((parseFloat(brightness) / 255.0) * 100.0)
-                        .toFixed() + 64)
-                        .toString(16)
-                        .slice(0, 2)
-                }`;
-                document.getElementById(`news-overlay-${i}`).style.background = style_;
-            });
-        }
-        const loading_done = () => {
-            setTimeout(
-                () => {
-                    const sl = document.getElementById("telegram_block_load");
-                    const container_news = document.getElementById("news_zlp_buttons");
-                    try {
-                        sl.parentNode.removeChild(sl);
-                        container_news.style.display = "";
-                    } catch (_) {
-                    }
-                }, 150);
-        };
-        if (posts) {
-            createSwiper();
-            loading_done();
-        }
+            }, 150);
     };
-    get_news_((posts) => {
-        add_news_in_array(posts);
-    }, 1);
+    if (iframe) {
+        const template = `
+        <div class="shadow-vertical-overlay vertical-top-shadow"></div>
+        <div class="shadow-vertical-overlay vertical-bottom-shadow"></div>
+        <iframe 
+            style="min-height:450px" 
+            id="tg-iframe-view"
+            src="https://telegram-worker.zalupa.online/zalupaonline" 
+            onload="document.getElementById('telegram_block_load').remove()">
+        </iframe>`;
+        const c = document.getElementById("news-c-container");
+        c.innerHTML = template + c.innerHTML;
+        loading_done();
+
+        document.getElementById("theme-mode").addEventListener('change', function() {
+            const frame = document.getElementById("tg-iframe-view");
+            const url_ob = new URL(frame.src);
+
+            if (this.checked) {
+                url_ob.hash = "#dark";
+            } else {
+                url_ob.hash = "#light";
+            }
+            frame.src = url_ob.href;
+        });
+    } else {
+        const createSwiper = () => {
+            new Swiper("#news_swipe_container", {
+                spaceBetween: 12,
+                loop: true,
+                observer: true,
+                observeParents: true,
+                preventClicks: false,
+                preventClicksPropagation: false,
+                autoplay: {
+                    delay: 1000 * 10,
+                },
+                pagination: {
+                    el: "#news_swiper_pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    prevEl: "#prev_news",
+                    nextEl: "#next_news",
+                },
+            });
+        };
+        const text_modify_enable = true;
+        const text_size_static = true;
+        const add_news_in_array = (posts) => {
+            const adaptive_news_text = true;
+            const array_ = document.getElementById("news_swipe_array");
+            posts = posts.reverse();
+            for (let i = 0; i < posts.length; i++) {
+                const text = posts[i].text;
+                const text_els = text.split(" ");
+                const datetime = new Date(posts[i].datetime_utc);
+                if (!posts[i].cover) {
+                    posts[i].cover = "assets/images/spawn.webp";
+                }
+                array_.innerHTML = array_.innerHTML + `
+                    <div class="swiper-slide h-auto px-2" style="max-height: 40vh !important;display: ${
+                    text_els.length >= 5 ? 'block' : 'none'
+                }">
+                        <figure class="card h-100 position-relative border-0 news-figure" id="news_figure_${i}">
+                            <div class="background-news" id="background-news-${i}">
+                                <div class="background-news-overlay" id="news-overlay-${i}">
+                                    <div class="background-news-overlay-dark-mode">
+                                        <div 
+                                        style="z-index:6;top:35.1%;height:65%"
+                                        class="shadow-vertical-overlay shadow-vertical-overlay-news vertical-bottom-shadow"
+                                        ></div>
+                                        <blockquote class="card-body mt-2 mb-3 news-text-container">
+                                            <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family:sans-serif">
+                                                    ${text}</p>
+                                            <div class="news-bottom-container" style="z-index:8">
+                                                <a class="btn btn-primary shadow-primary btn-lg news-button-view"
+                                                   href="${posts[i].link}" target="_blank">
+                                                        Подробнее</a>
+                                            </div>
+                                        </blockquote>
+                                    </div>
+                                </div> 
+                            </div>
+                        </figure>
+                        <span class="news-date-text">
+                            ${datetime.toLocaleDateString()} 
+                            ${datetime.toLocaleTimeString("ru-RU", {
+                    hour: "2-digit", minute: "2-digit",
+                })}
+                        </span>
+                    </div>
+                `;
+                const selector_bg = document.getElementById(`background-news-${i}`);
+                selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
+                if (text_modify_enable) {
+                    const selector_text = document.getElementById(`news_text_${i}`);
+                    selector_text.style.width = "100%";
+                    selector_text.classList.add("text-light");
+                    if (text_size_static) {
+                        selector_text.style.fontSize = 'calc(1.35vw + .75vh)';
+                    } else {
+                        const text_len = selector_text.innerText.length;
+                        const text_split = selector_text.innerText.split(" ");
+                        const font_size = ((text_len - -8) * .4) / 100;
+                        const fix_float_fs = (
+                            float, font_size, correction_float = .55,
+                            correction_font = .26, max_val = .94
+                        ) => {
+                            float = float < correction_float ? correction_float * (
+                                font_size / correction_font
+                            ) : float
+                            return max_val ? (float < max_val ? float : max_val) : float
+                        }
+                        selector_text.style.fontSize = `calc(${
+                            fix_float_fs(parseFloat(1.96 - font_size), font_size)
+                        }vw + ${
+                            fix_float_fs(parseFloat(2.16 - font_size), font_size)
+                        }vh + ${
+                            fix_float_fs(parseFloat(2 - font_size), font_size)
+                        }vmin)`;
+                        selector_text.style.padding = `${
+                            fix_float_fs(parseFloat(
+                                1.45 - font_size
+                            ), font_size, .22, 1.05)
+                        }rem`;
+                        const calculate_text_position = () => {
+                            if (!adaptive_news_text) {
+                                return;
+                            }
+                            // local init var
+                            const identifier_sl = `news_text_${i}`;
+                            const switch_val = 10;
+                            const selector_text = document.getElementById(identifier_sl);
+                            const font_size = parseFloat(
+                                window.getComputedStyle(selector_text, null)
+                                    .getPropertyValue('font-size')
+                                    .replace("px", "")
+                            );
+                            selector_text.style.maxHeight = "32vh";
+                            if (font_size > switch_val) {
+                                selector_text.style.position = "absolute";
+                                selector_text.style.display = "inline-block";
+                                selector_text.style.paddingBottom = "5rem";
+                                selector_text.style.paddingRight = "3rem";
+                            } else {
+                                selector_text.style.position = "";
+                                selector_text.style.display = "";
+                                selector_text.style.paddingBottom = "";
+                                selector_text.style.paddingRight = "";
+                            }
+                        }
+                        addEventListener('resize', (event) => calculate_text_position());
+                        setInterval(calculate_text_position, 50);
+                    }
+                }
+                getImageLightness(posts[i].cover, (brightness) => {
+                    const style_ = `#000000${
+                        (((parseFloat(brightness) / 255.0) * 100.0)
+                            .toFixed() + 64)
+                            .toString(16)
+                            .slice(0, 2)
+                    }`;
+                    document.getElementById(`news-overlay-${i}`).style.background = style_;
+                });
+            }
+            if (posts) {
+                createSwiper();
+                loading_done();
+            }
+        };
+        get_news_((posts) => {
+            add_news_in_array(posts);
+        }, 1);
+    }
 }
 const closeButtonDonateAdaptive = () => {
     if (!is_apple_platform()) {
@@ -737,17 +764,19 @@ const testImage = (url) => {
     tester.addEventListener('error', reInitTelegramAuth);
     tester.src = url;
 }
-const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar") => {
+const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_generator=false) => {
     if (!crypto_token || !crypto_token.length) {
         initCrypto();
         return;
     }
 
-    console.debug(`Load avatar : ${avatar}`);
-    document.getElementById("tg-user-avatar-text").innerText = "";
+    if (!url_generator) {
+        console.debug(`Load avatar : ${avatar}`);
+        document.getElementById("tg-user-avatar-text").innerText = "";
 
-    const avatar_selector = document.getElementById(def_selector);
-    const avatar_style = avatar_selector.style;
+        const avatar_selector = document.getElementById(def_selector);
+        const avatar_style = avatar_selector.style;
+    }
 
     const raw_link = `${
         backend_host
@@ -766,10 +795,15 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar") => {
     // avatar_style.backgroundImage = `url(${link})`;
 
     testImage(raw_link);
-    avatar_selector.setAttribute(
-        "style", `background-image: url("${link}");border-radius:.${
-            def_selector.includes("card-avatar") ? 35 : 15}rem;`
-    );
+
+    if (!url_generator) {
+        avatar_selector.setAttribute(
+            "style", `background-image: url("${link}");border-radius:.${
+                def_selector.includes("card-avatar") ? 35 : 15}rem;`
+        );
+    } else {
+        return link;
+    }
 }
 const reInitTelegramAuth = () => {
     checkTelegramAuthData(function (_) {
@@ -999,7 +1033,10 @@ const getPlayersSkins = (callback, players, enabled=false) => {
     re_check((token_update) => {
         requestCall((r) => {
             callback(r.skins);
-        }, `${backend_host}/profile/skins/get`, "POST", true, {
+        },
+            // `${backend_host}/profile/skins/get`,
+            "assets/data/player.json",
+            "POST", true, {
             token: token_update,
             players: players
         });
@@ -1697,29 +1734,29 @@ const buildPlayersSwiper = () => {
     };
 
     badges_get((badges_paste) => {
-        requestCall((
-                r) => {
-                const
-                    player =
-                        r;
-                shuffle(
-                    player
-                );
+        requestCall((r) => {
+                const player = r;
+                shuffle(player);
 
                 let players_array = [];
                 for (let player_in of player) {
                     players_array.push(player_in.name);
                 }
 
+                const selectSkin = (player, skins) => {
+                    for (let i = 0; i < skins.length; i++) {
+                        if (player.toLowerCase() == skins[i].Nick.toLowerCase()) {
+                            return skins[i].Value
+                        }
+                    }
+                    return ""
+                }
+
                 getPlayersSkins(function (skins) {
-                    for (let i =
-                        0; i <
-                         player
-                             .length; i++
-                    ) {
+                    console.log(skins);
+                    for (let i = 0; i < player.length; i++) {
                         const
-                            getBadges =
-                                () => {
+                            getBadges = () => {
                                     let result = "";
                                     player[i].badges.sort();
                                     for (let s = 0; s < player[i].badges.length; s++) {
@@ -1727,8 +1764,8 @@ const buildPlayersSwiper = () => {
                                         if (
                                             badge_local && badge_local.length &&
                                             badge_local !== "verified" &&
-                                            !badge_local.includes("clan-")
-                                        ) {
+                                            !badge_local.includes("clan-"))
+                                        {
                                             result = result + `
                                         <div class="player_badge" 
                                             style="background-image: url(./assets/images/emoji/${badges_paste[badge_local].item}.png)"
@@ -1741,21 +1778,13 @@ const buildPlayersSwiper = () => {
                                     return result;
                                 }
 
-                        const
-                            getClan =
-                                () => {
-                                    for (let s = 0; s < player[i].badges.length; s++) {
-                                        if (
-                                            player[i].badges[s]
-                                            .includes("clan-")
-                                        ) {
-                                            return player[i].badges[s]
-                                                .replace(
-                                                    "clan-", ""
-                                                );
-                                        }
-                                    }
+                        const getClan = () => {
+                            for (let s = 0; s < player[i].badges.length; s++) {
+                                if (player[i].badges[s].includes("clan-")) {
+                                    return player[i].badges[s].replace("clan-", "");
                                 }
+                            }
+                        }
 
                         glob_players.push(player[i].name);
 
@@ -1766,7 +1795,7 @@ const buildPlayersSwiper = () => {
 
                         array_.innerHTML = array_.innerHTML + `
                         <div class="swiper-slide text-center">
-                            <span class="d-block py-3">
+                            <span class="d-block py-5">
                                 <div class="player_head_container">
                                     ${player_clan ? `<div 
                                         class="player_clan_badge"
@@ -1775,7 +1804,7 @@ const buildPlayersSwiper = () => {
                                     ></div>` : ""}
                                     <div 
                                         class="player-head d-block mx-auto" 
-                                        style="background-image: url(${player[i].head})"
+                                        style="background-image: url(${loadPlayerAvatar(selectSkin(player[i].name))});border-radius:.75em"
                                     ></div>
                                 </div>
                                 <div class="card-body p-3">
@@ -1798,7 +1827,7 @@ const buildPlayersSwiper = () => {
                     }
 
                     createSwiper();
-                }, players_array);
+                }, players_array, true);
             },
             "assets/data/players.json",
             "GET", true);
