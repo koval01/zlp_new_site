@@ -770,12 +770,12 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
         return;
     }
 
+    const avatar_selector = document.getElementById(def_selector);
+    const avatar_style = avatar_selector.style;
+
     if (!url_generator) {
         console.debug(`Load avatar : ${avatar}`);
         document.getElementById("tg-user-avatar-text").innerText = "";
-
-        const avatar_selector = document.getElementById(def_selector);
-        const avatar_style = avatar_selector.style;
     }
 
     const raw_link = `${
@@ -1034,8 +1034,7 @@ const getPlayersSkins = (callback, players, enabled=false) => {
         requestCall((r) => {
             callback(r.skins);
         },
-            // `${backend_host}/profile/skins/get`,
-            "assets/data/player.json",
+            `${backend_host}/profile/skins/get`,
             "POST", true, {
             token: token_update,
             players: players
