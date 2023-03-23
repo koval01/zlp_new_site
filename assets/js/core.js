@@ -376,8 +376,7 @@ const appendPostsNews = (iframe=true) => {
                 try {
                     sl.parentNode.removeChild(sl);
                     container_news.style.display = "";
-                } catch (_) {
-                }
+                } catch (_) {}
             }, 150);
     };
     if (iframe) {
@@ -388,7 +387,7 @@ const appendPostsNews = (iframe=true) => {
             style="min-height:450px;width:100vw" 
             id="tg-iframe-view"
             src="https://telegram-worker.zalupa.online/zalupaonline" 
-            onload="document.getElementById('telegram_block_load').remove()">
+            onload="try{document.getElementById('telegram_block_load').remove()} catch {}">
         </iframe>`;
         const c = document.getElementById("news-c-container");
         c.innerHTML = template + c.innerHTML;
