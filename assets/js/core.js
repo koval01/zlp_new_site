@@ -1743,12 +1743,17 @@ const buildPlayersSwiper = () => {
                 }
 
                 const selectSkin = (player, skins) => {
-                    for (let i = 0; i < skins.length; i++) {
-                        if (player.toLowerCase() == skins[i].Nick.toLowerCase()) {
-                            return skins[i].Value
+                    if (skins.length < players_array.length) {
+                        for (let i = 0; i < (players_array.length - skins.length); i++) {
+                            skins.push({Nick: "", Value: ""});
                         }
                     }
-                    return ""
+                    for (let i = 0; i < skins.length; i++) {
+                        if (player.toLowerCase() === skins[i].Nick.toLowerCase()) {
+                            return skins[i].Value;
+                        }
+                    }
+                    return "";
                 }
 
                 getPlayersSkins(function (skins) {
