@@ -1756,7 +1756,7 @@ const buildPlayersSwiper = () => {
                 }
 
                 getPlayersSkins(function (skins) {
-                    console.log(skins);
+                    // console.log(skins);
                     for (let i = 0; i < player.length; i++) {
                         const
                             getBadges = () => {
