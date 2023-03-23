@@ -385,7 +385,7 @@ const appendPostsNews = (iframe=true) => {
         <div class="shadow-vertical-overlay vertical-top-shadow"></div>
         <div class="shadow-vertical-overlay vertical-bottom-shadow"></div>
         <iframe 
-            style="min-height:450px" 
+            style="min-height:450px;width:100vw" 
             id="tg-iframe-view"
             src="https://telegram-worker.zalupa.online/zalupaonline" 
             onload="document.getElementById('telegram_block_load').remove()">

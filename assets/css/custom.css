@@ -250,8 +250,8 @@ a:hover {
   height: 50.625%;
   margin: 5vw;
   border-radius: 0.75rem !important;
-  filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.85));
-  -webkit-filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 0 7px rgba(0, 0, 0, 0.65));
+  -webkit-filter: drop-shadow(0 0 7px rgba(0, 0, 0, 0.65));
 }
 
 .video-container-yt {
@@ -259,8 +259,8 @@ a:hover {
   height: 50.625vw;
   margin: 5vw;
   border-radius: 0.75rem !important;
-  filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.85));
-  -webkit-filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 0 7px rgba(0, 0, 0, 0.65));
+  -webkit-filter: drop-shadow(0 0 7px rgba(0, 0, 0, 0.65));
 }
 
 .payment-sucess-vova {
@@ -1642,6 +1642,11 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   }
   20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
     opacity: 0.4;
+  }
+}
+@media (max-width: 499px) {
+  .container-second-round {
+    border-radius: 0 !important;
   }
 }
 .container-second-round {
