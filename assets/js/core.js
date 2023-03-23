@@ -1803,7 +1803,7 @@ const buildPlayersSwiper = () => {
                                     ></div>` : ""}
                                     <div 
                                         class="player-head d-block mx-auto" 
-                                        style="background-image: url(${loadPlayerAvatar(selectSkin(player[i].name, skins))});border-radius:.75em"
+                                        style="background-image: url(${loadPlayerAvatar(selectSkin(player[i].name, skins), undefined, true)});border-radius:.75em"
                                     ></div>
                                 </div>
                                 <div class="card-body p-3">
