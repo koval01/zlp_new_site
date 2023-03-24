@@ -1807,7 +1807,8 @@ const buildPlayersSwiper = () => {
 
                         glob_players.push(player[i].name);
 
-                        const player_badges_ = getBadges();
+                        // const player_badges_ = getBadges();
+                        const player_badges_ = "";
                         const player_clan = getClan();
 
                         player[i].head = prepare_img_link(player[i].head);
