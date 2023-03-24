@@ -1,11 +1,5 @@
 [
   {
-    "name": "Blackflexxy",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Blackflexxy.png",
-    "desc": "Подельник Илона Туска",
-    "badges": ["old", "legend"]
-  },
-  {
     "name": "CREXLIGHT",
     "head": "https://vanilla.zalupa.online/tiles/faces/32x32/CREXLIGHT.png",
     "desc": "Любит дудеть в рог",
@@ -96,18 +90,6 @@
     "badges": ["conflict", "old", "legend"]
   },
   {
-    "name": "_AppleTony_",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/_AppleTony_.png",
-    "desc": "Главный админ проекта",
-    "badges": ["admin", "tech-admin", "developer", "old", "legend", "king"]
-  },
-  {
-    "name": "Marin1337",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Marin1337.png",
-    "desc": "Дядя Марин",
-    "badges": ["admin"]
-  },
-  {
     "name": "Qusarc",
     "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Qusarc.png",
     "desc": "Любовник Туска",
@@ -120,9 +102,9 @@
     "badges": []
   },
   {
-    "name": "Scleroz",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Scleroz.png",
-    "desc": "Охранница Общения",
+    "name": "RAIDENESSA",
+    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/RAIDENESSA.png",
+    "desc": "Пожилой секс",
     "badges": []
   },
   {
@@ -132,8 +114,8 @@
     "badges": ["old"]
   },
   {
-    "name": "laefye",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/laefye.png",
+    "name": "Laefye",
+    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Laefye.png",
     "desc": "Ценный кадр",
     "badges": ["developer", "java", "boy"]
   },
@@ -157,7 +139,7 @@
   },
   {
     "name": "Elon_Tusk",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/technoblade.png",
+    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Elon_Tusk.png",
     "desc": "Очень любит девушек",
     "badges": []
   },
@@ -175,7 +157,7 @@
   },
   {
     "name": "masha2008",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Masha2008.png",
+    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/masha2008.png",
     "desc": "Фанатка границ мира",
     "badges": ["girl", "old", "legend"]
   },
@@ -184,12 +166,6 @@
     "head": "https://vanilla.zalupa.online/tiles/faces/32x32/d1xx1.png",
     "desc": "Любит хрюшек",
     "badges": ["girl"]
-  },
-  {
-    "name": "Rmpl-FFF",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Rmpl-FFF.png",
-    "desc": "Билдер на сервере общения",
-    "badges": ["old"]
   },
   {
     "name": "Sunflower",
@@ -202,12 +178,6 @@
     "head": "https://vanilla.zalupa.online/tiles/faces/32x32/EXPlaned.png",
     "desc": "Создатель клана SWAT",
     "badges": ["old", "legend"]
-  },
-  {
-    "name": "Rikumashi",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Rikumashi.png",
-    "desc": "100 рублей час",
-    "badges": ["girl"]
   },
   {
     "name": "reiharri",
