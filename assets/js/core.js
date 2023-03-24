@@ -787,7 +787,10 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
     }&tg_auth=${
         encodeURIComponent(getTelegramAuth(true))
     }`;
+
+    console.log(raw_link)
     const link = prepare_img_link(raw_link);
+    console.log(link)
 
     // avatar_style.transition = "all .4s";
     // avatar_style.backgroundPosition = "center";
@@ -1798,9 +1801,6 @@ const buildPlayersSwiper = () => {
                         const player_clan = getClan();
 
                         player[i].head = prepare_img_link(player[i].head);
-
-                        console.log(selectSkin(player[i].name, skins));
-                        console.log(loadPlayerAvatar(selectSkin(player[i].name, skins), "", true));
 
                         array_.innerHTML = array_.innerHTML + `
                         <div class="swiper-slide text-center">
