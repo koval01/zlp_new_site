@@ -767,7 +767,7 @@ const testImage = (url) => {
 const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_generator=false) => {
     if (!crypto_token || !crypto_token.length) {
         initCrypto();
-        return;
+        // return;
     }
 
     let avatar_selector = null;
