@@ -1,199 +1,199 @@
 [
   {
     "name": "CREXLIGHT",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/CREXLIGHT.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/CREXLIGHT.png",
     "desc": "Любит дудеть в рог",
     "badges": ["admin", "old", "developer", "python", "legend"]
   },
   {
     "name": "K_o_T_",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/K_o_T_.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/K_o_T_.png",
     "desc": "Пожилой строитель",
     "badges": ["old", "boy"]
   },
   {
     "name": "MinDzoM",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/MinDzoM.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/MinDzoM.png",
     "desc": "Немного агент, немного пиздабол",
     "badges": ["old"]
   },
   {
     "name": "D3st0ny",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/D3st0ny.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/D3st0ny.png",
     "desc": "Просто админ которого уволили",
     "badges": ["old", "legend"]
   },
   {
     "name": "KovalYRS",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/KovalYRS.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/KovalYRS.png",
     "desc": "Веб-разработчик",
     "badges": ["admin", "developer", "web-dev", "designer", "old"]
   },
   {
     "name": "JelleyFish",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/JelleyFish.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/JelleyFish.png",
     "desc": "Нуб с кристаллами",
     "badges": []
   },
   {
     "name": "lomaka",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/lomaka.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/lomaka.png",
     "desc": "Стример, что тут ещё говорить",
     "badges": ["streamer", "admin", "old"]
   },
   {
     "name": "sadwaiter",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/sadwaiter.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/sadwaiter.png",
     "desc": "Авторитет для Илона Туска",
     "badges": []
   },
   {
     "name": "teen_wave_",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/teen_wave_.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/teen_wave_.png",
     "desc": "Поддержка проекта",
     "badges": ["admin", "old", "legend"]
   },
   {
     "name": "N3P1X69",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/N3P1X69.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/N3P1X69.png",
     "desc": "Был билдером на общении",
     "badges": []
   },
   {
     "name": "i5b",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/i5b.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/i5b.png",
     "desc": "24/7 на Анархии",
     "badges": ["old"]
   },
   {
     "name": "v0kky",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/v0kky.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/v0kky.png",
     "desc": "Избранник Маши2008",
     "badges": ["admin", "old", "legend", "boy"]
   },
   {
     "name": "DjyZott",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/DjyZott.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/DjyZott.png",
     "desc": "Хуйлан c Анархии",
     "badges": ["old"]
   },
   {
     "name": "SaiG4",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/SaiG4.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/SaiG4.png",
     "desc": "Создатель клана STIK",
     "badges": []
   },
   {
     "name": "Parijanin",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Parijanin.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Parijanin.png",
     "desc": "Главная списка на сервере",
     "badges": ["conflict", "old", "legend"]
   },
   {
     "name": "Qusarc",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Qusarc.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Qusarc.png",
     "desc": "Любовник Туска",
     "badges": ["old"]
   },
   {
     "name": "Taidash",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Taidash.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Taidash.png",
     "desc": "НН-чик с сервера общения",
     "badges": []
   },
   {
     "name": "RAIDENESSA",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/RAIDENESSA.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/RAIDENESSA.png",
     "desc": "Пожилой секс",
     "badges": []
   },
   {
     "name": "lucky367",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/lucky367.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/lucky367.png",
     "desc": "Главный плеер Общения",
     "badges": ["old"]
   },
   {
     "name": "Laefye",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Laefye.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Laefye.png",
     "desc": "Ценный кадр",
     "badges": ["developer", "java", "boy"]
   },
   {
     "name": "typical_mouse",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/typical_mouse.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/typical_mouse.png",
     "desc": "Первая женщина-президент Приватки",
     "badges": []
   },
   {
     "name": "Zamanbek",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Zamanbek.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Zamanbek.png",
     "desc": "Тот самый Володя",
     "badges": []
   },
   {
     "name": "Rutich",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Rutich.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Rutich.png",
     "desc": "Пожилая администрация",
     "badges": []
   },
   {
     "name": "Elon_Tusk",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Elon_Tusk.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Elon_Tusk.png",
     "desc": "Очень любит девушек",
     "badges": []
   },
   {
     "name": "Varleims",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Varleims.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Varleims.png",
     "desc": "Голос как у Хесуса",
     "badges": ["boy"]
   },
   {
     "name": "ytenok86",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/ytenok86.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/ytenok86.png",
     "desc": "Очень активная вумэн",
     "badges": ["girl", "old"]
   },
   {
     "name": "masha2008",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/masha2008.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/masha2008.png",
     "desc": "Фанатка границ мира",
     "badges": ["girl", "old", "legend"]
   },
   {
     "name": "d1xx1",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/d1xx1.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/d1xx1.png",
     "desc": "Любит хрюшек",
     "badges": ["girl"]
   },
   {
     "name": "Sunflower",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Sunflower.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Sunflower.png",
     "desc": "Очередная женщина сервера",
     "badges": ["girl"]
   },
   {
     "name": "EXPlaned",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/EXPlaned.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/EXPlaned.png",
     "desc": "Создатель клана SWAT",
     "badges": ["old", "legend"]
   },
   {
     "name": "reiharri",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/reiharri.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/reiharri.png",
     "desc": "Мент-кошатник",
     "badges": []
   },
   {
     "name": "reneseanse",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/reneseanse.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/reneseanse.png",
     "desc": "Лесбиянка в форме мента",
     "badges": []
   },
   {
     "name": "Qiqie",
-    "head": "https://vanilla.zalupa.online/tiles/faces/32x32/Qiqie.png",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Qiqie.png",
     "desc": "Дебошир",
     "badges": []
   }
