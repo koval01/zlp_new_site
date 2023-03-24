@@ -779,6 +779,10 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
             document.getElementById("tg-user-avatar-text").innerText = "";
         }
 
+        if (!crypto_token) {
+            initCrypto();
+        }
+
         const raw_link = `${
             backend_host
         }/profile/avatar/?texture_hash=${
@@ -806,6 +810,7 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
         initCrypto();
         setTimeout(exec_, 200);
     }
+    exec_();
 }
 const reInitTelegramAuth = () => {
     checkTelegramAuthData(function (_) {
