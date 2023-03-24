@@ -974,8 +974,8 @@ iframe[id*=telegram-post] {
   -webkit-filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.6));
 }
 .player_head_container > .player-head {
-  height: 155px;
-  width: 100%;
+  height: 4em;
+  width: 4em;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

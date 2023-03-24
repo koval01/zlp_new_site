@@ -1811,6 +1811,7 @@ const buildPlayersSwiper = () => {
                         const player_clan = getClan();
 
                         player[i].head = prepare_img_link(player[i].head);
+                        //loadPlayerAvatar(selectSkin(player[i].name, skins), "", true)
 
                         array_.innerHTML = array_.innerHTML + `
                         <div class="swiper-slide text-center">
@@ -1823,7 +1824,7 @@ const buildPlayersSwiper = () => {
                                     ></div>` : ""}
                                     <div 
                                         class="player-head d-block mx-auto" 
-                                        style="background-image: url(${loadPlayerAvatar(selectSkin(player[i].name, skins), "", true)});border-radius:.75em"
+                                        style="background-image: url(${player[i].head});border-radius:.75em"
                                     ></div>
                                 </div>
                                 <div class="card-body p-3">
