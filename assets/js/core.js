@@ -770,10 +770,15 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
         return;
     }
 
-    const avatar_selector = document.getElementById(def_selector);
-    const avatar_style = avatar_selector.style;
+    let avatar_selector = null;
+    let avatar_style = null;
 
     if (!url_generator) {
+        try {
+            avatar_selector = document.getElementById(def_selector);
+            avatar_selector.style;
+        } catch {}
+
         console.debug(`Load avatar : ${avatar}`);
         document.getElementById("tg-user-avatar-text").innerText = "";
     }
