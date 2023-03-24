@@ -1750,9 +1750,6 @@ const buildPlayersSwiper = () => {
                             skins.push({Nick: "", Value: ""});
                         }
                     }
-                    console.log(skins);
-                    console.log(player);
-                    console.log(players_array);
                     for (let i = 0; i < skins.length; i++) {
                         if (player.toLowerCase() === skins[i].Nick.toLowerCase()) {
                             return skins[i].Value;
@@ -1801,6 +1798,9 @@ const buildPlayersSwiper = () => {
                         const player_clan = getClan();
 
                         player[i].head = prepare_img_link(player[i].head);
+
+                        console.log(selectSkin(player[i].name, skins));
+                        console.log(loadPlayerAvatar(selectSkin(player[i].name, skins), "", true));
 
                         array_.innerHTML = array_.innerHTML + `
                         <div class="swiper-slide text-center">
