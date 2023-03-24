@@ -765,45 +765,46 @@ const testImage = (url) => {
     tester.src = url;
 }
 const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_generator=false) => {
+    const exec_ = () => {
+        let avatar_selector = null;
+        let avatar_style = null;
+
+        if (!url_generator) {
+            try {
+                avatar_selector = document.getElementById(def_selector);
+                avatar_selector.style;
+            } catch {}
+
+            console.debug(`Load avatar : ${avatar}`);
+            document.getElementById("tg-user-avatar-text").innerText = "";
+        }
+
+        const raw_link = `${
+            backend_host
+        }/profile/avatar/?texture_hash=${
+            avatar
+        }&crypto_token=${
+            encodeURIComponent(crypto_token)
+        }&tg_auth=${
+            encodeURIComponent(getTelegramAuth(true))
+        }`;
+
+        const link = prepare_img_link(raw_link);
+
+        testImage(raw_link);
+
+        if (!url_generator) {
+            avatar_selector.setAttribute(
+                "style", `background-image: url("${link}");border-radius:.${
+                    def_selector.includes("card-avatar") ? 35 : 15}rem;`
+            );
+        } else {
+            return link;
+        }
+    }
     if (!crypto_token || !crypto_token.length) {
         initCrypto();
-        // return;
-    }
-
-    let avatar_selector = null;
-    let avatar_style = null;
-
-    if (!url_generator) {
-        try {
-            avatar_selector = document.getElementById(def_selector);
-            avatar_selector.style;
-        } catch {}
-
-        console.debug(`Load avatar : ${avatar}`);
-        document.getElementById("tg-user-avatar-text").innerText = "";
-    }
-
-    const raw_link = `${
-        backend_host
-    }/profile/avatar/?texture_hash=${
-        avatar
-    }&crypto_token=${
-        encodeURIComponent(crypto_token)
-    }&tg_auth=${
-        encodeURIComponent(getTelegramAuth(true))
-    }`;
-
-    const link = prepare_img_link(raw_link);
-
-    testImage(raw_link);
-
-    if (!url_generator) {
-        avatar_selector.setAttribute(
-            "style", `background-image: url("${link}");border-radius:.${
-                def_selector.includes("card-avatar") ? 35 : 15}rem;`
-        );
-    } else {
-        return link;
+        setTimeout(exec_, 200);
     }
 }
 const reInitTelegramAuth = () => {
