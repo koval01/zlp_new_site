@@ -1808,8 +1808,9 @@ const buildPlayersSwiper = () => {
                         glob_players.push(player[i].name);
 
                         // const player_badges_ = getBadges();
+                        // const player_clan = getClan();
                         const player_badges_ = "";
-                        const player_clan = getClan();
+                        const player_clan = "";
 
                         player[i].head = prepare_img_link(player[i].head);
                         //loadPlayerAvatar(selectSkin(player[i].name, skins), "", true)
@@ -1818,11 +1819,6 @@ const buildPlayersSwiper = () => {
                         <div class="swiper-slide text-center">
                             <span class="d-block py-5">
                                 <div class="player_head_container">
-                                    ${player_clan ? `<div 
-                                        class="player_clan_badge"
-                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                        title="${player_clan}"
-                                    ></div>` : ""}
                                     <div 
                                         class="player-head d-block mx-auto" 
                                         style="background-image: url(${player[i].head});border-radius:.75em"
@@ -1831,11 +1827,6 @@ const buildPlayersSwiper = () => {
                                 <div class="card-body p-3">
                                     <h3 class="fs-lg fw-semibold pt-1 mb-2">
                                         ${player[i].name}
-                                        ${player[i].badges.includes("verified") ? `
-                                            <i class="verified-icon"
-                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="Подтвержденный"> ✔</i>
-                                        ` : ""}
                                     </h3>
                                     <!-- <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
                                         ${player_badges_}
@@ -1845,6 +1836,17 @@ const buildPlayersSwiper = () => {
                             </span>
                         </div>
                     `;
+                    // ${player_clan ? `<div
+                    //                     class="player_clan_badge"
+                    //                     data-bs-toggle="tooltip" data-bs-placement="top"
+                    //                     title="${player_clan}"
+                    // ></div>` : ""}
+
+                    // ${player[i].badges.includes("verified") ? `
+                    //     <i class="verified-icon"
+                    //     data-bs-toggle="tooltip" data-bs-placement="top"
+                    //     title="Подтвержденный"> ✔</i>
+                    // ` : ""}
                     }
 
                     createSwiper();
