@@ -793,14 +793,7 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
         encodeURIComponent(getTelegramAuth(true))
     }`;
 
-    console.log(raw_link)
     const link = prepare_img_link(raw_link);
-    console.log(link)
-
-    // avatar_style.transition = "all .4s";
-    // avatar_style.backgroundPosition = "center";
-    // avatar_style.borderRadius = ".35em";
-    // avatar_style.backgroundImage = `url(${link})`;
 
     testImage(raw_link);
 
@@ -1763,7 +1756,7 @@ const buildPlayersSwiper = () => {
                             return skins[i].Value;
                         }
                     }
-                    return "";
+                    return "11228873ae0acb8c1abb9f2ed92b7ef29b7e03a534e4d67ad7435ee759e4cf54";
                 }
 
                 getPlayersSkins(function (skins) {
