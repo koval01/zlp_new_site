@@ -1736,6 +1736,11 @@ const buildPlayersSwiper = () => {
             "GET", true);
     };
 
+    try {
+        // preload
+        loadPlayerAvatar(generateRandomHex(32), "", true);
+    } catch {}
+
     badges_get((badges_paste) => {
         requestCall((r) => {
                 const player = r;
