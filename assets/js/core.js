@@ -45,6 +45,7 @@ var donate_services_array = [];
 var notify_hidden = true;
 var glob_players = [];
 var glob_events_status = false;
+var allow_display_login_hint = true;
 var timer_notify;
 var swiper_comments;
 var payment_url_global;
@@ -856,6 +857,8 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
                                 setInterval(function () {
                                     avatar_init();
                                 }, 150);
+
+                                allow_display_login_hint = false;
                             }
                             telegram_glob_session = {
                                 auth_data: auth_data,
@@ -1747,6 +1750,9 @@ const buildPlayersSwiper = () => {
                             skins.push({Nick: "", Value: ""});
                         }
                     }
+                    console.log(skins);
+                    console.log(player);
+                    console.log(players_array);
                     for (let i = 0; i < skins.length; i++) {
                         if (player.toLowerCase() === skins[i].Nick.toLowerCase()) {
                             return skins[i].Value;
@@ -1807,7 +1813,7 @@ const buildPlayersSwiper = () => {
                                     ></div>` : ""}
                                     <div 
                                         class="player-head d-block mx-auto" 
-                                        style="background-image: url(${loadPlayerAvatar(selectSkin(player[i].name, skins), undefined, true)});border-radius:.75em"
+                                        style="background-image: url(${loadPlayerAvatar(selectSkin(player[i].name, skins), "", true)});border-radius:.75em"
                                     ></div>
                                 </div>
                                 <div class="card-body p-3">
@@ -3914,6 +3920,10 @@ const openTelegramAuthModal = (skip_check = false) => {
 }
 
 const openLoginHint = () => {
+    if (!allow_display_login_hint) {
+        return;
+    }
+
     const content = document
         .getElementById(
             "info-content-modal");
