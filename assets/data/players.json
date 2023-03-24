@@ -56,13 +56,25 @@
   {
     "name": "N3P1X69",
     "head": "https://communication.zalupa.online/tiles/faces/32x32/N3P1X69.png",
-    "desc": "Был билдером на общении",
+    "desc": "BOSS билдеров",
     "badges": []
   },
   {
     "name": "i5b",
     "head": "https://communication.zalupa.online/tiles/faces/32x32/i5b.png",
-    "desc": "24/7 на Анархии",
+    "desc": "Хранитель Анархии",
+    "badges": ["old"]
+  },
+  {
+    "name": "Amo_guz",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Amo_guz.png",
+    "desc": "Организатор ивентов",
+    "badges": ["old"]
+  },
+  {
+    "name": "KREKERBUBA",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/KREKERBUBA.png",
+    "desc": "Патластый стрЮмер",
     "badges": ["old"]
   },
   {
@@ -105,6 +117,24 @@
     "name": "RAIDENESSA",
     "head": "https://communication.zalupa.online/tiles/faces/32x32/RAIDENESSA.png",
     "desc": "Пожилой секс",
+    "badges": []
+  },
+  {
+    "name": "ripemcc",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/ripemcc.png",
+    "desc": "Любитель порядка",
+    "badges": []
+  },
+  {
+    "name": "Fokzw",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Fokzw.png",
+    "desc": "Темный порядок",
+    "badges": []
+  },
+  {
+    "name": "lizaLanus",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/lizaLanus.png",
+    "desc": "Просто дурочка",
     "badges": []
   },
   {
