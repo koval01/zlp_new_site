@@ -1847,7 +1847,7 @@ const buildPlayersSwiper = () => {
                     }
 
                     createSwiper();
-                }, players_array, true);
+                }, players_array, false);
             },
             "assets/data/players.json",
             "GET", true);
