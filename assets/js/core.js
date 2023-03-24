@@ -1750,6 +1750,9 @@ const buildPlayersSwiper = () => {
                             skins.push({Nick: "", Value: ""});
                         }
                     }
+                    console.log(skins);
+                    console.log(player);
+                    console.log(players_array);
                     for (let i = 0; i < skins.length; i++) {
                         if (player.toLowerCase() === skins[i].Nick.toLowerCase()) {
                             return skins[i].Value;
@@ -1810,7 +1813,7 @@ const buildPlayersSwiper = () => {
                                     ></div>` : ""}
                                     <div 
                                         class="player-head d-block mx-auto" 
-                                        style="background-image: url(${loadPlayerAvatar(selectSkin(player[i].name, skins), undefined, true)});border-radius:.75em"
+                                        style="background-image: url(${loadPlayerAvatar(selectSkin(player[i].name, skins), "", true)});border-radius:.75em"
                                     ></div>
                                 </div>
                                 <div class="card-body p-3">
