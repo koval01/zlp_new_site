@@ -779,37 +779,38 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
             document.getElementById("tg-user-avatar-text").innerText = "";
         }
 
-        if (!crypto_token) {
-            initCrypto();
-        }
+        for (let i = 0; i < 10; i++) {
+            if (!crypto_token) {
+                initCrypto();
+            } else {
+                const raw_link = `${
+                    backend_host
+                }/profile/avatar/?texture_hash=${
+                    avatar
+                }&crypto_token=${
+                    encodeURIComponent(crypto_token)
+                }&tg_auth=${
+                    encodeURIComponent(getTelegramAuth(true))
+                }`;
 
-        const raw_link = `${
-            backend_host
-        }/profile/avatar/?texture_hash=${
-            avatar
-        }&crypto_token=${
-            encodeURIComponent(crypto_token)
-        }&tg_auth=${
-            encodeURIComponent(getTelegramAuth(true))
-        }`;
+                const link = prepare_img_link(raw_link);
 
-        const link = prepare_img_link(raw_link);
+                testImage(raw_link);
 
-        testImage(raw_link);
+                if (!url_generator) {
+                    avatar_selector.setAttribute(
+                        "style", `background-image: url("${link}");border-radius:.${
+                            def_selector.includes("card-avatar") ? 35 : 15}rem;`
+                    );
+                } else {
+                    return link;
+                }
 
-        if (!url_generator) {
-            avatar_selector.setAttribute(
-                "style", `background-image: url("${link}");border-radius:.${
-                    def_selector.includes("card-avatar") ? 35 : 15}rem;`
-            );
-        } else {
-            return link;
+                return;
+            }
         }
     }
-    if (!crypto_token || !crypto_token.length) {
-        initCrypto();
-        setTimeout(exec_, 200);
-    }
+
     exec_();
 }
 const reInitTelegramAuth = () => {
