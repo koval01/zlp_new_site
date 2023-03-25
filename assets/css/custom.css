@@ -106,10 +106,10 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   --donate-container-border-color: #333333;
 }
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
-  background-color: rgba(24, 24, 27, 0.65) !important;
+  background-color: rgba(14, 14, 16, 0.4) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+  border-bottom: 0 !important;
 }
 
 .bg-theme-set {
