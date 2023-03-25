@@ -213,5 +213,10 @@
     "name": "StarTwisterPlay",
     "head": "https://communication.zalupa.online/tiles/faces/32x32/StarTwisterPlay.png",
     "desc": "В поисках парня"
+  },
+  {
+    "name": "z4p0v",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/z4p0v.png",
+    "desc": "Главный нытик"
   }
 ]
