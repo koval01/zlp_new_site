@@ -1229,7 +1229,7 @@ const switchEventsPages = (button_name) => {
                 news_page.style.top = "-2rem";
                 events_page_state = "events";
             } else {
-                notify("Сейчас ивентов нет, Марин отдыхает")
+                notify("Сейчас ивентов нет...")
             }
         } else if (button_name === "news") {
             news_page.style.display = "block";
