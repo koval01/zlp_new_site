@@ -1831,7 +1831,7 @@ const buildPlayersSwiper = () => {
                                     <!-- <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
                                         ${player_badges_}
                                     </div> -->
-                                    <p class="fs-sm mb-0">${player[i].desc}</p>
+                                    <p class="fs-sm mb-0" style="text-align:center!important;">${player[i].desc}</p>
                                 </div>
                             </span>
                         </div>
