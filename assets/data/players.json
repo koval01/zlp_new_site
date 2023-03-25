@@ -155,6 +155,11 @@
     "desc": "Очень активная вумэн"
   },
   {
+    "name": "Nikere",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/Nikere.png",
+    "desc": "Черный мусор"
+  },
+  {
     "name": "masha2008",
     "head": "https://communication.zalupa.online/tiles/faces/32x32/masha2008.png",
     "desc": "Фанатка границ мира"
@@ -198,5 +203,15 @@
     "name": "clicbeiter",
     "head": "https://communication.zalupa.online/tiles/faces/32x32/clicbeiter.png",
     "desc": "Местное быдло"
+  },
+  {
+    "name": "11Concord",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/11Concord.png",
+    "desc": "Картавая легенда"
+  },
+  {
+    "name": "StarTwisterPlay",
+    "head": "https://communication.zalupa.online/tiles/faces/32x32/StarTwisterPlay.png",
+    "desc": "В поисках парня"
   }
 ]

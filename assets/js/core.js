@@ -1623,7 +1623,7 @@ const initComments = () => {
                                 <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
                                     <div>
                                         <h6 class="fw-semibold lh-base mb-0">${comment[i].name}</h6>
-                                        ${player ? `<span class="frame_badge_adaptive">${player.desc}</span>` : ""}
+                                        <!-- ${player ? `<span class="frame_badge_adaptive">${player.desc}</span>` : ""} -->
                                     </div>
                                 </figcaption>
                             </figure>
