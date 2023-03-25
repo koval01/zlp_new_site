@@ -1436,7 +1436,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   pointer-events: none;
   --vertical-shadow-color: 255, 255, 255, 1;
   transition: width 0.6s;
-  background: linear-gradient(var(--shadow-position-swiper), rgba(var(--vertical-shadow-color)) 10%, rgba(0, 0, 0, 0) 90%);
+  background: linear-gradient(var(--shadow-position-swiper), rgba(var(--vertical-shadow-color)) 25%, rgba(0, 0, 0, 0) 90%);
 }
 
 .dark-mode .object-block-col {
