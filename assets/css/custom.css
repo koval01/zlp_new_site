@@ -943,6 +943,11 @@ iframe[id*=telegram-post] {
   font-size: 0.85em;
   margin: auto;
   width: 85%;
+  text-align: center !important;
+}
+
+#item-donate-history-desc {
+  text-align: center !important;
 }
 
 .verified-icon {
