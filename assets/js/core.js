@@ -382,8 +382,8 @@ const appendPostsNews = (iframe=true) => {
     };
     if (iframe) {
         const template = `
-        <div class="shadow-vertical-overlay vertical-top-shadow"></div>
-        <div class="shadow-vertical-overlay vertical-bottom-shadow"></div>
+        <div class="shadow-vertical-overlay vertical-top-shadow" style="width:100vw!important"></div>
+        <div class="shadow-vertical-overlay vertical-bottom-shadow" style="width:100vw!important"></div>
         <iframe 
             style="min-height:450px;width:100vw" 
             id="tg-iframe-view"
@@ -899,6 +899,26 @@ const getIPClient = (callback) => {
                 callback(null);
             }
         }, `${backend_host}/ip`, "GET", true);
+}
+const cloudflareTraceJSON = (text) => {
+    const keys = text.split("\n");
+    let dict = {};
+    for (const k of keys) {
+        p = k.split("=");
+        dict[p[0]] = p[1];
+    }
+    console.debug(dict);
+    return dict;
+}
+const cloudflareTrace = (callback) => {
+    requestCall(
+        (r) => {
+            if (r) {
+                callback(cloudflareTraceJSON(r));
+            } else {
+                callback(null);
+            }
+        }, `https://cloudflare.com/cdn-cgi/trace`, "GET", false);
 }
 const getGitLauncherReleases = (callback) => {
     requestCall(

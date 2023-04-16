@@ -599,7 +599,7 @@ iframe {
   width: 4em;
   height: 4em;
   border-radius: 0.4em;
-  background-image: url(./assets/images/players/2d/steve.png);
+  background-image: url(./../images/players/2d/steve.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
