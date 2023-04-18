@@ -829,7 +829,7 @@ var checkTelegramAuthData = function checkTelegramAuthData(callback) {
               // const orderedData = getTelegramAuth();
               if (r.player_data) {
                 var player = r.player_data;
-                var skin = player.SKIN;
+                var skin = player.NICKNAME;
                 var avatar_init = function avatar_init() {
                   if (!avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1) {
                     loadPlayerAvatar(skin);
