@@ -759,6 +759,7 @@ var testImage = function testImage(url) {
 var loadPlayerAvatar = function loadPlayerAvatar(avatar) {
   var def_selector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "telegram-auth-avatar";
   var url_generator = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var back = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   var exec_ = function exec_() {
     var avatar_selector = null;
     var avatar_style = null;
@@ -771,10 +772,15 @@ var loadPlayerAvatar = function loadPlayerAvatar(avatar) {
       document.getElementById("tg-user-avatar-text").innerText = "";
     }
     for (var i = 0; i < 10; i++) {
-      if (!crypto_token) {
+      if (!crypto_token && back) {
         initCrypto();
       } else {
-        var raw_link = "".concat(backend_host, "/profile/avatar/?texture_hash=").concat(avatar, "&crypto_token=").concat(encodeURIComponent(crypto_token), "&tg_auth=").concat(encodeURIComponent(getTelegramAuth(true)));
+        var raw_link = "";
+        if (back) {
+          raw_link = "".concat(backend_host, "/profile/avatar/?texture_hash=").concat(avatar, "&crypto_token=").concat(encodeURIComponent(crypto_token), "&tg_auth=").concat(encodeURIComponent(getTelegramAuth(true)));
+        } else {
+          raw_link = "//communication.zalupa.online/tiles/faces/32x32/".concat(avatar, ".png");
+        }
         var link = prepare_img_link(raw_link);
         testImage(raw_link);
         if (!url_generator) {
