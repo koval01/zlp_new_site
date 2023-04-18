@@ -764,7 +764,7 @@ const testImage = (url) => {
     tester.addEventListener('error', reInitTelegramAuth);
     tester.src = url;
 }
-const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_generator=false) => {
+const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_generator=false, back=false) => {
     const exec_ = () => {
         let avatar_selector = null;
         let avatar_style = null;
@@ -780,18 +780,23 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
         }
 
         for (let i = 0; i < 10; i++) {
-            if (!crypto_token) {
+            if (!crypto_token && back) {
                 initCrypto();
             } else {
-                const raw_link = `${
-                    backend_host
-                }/profile/avatar/?texture_hash=${
-                    avatar
-                }&crypto_token=${
-                    encodeURIComponent(crypto_token)
-                }&tg_auth=${
-                    encodeURIComponent(getTelegramAuth(true))
-                }`;
+                let raw_link = "";
+                if (back) {
+                    raw_link = `${
+                        backend_host
+                    }/profile/avatar/?texture_hash=${
+                        avatar
+                    }&crypto_token=${
+                        encodeURIComponent(crypto_token)
+                    }&tg_auth=${
+                        encodeURIComponent(getTelegramAuth(true))
+                    }`;
+                } else {
+                    raw_link = `//communication.zalupa.online/tiles/faces/32x32/${avatar}.png`;
+                }
 
                 const link = prepare_img_link(raw_link);
 
