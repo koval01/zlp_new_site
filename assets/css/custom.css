@@ -664,7 +664,7 @@ iframe {
     margin-left: 1rem !important;
   }
 }
-@media (max-width: 992px) {
+@media (max-width: 991px) {
   .vova-bg-landing, .vova-bg-landing-mask {
     display: none !important;
   }
