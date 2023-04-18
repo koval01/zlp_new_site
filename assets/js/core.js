@@ -851,7 +851,7 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
                             // const orderedData = getTelegramAuth();
                             if (r.player_data) {
                                 const player = r.player_data;
-                                const skin = player.SKIN;
+                                const skin = player.NICKNAME;
                                 const avatar_init = () => {
                                     if (
                                         !avatar.style.backgroundImage || avatar.style.backgroundImage.length < 1
