@@ -895,6 +895,7 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
     }
 }
 const getIPClient = (callback) => {
+    // getIPClient(function () {});
     requestCall(
         (r) => {
             if (r && r.success) {
@@ -4162,7 +4163,6 @@ const autoAuthTelegramObserver = () => {
 const initCore = () => {
     initHost();
     initCrypto();
-    getIPClient(function () {});
     initLanding();
     observerSystemTheme();
     buildPlayersSwiper();
