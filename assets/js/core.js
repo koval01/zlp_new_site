@@ -24,7 +24,7 @@ const links_lt = [{
     },
     {
         name: "discord",
-        link: "https://discord.gg/qEqbVbMeEx",
+        link: "https://discord.com/invite/89squad",
     },
     {
         name: "tiktok",
