@@ -655,7 +655,7 @@ const monitoring_game_server_update = () => {
 const gameServerUpdater = () => {
     monitoring_game_server_update();
     gameServerUpdater_setter = setInterval(monitoring_game_server_update, 300);
-    setInterval(monitoring_game_server_update, 1500);
+    setInterval(monitoring_game_server_update, 5000);
 }
 const initEventsList = () => {
     const row_container = document.getElementById("events-row-container");

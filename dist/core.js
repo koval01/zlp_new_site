@@ -664,7 +664,7 @@ var monitoring_game_server_update = function monitoring_game_server_update() {
 var gameServerUpdater = function gameServerUpdater() {
   monitoring_game_server_update();
   gameServerUpdater_setter = setInterval(monitoring_game_server_update, 300);
-  setInterval(monitoring_game_server_update, 1500);
+  setInterval(monitoring_game_server_update, 5000);
 };
 var initEventsList = function initEventsList() {
   var row_container = document.getElementById("events-row-container");
@@ -868,6 +868,7 @@ var checkTelegramAuthData = function checkTelegramAuthData(callback) {
   }
 };
 var getIPClient = function getIPClient(callback) {
+  // getIPClient(function () {});
   requestCall(function (r) {
     if (r && r.success) {
       client_ip = r.ip;
@@ -2800,7 +2801,6 @@ var autoAuthTelegramObserver = function autoAuthTelegramObserver() {
 var initCore = function initCore() {
   initHost();
   initCrypto();
-  getIPClient(function () {});
   initLanding();
   observerSystemTheme();
   buildPlayersSwiper();
