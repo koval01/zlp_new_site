@@ -108,16 +108,16 @@ input, textarea, select
 .header-logo
   width: 8rem
   height: 2.3rem
-  background-image: url(../images/logo.webp)
+  background-image: url(../images/stone-logo-subtext.webp)
   background-repeat: no-repeat
   background-size: contain
   background-position: center
 
 .dark-mode .header-logo
-  background-image: url(../images/logo-dark.webp) !important
+  background-image: url(../images/stone-logo-subtext.webp) !important
 
 .landing-head-text
-  background-image: url(../images/logo.webp)
+  background-image: url(../images/stone-logo-subtext.webp)
   background-position: center
   background-size: contain
   background-repeat: no-repeat
@@ -130,7 +130,7 @@ input, textarea, select
   -webkit-filter: drop-shadow(0 1px 2px black)
 
 .dark-mode .landing-head-text
-  background-image: url(../images/logo-dark.webp) !important
+  background-image: url(../images/stone-logo-subtext.webp) !important
 
 .dark-mode #landing_description_gb
   text-shadow: 0 0 5px black
@@ -367,6 +367,19 @@ iframe
 .vova-bg-mobile
   display: none
 
+.vova-right-back
+  display: flex
+  transition: opacity .4s
+  height: 400px
+  width: 100%
+  z-index: 0
+  bottom: -20px
+  position: absolute
+  background-image: url(../images/vova-background-mobile.webp)
+  background-position: right
+  background-repeat: no-repeat
+  background-size: contain
+
 @media (max-width: 950px)
   .players-pagination
     display: none
@@ -374,21 +387,10 @@ iframe
 @media (max-width: 725px)
   .vova-right-back
     opacity: 0
-    display: none
 
 @media (min-width: 725px) and (max-width: 991px)
   .vova-right-back
-    height: 400px
-    width: 100%
-    z-index: 0
-    display: flex
     opacity: 1
-    background-image: url(../images/vova-background-mobile.webp)
-    background-position: right
-    background-repeat: no-repeat
-    background-size: contain
-    bottom: -20px
-    position: absolute
 
 .vova-bg-l-mobile
   position: absolute
@@ -1295,7 +1297,7 @@ figure.news-figure
   z-index: 1000
   pointer-events: none
   --vertical-shadow-color: 255, 255, 255, 1
-  transition: width .6s
+  //transition: width .6s
 
   background: linear-gradient(var(--shadow-position-swiper), rgba(var(--vertical-shadow-color)) 25%, rgba(0, 0, 0, 0) 90%)
 
