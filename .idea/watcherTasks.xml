@@ -69,7 +69,7 @@
       <option name="fileExtension" value="js" />
       <option name="immediateSync" value="true" />
       <option name="name" value="Babel" />
-      <option name="output" value="assets/$FileDirRelativeToProjectRoot$/$FileNameWithoutExtension$.js:dist/$FileDirRelativeToProjectRoot$/$FileNameWithoutExtension$.js.map" />
+      <option name="output" value="assets/$FileDirRelativeToProjectRoot$/$FileNameWithoutExtension$.js:assets/$FileDirRelativeToProjectRoot$/$FileNameWithoutExtension$.js.map" />
       <option name="outputFilters">
         <array />
       </option>

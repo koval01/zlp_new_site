@@ -1649,7 +1649,6 @@ const initComments = () => {
                                 <figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0">
                                     <div>
                                         <h6 class="fw-semibold lh-base mb-0">${comment[i].name}</h6>
-                                        <!-- ${player ? `<span class="frame_badge_adaptive">${player.desc}</span>` : ""} -->
                                     </div>
                                 </figcaption>
                             </figure>
@@ -1854,9 +1853,6 @@ const buildPlayersSwiper = () => {
                                     <h3 class="fs-lg fw-semibold pt-1 mb-2">
                                         ${player[i].name}
                                     </h3>
-                                    <!-- <div class="player_badge_container" style="${!player_badges_.length ? "display:none" : ""}">
-                                        ${player_badges_}
-                                    </div> -->
                                     <p class="fs-sm mb-0" style="text-align:center">${player[i].desc}</p>
                                 </div>
                             </span>
@@ -1954,7 +1950,6 @@ const buildDonateHistorySwiper = () => {
                 .innerHTML =
                 array_
                     .innerHTML + `
-                    <!-- use player template for donate history swiper -->
                     <div class="swiper-slide text-center">
                         <span class="d-block py-3">
                             <div class="player_head_container">
