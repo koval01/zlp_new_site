@@ -627,6 +627,7 @@ const get_game_server_data = (callback) => {
         }
         document.getElementById("error_get_server_status").innerText = string_;
     };
+    console.debug(`crypto_token.length: ${crypto_token.length}`);
     if (crypto_token) {
         requestCall((r) => {
             setTimeout(
@@ -667,8 +668,8 @@ const monitoring_game_server_update = () => {
 }
 const gameServerUpdater = () => {
     monitoring_game_server_update();
-    gameServerUpdater_setter = setInterval(monitoring_game_server_update, 400);
-    setInterval(monitoring_game_server_update, 5000);
+    gameServerUpdater_setter = setInterval(monitoring_game_server_update, 650);
+    setInterval(monitoring_game_server_update, 6000);
 }
 const initEventsList = () => {
     const row_container = document.getElementById("events-row-container");
@@ -3325,8 +3326,9 @@ const initCrypto = () => {
         getCrypto((token_) => {
             crypto_token =
                 token_;
-            freeze_crypto =
-                false;
+            setTimeout(function() {
+                freeze_crypto = false
+            }, 8000);
         });
     }
 }
