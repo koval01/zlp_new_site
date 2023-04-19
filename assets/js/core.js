@@ -10,25 +10,34 @@ const site_domains = {
 };
 const cart_cookie = "cart_box";
 const channels = 2;
-const links_lt = [{
-    name: "twitch",
-    link: "https://www.twitch.tv/bratishkinoff",
-},
+const links_lt = [
+    {
+        name: "twitch",
+        link: "https://www.twitch.tv/bratishkinoff"
+    },
     {
         name: "youtube",
-        link: "https://www.youtube.com/channel/UC_-kIftWIXsTrVXZy0lJdXQ",
+        link: "https://www.youtube.com/channel/UC_-kIftWIXsTrVXZy0lJdXQ"
     },
     {
         name: "telegram",
-        link: "https://t.me/zalupaonline",
+        link: "https://t.me/zalupaonline"
+    },
+    {
+        name: "vk",
+        link: "https://vk.com/flamesv"
     },
     {
         name: "discord",
-        link: "https://discord.com/invite/89squad",
+        link: "https://discord.com/invite/89squad"
     },
     {
         name: "tiktok",
         link: "https://www.tiktok.com/@nebratishkin"
+    },
+    {
+        name: "instagram",
+        link: "https://www.instagram.com/br4tishkin"
     }
 ];
 const launcher_platforms = {
