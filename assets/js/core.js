@@ -49,6 +49,7 @@ const gitOwner = "Zalupa-Online";
 const gitLauncherRepo = "launcher-releases";
 const lock_of = true;
 const coins_sell_mode = true;
+
 var selector_card_skin_displayed = "";
 var donate_services_array = [];
 var notify_hidden = true;
@@ -83,12 +84,15 @@ var avatar_loaded = false;
 var telegram_glob_session = {
     auth_data: null, response: null
 };
+
 const telegram_social_bot = "https://t.me/ZalupaScBot";
 const debug_lock_init = false;
 const telegram_auth_enabled = true;
 const feedback_module_enabled = false;
 const feedback_tg_auth_skip = true;
 const tokens_system_enabled = true;
+
+
 const initHost = () => {
     const keys = Object.keys(site_domains);
     for (let i = 0; i < keys.length; i++) {
