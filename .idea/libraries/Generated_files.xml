@@ -8,6 +8,8 @@
         <item url="file://$PROJECT_DIR$/assets/js/theme.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core.min.js" />
         <item url="file://$PROJECT_DIR$/dist/core.min.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/init.min.js" />
+        <item url="file://$PROJECT_DIR$/dist/init.min.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -17,6 +19,8 @@
       <root url="file://$PROJECT_DIR$/assets/js/theme.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core.min.js" />
       <root url="file://$PROJECT_DIR$/dist/core.min.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/init.min.js" />
+      <root url="file://$PROJECT_DIR$/dist/init.min.min.js" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

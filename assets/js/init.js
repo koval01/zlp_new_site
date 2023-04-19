@@ -5,10 +5,6 @@ const container_dev_splash = document
         ".is-dev-site-splash");
 const test_local = false;
 
-Sentry.init({
-    dsn: "https://b41bf18156324057ab1db5f217c59e17@o1226843.ingest.sentry.io/4504141392445440"
-});
-
 function init_logo_splash() {
     let logo_selector = document.getElementById("logo-spalsh-sb");
     logo_selector.style.scale = 1;

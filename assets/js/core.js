@@ -546,7 +546,7 @@ const appendPostsNews = (iframe=true) => {
                             }
                         }
                         addEventListener('resize', (event) => calculate_text_position());
-                        setInterval(calculate_text_position, 50);
+                        // setInterval(calculate_text_position, 50);
                     }
                 }
                 getImageLightness(posts[i].cover, (brightness) => {
@@ -667,7 +667,7 @@ const monitoring_game_server_update = () => {
 }
 const gameServerUpdater = () => {
     monitoring_game_server_update();
-    gameServerUpdater_setter = setInterval(monitoring_game_server_update, 300);
+    gameServerUpdater_setter = setInterval(monitoring_game_server_update, 400);
     setInterval(monitoring_game_server_update, 5000);
 }
 const initEventsList = () => {
@@ -882,7 +882,7 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
 
                                 setInterval(function () {
                                     avatar_init();
-                                }, 150);
+                                }, 300);
 
                                 allow_display_login_hint = false;
                             }
@@ -1284,7 +1284,7 @@ const switchEventsPages = (button_name) => {
 const redirect_ = (url) => {
     return window.location.replace(url);
 }
-const ytVideoSetter = (skip = false, only_iframe = true) => {
+const ytVideoSetter = (skip = false, only_iframe = false, local_load = true) => {
     const load_iframe = (el, video_id, params) => {
         el.innerHTML = `
             <iframe src="https://www.youtube.com/embed/${video_id}" title="YouTube video player"
@@ -1295,30 +1295,39 @@ const ytVideoSetter = (skip = false, only_iframe = true) => {
                 allowfullscreen="" loading="lazy"></iframe>
         `;
     }
+    const get_link = (el, video_id, url, params) => {
+        el.innerHTML = `
+            <video class="video-container" preload="none" id="ytframe_${video_id}" 
+                    poster="/assets/images/videos/${video_id}.webp" 
+                  ${
+                    params.autoplay != null ? 'autoplay=""' : ""
+                } ${
+                    params.muted != null ? 'muted=""' : ""
+                } ${
+                    params.loop != null ? 'loop=""' : ""
+                } ${
+                    params.controls != null ? 'controls=""' : ""
+                } style="object-fit: contain">
+                <source src="${url}" type="video/mp4">
+            </video>
+        `;
+    }
     const set_video = (el, video_id, params) => {
-        if (only_iframe) {
-            load_iframe(el, video_id, params);
+        if (local_load) {
+            get_link(el, video_id, `//files.zalupa.online/videos/${video_id}.mp4`, params);
         } else {
-            const video = get_yt_video_(
-                (data) => {
-                    if (data && data.video.x720.url && !skip) {
-                        el.innerHTML = `
-                    <video class="video-container" ${
-                            params.autoplay != null ? 'autoplay=""' : ""
-                        } ${
-                            params.muted != null ? 'muted=""' : ""
-                        } ${
-                            params.loop != null ? 'loop=""' : ""
-                        } ${
-                            params.controls != null ? 'controls=""' : ""
-                        } style="object-fit: contain">
-                        <source src="${data.video.x720.url}" type="video/mp4">
-                    </video>
-                `;
-                    } else {
-                        load_iframe(el, video_id, params);
-                    }
-                }, video_id, skip);
+            if (only_iframe) {
+                load_iframe(el, video_id, params);
+            } else {
+                const video = get_yt_video_(
+                    (data) => {
+                        if (data && data.video.x720.url && !skip) {
+                            get_link(el, params, data.video.x720.url);
+                        } else {
+                            load_iframe(el, video_id, params);
+                        }
+                    }, video_id, skip);
+            }
         }
     };
     for (let el of Array.from(document.getElementsByClassName("ytVideoSetter"))) {
@@ -1335,6 +1344,14 @@ const ytVideoSetter = (skip = false, only_iframe = true) => {
             }
         }
     }
+}
+const check_modal_ = () => {
+    const close_r = () => {
+        if (!modal_displayed) {
+            modal_close_();
+        }
+    }
+    setInterval(close_r, 250);
 }
 const modal_close_ = () => {
     if (modal_displayed) {
@@ -1601,7 +1618,7 @@ const checkPrivateServerBuy = () => {
     }
 
     checkFunction();
-    setInterval(checkFunction, 300);
+    setInterval(checkFunction, 600);
 }
 const initComments = () => {
     const array_ = document.getElementById("comment_swipe_array");
@@ -1780,10 +1797,10 @@ const buildPlayersSwiper = () => {
             "GET", true);
     };
 
-    try {
-        // preload
-        loadPlayerAvatar(generateRandomHex(32), "", true);
-    } catch {}
+    // try {
+    //     // preload
+    //     loadPlayerAvatar(generateRandomHex(32), "", true);
+    // } catch {}
 
     badges_get((badges_paste) => {
         requestCall((r) => {
@@ -3669,7 +3686,7 @@ const adaptiveDisplayLand = () => {
     }
 
     updater();
-    setInterval(updater, 100);
+    setInterval(updater, 250);
 }
 const clipboardFunc = (field_selector, notify_text) => {
     const copyText = document.querySelector(field_selector);
@@ -3855,17 +3872,6 @@ const openAdminContact = () => {
         }
     });
 }
-const initSOptimizeGA = () => {
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-VGRQSK1J7M');
-}
 const adminsContactContainerHash =
     () => {
         observerContainerHash([
@@ -4046,7 +4052,7 @@ const initTooltip = () => {
         setInterval(() => {
             tooltip_instance
                 .update();
-        }, 1000);
+        }, 1200);
     }
 }
 
@@ -4165,7 +4171,7 @@ const autoAuthTelegramObserver = () => {
             setAvatar(getTelegramAuth());
         }
     });
-    setInterval(displayTokens, 300);
+    setInterval(displayTokens, 1200);
 }
 
 const initCore = () => {
@@ -4202,6 +4208,8 @@ const initCore = () => {
 
     setLauncherLinks();
     donate_bg_preload();
+
+    check_modal_();
 
     const elem = document
         .getElementById(
@@ -4254,7 +4262,7 @@ const initCore = () => {
                 move_wait);
             setInterval(() => {
                 checkTelegramAuthData(function (_) {}, false, false, true);
-            }, 10*1000);
+            }, 12*1000);
         }
     };
 };
