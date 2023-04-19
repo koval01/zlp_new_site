@@ -24,20 +24,12 @@ const links_lt = [
         link: "https://t.me/zalupaonline"
     },
     {
-        name: "vk",
-        link: "https://vk.com/flamesv"
-    },
-    {
         name: "discord",
         link: "https://discord.com/invite/89squad"
     },
     {
         name: "tiktok",
         link: "https://www.tiktok.com/@nebratishkin"
-    },
-    {
-        name: "instagram",
-        link: "https://www.instagram.com/br4tishkin"
     }
 ];
 const launcher_platforms = {
