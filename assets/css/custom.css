@@ -88,8 +88,8 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
 
 .bg-light:not(.badge), .card.card-hover.bg-light {
   background: rgba(255, 255, 255, 0.8) !important;
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
+  backdrop-filter: blur(2em);
+  -webkit-backdrop-filter: blur(2em);
 }
 
 .dark-mode {
@@ -107,8 +107,8 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
 }
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
   background-color: rgba(14, 14, 16, 0.33) !important;
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
+  backdrop-filter: blur(2em);
+  -webkit-backdrop-filter: blur(2em);
   border-bottom: 0 !important;
 }
 
