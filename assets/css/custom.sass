@@ -79,9 +79,9 @@ input, textarea, select
   background: rgba(144, 72, 255, .5)
 
 .bg-light:not(.badge), .card.card-hover.bg-light
-    background: rgb(255 255 255 / 90%) !important
-    backdrop-filter: blur(16px)
-    -webkit-backdrop-filter: blur(16px)
+    background: rgb(255 255 255 / 80%) !important
+    backdrop-filter: blur(9px)
+    -webkit-backdrop-filter: blur(9px)
 
 .dark-mode
   --theme-default-color: #fff
@@ -97,9 +97,9 @@ input, textarea, select
   --donate-container-border-color: #333333
 
   .bg-light:not(.badge), .card.card-hover.bg-light
-    background-color: rgb(14 14 16 / 40%)!important
-    backdrop-filter: blur(16px)
-    -webkit-backdrop-filter: blur(16px)
+    background-color: rgb(14 14 16 / 33%)!important
+    backdrop-filter: blur(9px)
+    -webkit-backdrop-filter: blur(9px)
     border-bottom: 0 !important
 
 .bg-theme-set
@@ -641,7 +641,7 @@ iframe
     padding-bottom: 6rem
 
 .display-1
-  font-size: calc(48px + 6 * ((100vw - 320px) / 680))
+  font-size: calc(77px + 6 * ((100vw - 320px) / 680))
 
 .custom_input_
   margin: auto
@@ -1402,7 +1402,7 @@ figure.news-figure
   &.footer-logo
     height: 100px
     --stone-logo-shadow-size: 4em
-    --stone-log-shadow-color: 144, 72, 255, .4
+    --stone-log-shadow-color: 144, 72, 255, .3
 
   &.loading-splash-logo
     scale: 0.75
@@ -1411,12 +1411,12 @@ figure.news-figure
     height: 24vh
     margin-top: -4rem
     --stone-logo-shadow-size: 42px
-    --stone-log-shadow-color: 144, 72, 255, .95
+    --stone-log-shadow-color: 144, 72, 255, .35
 
   @media(prefers-color-scheme: dark)
     &.loading-splash-logo
       --stone-logo-shadow-size: 64px
-      --stone-log-shadow-color: 144, 72, 255, .2
+      --stone-log-shadow-color: 144, 72, 255, .08
 
   width: 100%
   position: relative

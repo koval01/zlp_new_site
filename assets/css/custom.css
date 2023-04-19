@@ -87,9 +87,9 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
 }
 
 .bg-light:not(.badge), .card.card-hover.bg-light {
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
 }
 
 .dark-mode {
@@ -106,9 +106,9 @@ input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofi
   --donate-container-border-color: #333333;
 }
 .dark-mode .bg-light:not(.badge), .dark-mode .card.card-hover.bg-light {
-  background-color: rgba(14, 14, 16, 0.4) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: rgba(14, 14, 16, 0.33) !important;
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
   border-bottom: 0 !important;
 }
 
@@ -715,7 +715,7 @@ iframe {
   }
 }
 .display-1 {
-  font-size: calc(48px + 6 * (100vw - 320px) / 680);
+  font-size: calc(77px + 6 * (100vw - 320px) / 680);
 }
 
 .custom_input_ {
@@ -1566,7 +1566,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 .stone-logo-subtext.footer-logo {
   height: 100px;
   --stone-logo-shadow-size: 4em;
-  --stone-log-shadow-color: 144, 72, 255, .4;
+  --stone-log-shadow-color: 144, 72, 255, .3;
 }
 .stone-logo-subtext.loading-splash-logo {
   scale: 0.75;
@@ -1574,12 +1574,12 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   height: 24vh;
   margin-top: -4rem;
   --stone-logo-shadow-size: 42px;
-  --stone-log-shadow-color: 144, 72, 255, .95;
+  --stone-log-shadow-color: 144, 72, 255, .35;
 }
 @media (prefers-color-scheme: dark) {
   .stone-logo-subtext.loading-splash-logo {
     --stone-logo-shadow-size: 64px;
-    --stone-log-shadow-color: 144, 72, 255, .2;
+    --stone-log-shadow-color: 144, 72, 255, .08;
   }
 }
 
