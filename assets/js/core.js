@@ -3391,6 +3391,7 @@ const observerSystemTheme = () => {
 
     if (cookie_theme_) {
         updateTheme(cookie_theme_.theme);
+        tg_frame_theme_update();
     }
 }
 
