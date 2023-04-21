@@ -15,8 +15,11 @@ const tg_frame_theme_update = () => {
     try {
         const frame = document.getElementById("tg-iframe-view");
         const url_ob = new URL(frame.src);
+        const radio_ = document
+            .querySelector('[data-bs-toggle="mode"]')
+            .querySelector(".form-check-input");
 
-        if (this.checked) {
+        if (radio_.checked) {
             url_ob.hash = "#dark";
         } else {
             url_ob.hash = "#light";
