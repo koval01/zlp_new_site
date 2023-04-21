@@ -3388,14 +3388,11 @@ const observerSystemTheme = () => {
 
     let cookie_theme_ = theme_get();
 
-    if (!cookie_theme_) {
-        for (let i = 0; i < mode_list.length; i++) {
-            const observer = window
-                .matchMedia(`(prefers-color-scheme: ${mode_list[i]})`);
-            observer.addEventListener("change", (e) => e.matches &&
-                    updateTheme(mode_list[i]));
-        }
-        return;
+    for (let i = 0; i < mode_list.length; i++) {
+        const observer = window
+            .matchMedia(`(prefers-color-scheme: ${mode_list[i]})`);
+        observer.addEventListener("change", (e) => e.matches &&
+                updateTheme(mode_list[i]));
     }
 
     try {
