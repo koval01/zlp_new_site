@@ -9,9 +9,11 @@
         a.addEventListener("click", function (a) {
             b.checked
                 ? (root.classList.add("dark-mode"),
-                    window.localStorage.setItem("mode", "dark"))
+                    window.localStorage.setItem("mode", "dark"),
+                    Cookies.set("c_saved_theme", JSON.stringify({"theme": "dark"})))
                 : (root.classList.remove("dark-mode"),
-                    window.localStorage.setItem("mode", "light"));
+                    window.localStorage.setItem("mode", "light"),
+                    Cookies.set("c_saved_theme", JSON.stringify({"theme": "light"})));
         })),
     null != (c = document.querySelector(".navbar-sticky")) &&
     ((a = c.classList),
