@@ -3387,12 +3387,12 @@ const observerSystemTheme = () => {
                 updateTheme(mode_list[i]));
     }
 
-    let cookie_theme_ = theme_get().theme;
-
-    if (cookie_theme_) {
-        updateTheme(cookie_theme_.theme);
-        tg_frame_theme_update();
-    }
+    // let cookie_theme_ = theme_get().theme;
+    //
+    // if (cookie_theme_) {
+    //     updateTheme(cookie_theme_.theme);
+    //     tg_frame_theme_update();
+    // }
 }
 
 const callSucessPayModal = (payment_id = 0) => {
