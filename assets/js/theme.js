@@ -7,6 +7,7 @@
             ? (root.classList.add("dark-mode"), (b.checked = !0))
             : (root.classList.remove("dark-mode"), (b.checked = !1)),
         a.addEventListener("click", function (a) {
+            tg_frame_theme_update();
             b.checked
                 ? (root.classList.add("dark-mode"),
                     window.localStorage.setItem("mode", "dark"),

@@ -398,18 +398,12 @@ const appendPostsNews = (iframe=true) => {
         const c = document.getElementById("news-c-container");
         c.innerHTML = template + c.innerHTML;
         loading_done();
-
-        document.getElementById("theme-mode").addEventListener('change', function() {
-            const frame = document.getElementById("tg-iframe-view");
-            const url_ob = new URL(frame.src);
-
-            if (this.checked) {
-                url_ob.hash = "#dark";
-            } else {
-                url_ob.hash = "#light";
+        document.getElementById("theme-mode").addEventListener(
+            'change',
+            function() {
+                tg_frame_theme_update();
             }
-            frame.src = url_ob.href;
-        });
+        );
     } else {
         const createSwiper = () => {
             new Swiper("#news_swipe_container", {

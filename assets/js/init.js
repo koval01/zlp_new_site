@@ -11,6 +11,18 @@ const init_logo_splash = () => {
     logo_selector.style.bottom = "5vh";
 }
 
+const tg_frame_theme_update = () => {
+    const frame = document.getElementById("tg-iframe-view");
+    const url_ob = new URL(frame.src);
+
+    if (this.checked) {
+        url_ob.hash = "#dark";
+    } else {
+        url_ob.hash = "#light";
+    }
+    frame.src = url_ob.href;
+}
+
 const theme_get = () => {
     let cookie_saved_theme = {};
     try {
