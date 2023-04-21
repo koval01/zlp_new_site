@@ -118,7 +118,7 @@ const getOffset = (date, timezone) => {
             timeZoneName: 'shortOffset'
         }).match(/(?:GMT|UTC).+/)[0] * 60;
     } catch (e) {
-        console.error(`getOffset : ${e}`);
+        //console.error(`getOffset : ${e}`);
         return 0;
     }
 }
@@ -185,7 +185,7 @@ const downloadLauncher = () => {
         const link = links_[getPlatform()];
 
         window.location = link;
-        console.debug(`Init downloading file from url : ${link}`);
+        //console.debug(`Init downloading file from url : ${link}`);
 
         if (!isChrome()) {
             notify(`Сейчас тебе скачаем файл <span class="text-gradient-primary">${
@@ -328,7 +328,7 @@ const getCrypto = (callback) => {
             if (r.success) {
                 callback(r.token);
             } else {
-                callback("");
+                callback(crypto_token);
             }
         }, `${backend_host}/crypto`, "POST", true, {
             token: token_update,
@@ -619,7 +619,7 @@ const get_game_server_data = (callback) => {
         }
         document.getElementById("error_get_server_status").innerText = string_;
     };
-    console.debug(`crypto_token.length: ${crypto_token.length}`);
+    //console.debug(`crypto_token.length: ${crypto_token.length}`);
     if (crypto_token) {
         requestCall((r) => {
             setTimeout(
@@ -629,13 +629,14 @@ const get_game_server_data = (callback) => {
             if (r.success) {
                 callback(r.body);
             } else {
-                crypto_token = "";
+                freeze_crypto = false;
+                initCrypto();
             }
         }, `${backend_host}/server`, "POST", true, {
             crypto_token: crypto_token
         });
     } else {
-        initCrypto();
+        //initCrypto();
         freeze_monitoring = false;
     }
 }
@@ -660,8 +661,8 @@ const monitoring_game_server_update = () => {
 }
 const gameServerUpdater = () => {
     monitoring_game_server_update();
-    gameServerUpdater_setter = setInterval(monitoring_game_server_update, 650);
-    setInterval(monitoring_game_server_update, 6000);
+    gameServerUpdater_setter = setInterval(monitoring_game_server_update, 800);
+    setInterval(monitoring_game_server_update, 8000);
 }
 const initEventsList = () => {
     const row_container = document.getElementById("events-row-container");
@@ -701,12 +702,12 @@ const initEventsList = () => {
                             <h4 class="text-primary" style="margin-top: -1.2rem">${badge}</h4>
                             <h6 style="margin-top: -1rem">С <span class="text-primary">
                                 ${st_date.toLocaleDateString("ru-RU")} ${
-                                    ("0" + st_date.getHours()).slice(-2)}:${
-                                        ("0" + st_date.getMinutes()).slice(-2)}
+                    ("0" + st_date.getHours()).slice(-2)}:${
+                    ("0" + st_date.getMinutes()).slice(-2)}
                                 </span> по <span class="text-primary">
                                 ${end_date.toLocaleDateString("ru-RU")} ${
-                                    ("0" + end_date.getHours()).slice(-2)}:${
-                                        ("0" + end_date.getMinutes()).slice(-2)}
+                    ("0" + end_date.getHours()).slice(-2)}:${
+                    ("0" + end_date.getMinutes()).slice(-2)}
                                 </span></h6>
                             <p>${data[i].text}</p>
                         </div>
@@ -781,7 +782,7 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
                 avatar_selector.style;
             } catch {}
 
-            console.debug(`Load avatar : ${avatar}`);
+            //console.debug(`Load avatar : ${avatar}`);
             document.getElementById("tg-user-avatar-text").innerText = "";
         }
 
@@ -835,12 +836,12 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
             callback(telegram_glob_session.response.success);
             return;
         }
-        console.debug(`skip pos : ${skip}`);
+        //console.debug(`skip pos : ${skip}`);
         if (!skip) {
             re_check((token_update) => {
                 requestCall((r) => {
                     if (r) {
-                        console.debug(r);
+                        //console.debug(r);
                         if (!r.success) {
                             // location.href = telegram_social_bot;
                             // console.log("Redirect to " + telegram_social_bot);
@@ -853,7 +854,7 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
                                 title="TITLE_TEXT"
                             */
                             glob_auth_player_data = r.player_data;
-                            console.debug(r);
+                            //console.debug(r);
                             // const orderedData = getTelegramAuth();
                             if (r.player_data) {
                                 const player = r.player_data;
@@ -875,7 +876,7 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
 
                                 setInterval(function () {
                                     avatar_init();
-                                }, 300);
+                                }, 500);
 
                                 allow_display_login_hint = false;
                             }
@@ -919,7 +920,7 @@ const cloudflareTraceJSON = (text) => {
         p = k.split("=");
         dict[p[0]] = p[1];
     }
-    console.debug(dict);
+    //console.debug(dict);
     return dict;
 }
 const cloudflareTrace = (callback) => {
@@ -1074,13 +1075,13 @@ const getPlayersSkins = (callback, players, enabled=false) => {
     }
     re_check((token_update) => {
         requestCall((r) => {
-            callback(r.skins);
-        },
+                callback(r.skins);
+            },
             `${backend_host}/profile/skins/get`,
             "POST", true, {
-            token: token_update,
-            players: players
-        });
+                token: token_update,
+                players: players
+            });
     });
 }
 const appendServices = () => {
@@ -1238,7 +1239,7 @@ const appendServices = () => {
                         try {
                             document.getElementById(ids[i]).style.display = "";
                         } catch (e) {
-                            console.log(`Donate block loader error. Details: ${e}`);
+                            //console.log(`Donate block loader error. Details: ${e}`);
                         }
                     }
                 }, 100);
@@ -1283,8 +1284,8 @@ const ytVideoSetter = (skip = false, only_iframe = false, local_load = true) => 
             <iframe src="https://www.youtube.com/embed/${video_id}" title="YouTube video player"
                 frameborder="0" class="video-container-yt" id="ytframe_${video_id}"
                 allow="accelerometer; ${
-                    params.autoplay != null ? "autoplay" : ""
-                }; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            params.autoplay != null ? "autoplay" : ""
+        }; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen="" loading="lazy"></iframe>
         `;
     }
@@ -1293,14 +1294,14 @@ const ytVideoSetter = (skip = false, only_iframe = false, local_load = true) => 
             <video class="video-container" preload="none" id="ytframe_${video_id}" 
                     poster="/assets/images/videos/${video_id}.webp" 
                   ${
-                    params.autoplay != null ? 'autoplay=""' : ""
-                } ${
-                    params.muted != null ? 'muted=""' : ""
-                } ${
-                    params.loop != null ? 'loop=""' : ""
-                } ${
-                    params.controls != null ? 'controls=""' : ""
-                } style="object-fit: contain">
+            params.autoplay != null ? 'autoplay=""' : ""
+        } ${
+            params.muted != null ? 'muted=""' : ""
+        } ${
+            params.loop != null ? 'loop=""' : ""
+        } ${
+            params.controls != null ? 'controls=""' : ""
+        } style="object-fit: contain">
                 <source src="${url}" type="video/mp4">
             </video>
         `;
@@ -1344,7 +1345,7 @@ const check_modal_ = () => {
             modal_close_();
         }
     }
-    setInterval(close_r, 250);
+    setInterval(close_r, 350);
 }
 const modal_close_ = () => {
     if (modal_displayed) {
@@ -1445,8 +1446,7 @@ const get_cookie_cart = () => {
     let cookie_cart = {};
     try {
         cookie_cart = JSON.parse(Cookies.get(cart_cookie));
-    } catch (_) {
-    }
+    } catch (_) {}
     return cookie_cart;
 }
 const updateCartCount = () => {
@@ -1565,7 +1565,7 @@ const select_card_skin = (balance) => {
         const selector = skins[keys[i]];
         if (balance >= parseInt(keys[i])) {
             if (selector_card_skin_displayed !== selector) {
-                console.debug(selector);
+                //console.debug(selector);
                 selector_card_skin_displayed = selector;
             }
             return prepare_img_link(`${path}/${selector}.png`);
@@ -1824,26 +1824,26 @@ const buildPlayersSwiper = () => {
                     for (let i = 0; i < player.length; i++) {
                         const
                             getBadges = () => {
-                                    let result = "";
-                                    player[i].badges.sort();
-                                    for (let s = 0; s < player[i].badges.length; s++) {
-                                        const badge_local = player[i].badges[s];
-                                        if (
-                                            badge_local && badge_local.length &&
-                                            badge_local !== "verified" &&
-                                            !badge_local.includes("clan-"))
-                                        {
-                                            result = result + `
+                                let result = "";
+                                player[i].badges.sort();
+                                for (let s = 0; s < player[i].badges.length; s++) {
+                                    const badge_local = player[i].badges[s];
+                                    if (
+                                        badge_local && badge_local.length &&
+                                        badge_local !== "verified" &&
+                                        !badge_local.includes("clan-"))
+                                    {
+                                        result = result + `
                                         <div class="player_badge" 
                                             style="background-image: url(./assets/images/emoji/${badges_paste[badge_local].item}.png)"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                             title="${badges_paste[badge_local].title}">
                                         </div>
                                     `;
-                                        }
                                     }
-                                    return result;
                                 }
+                                return result;
+                            }
 
                         const getClan = () => {
                             for (let s = 0; s < player[i].badges.length; s++) {
@@ -1881,17 +1881,17 @@ const buildPlayersSwiper = () => {
                             </span>
                         </div>
                     `;
-                    // ${player_clan ? `<div
-                    //                     class="player_clan_badge"
-                    //                     data-bs-toggle="tooltip" data-bs-placement="top"
-                    //                     title="${player_clan}"
-                    // ></div>` : ""}
+                        // ${player_clan ? `<div
+                        //                     class="player_clan_badge"
+                        //                     data-bs-toggle="tooltip" data-bs-placement="top"
+                        //                     title="${player_clan}"
+                        // ></div>` : ""}
 
-                    // ${player[i].badges.includes("verified") ? `
-                    //     <i class="verified-icon"
-                    //     data-bs-toggle="tooltip" data-bs-placement="top"
-                    //     title="Подтвержденный"> ✔</i>
-                    // ` : ""}
+                        // ${player[i].badges.includes("verified") ? `
+                        //     <i class="verified-icon"
+                        //     data-bs-toggle="tooltip" data-bs-placement="top"
+                        //     title="Подтвержденный"> ✔</i>
+                        // ` : ""}
                     }
 
                     createSwiper();
@@ -2038,7 +2038,7 @@ const setRandomStickerLand = () => {
         } else {
             selector.style.opacity = .4;
         }
-    }, 30);
+    }, 100);
 
     const updateStickerPosition = () => {
         if (window.innerWidth >= 992) {
@@ -2347,9 +2347,8 @@ const donate_cart = (product, count,
     }
 
     if (!cart) {
-        Cookies.set(cart_cookie,
-            JSON
-                .stringify({}));
+        // clear cart
+        Cookies.set(cart_cookie, JSON.stringify({}));
     }
 
     const els_ = JSON.parse(Cookies
@@ -2965,9 +2964,7 @@ const donate_check_services_cart =
                     JSON.stringify(
                         cart)
                 );
-                console.log(
-                    `Remove ${services_cookie[i]} from cart`
-                );
+                //console.log(`Remove ${services_cookie[i]} from cart`);
             }
         }
     }
@@ -3316,11 +3313,10 @@ const initCrypto = () => {
         freeze_crypto = true;
         crypto_token = "";
         getCrypto((token_) => {
-            crypto_token =
-                token_;
-            setTimeout(function() {
-                freeze_crypto = false
-            }, 8000);
+            crypto_token = token_;
+            //setTimeout(function() {
+            //    freeze_crypto = false;
+            //}, 10000);
         });
     }
 }
@@ -3390,18 +3386,21 @@ const observerSystemTheme = () => {
         }
     };
 
-    for (let i = 0; i < mode_list
-        .length; i++) {
-        const observer = window
-            .matchMedia(
-                `(prefers-color-scheme: ${mode_list[i]})`
-            );
-        observer.addEventListener(
-            "change", (e) => e
-                    .matches &&
-                updateTheme(
-                    mode_list[i]));
+    let cookie_theme_ = theme_get();
+
+    if (!cookie_theme_) {
+        for (let i = 0; i < mode_list.length; i++) {
+            const observer = window
+                .matchMedia(`(prefers-color-scheme: ${mode_list[i]})`);
+            observer.addEventListener("change", (e) => e.matches &&
+                    updateTheme(mode_list[i]));
+        }
+        return;
     }
+
+    try {
+        updateTheme(cookie_theme_.theme);
+    } catch (_) {}
 }
 
 const callSucessPayModal = (payment_id = 0) => {
@@ -3446,10 +3445,10 @@ const callSucessPayModal = (payment_id = 0) => {
             img_product.length
         ) {
             document.querySelector(
-                    ".payment-sucess-vova").src = img_product;
+                ".payment-sucess-vova").src = img_product;
             const
                 name_selector = document.querySelector(
-                            ".item-name-payment-result");
+                    ".item-name-payment-result");
             if (item_nm_payment_result) {
                 name_selector.innerText = name_product;
             } else {
@@ -3680,7 +3679,7 @@ const adaptiveDisplayLand = () => {
     }
 
     updater();
-    setInterval(updater, 250);
+    setInterval(updater, 350);
 }
 const clipboardFunc = (field_selector, notify_text) => {
     const copyText = document.querySelector(field_selector);
@@ -3831,10 +3830,10 @@ const openAdminContact = () => {
             }
             textarea.maxLength = max_len;
             const update_len_counter =
-                    () => {
-                        label.innerText =
-                            `${textarea.value.length}/${max_len}`;
-                    }
+                () => {
+                    label.innerText =
+                        `${textarea.value.length}/${max_len}`;
+                }
             update_len_counter();
             addEventListener
             (
@@ -3856,13 +3855,9 @@ const openAdminContact = () => {
                 onclick_lock =
                     true);
         } else {
-            console.log(
-                "Error check Telegram auth"
-            );
+            //console.log("Error check Telegram auth");
             openTelegramAuthModal();
-            notify(
-                "Вам необходимо авторизоватся для этой функции"
-            );
+            notify("Вам необходимо авторизоватся для этой функции");
         }
     });
 }
@@ -3895,9 +3890,7 @@ const observerContainerHash = (
 const openTelegramAuthModal = (skip_check = false) => {
     checkTelegramAuthData(function (tg_success) {
         if (!tg_success) {
-            console.log(
-                "Telegram auth preparing..."
-            );
+            //console.log("Telegram auth preparing...");
             // modal_close_();
             const script_telegram_widget =
                 document.createElement(
@@ -4046,7 +4039,7 @@ const initTooltip = () => {
         setInterval(() => {
             tooltip_instance
                 .update();
-        }, 1200);
+        }, 1500);
     }
 }
 
@@ -4125,9 +4118,7 @@ const autoAuthTelegramObserver = () => {
     }
     checkTelegramAuthData((
         success) => {
-        console.debug(
-            `Telegram auth check status : ${success}`
-        );
+        //console.debug(`Telegram auth check status : ${success}`);
         if (success) {
             const
                 button_contact_land =
@@ -4148,24 +4139,15 @@ const autoAuthTelegramObserver = () => {
                             "telegram-auth-avatar"
                         );
 
-            button_auth
-                .removeAttribute(
-                    "onclick"
-                );
+            button_auth.removeAttribute("onclick");
             if (feedback_module_enabled) {
-                button_contact_land
-                    .style
-                    .display =
-                    "";
+                button_contact_land.style.display = "";
             }
-            telegram_auth_avatar
-                .style
-                .display =
-                "";
+            telegram_auth_avatar.style.display = "";
             setAvatar(getTelegramAuth());
         }
     });
-    setInterval(displayTokens, 1200);
+    setInterval(displayTokens, 1500);
 }
 
 const initCore = () => {
@@ -4213,11 +4195,7 @@ const initCore = () => {
 
     window.onload = () => {
         if (!debug_lock_init) {
-            const preloader =
-                document
-                    .querySelector(
-                        ".page-loading"
-                    );
+            const preloader = document.querySelector(".page-loading");
             const wait = 1500;
             const move_wait =
                 100;
@@ -4225,33 +4203,22 @@ const initCore = () => {
                 () => {
                     preloader
                         .classList
-                        .remove(
-                            "active"
-                        );
-                    if (!
-                        donate_displayed
-                    ) {
+                        .remove("active");
+                    if (!donate_displayed) {
                         document
                             .body
                             .style
-                            .overflowY =
-                            "";
+                            .overflowY = "";
                     }
-                    window
-                        .scrollTo({
-                            top: 0,
-                        });
+                    window.scrollTo({top: 0,});
                 }, wait);
             setTimeout(
                 () => {
-                    preloader
-                        .remove();
+                    preloader.remove();
 
                     // after tasks
-                    initTooltip
-                    ();
-                    initSmoothScrollObserver
-                    ();
+                    initTooltip();
+                    initSmoothScrollObserver();
                 }, wait +
                 move_wait);
             setInterval(() => {

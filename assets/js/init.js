@@ -5,13 +5,21 @@ const container_dev_splash = document
         ".is-dev-site-splash");
 const test_local = false;
 
-function init_logo_splash() {
+const init_logo_splash = () => {
     let logo_selector = document.getElementById("logo-spalsh-sb");
     logo_selector.style.scale = 1;
     logo_selector.style.bottom = "5vh";
 }
 
-function notify(text) {
+const theme_get = () => {
+    let cookie_saved_theme = {};
+    try {
+        cookie_saved_theme = JSON.parse(Cookies.get("c_saved_theme"));
+    } catch (_) {}
+    return cookie_saved_theme;
+}
+
+const notify = (text) => {
     const error_box = document
         .querySelector(
             ".error_box_cst");
@@ -54,9 +62,7 @@ function notify(text) {
         notify_hide, 2500);
 }
 
-function requestCall(callback, url,
-                      method, json = false, json_body =
-                          null) {
+const requestCall = (callback, url, method, json = false, json_body = null) => {
     let request = new XMLHttpRequest();
     let json_body_local = {};
     request.open(method, url, true);
@@ -113,7 +119,7 @@ function requestCall(callback, url,
     request.send(json_body_local);
 }
 
-function is_development_splash() {
+const is_development_splash = () => {
     let mode = Cookies.get(
         "dev_splash");
     if (!mode && mode !== "closed") {
@@ -124,7 +130,7 @@ function is_development_splash() {
     }
 }
 
-function closeDevSplash() {
+const closeDevSplash = () => {
     document.body.classList.remove(
         "modal-open");
     container_dev_splash.style
