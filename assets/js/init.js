@@ -4,6 +4,7 @@ const container_dev_splash = document
     .querySelector(
         ".is-dev-site-splash");
 const test_local = false;
+var tg_frame_update_interval = null;
 
 const init_logo_splash = () => {
     let logo_selector = document.getElementById("logo-spalsh-sb");
@@ -12,15 +13,20 @@ const init_logo_splash = () => {
 }
 
 const tg_frame_theme_update = () => {
-    const frame = document.getElementById("tg-iframe-view");
-    const url_ob = new URL(frame.src);
+    tg_frame_update_interval = setInterval(function() {
+        try {
+            const frame = document.getElementById("tg-iframe-view");
+            const url_ob = new URL(frame.src);
 
-    if (this.checked) {
-        url_ob.hash = "#dark";
-    } else {
-        url_ob.hash = "#light";
-    }
-    frame.src = url_ob.href;
+            if (this.checked) {
+                url_ob.hash = "#dark";
+            } else {
+                url_ob.hash = "#light";
+            }
+            frame.src = url_ob.href;
+            clearInterval(tg_frame_update_interval);
+        } catch (_) {}
+    }, 300);
 }
 
 const theme_get = () => {
