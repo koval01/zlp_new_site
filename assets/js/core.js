@@ -118,7 +118,6 @@ const getOffset = (date, timezone) => {
             timeZoneName: 'shortOffset'
         }).match(/(?:GMT|UTC).+/)[0] * 60;
     } catch (e) {
-        //console.error(`getOffset : ${e}`);
         return 0;
     }
 }
@@ -183,9 +182,7 @@ const isChrome = () => {
 const downloadLauncher = () => {
     getGitLauncherReleases(function(links_) {
         const link = links_[getPlatform()];
-
         window.location = link;
-        //console.debug(`Init downloading file from url : ${link}`);
 
         if (!isChrome()) {
             notify(`Сейчас тебе скачаем файл <span class="text-gradient-primary">${
@@ -532,7 +529,6 @@ const appendPostsNews = (iframe=true) => {
                             }
                         }
                         addEventListener('resize', (event) => calculate_text_position());
-                        // setInterval(calculate_text_position, 50);
                     }
                 }
                 getImageLightness(posts[i].cover, (brightness) => {
@@ -613,7 +609,6 @@ const get_game_server_data = (callback) => {
         }
         document.getElementById("error_get_server_status").innerText = string_;
     };
-    //console.debug(`crypto_token.length: ${crypto_token.length}`);
     if (crypto_token) {
         requestCall((r) => {
             setTimeout(
@@ -630,7 +625,6 @@ const get_game_server_data = (callback) => {
             crypto_token: crypto_token
         });
     } else {
-        //initCrypto();
         freeze_monitoring = false;
     }
 }
@@ -761,7 +755,6 @@ const check_coupon = (callback, coupon) => {
 }
 const testImage = (url) => {
     const tester = new Image();
-    // tester.addEventListener('load', TSimageFound);
     tester.addEventListener('error', reInitTelegramAuth);
     tester.src = url;
 }
@@ -775,8 +768,6 @@ const loadPlayerAvatar = (avatar, def_selector="telegram-auth-avatar", url_gener
                 avatar_selector = document.getElementById(def_selector);
                 avatar_selector.style;
             } catch {}
-
-            //console.debug(`Load avatar : ${avatar}`);
             document.getElementById("tg-user-avatar-text").innerText = "";
         }
 
@@ -830,26 +821,16 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
             callback(telegram_glob_session.response.success);
             return;
         }
-        //console.debug(`skip pos : ${skip}`);
         if (!skip) {
             re_check((token_update) => {
                 requestCall((r) => {
                     if (r) {
-                        //console.debug(r);
                         if (!r.success) {
-                            // location.href = telegram_social_bot;
-                            // console.log("Redirect to " + telegram_social_bot);
                             openLoginHint();
                             callback(false);
                         } else {
                             const avatar = document.getElementById("telegram-auth-avatar");
-                            /*
-                                data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                title="TITLE_TEXT"
-                            */
                             glob_auth_player_data = r.player_data;
-                            //console.debug(r);
-                            // const orderedData = getTelegramAuth();
                             if (r.player_data) {
                                 const player = r.player_data;
                                 const skin = player.NICKNAME;
@@ -896,7 +877,6 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
     }
 }
 const getIPClient = (callback) => {
-    // getIPClient(function () {});
     requestCall(
         (r) => {
             if (r && r.success) {
@@ -914,7 +894,6 @@ const cloudflareTraceJSON = (text) => {
         p = k.split("=");
         dict[p[0]] = p[1];
     }
-    //console.debug(dict);
     return dict;
 }
 const cloudflareTrace = (callback) => {
@@ -1115,7 +1094,6 @@ const appendServices = () => {
                 };
                 products_by_serverid.push(services[i]);
                 let _name = "";
-                // const _desc = "";
                 let padding_desc = "p-3";
                 let desc_template = `
                     <p class="mb-0">
@@ -1232,9 +1210,7 @@ const appendServices = () => {
                     for (let i = 0; i < ids.length; i++) {
                         try {
                             document.getElementById(ids[i]).style.display = "";
-                        } catch (e) {
-                            //console.log(`Donate block loader error. Details: ${e}`);
-                        }
+                        } catch (_) {}
                     }
                 }, 100);
         }
@@ -1559,7 +1535,6 @@ const select_card_skin = (balance) => {
         const selector = skins[keys[i]];
         if (balance >= parseInt(keys[i])) {
             if (selector_card_skin_displayed !== selector) {
-                //console.debug(selector);
                 selector_card_skin_displayed = selector;
             }
             return prepare_img_link(`${path}/${selector}.png`);
@@ -1591,7 +1566,6 @@ const checkPrivateServerBuy = () => {
         const stop_key = "Проходка";
 
         for (let item of donate_services_array) {
-            // console.debug(`checkPrivateServerBuy : item = ${item.name} / id = ${item.id}`);
             if (item.name === stop_key && glob_auth_player_data.PRIVATE_SERVER) {
                 const selector_button = document.querySelector(
                     `#donate_item_${item.id}>div>div.card-body>button`);
@@ -1599,7 +1573,6 @@ const checkPrivateServerBuy = () => {
                 selector_button.innerText = "Куплено";
                 selector_button.setAttribute("disabled", "");
                 selector_button.removeAttribute("onclick");
-                // открывать чек об оплате (если есть)
             }
         }
     }
@@ -1784,11 +1757,6 @@ const buildPlayersSwiper = () => {
             "GET", true);
     };
 
-    // try {
-    //     // preload
-    //     loadPlayerAvatar(generateRandomHex(32), "", true);
-    // } catch {}
-
     badges_get((badges_paste) => {
         requestCall((r) => {
                 const player = r;
@@ -1814,7 +1782,6 @@ const buildPlayersSwiper = () => {
                 }
 
                 getPlayersSkins(function (skins) {
-                    // console.log(skins);
                     for (let i = 0; i < player.length; i++) {
                         const
                             getBadges = () => {
@@ -1849,13 +1816,10 @@ const buildPlayersSwiper = () => {
 
                         glob_players.push(player[i].name);
 
-                        // const player_badges_ = getBadges();
-                        // const player_clan = getClan();
                         const player_badges_ = "";
                         const player_clan = "";
 
                         player[i].head = prepare_img_link(player[i].head);
-                        //loadPlayerAvatar(selectSkin(player[i].name, skins), "", true)
 
                         array_.innerHTML = array_.innerHTML + `
                         <div class="swiper-slide text-center">
@@ -1875,17 +1839,6 @@ const buildPlayersSwiper = () => {
                             </span>
                         </div>
                     `;
-                        // ${player_clan ? `<div
-                        //                     class="player_clan_badge"
-                        //                     data-bs-toggle="tooltip" data-bs-placement="top"
-                        //                     title="${player_clan}"
-                        // ></div>` : ""}
-
-                        // ${player[i].badges.includes("verified") ? `
-                        //     <i class="verified-icon"
-                        //     data-bs-toggle="tooltip" data-bs-placement="top"
-                        //     title="Подтвержденный"> ✔</i>
-                        // ` : ""}
                     }
 
                     createSwiper();
@@ -2275,9 +2228,8 @@ const donateResetPaymentState = (type =
     const update_inputs = () => {
         for (let i = 0; i < inputs.length; i++) {
             const sl = document.getElementById(inputs[i]);
-            if (inputs[i].includes("coupon") && !coupon_reset) {
-                // pass
-            } else if (inputs[i].includes("method")) {
+            if (inputs[i].includes("coupon") && !coupon_reset) {}
+            else if (inputs[i].includes("method")) {
                 sl.value = 1;
             } else {
                 sl.value = "";
@@ -2341,7 +2293,6 @@ const donate_cart = (product, count,
     }
 
     if (!cart) {
-        // clear cart
         Cookies.set(cart_cookie, JSON.stringify({}));
     }
 
@@ -2465,7 +2416,6 @@ const onTelegramAuth = (user) => {
     );
 
     autoAuthTelegramObserver();
-    // checkAuthAndDisplayDonate();
 }
 
 const debugWriteTelegramAuth = (data) => {
@@ -2587,7 +2537,6 @@ const couponCheck = (coins = false) => {
     input_lock(true);
     if (donatePayMethodSelector() !== 2) {
         check_coupon((r) => {
-            // console.log(`check_coupon = ${typeof r}`);
             if (r) {
                 const call =
                     () => {
@@ -2600,31 +2549,21 @@ const couponCheck = (coins = false) => {
                     };
                 if (!coins_sell_mode) {
                     call();
-                    donateCartCall
-                    (
-                        code,
-                        false
-                    );
+                    donateCartCall(code, false);
                 } else if (
                     check_coupon_valid(
-                        r
-                            .products,
-                        current_c_item
+                        r.products, current_c_item
                     )) {
-                    call();
-                    const sl =
-                        document
-                            .getElementById(
-                                "donate-coins-payment"
-                            );
-                    sl.innerHTML = `<li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-primary">
-                            <h6 class="my-0 text-start">Купон</h6>
-                            <small class="text-start" style="float: left">${code}</small>
-                        </div>
-                        <span class="text-muted text-end" style="width: 30%">
-                            ${r.discount}%</span>
-                    </li>`;
+                        call();
+                        const sl = document.getElementById("donate-coins-payment");
+                        sl.innerHTML = `<li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-primary">
+                                <h6 class="my-0 text-start">Купон</h6>
+                                <small class="text-start" style="float: left">${code}</small>
+                            </div>
+                            <span class="text-muted text-end" style="width: 30%">
+                                ${r.discount}%</span>
+                        </li>`;
                 } else {
                     notify(
                         "Этот купон недействительный"
@@ -2958,7 +2897,6 @@ const donate_check_services_cart =
                     JSON.stringify(
                         cart)
                 );
-                //console.log(`Remove ${services_cookie[i]} from cart`);
             }
         }
     }
@@ -3177,7 +3115,6 @@ const donateModalCall = (type_item,
             `;
             item_name = "Токены";
             donate_sum_title.innerText = "Сумма";
-            // except
             sum.addEventListener(
                 "input",
                 (_) => {
@@ -3305,12 +3242,8 @@ const linksSet = (selector_,
 const initCrypto = () => {
     if (!freeze_crypto) {
         freeze_crypto = true;
-        crypto_token = "";
         getCrypto((token_) => {
             crypto_token = token_;
-            //setTimeout(function() {
-            //    freeze_crypto = false;
-            //}, 10000);
         });
     }
 }
@@ -3386,13 +3319,6 @@ const observerSystemTheme = () => {
         observer.addEventListener("change", (e) => e.matches &&
                 updateTheme(mode_list[i]));
     }
-
-    // let cookie_theme_ = theme_get().theme;
-    //
-    // if (cookie_theme_) {
-    //     updateTheme(cookie_theme_.theme);
-    //     tg_frame_theme_update();
-    // }
 }
 
 const callSucessPayModal = (payment_id = 0) => {
@@ -3583,8 +3509,6 @@ const callSucessPayModal = (payment_id = 0) => {
         switch_modal_containers(
             "success");
         modal_open_();
-
-        // updaters
         update_pm_desc();
     };
 
@@ -3642,8 +3566,6 @@ const displayPromotion = () => {
                 s_text.paddingRight = "1.25rem";
                 s_text.paddingLeft = "1.25rem";
                 s_text.paddingTop = ".18rem";
-
-                // main.style.paddingTop = "50px";
             }
         },
         "assets/data/promotion.json",
@@ -3653,7 +3575,6 @@ const displayPromotion = () => {
 const adaptiveDisplayLand = () => {
     const updater = () => {
         const header_height = document.querySelector("header").offsetHeight;
-        // const d_h = header_height / 2;
         const container = document.getElementById("head-container");
 
         const vova_pc_version = document.querySelector("div.vova-bg-landing");
@@ -3847,7 +3768,6 @@ const openAdminContact = () => {
                 onclick_lock =
                     true);
         } else {
-            //console.log("Error check Telegram auth");
             openTelegramAuthModal();
             notify("Вам необходимо авторизоватся для этой функции");
         }
@@ -3882,8 +3802,6 @@ const observerContainerHash = (
 const openTelegramAuthModal = (skip_check = false) => {
     checkTelegramAuthData(function (tg_success) {
         if (!tg_success) {
-            //console.log("Telegram auth preparing...");
-            // modal_close_();
             const script_telegram_widget =
                 document.createElement(
                     'script');
@@ -4108,9 +4026,7 @@ const autoAuthTelegramObserver = () => {
         document.getElementById("telegram-auth-avatar")
             .style.display = "";
     }
-    checkTelegramAuthData((
-        success) => {
-        //console.debug(`Telegram auth check status : ${success}`);
+    checkTelegramAuthData((success) => {
         if (success) {
             const
                 button_contact_land =
