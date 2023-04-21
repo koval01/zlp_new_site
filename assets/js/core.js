@@ -393,7 +393,7 @@ const appendPostsNews = (iframe=true) => {
             style="min-height:450px;width:100vw" 
             id="tg-iframe-view"
             src="https://telegram-worker.zalupa.online/zalupaonline" 
-            onload="try{document.getElementById('telegram_block_load').remove()} catch {}">
+            onload="try{document.getElementById('telegram_block_load').remove();tg_frame_theme_update()} catch (_) {}">
         </iframe>`;
         const c = document.getElementById("news-c-container");
         c.innerHTML = template + c.innerHTML;
