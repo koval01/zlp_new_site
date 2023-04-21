@@ -3386,8 +3386,6 @@ const observerSystemTheme = () => {
         }
     };
 
-    let cookie_theme_ = theme_get();
-
     for (let i = 0; i < mode_list.length; i++) {
         const observer = window
             .matchMedia(`(prefers-color-scheme: ${mode_list[i]})`);
@@ -3395,9 +3393,11 @@ const observerSystemTheme = () => {
                 updateTheme(mode_list[i]));
     }
 
-    try {
+    let cookie_theme_ = theme_get().theme;
+
+    if (cookie_theme_) {
         updateTheme(cookie_theme_.theme);
-    } catch (_) {}
+    }
 }
 
 const callSucessPayModal = (payment_id = 0) => {
