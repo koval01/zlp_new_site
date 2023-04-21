@@ -661,8 +661,8 @@ const monitoring_game_server_update = () => {
 }
 const gameServerUpdater = () => {
     monitoring_game_server_update();
-    gameServerUpdater_setter = setInterval(monitoring_game_server_update, 650);
-    setInterval(monitoring_game_server_update, 6000);
+    gameServerUpdater_setter = setInterval(monitoring_game_server_update, 800);
+    setInterval(monitoring_game_server_update, 8000);
 }
 const initEventsList = () => {
     const row_container = document.getElementById("events-row-container");
@@ -876,7 +876,7 @@ const checkTelegramAuthData = (callback, skip = false, raw = false, skip_cache =
 
                                 setInterval(function () {
                                     avatar_init();
-                                }, 300);
+                                }, 500);
 
                                 allow_display_login_hint = false;
                             }
@@ -1345,7 +1345,7 @@ const check_modal_ = () => {
             modal_close_();
         }
     }
-    setInterval(close_r, 250);
+    setInterval(close_r, 350);
 }
 const modal_close_ = () => {
     if (modal_displayed) {
@@ -2038,7 +2038,7 @@ const setRandomStickerLand = () => {
         } else {
             selector.style.opacity = .4;
         }
-    }, 30);
+    }, 100);
 
     const updateStickerPosition = () => {
         if (window.innerWidth >= 992) {
@@ -3679,7 +3679,7 @@ const adaptiveDisplayLand = () => {
     }
 
     updater();
-    setInterval(updater, 250);
+    setInterval(updater, 350);
 }
 const clipboardFunc = (field_selector, notify_text) => {
     const copyText = document.querySelector(field_selector);
@@ -4039,7 +4039,7 @@ const initTooltip = () => {
         setInterval(() => {
             tooltip_instance
                 .update();
-        }, 1200);
+        }, 1500);
     }
 }
 
@@ -4139,24 +4139,15 @@ const autoAuthTelegramObserver = () => {
                             "telegram-auth-avatar"
                         );
 
-            button_auth
-                .removeAttribute(
-                    "onclick"
-                );
+            button_auth.removeAttribute("onclick");
             if (feedback_module_enabled) {
-                button_contact_land
-                    .style
-                    .display =
-                    "";
+                button_contact_land.style.display = "";
             }
-            telegram_auth_avatar
-                .style
-                .display =
-                "";
+            telegram_auth_avatar.style.display = "";
             setAvatar(getTelegramAuth());
         }
     });
-    setInterval(displayTokens, 1200);
+    setInterval(displayTokens, 1500);
 }
 
 const initCore = () => {
@@ -4204,11 +4195,7 @@ const initCore = () => {
 
     window.onload = () => {
         if (!debug_lock_init) {
-            const preloader =
-                document
-                    .querySelector(
-                        ".page-loading"
-                    );
+            const preloader = document.querySelector(".page-loading");
             const wait = 1500;
             const move_wait =
                 100;
@@ -4216,33 +4203,22 @@ const initCore = () => {
                 () => {
                     preloader
                         .classList
-                        .remove(
-                            "active"
-                        );
-                    if (!
-                        donate_displayed
-                    ) {
+                        .remove("active");
+                    if (!donate_displayed) {
                         document
                             .body
                             .style
-                            .overflowY =
-                            "";
+                            .overflowY = "";
                     }
-                    window
-                        .scrollTo({
-                            top: 0,
-                        });
+                    window.scrollTo({top: 0,});
                 }, wait);
             setTimeout(
                 () => {
-                    preloader
-                        .remove();
+                    preloader.remove();
 
                     // after tasks
-                    initTooltip
-                    ();
-                    initSmoothScrollObserver
-                    ();
+                    initTooltip();
+                    initSmoothScrollObserver();
                 }, wait +
                 move_wait);
             setInterval(() => {
