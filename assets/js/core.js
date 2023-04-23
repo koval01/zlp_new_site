@@ -1439,6 +1439,7 @@ const donatePayMethodSelector = () => {
     const choice = parseInt(document.getElementById("donate-pay-method").value);
     const balance = document.getElementById("tokens-balance-choice-dnt-container");
 
+    balance.style.border = "none";
     if (choice == 2) {
         balance.style.marginTop = "1em";
         balance.style.opacity = 1;
@@ -1486,6 +1487,7 @@ const displayTokens = (v2=true) => {
             const template_tokens = `<span class="text-primary">${balance}</span> ${
                 getNoun(balance, "токен", "токена", "токенов")}`;
 
+            balance_choice.style.textAlign = "center";
             balance_choice.innerHTML = `У тебя ${template_tokens}`;
 
             balance_number.setAttribute(
@@ -4064,7 +4066,6 @@ const initCore = () => {
     initLanding();
     observerSystemTheme();
     buildPlayersSwiper();
-    buildDonateHistorySwiper();
     appendPostsNews();
     initComments();
     appendServices();
