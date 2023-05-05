@@ -1,17 +1,11 @@
 const development_hosts = [
-    "koval01.github.io", "localhost"];
-const container_dev_splash = document
+    "koval01.github.io", "localhost"], container_dev_splash = document
     .querySelector(
-        ".is-dev-site-splash");
-const test_local = false;
-
-const init_logo_splash = () => {
+        ".is-dev-site-splash"), test_local = false, init_logo_splash = () => {
     let logo_selector = document.getElementById("logo-spalsh-sb");
-    logo_selector.style.scale = 1;
+    logo_selector.style.scale = "1";
     logo_selector.style.bottom = "5vh";
-}
-
-const tg_frame_theme_update = () => {
+}, tg_frame_theme_update = () => {
     try {
         const frame = document.getElementById("tg-iframe-view");
         const url_ob = new URL(frame.src);
@@ -25,18 +19,16 @@ const tg_frame_theme_update = () => {
             url_ob.hash = "#light";
         }
         frame.src = url_ob.href;
-    } catch (_) {}
-}
-
-const theme_get = () => {
+    } catch (_) {
+    }
+}, theme_get = () => {
     let cookie_saved_theme = {};
     try {
         cookie_saved_theme = JSON.parse(Cookies.get("c_saved_theme"));
-    } catch (_) {}
+    } catch (_) {
+    }
     return cookie_saved_theme;
-}
-
-const notify = (text) => {
+}, notify = (text) => {
     const error_box = document
         .querySelector(
             ".error_box_cst");
@@ -77,9 +69,7 @@ const notify = (text) => {
     clearTimeout(timer_notify);
     timer_notify = setTimeout(
         notify_hide, 2500);
-}
-
-const requestCall = (callback, url, method, json = false, json_body = null) => {
+}, requestCall = (callback, url, method, json = false, json_body = null) => {
     let request = new XMLHttpRequest();
     let json_body_local = {};
     request.open(method, url, true);
@@ -134,9 +124,7 @@ const requestCall = (callback, url, method, json = false, json_body = null) => {
     };
 
     request.send(json_body_local);
-}
-
-const is_development_splash = () => {
+}, is_development_splash = () => {
     let mode = Cookies.get(
         "dev_splash");
     if (!mode && mode !== "closed") {
@@ -145,9 +133,7 @@ const is_development_splash = () => {
         container_dev_splash.style
             .display = "";
     }
-}
-
-const closeDevSplash = () => {
+}, closeDevSplash = () => {
     document.body.classList.remove(
         "modal-open");
     container_dev_splash.style
@@ -158,7 +144,8 @@ const closeDevSplash = () => {
             "none"
     }, 600);
     Cookies.set("dev_splash", "closed");
-}
+};
+
 
 if (!development_hosts.includes(window
     .location.hostname)) {
@@ -188,7 +175,7 @@ init_logo_splash();
 
 let script_re = document.createElement(
     'script');
-var script_core = document
+const script_core = document
     .createElement('script');
 script_re.onload = function () {
     script_core.src =
