@@ -382,8 +382,7 @@ const appendPostsNews = (iframe=true) => {
                 } catch (_) {}
             }, 150);
     };
-    if (iframe) {
-        const template = `
+    const template = `
         <div class="shadow-vertical-overlay vertical-top-shadow" style="width:100vw!important"></div>
         <div class="shadow-vertical-overlay vertical-bottom-shadow" style="width:100vw!important"></div>
         <iframe 
@@ -391,165 +390,17 @@ const appendPostsNews = (iframe=true) => {
             id="tg-iframe-view"
             src="https://telegram-worker.zalupa.online/zalupaonline" 
             onload="try{document.getElementById('telegram_block_load').remove();tg_frame_theme_update()} catch (_) {}">
-        </iframe>`;
-        const c = document.getElementById("news-c-container");
-        c.innerHTML = template + c.innerHTML;
-        loading_done();
-        document.getElementById("theme-mode").addEventListener(
-            'change',
-            function() {
-                tg_frame_theme_update();
-            }
-        );
-    } else {
-        const createSwiper = () => {
-            new Swiper("#news_swipe_container", {
-                spaceBetween: 12,
-                loop: true,
-                observer: true,
-                observeParents: true,
-                preventClicks: false,
-                preventClicksPropagation: false,
-                autoplay: {
-                    delay: 1000 * 10,
-                },
-                pagination: {
-                    el: "#news_swiper_pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    prevEl: "#prev_news",
-                    nextEl: "#next_news",
-                },
-            });
-        };
-        const text_modify_enable = true;
-        const text_size_static = true;
-        const add_news_in_array = (posts) => {
-            const adaptive_news_text = true;
-            const array_ = document.getElementById("news_swipe_array");
-            posts = posts.reverse();
-            for (let i = 0; i < posts.length; i++) {
-                const text = posts[i].text;
-                const text_els = text.split(" ");
-                const datetime = new Date(posts[i].datetime_utc);
-                if (!posts[i].cover) {
-                    posts[i].cover = "assets/images/spawn.webp";
-                }
-                array_.innerHTML = array_.innerHTML + `
-                    <div class="swiper-slide h-auto px-2" style="max-height: 40vh !important;display: ${
-                    text_els.length >= 5 ? 'block' : 'none'
-                }">
-                        <figure class="card h-100 position-relative border-0 news-figure" id="news_figure_${i}">
-                            <div class="background-news" id="background-news-${i}">
-                                <div class="background-news-overlay" id="news-overlay-${i}">
-                                    <div class="background-news-overlay-dark-mode">
-                                        <div 
-                                        style="z-index:6;top:35.1%;height:65%"
-                                        class="shadow-vertical-overlay shadow-vertical-overlay-news vertical-bottom-shadow"
-                                        ></div>
-                                        <blockquote class="card-body mt-2 mb-3 news-text-container">
-                                            <p class="fs-md mb-0 news-text h6" id="news_text_${i}" style="font-family:sans-serif">
-                                                    ${text}</p>
-                                            <div class="news-bottom-container" style="z-index:8">
-                                                <a class="btn btn-primary shadow-primary btn-lg news-button-view"
-                                                   href="${posts[i].link}" target="_blank">
-                                                        Подробнее</a>
-                                            </div>
-                                        </blockquote>
-                                    </div>
-                                </div> 
-                            </div>
-                        </figure>
-                        <span class="news-date-text">
-                            ${datetime.toLocaleDateString()} 
-                            ${datetime.toLocaleTimeString("ru-RU", {
-                    hour: "2-digit", minute: "2-digit",
-                })}
-                        </span>
-                    </div>
-                `;
-                const selector_bg = document.getElementById(`background-news-${i}`);
-                selector_bg.style.backgroundImage = `url(${posts[i].cover})`;
-                if (text_modify_enable) {
-                    const selector_text = document.getElementById(`news_text_${i}`);
-                    selector_text.style.width = "100%";
-                    selector_text.classList.add("text-light");
-                    if (text_size_static) {
-                        selector_text.style.fontSize = 'calc(1.35vw + .75vh)';
-                    } else {
-                        const text_len = selector_text.innerText.length;
-                        const text_split = selector_text.innerText.split(" ");
-                        const font_size = ((text_len - -8) * .4) / 100;
-                        const fix_float_fs = (
-                            float, font_size, correction_float = .55,
-                            correction_font = .26, max_val = .94
-                        ) => {
-                            float = float < correction_float ? correction_float * (
-                                font_size / correction_font
-                            ) : float
-                            return max_val ? (float < max_val ? float : max_val) : float
-                        }
-                        selector_text.style.fontSize = `calc(${
-                            fix_float_fs(parseFloat(1.96 - font_size), font_size)
-                        }vw + ${
-                            fix_float_fs(parseFloat(2.16 - font_size), font_size)
-                        }vh + ${
-                            fix_float_fs(parseFloat(2 - font_size), font_size)
-                        }vmin)`;
-                        selector_text.style.padding = `${
-                            fix_float_fs(parseFloat(
-                                1.45 - font_size
-                            ), font_size, .22, 1.05)
-                        }rem`;
-                        const calculate_text_position = () => {
-                            if (!adaptive_news_text) {
-                                return;
-                            }
-                            // local init var
-                            const identifier_sl = `news_text_${i}`;
-                            const switch_val = 10;
-                            const selector_text = document.getElementById(identifier_sl);
-                            const font_size = parseFloat(
-                                window.getComputedStyle(selector_text, null)
-                                    .getPropertyValue('font-size')
-                                    .replace("px", "")
-                            );
-                            selector_text.style.maxHeight = "32vh";
-                            if (font_size > switch_val) {
-                                selector_text.style.position = "absolute";
-                                selector_text.style.display = "inline-block";
-                                selector_text.style.paddingBottom = "5rem";
-                                selector_text.style.paddingRight = "3rem";
-                            } else {
-                                selector_text.style.position = "";
-                                selector_text.style.display = "";
-                                selector_text.style.paddingBottom = "";
-                                selector_text.style.paddingRight = "";
-                            }
-                        }
-                        addEventListener('resize', (event) => calculate_text_position());
-                    }
-                }
-                getImageLightness(posts[i].cover, (brightness) => {
-                    const style_ = `#000000${
-                        (((parseFloat(brightness) / 255.0) * 100.0)
-                            .toFixed() + 64)
-                            .toString(16)
-                            .slice(0, 2)
-                    }`;
-                    document.getElementById(`news-overlay-${i}`).style.background = style_;
-                });
-            }
-            if (posts) {
-                createSwiper();
-                loading_done();
-            }
-        };
-        get_news_((posts) => {
-            add_news_in_array(posts);
-        }, 1);
-    }
+        </iframe>
+    `;
+    const c = document.getElementById("news-c-container");
+    c.innerHTML = template + c.innerHTML;
+    loading_done();
+    document.getElementById("theme-mode").addEventListener(
+        'change',
+        function() {
+            tg_frame_theme_update();
+        }
+    );
 }
 const closeButtonDonateAdaptive = () => {
     if (!is_apple_platform()) {
@@ -981,40 +832,6 @@ const sendFeedback = (callback, text) => {
                 });
         });
     }
-}
-const sendFeedbackAction = () => {
-    const button = document.getElementById("send-feedback-button");
-    const textarea = document.getElementById("admin-message");
-    const text = textarea.value;
-    if (text.length < 20) {
-        notify("Сообщение очень короткое!");
-        return;
-    }
-    const button_lock = (lock = true) => {
-        if (lock) {
-            button.setAttribute("disabled", "");
-        } else {
-            button.removeAttribute("disabled");
-        }
-        button.innerText = lock ? "Ожидайте..." : "Отправить";
-    }
-    button_lock();
-    checkFeedbackStatus((check_data) => {
-        if (check_data) {
-            sendFeedback(
-                (send_data) => {
-                    if (send_data) {
-                        notify("Сообщение отправлено админам.");
-                    } else {
-                        notify("Ошибка на стороне сервера, попробуйте позже.");
-                    }
-                    button_lock(false);
-                }, text);
-        } else {
-            button_lock(false);
-            notify("Не удалось пройти проверку, попробуйте позже.");
-        }
-    });
 }
 const checkPayment = (callback, payment_id) => {
     re_check((token_update) => {
@@ -3607,28 +3424,6 @@ const clipboardFunc = (field_selector, notify_text) => {
     notify(notify_text)
     return copyText.value;
 }
-const spClownLoad = () => {
-    const buttons = document.getElementById("zlp_land_buttons");
-    const button_template = `
-        <button onclick="spClownShow()" 
-                class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
-            Я люблю СП
-        </button>
-    `;
-
-    getImageLightness("assets/images/Clown-Face.gif", undefined, false);
-    buttons.innerHTML = buttons.innerHTML + button_template;
-}
-
-const spClownShow = () => {
-    lock_sticker_switch = true;
-    setTimeout(function () {
-        lock_sticker_switch = false
-    }, 3500);
-
-    setSticker(0, 0, "assets/images/emoji/clown-face.png");
-    notify("На хуй отсюда иди тогда");
-}
 
 const donateContainerHash = () => {
     observerContainerHash(["donate",
@@ -3643,148 +3438,6 @@ const donateContainerHash = () => {
             );
         });
 }
-
-const rulesModalOpen = () => {
-    let content = "";
-    get_rules_private_server((
-        rules) => {
-        for (let i = 0; i <
-        rules
-            .length; i++) {
-            content += `
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0 text-start">
-                                ${i + 1}
-                            </h6>
-                        </div>
-                        <span class="ps-2 pe-2 text-start">${rules[i].text}</span>
-                    </li>
-                `;
-        }
-        switch_modal_containers
-        (
-            "info", {
-                title: "Правила приватного сервера",
-                content: `
-                <ul class="list-group mb-4 mb-lg-5">
-                    ${content}
-                </ul>
-            `
-            });
-        modal_open_();
-    });
-}
-
-const rulesPrivateContainerHash =
-    () => {
-        observerContainerHash([
-                "private_rules"
-            ],
-            () => {
-                rulesModalOpen();
-            });
-    }
-
-const openAdminContact = () => {
-    checkTelegramAuthData((
-        data) => {
-        if (data || feedback_tg_auth_skip) {
-            if (!glob_players.length) {
-                glob_players = ["Player"];
-            }
-            shuffle(glob_players);
-            switch_modal_containers
-            ("info", {
-                title: "Обратная связь",
-                content: `
-                        <p class="mb-2 mb-lg-3 mb-xl-4 text-start">
-                            Это форма для предложений и жалоб, опишите пожалуйста кратко и 
-                            ясно свою идею или предложение без воды.
-                        </p>
-                        <div class="row mb-3">
-                            <div id="customer-tokens-container" class="col-md-6">
-                                <label for="feedback_nickname_init" class="form-label">Никнейм</label>
-                                <input type="text" class="form-control" id="feedback_nickname_init" placeholder="${glob_players[0]}" value="" required="">
-                            </div>
-                            <div id="customer-tokens-container" class="col-md-6">
-                                <label for="feedback_reason_init" class="form-label">Причина</label>
-                                <select name="feedback_reason_init" class="form-control" id="feedback_reason_init" value="game_question" required="">
-                                    <option value="tech_problem">Технические проблемы</option>
-                                    <option value="game_question">Вопрос по игре</option>
-                                    <option value="player_report">Жалоба на игрока</option>
-                                    <option value="offer">Предложение</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div id="contant-input-container">
-                            <label for="admin-message">0/0</label>
-                            <textarea id="admin-message" name="admin-message" class="form-control" maxlength="0">
-                            </textarea>
-                        </div>
-                        <button onclick="sendFeedbackAction()" class="w-100 btn btn-primary btn-lg btn-shadow-hide mt-3 mt-lg-4" id="send-feedback-button" type="button">
-                            Отправить
-                        </button>
-                    `
-            });
-            const max_len =
-                3000;
-            const textarea =
-                document
-                    .getElementById(
-                        "admin-message"
-                    );
-            const label =
-                document
-                    .querySelector(
-                        'label[for="admin-message"]'
-                    );
-            const space = " ";
-            if (textarea.value.includes(space.repeat(3))) {
-                textarea.value = textarea.value.trim();
-            }
-            textarea.maxLength = max_len;
-            const update_len_counter =
-                () => {
-                    label.innerText =
-                        `${textarea.value.length}/${max_len}`;
-                }
-            update_len_counter();
-            addEventListener
-            (
-                "keydown",
-                (
-                    _
-                ) =>
-                    update_len_counter()
-            );
-            addEventListener
-            (
-                "keyup",
-                (
-                    _
-                ) =>
-                    update_len_counter()
-            );
-            modal_open_(
-                onclick_lock =
-                    true);
-        } else {
-            openTelegramAuthModal();
-            notify("Вам необходимо авторизоватся для этой функции");
-        }
-    });
-}
-const adminsContactContainerHash =
-    () => {
-        observerContainerHash([
-            "contact",
-            "support", "bug",
-            "report"
-        ], () => {
-            openAdminContact();
-        });
-    }
 
 const observerContainerHash = (
     hash_array, action) => {
@@ -3964,12 +3617,7 @@ const initSmoothScrollObserver = () => {
             linkHash()
                 .toLowerCase();
 
-        if (!(identifier &&
-            identifier
-                .length
-        ) || ([
-            "private_rules"
-        ].includes(identifier))) {
+        if (!(identifier && identifier.length) || (["private_rules"].includes(identifier))) {
             return;
         }
 
@@ -4080,8 +3728,6 @@ const initCore = () => {
     setRandomStickerLand();
 
     donateContainerHash();
-    rulesPrivateContainerHash();
-    adminsContactContainerHash();
 
     privateServerModuleInit();
 
