@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru" style="overflow-x:hidden!important;position:relative!important">
+<html lang="ru" style="overflow-x:hidden;position:relative">
 <head>
     <meta charset="utf-8">
     <title>Zalupa.Online</title>
-    <meta name="description"
-          content="Залупа – это проект в Minecraft стримера Братишкина. Он создавался как экспериментальный, но довольно быстро набрал обороты и разросся до больших масштабов, превратившись из небольшого сервера для фанатов этого стримера в целый пероект, который посещают другие контент-мейкеры.">
+    <meta name="description" content="Залупа – это проект в Minecraft стримера Братишкина. Он создавался как экспериментальный, но довольно быстро набрал обороты и разросся до больших масштабов, превратившись из небольшого сервера для фанатов этого стримера в целый пероект, который посещают другие контент-мейкеры.">
     <meta name="keywords" content="Minecraft, Twitch, Stream, Bratishkin, Майнкрафт, Твич, Стрим, Братишкин">
     <meta name="author" content="Yaroslav Koval">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -20,10 +18,8 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css"
-          integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="assets/css/libs/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css" integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.2.4/swiper-bundle.min.css" integrity="sha512-qKRrPbwf0yKAsKZGGfiNjmd66a7GtkLhLqTqH9boYbDPgUQmDw0mGXfC3HlkbEFEw3HjNmSaS9SR/d07ZXOUVw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" media="screen" href="assets/css/theme.min.css">
     <link rel="stylesheet" media="screen" href="assets/css/custom.min.css">
     <link rel="stylesheet" media="screen" href="assets/css/loader.min.css">
@@ -59,7 +55,7 @@
         }
     </style>
 </head>
-<body class="noselect" style="overflow-y: hidden">
+<body class="noselect" style="overflow-y:hidden">
 <div class="page-loading active">
     <div class="page-loading-inner">
         <div class="stone-logo-subtext loading-splash-logo pb-5 mb-5" id="logo-spalsh-sb"></div>
@@ -70,23 +66,7 @@
         </div>
     </div>
 </div>
-<div class="is-dev-site-splash" style="display: none">
-    <div>
-        <h3>Внимание</h3>
-        <span>
-            Этот сайт является preview-версией, только демонстрацией предстоящих изменений,
-            если вы хотите задонатить или увидеть полностью рабочую версию сайта, то
-            перейдите по адресу <a href="https://zalupa.online">zalupa.online</a>.
-            Нажимая кнопку ниже, вы подтверждаете, что все поняли.
-        </span>
-        <button type="button"
-                class="btn btn-lg btn-dark w-100 mx-0"
-                onclick="closeDevSplash()">
-            Я понял
-        </button>
-    </div>
-</div>
-<main class="page-wrapper" style="display: none">
+<main class="page-wrapper" style="display:none">
     <header class="header navbar navbar-expand-lg bg-light shadow-sm fixed-top" style="padding-top:0">
         <div class="promotion-header" style="height:0"></div>
         <div class="container px-3" style="padding-top: 8px">
@@ -96,11 +76,9 @@
                 <label class="form-check-label d-none d-sm-block" for="theme-mode">Светло</label>
                 <label class="form-check-label d-none d-sm-block" for="theme-mode">Темно</label>
             </div>
-            <div style="display:none" id="telegram-auth-avatar" class="avatar-container"
-                 onclick="openTelegramAuthModal()">
+            <div style="display:none" id="telegram-auth-avatar" class="avatar-container" onclick="openTelegramAuthModal()">
                 <span id="tg-user-avatar-text" class="tg-user-avatar-text"></span></div>
-            <div class="balance-container" style="display:none" data-bs-toggle="tooltip"
-                 data-bs-placement="bottom" data-bs-original-title="Твои токены">
+            <div class="balance-container" style="display:none" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Твои токены">
                 <span class="balance-value text-primary">0</span>
                 <div class="tokens-icon"></div>
             </div>
@@ -117,10 +95,8 @@
                         <p id="donate_item_select_text" class="text-start"></p>
                         <div class="row g-3 add_data_cart">
                             <div class="col-sm-6" style="margin: auto">
-                                <label id="donate_count_text_hint" for="donate_customer" class="form-label">
-                                    Количество</label>
-                                <input type="number" class="form-control" id="items_count_donate" placeholder=""
-                                       value="" required="">
+                                <label id="donate_count_text_hint" for="donate_customer" class="form-label">Количество</label>
+                                <input type="number" class="form-control" id="items_count_donate" placeholder="" value="" required="">
                             </div>
                         </div>
                         <br/>
@@ -229,23 +205,18 @@
                             </div>
                         </div>
                         <br/>
-                        <button id="payment-button-donate" onclick="generatePaymentLink()"
-                                class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button"> Дальше
-                        </button>
+                        <button id="payment-button-donate" onclick="generatePaymentLink()" class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button"> Дальше</button>
                     </form>
                 </div>
             </div>
             <div class="modal-footer flex-column border-top-0">
-                <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b btn-shadow-hide">Закрыть
-                </button>
+                <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b btn-shadow-hide">Закрыть</button>
             </div>
         </div>
     </div>
     <div class="donate-global-container" style="height:0;min-height:0;z-index:-1;top:-2.88em!important">
         <section id="donate_block" class="container my-5 mb-5 pt-5">
-            <div
-                    id="donate-header-container" style="display: none"
-                    class="align-items-center justify-content-between text-center pt-md-1 pb-lg-3 donate-header-container bg-secondary">
+            <div id="donate-header-container" style="display:none" class="align-items-center justify-content-between text-center pt-md-1 pb-lg-3 donate-header-container bg-secondary">
                 <h2 class="h2 mb-sm-1 mb-md-3 me-md-3 p-sm-1 p-md-2 p-lg-2 pb-1">Донат</h2>
                 <p class="pb-2 pb-lg-4 pb-xl-5 mb-3 pb-3" id="donate-title-desc" style="text-align:center">
                     Ты можешь поддержать проект финансово, это поможет нам продолжать работу над ним.
@@ -283,27 +254,21 @@
                     </div>
                 </section>
                 <div class="container-btn-zalupa-card">
-                    <button class="btn-open-form-zalupa-card" id="btn-open-form-zalupa-card"
-                            onclick="sendTokensModalOpen()">
+                    <button class="btn-open-form-zalupa-card" id="btn-open-form-zalupa-card" onclick="sendTokensModalOpen()">
                         <i class="bx bxl-telegram"></i>
                     </button>
                 </div>
             </div>
             <div class="row row-cols-1 g-4 mb-4 mb-lg-5 mt-2 mt-lg-4" id="donate_items_list"></div>
-            <div id="donate_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+            <div id="donate_block_load" class="page-spinner d-flex" style="margin:auto"></div>
             <div>
-                <p id="donate-test-mode-enb" class="text-center p-2 m-0" style="display: none"></p>
+                <p id="donate-test-mode-enb" class="text-center p-2 m-0" style="display:none"></p>
             </div>
-            <div id="donate-cart-container"
-                 class="donate_cart_button_cn mb-3 row-cols-3 d-flex flex-sm-row justify-content-center"
-                 style="display: none !important;">
-                <button class="btn btn-primary shadow-primary btn-shadow-hide btn-lg donate-cart-button-cn min-w-zl"
-                        onclick="donateCartCall()">
-                    <embed src="assets/images/shopping-cart.svg" class="cst-icon-svg">
-                    Корзина ( <span id="count_cart_items_dn">0</span>)
+            <div id="donate-cart-container" class="donate_cart_button_cn mb-3 row-cols-3 d-flex flex-sm-row justify-content-center" style="display: none !important;">
+                <button class="btn btn-primary shadow-primary btn-shadow-hide btn-lg donate-cart-button-cn min-w-zl" onclick="donateCartCall()">
+                    <embed src="assets/images/shopping-cart.svg" class="cst-icon-svg">Корзина ( <span id="count_cart_items_dn">0</span>)
                 </button>
-                <button class="btn btn-icon btn-secondary btn-shadow-hide mx-2 donate-cart-button-cn"
-                        onclick="donateFlushCart()">
+                <button class="btn btn-icon btn-secondary btn-shadow-hide mx-2 donate-cart-button-cn" onclick="donateFlushCart()">
                     <span class="donate-cancel-cart">&times;</span>
                 </button>
             </div>
@@ -638,14 +603,11 @@
         <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
     </a>
 </div>
-<script src="assets/js/libs/popper.min.js"></script>
-<script src="assets/js/libs/js.cookie.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js"
-        integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="assets/js/libs/smooth-scroll.polyfills.min.js"></script>
-<script src="assets/js/libs/swiper-bundle.min.js"></script>
-<script src="assets/js/libs/jarallax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js" integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/js/bootstrap.min.js" integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scroll/16.1.3/smooth-scroll.min.js" integrity="sha512-HYG9E+RmbXS7oy529Nk8byKFw5jqM3R1zzvoV2JnltsIGkK/AhZSzciYCNxDMOXEbYO9w6MJ6SpuYgm5PJPpeQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.2.4/swiper-bundle.min.js" integrity="sha512-hJrV+LKHbu+Hxkn/+ZwGOCMUkap0ZfjJbca9WT38z69+MYmRzMlvUd401TOs1b4byAm4fGDESpEcCbG2A6cibQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jarallax/2.1.3/jarallax.min.js" integrity="sha512-QY6upQG0P0rfLHkTMEkugpvdDsg/jpF2cJySYPC4I7pIfQGwi8RwU4izgu9aoDAYGEVL5V8ioozqtXwhc8piMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="assets/js/theme.min.js"></script>
 <script src="assets/js/init.min.js"></script>
 </body>
