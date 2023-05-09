@@ -1,7 +1,5 @@
 const development_hosts = [
-    "koval01.github.io", "localhost"], container_dev_splash = document
-    .querySelector(
-        ".is-dev-site-splash"), test_local = false, init_logo_splash = () => {
+    "koval01.github.io", "localhost"], test_local = false, init_logo_splash = () => {
     let logo_selector = document.getElementById("logo-spalsh-sb");
     logo_selector.style.scale = "1";
     logo_selector.style.bottom = "5vh";
@@ -124,26 +122,6 @@ const development_hosts = [
     };
 
     request.send(json_body_local);
-}, is_development_splash = () => {
-    let mode = Cookies.get(
-        "dev_splash");
-    if (!mode && mode !== "closed") {
-        document.body.classList.add(
-            "modal-open");
-        container_dev_splash.style
-            .display = "";
-    }
-}, closeDevSplash = () => {
-    document.body.classList.remove(
-        "modal-open");
-    container_dev_splash.style
-        .marginTop = "-100vh";
-    setTimeout(function () {
-        container_dev_splash
-            .style.display =
-            "none"
-    }, 600);
-    Cookies.set("dev_splash", "closed");
 };
 
 
@@ -164,10 +142,6 @@ if (!development_hosts.includes(window
             "https://api.zalupa.online";
         // backend_host =
         //     "https://zlp-api-sxeopwcz8tgxd1gyu5ie4n.herokuapp.com";
-    }
-    if (window.location.hostname !==
-        "localhost") {
-        is_development_splash();
     }
 }
 

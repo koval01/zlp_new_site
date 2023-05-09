@@ -1,7 +1,3 @@
-@font-face
-  font-family: MinecraftFont
-  src: url(../fonts/minecraft-font.ttf)
-
 html
   --theme-default-color: #000
   --back-modal-st: rgba(255, 255, 255, 0.85)
@@ -1301,12 +1297,12 @@ figure.news-figure
   position: absolute
   width: 100%
   height: 20%
-  z-index: 1000
+  z-index: 2
   pointer-events: none
   --vertical-shadow-color: 255, 255, 255, 1
   //transition: width .6s
 
-  background: linear-gradient(var(--shadow-position-swiper), rgba(var(--vertical-shadow-color)) 25%, rgba(0, 0, 0, 0) 90%)
+  background: linear-gradient(var(--shadow-position-swiper),rgba(var(--vertical-shadow-color)) 5%,transparent 90%)
 
 .dark-mode .object-block-col
   --color-event-object: #fff
