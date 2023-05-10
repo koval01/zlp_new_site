@@ -463,11 +463,8 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                     }
                     const selector = document.getElementById("server_online_status");
                     selector.classList.remove("loading-dots");
-                    selector.innerHTML = `Сейчас играет <span class="text-primary fw-semibold">${
-                        data.online
-                    }</span><i class="emoji male-emoji" style="margin-left: -.35rem!important;background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>${getNoun(
-                        data.online
-                    )}<i class="emoji male-emoji" style="background-image:url('assets/images/emoji/male.png')"><b>♂</b></i>`;
+                    selector.innerHTML =
+                        `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span>${getNoun(data.online)}`;
                 }
             });
         }
