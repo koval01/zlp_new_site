@@ -464,7 +464,7 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                     const selector = document.getElementById("server_online_status");
                     selector.classList.remove("loading-dots");
                     selector.innerHTML =
-                        `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span>${getNoun(data.online)}`;
+                        `Сейчас играет <span class="text-primary fw-semibold">${data.online}</span> ${getNoun(data.online)}`;
                 }
             });
         }
