@@ -548,7 +548,6 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                     coupon: coupon,
                     token: token_update,
                     server_id: server_id,
-                    pay_method: donatePayMethodSelector(),
                     success_url: `https://${work_domain_v}`,
                     tg_auth_data: getTelegramAuth(true),
                 }
@@ -570,8 +569,7 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                 true,
                 {
                     code: coupon,
-                    token: token_update,
-                    pay_method: donatePayMethodSelector(),
+                    token: token_update
                 }
             );
         });
@@ -1050,11 +1048,6 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
     discount_calculate = (price, discount) => {
         discount = discount / 100;
         return (price * discount).toFixed();
-    },
-    donatePayMethodSelector = () => {
-        const choice = 1;
-        // skip logic now
-        return choice;
     },
     displayTokens = (v2 = true) => {
         const balance = glob_auth_player_data["BALANCE"];
@@ -1631,33 +1624,28 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
         };
 
         input_lock(true);
-        if (donatePayMethodSelector() !== 2) {
-            check_coupon((r) => {
-                if (r) {
-                    const call = () => {
-                        checked_coupon = code;
-                        notify(`Купон <span class="text-primary fw-semibold">${code}</span> действительный`);
-                    };
-                    if (!coins_sell_mode) {
-                        call();
-                    } else if (check_coupon_valid(r.products, current_c_item)) {
-                        call();
-                        const sl = document.getElementById("donate-coins-payment");
-                        sl.innerHTML = `<li class="list-group-item d-flex justify-content-between bg-light"><div class="text-primary"><h6 class="my-0 text-start">Купон</h6><small class="text-start" style="float: left">${code}</small></div><span class="text-muted text-end" style="width: 30%">${r.discount}%</span></li>`;
-                    } else {
-                        notify("Этот купон недействительный");
-                    }
+        check_coupon((r) => {
+            if (r) {
+                const call = () => {
+                    checked_coupon = code;
+                    notify(`Купон <span class="text-primary fw-semibold">${code}</span> действительный`);
+                };
+                if (!coins_sell_mode) {
+                    call();
+                } else if (check_coupon_valid(r.products, current_c_item)) {
+                    call();
+                    const sl = document.getElementById("donate-coins-payment");
+                    sl.innerHTML = `<li class="list-group-item d-flex justify-content-between bg-light"><div class="text-primary"><h6 class="my-0 text-start">Купон</h6><small class="text-start" style="float: left">${code}</small></div><span class="text-muted text-end" style="width: 30%">${r.discount}%</span></li>`;
                 } else {
-                    failed_coupon = code;
-                    coupon_notfd();
+                    notify("Этот купон недействительный");
                 }
+            } else {
+                failed_coupon = code;
+                coupon_notfd();
+            }
 
-                input_lock();
-            }, code);
-        } else {
-            notify("Купон недоступен для Zalupa Pay");
             input_lock();
-        }
+        }, code);
     },
     donate_enable_coupon = (enabled = true) => {
         const input = document.getElementById("coupon-input");
@@ -1840,8 +1828,6 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
 
         current_c_item = item_id;
         current_c_item_name = get_data_service(item_id).name;
-
-        donatePayMethodSelector();
 
         if (type_item === 1 || type_item === 3) {
             sum_container.style.display = "";

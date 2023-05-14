@@ -25,32 +25,30 @@
     <link rel="stylesheet" media="screen" href="assets/css/loader.min.css">
     <script src="assets/js/dark_init.min.js"></script>
     <script>
-        var domain_site = "zalupa.online";
-        var domain_back = "api.zalupa.online";
-        var re_token = "6LdXKSMlAAAAABS0gPaoKaoeWlSJBc-vfV4e5Pib";
-        var telegram_bot_username = "auth_zalupaonline_bot";
+        const domain_site = "zalupa.online"
+        const domain_back = "api.zalupa.online"
+        const re_token = "6LdXKSMlAAAAABS0gPaoKaoeWlSJBc-vfV4e5Pib"
+        const telegram_bot_username = "auth_zalupaonline_bot"
     </script>
     <style id="hide-scrollbar-style">
         html {
             -ms-overflow-style: none;
-            scrollbar-width: none;
+            scrollbar-width: none
         }
         ::-webkit-scrollbar {
-            display: none;
+            display: none
         }
     </style>
     <style id="dark-perm-set-bv">
         @media (prefers-color-scheme: dark) {
             body {
-                background: #0e0e10;
+                background: #0e0e10
             }
-
             .page-loading {
-                background: #0e0e10 !important;
+                background: #0e0e10 !important
             }
-
             .quoute_container_loader {
-                color: #fff;
+                color: #fff
             }
         }
     </style>
@@ -77,7 +75,8 @@
                 <label class="form-check-label d-none d-sm-block" for="theme-mode">Темно</label>
             </div>
             <div style="display:none" id="telegram-auth-avatar" class="avatar-container" onclick="openTelegramAuthModal()">
-                <span id="tg-user-avatar-text" class="tg-user-avatar-text"></span></div>
+                <span id="tg-user-avatar-text" class="tg-user-avatar-text"></span>
+            </div>
             <div class="balance-container" style="display:none" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Твои токены">
                 <span class="balance-value text-primary">0</span>
                 <div class="tokens-icon"></div>
@@ -100,9 +99,7 @@
                             </div>
                         </div>
                         <br/>
-                        <button id="donate_button_add_to_cart"
-                                class="w-100 btn btn-primary btn-lg btn-shadow-hide"
-                                type="button">
+                        <button id="donate_button_add_to_cart" class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button">
                             Добавить
                         </button>
                     </form>
@@ -113,12 +110,9 @@
                 <div id="modal-donate-success-container" style="display: none">
                     <ul id="donate-cart-list-success" class="list-group mb-4 mb-lg-5"></ul>
                     <div id="only-ok-payment" style="display: none">
-                        <img src="assets/images/vova-gribnik.webp" alt="Vova"
-                             class="payment-sucess-vova item-levitaion-dec" loading="lazy">
+                        <img src="assets/images/vova-gribnik.webp" alt="Vova" class="payment-sucess-vova item-levitaion-dec" loading="lazy">
                         <h6 class="item-name-payment-result text-primary mt-1 mt-lg-2"></h6>
-                        <span id="success-pay-text-js">
-                                    Оплата прошла успешно, Шеф доволен, спасибо.
-                                </span>
+                        <span id="success-pay-text-js">Оплата прошла успешно, Шеф доволен, спасибо.</span>
                     </div>
                 </div>
                 <div id="modal-donate-finish-container-b" style="display: none;">
@@ -128,35 +122,30 @@
                         <div class="row g-3">
                             <div class="col-sm-6" id="sum-tokens-container">
                                 <label for="donate_sum" class="form-label" id="donate-sum-title">Сумма</label>
-                                <input type="number" class="form-control" id="donate_sum" placeholder="89"
-                                       value=""
-                                       required="">
+                                <input type="number" class="form-control" id="donate_sum" placeholder="89" value="" required="">
                             </div>
                             <div class="col-sm-6" id="customer-tokens-container">
                                 <label for="donate_customer_c" class="form-label">Никнейм</label>
-                                <input type="text" class="form-control" id="donate_customer_c"
-                                       placeholder="bratishkinoff" value="" required="">
+                                <input type="text" class="form-control" id="donate_customer_c" placeholder="bratishkinoff" value="" required="">
                             </div>
                             <div class="col-sm-6" id="customer-email-tokens-container">
                                 <label for="donate_email_c" class="form-label">Почта</label>
-                                <input type="email" class="form-control" id="donate_email_c"
-                                       placeholder="brff@zalupa.online">
+                                <input type="email" class="form-control" id="donate_email_c" placeholder="brff@zalupa.online">
                             </div>
                             <div class="col-12" id="coupon-tokens-container">
                                 <label for="coupon-input-c" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
                                 </label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="coupon-input-c"
-                                           placeholder="BRFF" style="margin-right: 1em;border-radius: 0.5em;">
-                                    <button class="btn btn-dark btn-shadow-hide" id="coupon-button-c"
-                                            type="button" onclick="couponCheck(true)">Проверить
+                                    <input type="text" class="form-control" id="coupon-input-c" placeholder="BRFF" style="margin-right: 1em;border-radius: 0.5em;">
+                                    <button class="btn btn-dark btn-shadow-hide" id="coupon-button-c" type="button" onclick="couponCheck(true)">
+                                        Проверить
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <br>
-                        <button id="payment-button-donate_c" onclick="generatePaymentLink(0)"
-                                class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button">Дальше
+                        <button id="payment-button-donate_c" onclick="generatePaymentLink(0)" class="w-100 btn btn-primary btn-lg btn-shadow-hide" type="button">
+                            Дальше
                         </button>
                     </form>
                 </div>
@@ -166,23 +155,18 @@
                         <div class="row g-3" id="cart-build-js">
                             <div class="col-sm-6">
                                 <label for="donate_customer" class="form-label">Никнейм</label>
-                                <input type="text" class="form-control" id="donate_customer"
-                                       placeholder="Blackflexxy" value="" required="">
+                                <input type="text" class="form-control" id="donate_customer" placeholder="Blackflexxy" value="" required="">
                             </div>
                             <div class="col-sm-6">
                                 <label for="donate_email" class="form-label">Почта</label>
-                                <input type="email" class="form-control" id="donate_email"
-                                       placeholder="eblan@mail.ru">
+                                <input type="email" class="form-control" id="donate_email" placeholder="eblan@mail.ru">
                             </div>
                             <div class="col-12">
-                                <label for="coupon" class="form-label">Купон <span
-                                        class="text-muted">(Необязательно)</span>
+                                <label for="coupon" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
                                 </label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="coupon-input" placeholder="BRFF"
-                                           disabled>
-                                    <button class="btn btn-dark btn-shadow-hide" id="coupon-button"
-                                            type="button" disabled>
+                                    <input type="text" class="form-control" id="coupon-input" placeholder="BRFF" disabled>
+                                    <button class="btn btn-dark btn-shadow-hide" id="coupon-button" type="button" disabled>
                                         Проверить
                                     </button>
                                 </div>
@@ -194,7 +178,9 @@
                 </div>
             </div>
             <div class="modal-footer flex-column border-top-0">
-                <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b btn-shadow-hide">Закрыть</button>
+                <button type="button" class="btn btn-lg btn-dark w-100 mx-0 close_b btn-shadow-hide">
+                    Закрыть
+                </button>
             </div>
         </div>
     </div>
@@ -273,31 +259,26 @@
                         </h4>
                         <p id="error_get_server_status"></p>
                         <div class="row-cols-3 justify-content-center justify-content-lg-start py-4 py-lg-5"
-                             style="padding-bottom: 0 !important;" id="zlp_land_buttons">
-                            <a href="#instructions" onclick="downloadLauncher()"
-                               class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide"
-                               data-scroll>
-                                Играть</a>
-                            <a href="https://t.me/zalupaonline_chat"
-                               class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
+                             style="padding-bottom:0!important" id="zlp_land_buttons">
+                            <a href="#instructions" onclick="downloadLauncher()" class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide" data-scroll>
+                                Играть
+                            </a>
+                            <a href="https://t.me/zalupaonline_chat" class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
                                 <i class="bx bxl-telegram"></i>&nbsp;Чат</a>
-                            <a id="contact-button-land" onclick="openAdminContact()" style="display:none"
-                               href="#contact"
-                               class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
-                                Обратная связь</a>
-                            <button id="donateButtonLandingTop" onclick="donateSwitchContainer()"
-                                    class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
+                            <a id="contact-button-land" onclick="openAdminContact()" style="display:none" href="#contact" class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
+                                Обратная связь
+                            </a>
+                            <button id="donateButtonLandingTop" onclick="donateSwitchContainer()" class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
                                 Донат
                             </button>
-                            <a href="https://t.me/ZalupaBugReportBot"
-                               class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
+                            <a href="https://t.me/ZalupaBugReportBot" class="col btn btn-primary shadow-primary btn-lg me-sm-3 me-xl-4 mb-3 btn-shadow-hide">
                                 <i class="bx bxl-telegram"></i>&nbsp;Помощь</a>
                         </div>
                         <div id="landing-links-tp" class="justify-content-center justify-content-lg-start py-4"></div>
                         <div class="d-flex align-items-center justify-content-center justify-content-lg-start text-start pb-2 pt-lg-2 pb-xl-0 pt-xl-5">
-                            <span class="fs-sm" id="landing_description_gb" style="display:none">
-                              <span class="text-primary fw-semibold">Тысячи</span>
-                                успешных мужчин уже играют у нас </span>
+									<span class="fs-sm" id="landing_description_gb" style="display:none">
+									<span class="text-primary fw-semibold">Тысячи</span>
+									успешных мужчин уже играют у нас </span>
                         </div>
                         <span class="fs-sm" id="landing_dark_msg_gb"></span>
                     </div>
@@ -310,12 +291,8 @@
             </div>
             <div class="position-absolute d-none d-lg-block bottom-0 start-0 w-100 zindex-5 pb-xxl-3">
                 <div class="container pb-4 mb-3 mb-xxl-0" style="display: none">
-                    <a href="#server_history"
-                       class="d-table theme-styled-text-st opacity-80 text-decoration-none w-auto scroll-bottom-landing"
-                       data-scroll data-scroll-offset="20">
-                  <span class="d-flex align-items-center" id="swipe-down-landing-n">
-                      Крути вниз, чтобы увидеть больше <i class="bx bx-down-arrow-circle fs-3 ms-2"></i>
-                  </span>
+                    <a href="#server_history" class="d-table theme-styled-text-st opacity-80 text-decoration-none w-auto scroll-bottom-landing" data-scroll data-scroll-offset="20">
+							<span class="d-flex align-items-center" id="swipe-down-landing-n">Крути вниз, чтобы увидеть больше <i class="bx bx-down-arrow-circle fs-3 ms-2"></i></span>
                     </a>
                 </div>
             </div>
@@ -323,14 +300,12 @@
         <section id="events" class="position-relative py-5 bg-theme-set">
             <div class="event-switch-buttons">
                 <div class="underline-button">
-                    <button class="underline-button-item" id="news-c-button" disabled
-                            onclick="switchEventsPages('news')">
+                    <button class="underline-button-item" id="news-c-button" disabled onclick="switchEventsPages('news')">
                         Новости
                     </button>
                 </div>
                 <div class="underline-button">
-                    <button class="underline-button-item" id="events-c-button" disabled
-                            onclick="switchEventsPages('events')">
+                    <button class="underline-button-item" id="events-c-button" disabled onclick="switchEventsPages('events')">
                         Ивенты
                     </button>
                 </div>
@@ -340,8 +315,7 @@
             </div>
             <div class="container py-2 py-md-3 py-lg-4 events-c-container" id="events-c-container"
                  style="display: none; top: -2rem">
-                <div class="row row-cols-1 g-4 mt-2 mt-lg-4" id="events-row-container">
-                </div>
+                <div class="row row-cols-1 g-4 mt-2 mt-lg-4" id="events-row-container"></div>
                 <div id="events_block_load" class="page-spinner d-flex" style="margin: auto"></div>
             </div>
         </section>
@@ -350,16 +324,17 @@
                 <h3 class="h3 text-center mb-lg-4">Наглядно о сервере</h3>
                 <p class="fs-lg text-muted text-center mb-1 mb-lg-2"> Предлагаем тебе просмотреть видео ниже, чтобы
                     лучше
-                    понять о чем наш сервер, какова его философия, кто там живет. </p>
+                    понять о чем наш сервер, какова его философия, кто там живет.
+                </p>
                 <div class="row py-xl-3" style="padding: 12px">
                     <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-3" style="padding: 1.5em">
                         <div class="col" style="margin: auto">
                             <div class="d-flex align-items-center">
                                 <div class="display-4 text-primary">6</div>
                                 <p class="ps-3 mb-0">Режимов: Общение, Хардкор, Аркады, DeathMatch, Ивент и <a href="#private_server"
-                                                                                  class="text-gradient-primary select-text-border"
-                                                                                  data-scroll
-                                                                                  data-scroll-offset="70">ПриватОчка</a></p>
+                                                                                                               class="text-gradient-primary select-text-border"
+                                                                                                               data-scroll
+                                                                                                               data-scroll-offset="70">ПриватОчка</a></p>
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="display-4 text-primary">7+</div>
@@ -381,9 +356,7 @@
         </section>
         <section id="server_history" class="position-relative mt-0 bg-theme-set">
             <div class="bg-dark">
-                <div class="jarallax server_history_bg mb-3 mb-lg-4" style="
-                            background-image: url(assets/images/players_background_x1.webp)
-                    ">
+                <div class="jarallax server_history_bg mb-3 mb-lg-4" style="background-image: url(assets/images/players_background_x1.webp)">
                     <div class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-top-shadow"
                          style="--vertical-shadow-color: 14, 14, 16, 1"></div>
                     <div class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-bottom-shadow"
@@ -475,9 +448,7 @@
                     <div class="position-relative overflow-hidden rounded-3 col-lg-6 order-lg-2 mb-4">
                         <div class="top-0 zindex-5 align-items-center justify-content-center">
                             <div class="ytVideoSetter" video_id="guide" controls bottomzero="true"></div>
-                            <span class="text-center" style="
-                                display: block;
-                            ">Предлагаем посмотреть видео-инструкцию</span>
+                            <span class="text-center" style="display:block">Предлагаем посмотреть видео-инструкцию</span>
                         </div>
                     </div>
                     <div class="col-lg-6 order-lg-2 mb-4 p-4" style="padding: 1.2em">
@@ -486,10 +457,8 @@
                                 <div class="display-6 text-primary">1</div>
                                 <p class="ps-3 mb-0">
                                     Скачайте лаунчер на ваш выбор.
-                                    <a href="https://www.minecraft.net/ru-ru/download" target="_blank">
-                                        Лицензия</a> или
-                                    <a href="https://tlaun.ch/installer" target="_blank">
-                                        TL Legacy</a>
+                                    <a href="https://www.minecraft.net/ru-ru/download" target="_blank">Лицензия</a> или
+                                    <a href="https://tlaun.ch/installer" target="_blank">TL Legacy</a>
                                 </p>
                             </div>
                             <div class="d-flex align-items-center">
@@ -513,7 +482,7 @@
                 </p>
                 <div class="row py-xl-3 g-2 pb-0 pt-0" style="padding:12px">
                     <div class="col-12 pt-3 text-center">
-                        <div class="col noselect-allow" style="margin: auto">
+                        <div class="col noselect-allow" style="margin:auto">
                             <div class="d-flex align-items-center">
                                 <div class="display-6 text-primary">1</div>
                                 <p class="ps-3 mb-0">
@@ -545,12 +514,8 @@
                         </div>
                     </div>
                     <div class="col-12 mb-4 justify-content-center text-center">
-                        <a href="https://files.zalupa.online/zalupa-pack.zip"
-                           class="btn btn-primary shadow-primary mt-3 m-1" download="">
-                            Сборка модов</a>
-                        <a href="https://files.zalupa.online/fabric-installer.jar"
-                           class="btn btn-primary shadow-primary mt-3 m-1" download="">
-                            Fabric</a>
+                        <a href="https://files.zalupa.online/zalupa-pack.zip" class="btn btn-primary shadow-primary mt-3 m-1" download="">Сборка модов</a>
+                        <a href="https://files.zalupa.online/fabric-installer.jar" class="btn btn-primary shadow-primary mt-3 m-1" download="">Fabric</a>
                     </div>
                 </div>
             </div>
