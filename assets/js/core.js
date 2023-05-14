@@ -1081,13 +1081,9 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                 const balance_number = document.querySelector(".number-card-zalupa");
                 const card_holder = document.querySelector(".card-holder-zalupa");
                 const balance_value_card = document.querySelector(".balance-value-card");
-                const balance_choice = document.getElementById("tokens-balance-choice-dnt");
                 const cardSelector = "input.ZalupaCardInput";
 
                 const template_tokens = `<span class="text-primary">${balance}</span> ${getNoun(balance, "токен", "токена", "токенов")}`;
-
-                balance_choice.style.textAlign = "center";
-                balance_choice.innerHTML = `У тебя ${template_tokens}`;
 
                 balance_number.setAttribute(
                     "onclick",
