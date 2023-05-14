@@ -545,7 +545,7 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                     customer: customer,
                     products: products,
                     email: email,
-                    coupon: donatePayMethodSelector() !== 2 ? coupon : null,
+                    coupon: coupon,
                     token: token_update,
                     server_id: server_id,
                     pay_method: donatePayMethodSelector(),
@@ -1052,21 +1052,8 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
         return (price * discount).toFixed();
     },
     donatePayMethodSelector = () => {
-        const choice = parseInt(document.getElementById("donate-pay-method").value);
-        const balance = document.getElementById("tokens-balance-choice-dnt-container");
-
-        balance.style.border = "none";
-        if (choice == 2) {
-            balance.style.marginTop = "1em";
-            balance.style.opacity = 1;
-            document.getElementById("donate-coins-payment").innerHTML = "";
-
-            checked_coupon = "";
-            failed_coupon = "";
-        } else {
-            balance.style.marginTop = "-1.8em";
-            balance.style.opacity = 0;
-        }
+        const choice = 1;
+        // skip logic now
         return choice;
     },
     displayTokens = (v2 = true) => {
@@ -1514,7 +1501,7 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
     },
     donateResetPaymentState = (type = 1, repeat = false, coupon_reset = false) => {
         const coupon_sl = document.getElementById("donate-coins-payment");
-        const inputs = ["donate_sum", "donate_customer_c", "donate_email_c", "coupon-input-c", "donate-pay-method"];
+        const inputs = ["donate_sum", "donate_customer_c", "donate_email_c", "coupon-input-c"];
         let sl = "_c";
         let vl = document.getElementById("donate_sum").value.trim();
         if (!coins_sell_mode) {
@@ -1766,12 +1753,8 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                 if (callback_data) {
                     button.removeAttribute("disabled");
                     button.innerText = "Оплатить";
-                    if (callback_data.zalupa_pay) {
-                        zalupa_pay_finish_modal();
-                    } else {
-                        payment_url_global = callback_data.url;
-                        button.setAttribute("onClick", "payment_action_bt()");
-                    }
+                    payment_url_global = callback_data.url;
+                    button.setAttribute("onClick", "payment_action_bt()");
                 } else {
                     notify("Ошибка, не удалось сформировать чек для оплаты");
                     donateResetPaymentState(type, (repeat = true));
@@ -1849,7 +1832,6 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
         const sum_container = document.getElementById("sum-tokens-container");
         const email_container_classL = document.getElementById("customer-email-tokens-container").classList;
         const modal_payment_text = document.getElementById("donate-text-span");
-        const selector_method_pay = document.getElementById("donate-pay-method");
         let payment_text_form;
         const selectors_payment = [document.getElementById("donate_sum"), document.getElementById("donate_customer_c"), document.getElementById("donate_email_c"), document.getElementById("coupon-input-c")];
         const title = document.querySelector(".modal-title");
@@ -1863,11 +1845,9 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
         current_c_item = item_id;
         current_c_item_name = get_data_service(item_id).name;
 
-        selector_method_pay.value = 1;
         donatePayMethodSelector();
 
         if (type_item === 1 || type_item === 3) {
-            selector_method_pay.setAttribute("disabled", "");
             sum_container.style.display = "";
             email_container_classL.remove("col-sm-6");
             email_container_classL.add("col-12");
@@ -1888,7 +1868,6 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                 });
             }
         } else if (type_item === 2) {
-            selector_method_pay.removeAttribute("disabled");
             sum_container.style.display = "none";
             email_container_classL.remove("col-12");
             email_container_classL.add("col-sm-6");
