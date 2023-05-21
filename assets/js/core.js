@@ -1131,9 +1131,6 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
         }
         return prepare_img_link(`${path}/clay.png`);
     },
-    sendTokensModalOpen = () => {
-        notify("Э брат, не завезли пока. Кнопочку не трож");
-    },
     comment_show_action = (id, close = false) => {
         const comment_text = document.getElementById(`comment_text_${id}`);
         const comment_show = document.getElementById(`comment_show_${id}`);
