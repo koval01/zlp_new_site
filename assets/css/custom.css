@@ -42,7 +42,7 @@ footer {
 }
 
 main {
-  transition: 0.8s padding-top;
+  transition: 0.8s padding-top ease-in-out;
   padding-top: 0;
 }
 
@@ -308,7 +308,7 @@ iframe {
   background: #0e0e10;
   width: 100vw;
   height: 100vh;
-  transition: margin-top 0.6s;
+  transition: margin-top 0.6s ease-in-out;
 }
 .is-dev-site-splash > div {
   position: relative;
@@ -417,7 +417,7 @@ iframe {
 
 .vova-right-back {
   display: flex;
-  transition: opacity 0.4s;
+  transition: opacity 0.4s ease-in-out;
   height: 400px;
   width: 100%;
   z-index: 0;
@@ -453,7 +453,7 @@ iframe {
 .vova-bg-l-mobile {
   position: absolute;
   height: 100vh;
-  background-image: url(../images/vova-background.webp);
+  background-image: url(../images/vova-zloy.webp);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: right 25% bottom 28px;
@@ -465,7 +465,7 @@ iframe {
 .vova-bg-l-mobile-mask {
   position: absolute;
   height: 100vh;
-  background-image: url("../images/vova-background.webp");
+  background-image: url(../images/vova-zloy.webp);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: right 25% bottom 28px;
@@ -560,7 +560,7 @@ iframe {
 }
 
 #tokens-balance-choice-dnt-container {
-  transition: margin-top 0.6s, opacity 0.2s;
+  transition: margin-top 0.6s ease-in-out, opacity 0.2s ease-in-out;
 }
 
 #tokens-balance-choice-dnt {
@@ -736,7 +736,7 @@ iframe {
 .promotion-header {
   width: 100vw;
   min-height: 0;
-  transition: 0.8s min-height, 0.8s height;
+  transition: 0.8s min-height ease-in-out, 0.8s height ease-in-out;
   background-color: #000;
   display: block;
 }
@@ -1031,7 +1031,7 @@ iframe[id*=telegram-post] {
   top: 100px;
   left: 30px;
   opacity: 0.45;
-  transition: left 8s, top 8s, background 2s, opacity 0.8s;
+  transition: left 8s cubic-bezier(0.4, 0, 1, 1), top 8s cubic-bezier(0.4, 0, 1, 1), background 2s ease-in-out, opacity 0.8s ease-in-out;
 }
 
 .player_badge {
@@ -1045,7 +1045,7 @@ iframe[id*=telegram-post] {
   border-radius: 0.55rem;
   background-color: #fefefe;
   padding: 1.15rem !important;
-  transition: background-color 400ms;
+  transition: background-color 400ms ease-in-out;
   box-shadow: 0 0 18px rgba(0, 0, 0, 0.4);
 }
 
@@ -1107,7 +1107,7 @@ iframe[id*=telegram-post] {
   opacity: 0;
   margin-top: -50px;
   padding: 0 5px 0 5px;
-  transition: margin-top 0.4s, opactity 0.3s;
+  transition: margin-top 0.4s ease-in-out, opactity 0.3s ease-in-out;
 }
 
 #donate-title-desc {
@@ -1165,7 +1165,7 @@ iframe[id*=telegram-post] {
   background: var(--notify-theme-bg);
   width: 100%;
   height: auto;
-  transition: margin-bottom 0.2s;
+  transition: margin-bottom 0.2s ease-in-out;
   z-index: 9999;
   box-shadow: 0 -5px 10vh 0 var(--notify-theme-shadow);
   border-top: none !important;
@@ -1176,7 +1176,7 @@ iframe[id*=telegram-post] {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: var(--si-btn-scroll-top-color);
-  transition: all 0.7s !important;
+  transition: all 0.7s ease-in-out !important;
   border: 0 rgba(0, 0, 0, 0);
   box-shadow: unset;
 }
@@ -1274,7 +1274,7 @@ a:hover .emoji > b {
   padding: 0 !important;
   margin-bottom: 0 !important;
   box-shadow: 0 -1rem 25px var(rgba(119, 44, 232, 0)) !important;
-  transition: box-shadow 1s;
+  transition: box-shadow 1s ease-in-out;
   width: 90%;
 }
 
@@ -1317,7 +1317,7 @@ figure.news-figure > .background-news > .background-news-overlay {
 }
 figure.news-figure > .background-news > .background-news-overlay > .background-news-overlay-dark-mode {
   background-color: rgba(0, 0, 0, 0);
-  transition: background-color 1.4s;
+  transition: background-color 1.4s ease-in-out;
   height: 100%;
   border-radius: 0.95em 0.95em 0 0;
   overflow: hidden;
@@ -1400,7 +1400,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   z-index: 1000;
   pointer-events: none;
   --shadow-color-swiper: 255, 255, 255, 1;
-  transition: width 0.6s;
+  transition: width 0.6s ease-in-out;
   background: linear-gradient(var(--shadow-position-swiper), rgba(var(--shadow-color-swiper)) 10%, rgba(0, 0, 0, 0) 90%);
 }
 
@@ -1423,7 +1423,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 }
 
 .shadow-vertical-overlay-news {
-  transition: background 0.6s !important;
+  transition: background 0.6s ease-in-out !important;
   background: linear-gradient(var(--shadow-position-swiper), rgb(255, 255, 255) 16%, transparent 100%) !important;
 }
 
@@ -1487,7 +1487,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 }
 
 .events-c-container {
-  transition: top 600ms;
+  transition: top 0.6s ease-in-out;
   position: relative;
 }
 
@@ -1525,13 +1525,13 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   left: 0;
   bottom: -3px;
   background: var(--contr-color-var);
-  transition: -webkit-transform 0.5s;
-  transition: transform 0.5s, -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
 }
 
 #first-global-container {
   position: relative;
-  transition: top 800ms;
+  transition: top 0.8s ease-in-out;
   background: var(--si-body-bg) !important;
 }
 
@@ -1588,7 +1588,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 #head-container {
   position: relative !important;
   background: var(--si-body-bg) !important;
-  transition: right 1s;
+  transition: right 1s ease-in-out;
   right: 0;
 }
 
@@ -1627,7 +1627,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
 .donate-global-container {
   position: relative;
   min-height: 100vh;
-  transition: all 1s;
+  transition: all 1s ease-in-out;
   overflow-y: auto !important;
 }
 
@@ -1640,7 +1640,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   text-align: center;
   margin: auto;
   display: block;
-  transition: filter 400ms;
+  transition: filter 0.4s ease-in-out;
 }
 .donate-container-exit-button:hover {
   filter: unset !important;
@@ -1681,7 +1681,7 @@ figure.news-figure > .background-news > .background-news-overlay > .background-n
   border-radius: 0.6rem;
   filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));
   -webkit-filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.2));
-  transition: filter 1s;
+  transition: filter 1s ease-in-out;
 }
 
 .dark-mode .container-second-round {
