@@ -363,7 +363,7 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                 } catch (_) {}
             }, 150);
         };
-        const template = `<div class="shadow-vertical-overlay vertical-top-shadow" style="width:100vw!important"></div><div class="shadow-vertical-overlay vertical-bottom-shadow" style="width:100vw!important"></div><iframe style="min-height:450px;width:100vw" id="tg-iframe-view" src="https://telegram-worker.zalupa.online/zalupaonline" onload="try{document.getElementById('telegram_block_load').remove();tg_frame_theme_update()} catch (_) {}"></iframe>`;
+        const template = `<div class="shadow-vertical-overlay vertical-top-shadow" style="width:100vw!important"></div><div class="shadow-vertical-overlay vertical-bottom-shadow" style="width:100vw!important"></div><iframe style="min-height:500px;width:100vw;height:65vh" id="tg-iframe-view" src="https://telegram-worker.zalupa.online/zalupaonline" onload="try{document.getElementById('telegram_block_load').remove();tg_frame_theme_update()} catch (_) {}"></iframe>`;
         const c = document.getElementById("news-c-container");
         c.innerHTML = template + c.innerHTML;
         loading_done();
@@ -1188,161 +1188,34 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                 },
             });
         };
-        const playersGet = (callback) => {
-            requestCall(
-                (r) => {
-                    callback(r);
-                },
-                "assets/data/players.json",
-                "GET",
-                true
-            );
-        };
-        const searchPlayer = (players, name) => {
-            for (let i = 0; i < players.length; i++) {
-                if (players[i].name === name) {
-                    return players[i];
-                }
-            }
-        };
         requestCall(
             (r) => {
                 const comment = r;
                 shuffle(comment);
-                playersGet((players) => {
-                    for (let i = 0; i < comment.length; i++) {
-                        const player = searchPlayer(players, comment[i].name);
-                        array_.innerHTML =
-                            array_.innerHTML +
-                            `<div class="swiper-slide h-auto px-2"><figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0"><span class="btn btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5 zlp-comment-icon"><i class="bx bxs-quote-left"></i>Залупный комментарий</span><blockquote id="comment_block_${i}" class="card-body mt-2 mb-2" style="transition: .8s height"><p id="comment_text_${i}" class="fs-md mb-0">«${comment[i].text}»</p><span id="comment_show_${i}" onclick="comment_show_action(${i})" class="pt-1 comment-show-button">Раскрыть</span></blockquote><figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0"><div><b class="fw-semibold lh-base mb-0">${comment[i].name}</b></div></figcaption></figure></div>`;
+                for (let i = 0; i < comment.length; i++) {
+                    array_.innerHTML =
+                        array_.innerHTML +
+                        `<div class="swiper-slide h-auto px-2"><figure class="card h-100 position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0"><span class="btn btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5 zlp-comment-icon"><i class="bx bxs-quote-left"></i>Залупный комментарий</span><blockquote id="comment_block_${i}" class="card-body mt-2 mb-2" style="transition: .8s height"><p id="comment_text_${i}" class="fs-md mb-0">«${comment[i].text}»</p><span id="comment_show_${i}" onclick="comment_show_action(${i})" class="pt-1 comment-show-button">Раскрыть</span></blockquote><figcaption class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0"><div><b class="fw-semibold lh-base mb-0">${comment[i].name}</b></div></figcaption></figure></div>`;
 
-                        const comment_text = document.getElementById(`comment_text_${i}`);
-                        const comment_show = document.getElementById(`comment_show_${i}`);
+                    const comment_text = document.getElementById(`comment_text_${i}`);
+                    const comment_show = document.getElementById(`comment_show_${i}`);
 
-                        comment_show.style.fontWeight = "400";
-                        comment_text.style.transition = "height .8s cubic-bezier(1, -.3, 0, 1.21) 0s";
-                        comment_text.setAttribute("fullShowComment", "0");
-                        const correction_height = 12;
+                    comment_show.style.fontWeight = "400";
+                    comment_text.style.transition = "height .8s cubic-bezier(1, -.3, 0, 1.21) 0s";
+                    comment_text.setAttribute("fullShowComment", "0");
+                    const correction_height = 12;
 
-                        if (comment_text.clientHeight > 100 + correction_height) {
-                            comment_text.style.height = "100px";
-                            comment_text.style.overflow = "hidden";
-                        } else {
-                            comment_show.style.display = "none";
-                        }
+                    if (comment_text.clientHeight > 100 + correction_height) {
+                        comment_text.style.height = "100px";
+                        comment_text.style.overflow = "hidden";
+                    } else {
+                        comment_show.style.display = "none";
                     }
-                });
+                }
 
                 createSwiper();
             },
             "assets/data/comments.json",
-            "GET",
-            true
-        );
-    },
-    buildPlayersSwiper = () => {
-        const array_ = document.getElementById("players-swiper-array");
-
-        const createSwiper = () => {
-            try {
-                document.getElementById("players_block_load").remove();
-            } catch (_) {}
-            new Swiper("#players_swipe_container", {
-                slidesPerView: 1,
-                spaceBetween: 24,
-                autoplay: {
-                    delay: 2000,
-                },
-                loop: true,
-                observer: true,
-                observeParents: true,
-                preventClicks: false,
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                breakpoints: {
-                    600: {
-                        slidesPerView: 2,
-                    },
-                    920: {
-                        slidesPerView: 3,
-                    },
-                    1200: {
-                        slidesPerView: 4,
-                    },
-                    1600: {
-                        slidesPerView: 5,
-                    },
-                    2000: {
-                        slidesPerView: 6,
-                    },
-                },
-            });
-        };
-
-        requestCall(
-            (r) => {
-                const player = r;
-                shuffle(player);
-
-                let players_array = [];
-                for (let player_in of player) {
-                    players_array.push(player_in.name);
-                }
-
-                const selectSkin = (player, skins) => {
-                    if (skins.length < players_array.length) {
-                        for (let i = 0; i < players_array.length - skins.length; i++) {
-                            skins.push({ Nick: "", Value: "" });
-                        }
-                    }
-                    for (let i = 0; i < skins.length; i++) {
-                        if (player.toLowerCase() === skins[i].Nick.toLowerCase()) {
-                            return skins[i].Value;
-                        }
-                    }
-                    return "11228873ae0acb8c1abb9f2ed92b7ef29b7e03a534e4d67ad7435ee759e4cf54";
-                };
-
-                for (let i = 0; i < player.length; i++) {
-                    const getBadges = () => {
-                        let result = "";
-                        player[i].badges.sort();
-                        for (let s = 0; s < player[i].badges.length; s++) {
-                            const badge_local = player[i].badges[s];
-                            if (badge_local && badge_local.length && badge_local !== "verified" && !badge_local.includes("clan-")) {
-                                result =
-                                    result +
-                                    `<div class="player_badge" style="background-image: url(./assets/images/emoji/${badges_paste[badge_local].item}.png)" data-bs-toggle="tooltip" data-bs-placement="bottom" title="${badges_paste[badge_local].title}"></div>`;
-                            }
-                        }
-                        return result;
-                    };
-
-                    const getClan = () => {
-                        for (let s = 0; s < player[i].badges.length; s++) {
-                            if (player[i].badges[s].includes("clan-")) {
-                                return player[i].badges[s].replace("clan-", "");
-                            }
-                        }
-                    };
-
-                    glob_players.push(player[i].name);
-
-                    const player_badges_ = "";
-                    const player_clan = "";
-
-                    player[i].head = prepare_img_link(`https://communication.zalupa.online/tiles/faces/32x32/${player[i].name}.png`);
-
-                    array_.innerHTML =
-                        array_.innerHTML +
-                        `<div class="swiper-slide text-center"><span class="d-block py-5"><div class="player_head_container"><div class="player-head d-block mx-auto" style="background-image: url(${player[i].head});border-radius:.75em"></div></div><div class="card-body p-3"><h3 class="fs-lg fw-semibold pt-1 mb-2">${player[i].name}</h3><p class="fs-sm mb-0" style="text-align:center">${player[i].desc}</p></div></span></div>`;
-                }
-
-                createSwiper();
-            },
-            "assets/data/players.json",
             "GET",
             true
         );
@@ -1908,15 +1781,6 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
             });
         }
     },
-    initLanding = () => {
-        if (development_hosts.includes(window.location.hostname) && lock_of) {
-            document.getElementById("landing_description_gb").innerText = "Этот сайт - preview-версия!";
-            document.getElementById("donate-test-mode-enb").innerText = "Этот блок работает в демонстративном режиме и не является функциональным.";
-        }
-
-        linksSet("landing-links-tp", true);
-        linksSet("links-block-footer-v");
-    },
     finishLoad = () => {
         document.querySelector("main").setAttribute("style", "");
         document.querySelector("footer").setAttribute("style", "");
@@ -2290,14 +2154,12 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                 setAvatar(getTelegramAuth());
             }
         });
-        setInterval(displayTokens, 1500);
+        setInterval(displayTokens, 2000);
     },
     initCore = () => {
         initHost();
         initCrypto();
-        initLanding();
         observerSystemTheme();
-        buildPlayersSwiper();
         appendPostsNews();
         initComments();
         appendServices();

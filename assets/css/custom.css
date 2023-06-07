@@ -453,7 +453,7 @@ iframe {
 .vova-bg-l-mobile {
   position: absolute;
   height: 100vh;
-  background-image: url(../images/vova-zloy.webp);
+  background-image: url(../images/vova-background.webp);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: right 25% bottom 28px;
@@ -465,7 +465,7 @@ iframe {
 .vova-bg-l-mobile-mask {
   position: absolute;
   height: 100vh;
-  background-image: url(../images/vova-zloy.webp);
+  background-image: url(../images/vova-background-mobile.webp);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: right 25% bottom 28px;
@@ -697,7 +697,7 @@ iframe {
     position: absolute;
     transition: 0.7s all;
     height: 100vh;
-    background-image: url(../images/vova-zloy.webp);
+    background-image: url(../images/vova-background.webp);
     background-repeat: no-repeat;
     background-size: contain;
     background-position-y: -1em;
