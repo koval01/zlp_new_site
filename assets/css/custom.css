@@ -1031,7 +1031,7 @@ iframe[id*=telegram-post] {
   top: 100px;
   left: 30px;
   opacity: 0.45;
-  transition: left 8s cubic-bezier(0.4, 0, 1, 1), top 8s cubic-bezier(0.4, 0, 1, 1), background 2s ease-in-out, opacity 0.8s ease-in-out;
+  transition: left 8s ease-in-out, top 8s ease-in-out, background 2s ease-in-out, opacity 0.8s ease-in-out;
 }
 
 .player_badge {
