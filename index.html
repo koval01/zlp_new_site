@@ -32,23 +32,23 @@
     </script>
     <style id="hide-scrollbar-style">
         html {
-            -ms-overflow-style: none;
-            scrollbar-width: none
+            -ms-overflow-style:none;
+            scrollbar-width:none
         }
         ::-webkit-scrollbar {
-            display: none
+            display:none
         }
     </style>
     <style id="dark-perm-set-bv">
-        @media (prefers-color-scheme: dark) {
+        @media (prefers-color-scheme:dark) {
             body {
-                background: #0e0e10
+                background:#0e0e10
             }
             .page-loading {
-                background: #0e0e10 !important
+                background:#0e0e10 !important
             }
             .quoute_container_loader {
-                color: #fff
+                color:#fff
             }
         }
     </style>
@@ -59,7 +59,7 @@
         <div class="stone-logo-subtext loading-splash-logo pb-5 mb-5" id="logo-spalsh-sb"></div>
         <div class="page-spinner"></div>
         <div class="quoute_container_loader py-5">
-            <span style="font-style: italic">&#171;Пиздец блять, полетел на хуй&#187;</span>
+            <span style="font-style:italic">&#171;Пиздец блять, полетел на хуй&#187;</span>
             <br> ― <span class="authorOrTitle"> bratishkinoff </span>
         </div>
     </div>
@@ -67,7 +67,7 @@
 <main class="page-wrapper" style="display:none">
     <header class="header navbar navbar-expand-lg bg-light shadow-sm fixed-top" style="padding-top:0">
         <div class="promotion-header" style="height:0"></div>
-        <div class="container px-3" style="padding-top: 8px">
+        <div class="container px-3" style="padding-top:8px">
             <div class="header-logo navbar-brand pe-3"></div>
             <div class="form-check form-switch mode-switch pe-lg-1 ms-auto" data-bs-toggle="mode">
                 <input type="checkbox" class="form-check-input" id="theme-mode">
@@ -83,8 +83,8 @@
             </div>
         </div>
     </header>
-    <div id="donate_item_modal" class="modal" style="backdrop-filter: blur(10px)">
-        <div class="modal-content rounded-4 shadow" style="text-align: center;transition: all .8s;margin-top:2em">
+    <div id="donate_item_modal" class="modal" style="backdrop-filter:blur(10px)">
+        <div class="modal-content rounded-4 shadow" style="text-align:center;transition: all .8s;margin-top:2em">
             <div class="modal-header border-bottom-0">
                 <h5 class="modal-title"></h5>
             </div>
@@ -93,7 +93,7 @@
                     <form class="needs-validation" novalidate="">
                         <p id="donate_item_select_text" class="text-start"></p>
                         <div class="row g-3 add_data_cart">
-                            <div class="col-sm-6" style="margin: auto">
+                            <div class="col-sm-6" style="margin:auto">
                                 <label id="donate_count_text_hint" for="donate_customer" class="form-label">Количество</label>
                                 <input type="number" class="form-control" id="items_count_donate" placeholder="" value="" required="">
                             </div>
@@ -104,19 +104,19 @@
                         </button>
                     </form>
                 </div>
-                <div id="modal-info-container-c" style="display: none">
+                <div id="modal-info-container-c" style="display:none">
                     <div id="info-content-modal"></div>
                 </div>
-                <div id="modal-donate-success-container" style="display: none">
+                <div id="modal-donate-success-container" style="display:none">
                     <ul id="donate-cart-list-success" class="list-group mb-4 mb-lg-5"></ul>
-                    <div id="only-ok-payment" style="display: none">
+                    <div id="only-ok-payment" style="display:none">
                         <img src="assets/images/vova-gribnik.webp" alt="Vova" class="payment-sucess-vova item-levitaion-dec" loading="lazy">
                         <h6 class="item-name-payment-result text-primary mt-1 mt-lg-2"></h6>
                         <span id="success-pay-text-js">Оплата прошла успешно, Шеф доволен, спасибо.</span>
                     </div>
                 </div>
-                <div id="modal-donate-finish-container-b" style="display: none;">
-                    <span id="donate-text-span" class="text-start mb-4" style="display: block"></span>
+                <div id="modal-donate-finish-container-b" style="display:none;">
+                    <span id="donate-text-span" class="text-start mb-4" style="display:block"></span>
                     <ul id="donate-coins-payment" class="list-group mb-3"></ul>
                     <form class="needs-validation" novalidate="">
                         <div class="row g-3">
@@ -136,7 +136,7 @@
                                 <label for="coupon-input-c" class="form-label">Купон <span class="text-muted">(Необязательно)</span>
                                 </label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="coupon-input-c" placeholder="BRFF" style="margin-right: 1em;border-radius: 0.5em;">
+                                    <input type="text" class="form-control" id="coupon-input-c" placeholder="BRFF" style="margin-right:1em;border-radius:.5em">
                                     <button class="btn btn-dark btn-shadow-hide" id="coupon-button-c" type="button" onclick="couponCheck(true)">
                                         Проверить
                                     </button>
@@ -149,7 +149,7 @@
                         </button>
                     </form>
                 </div>
-                <div id="modal-donate-finish-container-c" style="display: none">
+                <div id="modal-donate-finish-container-c" style="display:none">
                     <ul id="donate-cart-list" class="list-group mb-3"></ul>
                     <form class="needs-validation" novalidate="">
                         <div class="row g-3" id="cart-build-js">
@@ -245,7 +245,7 @@
                 <div class="col-xl-7 col-lg-6 pe-lg-5"></div>
                 <div class="col-xl-5 col-lg-6 position-relative py-5">
                     <div class="position-relative zindex-5 text-center text-lg-start px-3 px-lg-0 py-xl-4 py-xxl-5 mt-lg-3 mx-auto mx-lg-0 landing-global-block-set"
-                         style="max-width: 530px;">
+                         style="max-width:530px">
                         <h1 class="pb-lg-3 mb-3 landing-head-text">Zalupa.Online</h1>
                         <h3 class="loading-dots" id="server_online_status">Получение данных о сервере</h3>
                         <h4 class="h4" id="AppleTony_comeback">
@@ -285,7 +285,7 @@
                 </div>
             </div>
             <div class="position-absolute d-none d-lg-block bottom-0 start-0 w-100 zindex-5 pb-xxl-3">
-                <div class="container pb-4 mb-3 mb-xxl-0" style="display: none">
+                <div class="container pb-4 mb-3 mb-xxl-0" style="display:none">
                     <a href="#server_history" class="d-table theme-styled-text-st opacity-80 text-decoration-none w-auto scroll-bottom-landing" data-scroll data-scroll-offset="20">
 							<span class="d-flex align-items-center" id="swipe-down-landing-n">Крути вниз, чтобы увидеть больше <i class="bx bx-down-arrow-circle fs-3 ms-2"></i></span>
                     </a>
@@ -306,12 +306,12 @@
                 </div>
             </div>
             <div class="container mt-4 py-2 py-md-3 py-lg-4 events-c-container" id="news-c-container" style="padding:0;margin:0">
-                <div id="telegram_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+                <div id="telegram_block_load" class="page-spinner d-flex" style="margin:auto"></div>
             </div>
             <div class="container py-2 py-md-3 py-lg-4 events-c-container" id="events-c-container"
-                 style="display: none; top: -2rem">
+                 style="display:none;top:-2rem">
                 <div class="row row-cols-1 g-4 mt-2 mt-lg-4" id="events-row-container"></div>
-                <div id="events_block_load" class="page-spinner d-flex" style="margin: auto"></div>
+                <div id="events_block_load" class="page-spinner d-flex" style="margin:auto"></div>
             </div>
         </section>
         <section id="video_block" class="py-2 position-relative bg-theme-set">
@@ -321,9 +321,9 @@
                     лучше
                     понять о чем наш сервер, какова его философия, кто там живет.
                 </p>
-                <div class="row py-xl-3" style="padding: 12px">
-                    <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-3" style="padding: 1.5em">
-                        <div class="col" style="margin: auto">
+                <div class="row py-xl-3" style="padding:12px">
+                    <div class="col-xl-4 col-lg-5 offset-xl-1 order-lg-2 mb-3" style="padding:1.5em">
+                        <div class="col" style="margin:auto">
                             <div class="d-flex align-items-center">
                                 <div class="display-4 text-primary">5</div>
                                 <p class="ps-3 mb-0">Режимов: Общение, Хардкор, Аркады, Ивент и <a href="#private_server"
@@ -351,7 +351,7 @@
         </section>
         <section id="server_history" class="position-relative mt-0 bg-theme-set">
             <div class="bg-dark">
-                <div class="jarallax server_history_bg mb-3 mb-lg-4" style="background-image: url(assets/images/players_background_x1.webp)">
+                <div class="jarallax server_history_bg mb-3 mb-lg-4" style="background-image:url(assets/images/players_background_x1.webp)">
                     <div class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-top-shadow"
                          style="--vertical-shadow-color: 14, 14, 16, 1"></div>
                     <div class="shadow-vertical-overlay shadow-vertical-overlay-dark vertical-bottom-shadow"
@@ -373,7 +373,7 @@
                  class="container py-2 pt-2 pt-lg-3 pb-1 mb-0 bg-secondary container-second-round">
                 <h3 class="h1 text-center text-gradient-primary mb-lg-4">Приватный сервер</h3>
                 <div class="private-server-hub server-private-island-mobile item-levitaion-dec"></div>
-                <div class="row py-xl-3 g-2 pt-0" style="padding: 12px">
+                <div class="row py-xl-3 g-2 pt-0" style="padding:12px">
                     <div id="server-hub-text"
                          class="position-relative overflow-hidden rounded-3 col-md-8 col-lg-9 order-2 mb-2">
                         <p id="private-server-hub-description"></p>
@@ -396,7 +396,7 @@
         <section id="comments" class="mb-5 mt-5 position-relative bg-theme-set">
             <div class="container py-2 py-md-2 py-lg-3">
                 <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-5">Комментарии игроков</h2>
-                <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px;" id="comments_zlp_buttons">
+                <div class="position-relative px-sm-5 mx-auto" style="max-width:976px" id="comments_zlp_buttons">
                     <button type="button" id="prev_comment"
                             class="btn btn-prev btn-icon btn-sm btn-shadow-hide bg-faded-primary position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4">
                         <i class="bx bx-chevron-left"></i>
@@ -427,15 +427,15 @@
                 <p class="fs-lg text-muted text-center mb-0">
                     В этом блоке описана <span class="text-primary">ручная</span> установка клиента и необходимых компонентов для игры
                 </p>
-                <div class="row py-xl-3 g-2 pt-0" style="padding: 12px">
+                <div class="row py-xl-3 g-2 pt-0" style="padding:12px">
                     <div class="position-relative overflow-hidden rounded-3 col-lg-6 order-lg-2 mb-4">
                         <div class="top-0 zindex-5 align-items-center justify-content-center">
                             <div class="ytVideoSetter" video_id="guide" controls bottomzero="true"></div>
                             <span class="text-center" style="display:block">Предлагаем посмотреть видео-инструкцию</span>
                         </div>
                     </div>
-                    <div class="col-lg-6 order-lg-2 mb-4 p-4" style="padding: 1.2em">
-                        <div class="col noselect-allow" style="margin: auto">
+                    <div class="col-lg-6 order-lg-2 mb-4 p-4" style="padding:1.2em">
+                        <div class="col noselect-allow" style="margin:auto">
                             <div class="d-flex align-items-center">
                                 <div class="display-6 text-primary">1</div>
                                 <p class="ps-3 mb-0">
@@ -508,13 +508,13 @@
         <p class="error_text_cst"></p>
     </div>
 </main>
-<footer class="footer pb-4 pb-lg-5" style="display: none">
+<footer class="footer pb-4 pb-lg-5" style="display:none">
     <div class="container text-center pt-lg-3">
-        <div class="navbar-brand justify-content-center text-dark mb-2 mb-lg-4" style="margin: auto">
+        <div class="navbar-brand justify-content-center text-dark mb-2 mb-lg-4" style="margin:auto">
             <div class="stone-logo-subtext footer-logo"></div>
         </div>
         <div id="links-block-footer-v" class="d-flex justify-content-center pt-4 mt-lg-3"></div>
-        <p class="nav d-block fs-sm text-center pt-5 mt-lg-4 mb-0" style="font-size: .8rem !important">
+        <p class="nav d-block fs-sm text-center pt-5 mt-lg-4 mb-0" style="font-size:.8rem!important">
             <span class="opacity-70" id="footer-text-blc"></span>
             <br />
             <span id="re-badge-text" class="opacity-60"></span>
