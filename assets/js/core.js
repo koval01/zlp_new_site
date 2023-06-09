@@ -707,7 +707,7 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
                     callback(null);
                 }
             },
-            `https://cloudflare.com/cdn-cgi/trace`,
+            `https://zalupa.online/cdn-cgi/trace`,
             "GET",
             false
         );
@@ -1784,11 +1784,13 @@ const telegram_social_bot = "https://t.me/ZalupaScBot",
     finishLoad = () => {
         document.querySelector("main").setAttribute("style", "");
         document.querySelector("footer").setAttribute("style", "");
-        const heart = `<i class="emoji" style="background-image:url(\'assets/images/emoji/red-heart.png\');` + `font-size: .7rem;bottom:-1px"><b>❤️</b></i>`;
-        document.getElementById("footer-text-blc").innerHTML = `Создал KovalYRS с ${heart}, специально для ZALUPA.ONLINE`;
+        document.getElementById("footer-text-blc").innerHTML = 'Created by <a href="https://koval.page" target="_blank">Koval Yaroslav</a> especially for ZALUPA.ONLINE';
         if (grecaptcha) {
             document.getElementById("re-badge-text").innerText = "This site uses Google ReCaptcha technology";
         }
+        cloudflareTrace(function (resp) {
+            document.getElementById("cf-status-text").innerText = `${resp.h} ${resp.http} ${resp.tls} ${resp.loc} ${resp.colo}`;
+        });
     },
     observerSystemTheme = () => {
         const mode_list = ["dark", "light"];
